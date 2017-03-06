@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Work extends AbstractBase
 {
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="works")
+     * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
      */
     private $service;
 
@@ -58,7 +59,7 @@ class Work extends AbstractBase
     private $mainImage;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WorkImage", mappedBy="work")
      */
     private $images;
 

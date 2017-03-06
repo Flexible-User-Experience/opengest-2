@@ -46,7 +46,7 @@ class Service extends AbstractBase
     private $mainImage;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Work", mappedBy="service")
      */
     private $works;
 

@@ -18,7 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 class WorkImage extends AbstractBase
 {
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Work", inversedBy="images")
+     * @ORM\JoinColumn(name="work_id", referencedColumnName="id")
      */
     private $work;
 
