@@ -69,7 +69,7 @@ abstract class AbstractBase
     /**
      * @param bool $enabled
      *
-     * @return AbstractBase
+     * @return $this
      */
     public function setEnabled($enabled)
     {
@@ -89,7 +89,7 @@ abstract class AbstractBase
     /**
      * @param \DateTime $createdAt
      *
-     * @return AbstractBase
+     * @return $this
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -109,7 +109,7 @@ abstract class AbstractBase
     /**
      * @param \DateTime $updatedAt
      *
-     * @return AbstractBase
+     * @return $this
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
