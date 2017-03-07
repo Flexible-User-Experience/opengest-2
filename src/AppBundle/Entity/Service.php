@@ -28,7 +28,7 @@ class Service extends AbstractBase
      *
      * @ORM\Column(type="integer", nullable=true, options={"default"=0})
      */
-    private $position;
+    private $position = 0;
 
     /**
      * @var string

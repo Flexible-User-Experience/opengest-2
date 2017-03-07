@@ -1,0 +1,22 @@
+# Service
+AppBundle\Entity\Service:
+  service{1..2}:
+    name: <name()>
+    position: <current()>
+    description: <paragraph()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+    works: @work<numberBetween(1,10)>
+
+## Users
+AppBundle\Entity\User:
+    admin:
+        username: <{private_admin_prod_user}>
+        plainPassword: <{private_admin_prod_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_SUPER_ADMIN
