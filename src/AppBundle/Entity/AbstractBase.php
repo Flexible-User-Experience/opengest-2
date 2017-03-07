@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class AbstractBase
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @category Entity
  * @package AppBundle\Entity
  * @author Wils Iglesias <wiglesias83@gmail.com>
+ *
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 abstract class AbstractBase
 {
@@ -34,6 +37,7 @@ abstract class AbstractBase
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;
 
@@ -41,6 +45,7 @@ abstract class AbstractBase
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
 
@@ -51,6 +56,8 @@ abstract class AbstractBase
      */
 
     /**
+     * Get id
+     *
      * @return int
      */
     public function getId()
@@ -59,14 +66,18 @@ abstract class AbstractBase
     }
 
     /**
+     * Get Enabled
+     *
      * @return bool
      */
-    public function isEnabled()
+    public function getEnabled()
     {
         return $this->enabled;
     }
 
     /**
+     * Set Enabled
+     *
      * @param bool $enabled
      *
      * @return $this
@@ -79,6 +90,8 @@ abstract class AbstractBase
     }
 
     /**
+     * Get createdAt
+     *
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -87,6 +100,8 @@ abstract class AbstractBase
     }
 
     /**
+     * Set createdAt
+     *
      * @param \DateTime $createdAt
      *
      * @return $this
@@ -99,6 +114,8 @@ abstract class AbstractBase
     }
 
     /**
+     * Get updatedAt
+     *
      * @return \DateTime
      */
     public function getUpdatedAt()
@@ -107,6 +124,8 @@ abstract class AbstractBase
     }
 
     /**
+     * Set updatedAt
+     *
      * @param \DateTime $updatedAt
      *
      * @return $this
@@ -116,5 +135,15 @@ abstract class AbstractBase
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getId() . ' · ' . $this->getCreatedAt()->format('d/m/Y') : '---';
     }
 }
