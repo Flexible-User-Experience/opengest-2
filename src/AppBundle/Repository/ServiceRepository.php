@@ -5,12 +5,12 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class UserRepository.
+ * Class ServiceRepository.
  *
  * @category Repository
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class UserRepository extends EntityRepository
+class ServiceRepository extends EntityRepository
 {
 }

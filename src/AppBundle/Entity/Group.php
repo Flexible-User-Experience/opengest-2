@@ -10,7 +10,7 @@ use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
  *
  * @category Entity
  *
- * @author   David Romaní <david@flux.cat>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GroupRepository")
  * @ORM\Table(name="admin_group")

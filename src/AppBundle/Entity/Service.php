@@ -2,17 +2,16 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Service
+ * Class Service.
  *
  * @category Entity
- * @package AppBundle\Entity
+ *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
  * @ORM\Table(name="service")
  */
 class Service extends AbstractBase
@@ -25,7 +24,7 @@ class Service extends AbstractBase
     private $name;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", nullable=true, options={"default"=0})
      */
@@ -51,9 +50,7 @@ class Service extends AbstractBase
     private $works;
 
     /**
-     *
-     * Methods
-     *
+     * Methods.
      */
 
     /**

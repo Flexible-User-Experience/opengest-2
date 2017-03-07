@@ -2,17 +2,16 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Work
+ * Class Work.
  *
  * @category
- * @package AppBundle\Entity
+ *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkRepository")
  * @ORM\Table(name="work")
  */
 class Work extends AbstractBase
@@ -64,9 +63,7 @@ class Work extends AbstractBase
     private $images;
 
     /**
-     *
-     * Methods
-     *
+     * Methods.
      */
 
     /**

@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityRepository;
  *
  * @category Repository
  *
- * @author   Anton Serra <aserratorta@gmail.com>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class GroupRepository extends EntityRepository
 {

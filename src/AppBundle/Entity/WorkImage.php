@@ -2,17 +2,16 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class WorkImage
+ * Class WorkImage.
  *
  * @category Entity
- * @package AppBundle\Entity
+ *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkImageRepository")
  * @ORM\Table(name="work_image")
  */
 class WorkImage extends AbstractBase
@@ -31,7 +30,7 @@ class WorkImage extends AbstractBase
     private $high;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", nullable=true, options={"default"=0})
      */
@@ -45,9 +44,7 @@ class WorkImage extends AbstractBase
     private $image;
 
     /**
-     *
-     * Methods
-     *
+     * Methods.
      */
 
     /**
@@ -62,7 +59,6 @@ class WorkImage extends AbstractBase
      * @param mixed $work
      *
      * @return $this
-     *
      */
     public function setWork($work)
     {

@@ -10,7 +10,7 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  *
  * @category Entity
  *
- * @author   David Romaní <david@flux.cat>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="admin_user")
