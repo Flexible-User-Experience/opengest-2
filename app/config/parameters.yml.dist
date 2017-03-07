@@ -17,3 +17,11 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    locale: ca
+
+    path_java:         /usr/bin/java
+    path_node:         /usr/bin/nodejs
+    path_node_modules: /home/<user>/node_modules
+
+    project_web_title: "Opengest"
