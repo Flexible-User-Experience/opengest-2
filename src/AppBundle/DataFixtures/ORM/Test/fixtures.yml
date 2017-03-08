@@ -1,6 +1,6 @@
 # Service
 AppBundle\Entity\Service:
-  service{1..20}:
+  service{1..2}:
     name: <name()>
     position: <current()>
     description: <paragraph()>
@@ -11,7 +11,7 @@ AppBundle\Entity\Service:
 
 # Work
 AppBundle\Entity\Work:
-  work{1..10}:
+  work{1..2}:
     name: <name()>
     date: <dateTimeBetween('-2 months', '-1 months')>
     shortDescription: <sentence()>
@@ -19,18 +19,19 @@ AppBundle\Entity\Work:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    images: @images<numberBetween(10)>
+    images:
+        - @workImage1
 
 # WorkImage
 AppBundle\Entity\WorkImage:
-  workImage{1..10}:
+  workImage{1..2}:
     high: <mumberBetween()>
     position: <current()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
-# Users
+## Users
 AppBundle\Entity\User:
     admin:
         username: <{private_admin_prod_user}>
@@ -41,30 +42,3 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
-#    editor:
-#        username: <{private_editor_test_user}>
-#        plainPassword: <{private_editor_test_pass}>
-#        email: <safeEmail()>
-#        firstname: <name()>
-#        lastname: <lastname()>
-#        enabled: true
-#        roles:
-#            - ROLE_CMS
-    cms{1..4}:
-        username: <username()>
-        plainPassword: <password()>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_CMS
-    manager{1..2}:
-        username: <username()>
-        plainPassword: <password()>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_ADMIN

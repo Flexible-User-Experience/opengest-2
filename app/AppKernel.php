@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Vendors
             new FOS\UserBundle\FOSUserBundle(),
+            new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             // App

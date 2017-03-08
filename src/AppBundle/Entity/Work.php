@@ -218,4 +218,29 @@ class Work extends AbstractBase
 
         return $this;
     }
+
+    /**
+     * @param WorkImage $workImage
+     *
+     * @return $this
+     */
+    public function addImage(WorkImage $workImage)
+    {
+        $workImage->setImage($this);
+        $this->images->add($workImage);
+
+        return $this;
+    }
+
+    /**
+     * @param WorkImage $workImage
+     *
+     * @return $this
+     */
+    public function removeImage(WorkImage $workImage)
+    {
+        $this->images->removeElement($workImage);
+
+        return $this;
+    }
 }

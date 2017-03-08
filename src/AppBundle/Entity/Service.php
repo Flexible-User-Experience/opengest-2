@@ -163,4 +163,28 @@ class Service extends AbstractBase
 
         return $this;
     }
+
+    /**
+     * @param Work $work
+     *
+     * @return $this
+     */
+    public function addWork(Work $work)
+    {
+        $this->works[] = $work;
+
+        return $this;
+    }
+
+    /**
+     * @param Work $work
+     *
+     * @return $this
+     */
+    public function removeWork(Work $work)
+    {
+        $this->works->removeElement($work);
+
+        return $this;
+    }
 }

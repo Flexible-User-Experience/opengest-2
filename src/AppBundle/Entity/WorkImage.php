@@ -29,7 +29,7 @@ class WorkImage extends AbstractBase
      *
      * @ORM\Column(type="string")
      */
-    private $high;
+    private $alt;
 
     /**
      * @var int
@@ -72,19 +72,19 @@ class WorkImage extends AbstractBase
     /**
      * @return string
      */
-    public function getHigh()
+    public function getAlt()
     {
-        return $this->high;
+        return $this->alt;
     }
 
     /**
-     * @param string $high
+     * @param string $alt
      *
-     * @return $this
+     * @return WorkImage
      */
-    public function setHigh($high)
+    public function setAlt($alt)
     {
-        $this->high = $high;
+        $this->alt = $alt;
 
         return $this;
     }
