@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
 class WorkImage extends AbstractBase
 {
     /**
+     * @var Work
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Work", inversedBy="images")
      * @ORM\JoinColumn(name="work_id", referencedColumnName="id")
      */
@@ -48,7 +50,7 @@ class WorkImage extends AbstractBase
      */
 
     /**
-     * @return mixed
+     * @return Work
      */
     public function getWork()
     {
@@ -56,7 +58,7 @@ class WorkImage extends AbstractBase
     }
 
     /**
-     * @param mixed $work
+     * @param Work $work
      *
      * @return $this
      */

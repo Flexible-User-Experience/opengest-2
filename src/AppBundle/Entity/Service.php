@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +46,8 @@ class Service extends AbstractBase
     private $mainImage;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Work", mappedBy="service")
      */
     private $works;
@@ -52,6 +55,14 @@ class Service extends AbstractBase
     /**
      * Methods.
      */
+
+    /**
+     * Service constructor.
+     */
+    public function __construct()
+    {
+        $this->works = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -134,7 +145,7 @@ class Service extends AbstractBase
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getWorks()
     {
@@ -142,7 +153,7 @@ class Service extends AbstractBase
     }
 
     /**
-     * @param mixed $works
+     * @param ArrayCollection $works
      *
      * @return $this
      */

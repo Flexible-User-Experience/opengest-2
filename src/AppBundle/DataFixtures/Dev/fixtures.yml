@@ -9,7 +9,28 @@ AppBundle\Entity\Service:
     enabled: true
     works: @work<numberBetween(1,10)>
 
-## Users
+# Work
+AppBundle\Entity\Work:
+  work{1..10}:
+    name: <name()>
+    date: <dateTimeBetween('-2 months', '-1 months')>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+    images: @images<numberBetween(10)>
+
+# WorkImage
+AppBundle\Entity\WorkImage:
+  workImage{1..10}:
+    high: <mumberBetween()>
+    position: <current()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Users
 AppBundle\Entity\User:
     admin:
         username: <{private_admin_prod_user}>
