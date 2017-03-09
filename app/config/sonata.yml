@@ -34,22 +34,14 @@ sonata_admin:
     persist_filters: true
     security:
         handler: sonata.admin.security.handler.role
-#    templates:
-#        layout: "::Admin/layout.html.twig"
+    templates:
+        layout: "::Admin/layout.html.twig"
 #        edit:   "::Admin/edit.html.twig"
 #        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
-            Blog:
+            Web:
                 icon: "<i class='fa fa-chrome'></i>"
-            Coworkers:
-                icon: "<i class='fa fa-users'></i>"
-            Activitats:
-                icon: "<i class='fa fa-calendar-times-o'></i>"
-            Contactes:
-                icon: "<i class='fa fa-envelope'></i>"
-            Usuaris:
-                icon: "<i class='fa fa-user'></i>"
         blocks:
             -
                 position: top
@@ -58,12 +50,12 @@ sonata_admin:
                 settings:
                     content: >
                         <h1 style="margin-top:0">Content Management System</h1>
-#            -
-#                position: top
-#                type: sonata.admin.block.admin_list
-#                class: col-md-6
-#                settings:
-#                    groups: [ Blog ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Web ]
 #            -
 #                position: top
 #                type: sonata.admin.block.admin_list
