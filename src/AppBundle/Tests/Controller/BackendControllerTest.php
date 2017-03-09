@@ -52,7 +52,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/servei/create'),
             array('/admin/web/servei/1/edit'),
             array('/admin/web/servei/1/delete'),
-            array('/admin/web/servei/export'),
+//            array('/admin/web/servei/export'),
 //            array('/admin/users/list'),
 //            array('/admin/users/create'),
 //            array('/admin/users/1/edit'),
