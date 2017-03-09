@@ -4,10 +4,12 @@ AppBundle\Entity\Service:
     name: <name()>
     position: <current()>
     description: <paragraph()>
+    mainImage: <word()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    works: @work<numberBetween(1,10)>
+    works:
+        - @work<numberBetween(1,2)>
 
 # Work
 AppBundle\Entity\Work:
@@ -16,17 +18,19 @@ AppBundle\Entity\Work:
     date: <dateTimeBetween('-2 months', '-1 months')>
     shortDescription: <sentence()>
     description: <paragraph()>
+    mainImage: <word()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
     images:
-        - @workImage1
+        - @workImage*
 
 # WorkImage
 AppBundle\Entity\WorkImage:
   workImage{1..2}:
     alt: <sentence()>
     position: <current()>
+    image: <word()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
