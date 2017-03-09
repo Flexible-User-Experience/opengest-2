@@ -77,3 +77,10 @@ stof_doctrine_extensions:
             translatable:   false
             sortable:       false
             tree:           false
+
+# CKEditor
+ivory_ck_editor:
+    inline: false
+    configs:
+        my_config:
+            toolbar: standard
