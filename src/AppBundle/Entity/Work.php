@@ -2,8 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class Work.
@@ -14,9 +20,13 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkRepository")
  * @ORM\Table(name="work")
+ * @Vich\Uploadable()
  */
 class Work extends AbstractBase
 {
+    use SlugTrait;
+    use DescriptionTrait;
+
     /**
      * @var Service
      *
@@ -33,6 +43,14 @@ class Work extends AbstractBase
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="date")
@@ -47,11 +65,16 @@ class Work extends AbstractBase
     private $shortDescription;
 
     /**
-     * @var string
+     * @var File
      *
-     * @ORM\Column(type="string", length=4000, nullable=true)
+     * @Vich\UploadableField(mapping="work", fileNameProperty="mainImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}
+     * )
+     * @Assert\Image(minWidth=1200)
      */
-    private $description;
+    private $mainImageFile;
 
     /**
      * @var string
@@ -180,6 +203,31 @@ class Work extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getMainImageFile()
+    {
+        return $this->mainImageFile;
+    }
+
+    /**
+     * @param File|null $mainImageFile
+     *
+     * @return Work
+     */
+    public function setMainImageFile(File $mainImageFile = null)
+    {
+        $this->mainImageFile = $mainImageFile;
+        if ($mainImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getMainImage()
@@ -242,5 +290,10 @@ class Work extends AbstractBase
         $this->images->removeElement($workImage);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id ? $this->getDate()->format('y/m/Y').' · '.$this->getName() : '---';
     }
 }

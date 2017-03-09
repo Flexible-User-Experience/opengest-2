@@ -56,12 +56,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Web ]
-#            -
-#                position: top
-#                type: sonata.admin.block.admin_list
-#                class: col-md-6
-#                settings:
-#                    groups: [ Coworkers ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ web ]
 #            -
 #                position: top
 #                type: sonata.admin.block.admin_list

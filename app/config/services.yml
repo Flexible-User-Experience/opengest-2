@@ -5,3 +5,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\Service, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Web" }
+    app.admin.work:
+        class: AppBundle\Admin\WorkAdmin
+        arguments: [ ~ , AppBundle\Entity\Work, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Treball", group: "Web" }

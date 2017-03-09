@@ -11,6 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * Class ServiceAdmin.
+ *
+ * @category Admin
+ *
+ * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class ServiceAdmin extends AbstractBaseAdmin
 {
