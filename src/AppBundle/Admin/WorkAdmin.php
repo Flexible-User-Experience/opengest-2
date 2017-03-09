@@ -77,41 +77,43 @@ class WorkAdmin extends AbstractBaseAdmin
 //            ->end();
 //    }
 //
-//    /**
-//     * @param DatagridMapper $datagridMapper
-//     */
-//    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-//    {
-//        $datagridMapper
-//            ->add(
-//                'name',
-//                null,
-//                array(
-//                    'label' => 'Nom',
-//                )
-//            )
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label' => 'Posició',
-//                )
-//            )
-//            ->add(
-//                'description',
-//                null,
-//                array(
-//                    'label' => 'Descripció',
-//                )
-//            )
-//            ->add(
-//                'enabled',
-//                null,
-//                array(
-//                    'label' => 'Actiu',
-//                )
-//            );
-//    }
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'date',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'Data',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
+            );
+    }
 
     /**
      * @param ListMapper $listMapper
