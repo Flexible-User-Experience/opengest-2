@@ -2,8 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Service.
@@ -14,9 +19,13 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
  * @ORM\Table(name="service")
+ * @Vich\Uploadable
  */
 class Service extends AbstractBase
 {
+    use SlugTrait;
+    use DescriptionTrait;
+
     /**
      * @var string
      *
@@ -25,18 +34,31 @@ class Service extends AbstractBase
     private $name;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true, options={"default"=0})
-     */
-    private $position = 0;
-
-    /**
      * @var string
      *
-     * @ORM\Column(type="string", length=4000, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"name"})
      */
-    private $description;
+    private $slug;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", options={"default"=1})
+     */
+    private $position = 1;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="service", fileNameProperty="mainImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}
+     * )
+     * @Assert\Image(minWidth=1200)
+     */
+    private $mainImageFile;
 
     /**
      * @var string
@@ -105,21 +127,26 @@ class Service extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return File
      */
-    public function getDescription()
+    public function getMainImageFile()
     {
-        return $this->description;
+        return $this->mainImageFile;
     }
 
     /**
-     * @param string $description
+     * @param File|null $mainImageFile
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setMainImageFile(File $mainImageFile = null)
     {
-        $this->description = $description;
+        $this->mainImageFile = $mainImageFile;
+        if ($mainImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -171,7 +198,7 @@ class Service extends AbstractBase
      */
     public function addWork(Work $work)
     {
-        $this->works[] = $work;
+        $this->works->add($work);
 
         return $this;
     }
