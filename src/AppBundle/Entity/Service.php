@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -26,13 +27,7 @@ class Service extends AbstractBase
 {
     use SlugTrait;
     use DescriptionTrait;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $name;
+    use NameTrait;
 
     /**
      * @var string
@@ -85,26 +80,6 @@ class Service extends AbstractBase
     public function __construct()
     {
         $this->works = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
