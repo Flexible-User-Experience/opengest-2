@@ -118,10 +118,23 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      *
      * @return string
      */
-    protected function getImageHelperFormMapperWithThumbnail()
+    protected function getMainImageHelperFormMapperWithThumbnail()
     {
         return ($this->getSubject() ? $this->getSubject()->getMainImage() ? '<img src="'.$this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'mainImageFile'),
+                '480xY'
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 1200px (màx. 10MB amb JPG o PNG)</span>';
+    }
+
+    /**
+     * Get image helper form mapper with thumbnail.
+     *
+     * @return string
+     */
+    protected function getImageHelperFormMapperWithThumbnail()
+    {
+        return ($this->getSubject() ? $this->getSubject()->getImage() ? '<img src="'.$this->lis->getBrowserPath(
+                $this->vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
             ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 1200px (màx. 10MB amb JPG o PNG)</span>';
     }

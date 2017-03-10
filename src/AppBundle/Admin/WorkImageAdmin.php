@@ -24,66 +24,48 @@ class WorkImageAdmin extends AbstractBaseAdmin
         '_sort_order' => 'asc',
     );
 
-//    /**
-//     * @param FormMapper $formMapper
-//     */
-//    protected function configureFormFields(FormMapper $formMapper)
-//    {
-//        $formMapper
-//            ->with('Servei', $this->getFormMdSuccessBoxArray(6))
-//            ->add(
-//                'date',
-//                'sonata_type_date_picker',
-//                array(
-//                    'label' => 'Data',
-//                    'format' => 'd/M/y',
-//                    'required' => true,
-//                )
-//            )
-//            ->add(
-//                'name',
-//                null,
-//                array(
-//                    'label' => 'Nom',
-//                )
-//            )
-//            ->add(
-//                'shortDescription',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.post.shortdescription',
-//                )
-//            )
-//            ->add(
-//                'description',
-//                CKEditorType::class,
-//                array(
-//                    'label' => 'Descripció',
-//                    'config_name' => 'my_config',
-//                    'required' => true,
-//                )
-//            )
-//            ->add(
-//                'mainImageFile',
-//                FileType::class,
-//                array(
-//                    'label' => 'Imatge',
-//                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
-//                    'required' => false,
-//                )
-//            )
-//            ->end()
-//            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
-//            ->add(
-//                'enabled',
-//                CheckboxType::class,
-//                array(
-//                    'label' => 'Actiu',
-//                    'required' => false,
-//                )
-//            )
-//            ->end();
-//    }
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('Servei', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'alt',
+                null,
+                array(
+                    'label' => 'Alt',
+                )
+            )
+            ->add(
+                'position',
+                null,
+                array(
+                    'label' => 'Posició',
+                )
+            )
+            ->add(
+                'imageFile',
+                FileType::class,
+                array(
+                    'label' => 'Imatge',
+                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'Actiu',
+                    'required' => false,
+                )
+            )
+            ->end();
+    }
 
     /**
      * @param DatagridMapper $datagridMapper

@@ -69,7 +69,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 FileType::class,
                 array(
                     'label' => 'Imatge',
-                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
+                    'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
