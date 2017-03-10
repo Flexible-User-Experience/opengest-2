@@ -33,15 +33,6 @@ class WorkAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('Servei', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'date',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Data',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
@@ -52,7 +43,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'backend.admin.post.shortdescription',
+                    'label' => 'Descripció breu',
                 )
             )
             ->add(
@@ -76,6 +67,23 @@ class WorkAdmin extends AbstractBaseAdmin
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
+                'date',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'service',
+                null,
+                array(
+                    'label' => 'Servei',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -98,6 +106,13 @@ class WorkAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Data',
                     'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
+                'service',
+                null,
+                array(
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -161,6 +176,14 @@ class WorkAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Descripció breu',
                     'editable' => true,
+                )
+            )
+            ->add(
+                'service',
+                null,
+                array(
+                    'label' => 'Servei',
+                    'editable' => false,
                 )
             )
             ->add(
