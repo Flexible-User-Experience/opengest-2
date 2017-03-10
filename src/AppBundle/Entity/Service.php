@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -26,6 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Service extends AbstractBase
 {
     use SlugTrait;
+    use PositionTrait;
     use DescriptionTrait;
     use NameTrait;
 
@@ -36,13 +38,6 @@ class Service extends AbstractBase
      * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", options={"default"=1})
-     */
-    private $position = 1;
 
     /**
      * @var File
@@ -80,26 +75,6 @@ class Service extends AbstractBase
     public function __construct()
     {
         $this->works = new ArrayCollection();
-    }
-
-    /**
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * @param int $position
-     *
-     * @return $this
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
     }
 
     /**
