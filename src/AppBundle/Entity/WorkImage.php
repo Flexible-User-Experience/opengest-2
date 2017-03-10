@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\PositionTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -20,6 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class WorkImage extends AbstractBase
 {
+    use PositionTrait;
+
     /**
      * @var Work
      *
@@ -34,13 +37,6 @@ class WorkImage extends AbstractBase
      * @ORM\Column(type="string")
      */
     private $alt;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable=true, options={"default"=0})
-     */
-    private $position = 0;
 
     /**
      * @var File
@@ -101,26 +97,6 @@ class WorkImage extends AbstractBase
     public function setAlt($alt)
     {
         $this->alt = $alt;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * @param int $position
-     *
-     * @return $this
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
 
         return $this;
     }
