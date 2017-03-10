@@ -122,3 +122,7 @@ vich_uploader:
             uri_prefix:         /uploads/images/work
             upload_destination: "%kernel.root_dir%/../web/uploads/images/work"
             namer:              vich_uploader.namer_uniqid
+        workImage:
+            uri_prefix:         /uploads/images/workImage
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/workImage"
+            namer:              vich_uploader.namer_uniqid

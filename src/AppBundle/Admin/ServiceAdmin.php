@@ -125,7 +125,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Imatge',
-                    'template' => '::Admin/Cells/list__cell_image_field.html.twig',
+                    'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
                 )
             )
             ->add(

@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class WorkImage.
@@ -13,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkImageRepository")
  * @ORM\Table(name="work_image")
+ * @Vich\Uploadable
  */
 class WorkImage extends AbstractBase
 {
@@ -37,6 +41,18 @@ class WorkImage extends AbstractBase
      * @ORM\Column(type="integer", nullable=true, options={"default"=0})
      */
     private $position = 0;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="workImage", fileNameProperty="image")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}
+     * )
+     * @Assert\Image(minWidth=1200)
+     */
+    private $imageFile;
 
     /**
      * @var string
@@ -105,6 +121,31 @@ class WorkImage extends AbstractBase
     public function setPosition($position)
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     *
+     * @return WorkImage
+     */
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
