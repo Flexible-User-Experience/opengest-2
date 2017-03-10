@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,6 +27,7 @@ class Work extends AbstractBase
 {
     use SlugTrait;
     use DescriptionTrait;
+    use NameTrait;
 
     /**
      * @var Service
@@ -34,13 +36,6 @@ class Work extends AbstractBase
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
      */
     private $service;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $name;
 
     /**
      * @var string
@@ -118,26 +113,6 @@ class Work extends AbstractBase
     public function setService($service)
     {
         $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
 
         return $this;
     }
