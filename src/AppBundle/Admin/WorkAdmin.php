@@ -81,6 +81,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Servei',
                     'required' => true,
+                    'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -112,7 +113,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'service',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Servei',
                 )
             )
             ->add(

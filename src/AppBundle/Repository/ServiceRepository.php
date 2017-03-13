@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class ServiceRepository.
@@ -13,4 +15,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class ServiceRepository extends EntityRepository
 {
+    /**
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByNameQB()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.enabled = :value')
+            ->setParameter('value', true)
+            ->orderBy('s.name', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function findEnabledSortedByNameQ()
+    {
+        return $this->findEnabledSortedByNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findEnabledSortedByName()
+    {
+        return $this->findEnabledSortedByNameQ()->getResult();
+    }
 }
