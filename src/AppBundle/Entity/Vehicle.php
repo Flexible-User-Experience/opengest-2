@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleRepository")
  * @ORM\Table(name="vehicle")
  */
 class Vehicle extends AbstractBase

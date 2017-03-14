@@ -46,6 +46,20 @@ AppBundle\Entity\VehicleCategory:
     enabled: true
     vehicles: <word()>
 
+# Vehicle
+AppBundle\Entity\Vehicle:
+  vehicle{1..2}:
+    category: <word()>
+    name: <name()>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    link: <url()>
+    attatchmentPDF: <word()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
