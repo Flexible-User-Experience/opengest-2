@@ -25,6 +25,48 @@ class VehicleAdmin extends AbstractBaseAdmin
         '_sort_order' => 'asc',
     );
 
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'category',
+                null,
+                array(
+                    'label' => 'Categoria',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                )
+            )
+            ->add(
+                'link',
+                null,
+                array(
+                    'label' => 'Url',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
+            );
+    }
 
     /**
      * @param ListMapper $listMapper
