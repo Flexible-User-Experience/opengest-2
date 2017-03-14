@@ -251,7 +251,6 @@ class Work extends AbstractBase
      */
     public function addImage(WorkImage $workImage)
     {
-        $workImage->setImage($this);
         $this->images->add($workImage);
 
         return $this;
