@@ -20,3 +20,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\VehicleCategory, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Categoria Vehicle", group: "Web" }
+    app.admin.vehicle:
+        class: AppBundle\Admin\VehicleAdmin
+        arguments: [ ~ , AppBundle\Entity\Vehicle, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Vehicle", group: "Web" }

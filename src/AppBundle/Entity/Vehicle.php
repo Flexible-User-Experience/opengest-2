@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleRepository")
  * @ORM\Table(name="vehicle")
+ * @Vich\Uploadable()
  * @UniqueEntity({"name"})
  */
 class Vehicle extends AbstractBase

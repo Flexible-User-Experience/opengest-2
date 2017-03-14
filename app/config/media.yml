@@ -126,6 +126,10 @@ vich_uploader:
             uri_prefix:         /uploads/images/workImage
             upload_destination: "%kernel.root_dir%/../web/uploads/images/workImage"
             namer:              vich_uploader.namer_uniqid
+        vehicle:
+            uri_prefix:         /uploads/images/vehicle
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/vehicle"
+            namer:              vich_uploader.namer_uniqid
         document_vehicle:
             uri_prefix:         /uploads/documents/vehicle
             upload_destination: '%kernel.root_dir%/../web/uploads/documents/vehicle'
