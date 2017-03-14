@@ -15,3 +15,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\WorkImage, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Imatge Treball", group: "Web" }
+    app.admin.vehicle_category:
+        class: AppBundle\Admin\VehicleCategoryAdmin
+        arguments: [ ~ , AppBundle\Entity\VehicleCategory, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Categoria Vehicle", group: "Web" }
