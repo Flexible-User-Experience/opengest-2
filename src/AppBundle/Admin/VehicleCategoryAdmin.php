@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class VehicleCategoryAdmin.
@@ -22,57 +23,46 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
         '_sort_order' => 'asc',
     );
 
-//    /**
-//     * @param FormMapper $formMapper
-//     */
-//    protected function configureFormFields(FormMapper $formMapper)
-//    {
-//        $formMapper
-//            ->with('Servei', $this->getFormMdSuccessBoxArray(6))
-//            ->add(
-//                'name',
-//                null,
-//                array(
-//                    'label' => 'Nom',
-//                )
-//            )
-//            ->add(
-//                'description',
-//                CKEditorType::class,
-//                array(
-//                    'label' => 'Descripció',
-//                    'config_name' => 'my_config',
-//                    'required' => true,
-//                )
-//            )
-//            ->add(
-//                'mainImageFile',
-//                FileType::class,
-//                array(
-//                    'label' => 'Imatge',
-//                    'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
-//                    'required' => false,
-//                )
-//            )
-//            ->end()
-//            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label' => 'Posició',
-//                )
-//            )
-//            ->add(
-//                'enabled',
-//                CheckboxType::class,
-//                array(
-//                    'label' => 'Actiu',
-//                    'required' => false,
-//                )
-//            )
-//            ->end();
-//    }
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('Servei', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'vehicles',
+                null,
+                array(
+                    'label' => 'Vehicles',
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'position',
+                null,
+                array(
+                    'label' => 'Posició',
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'Actiu',
+                    'required' => false,
+                )
+            )
+            ->end();
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
