@@ -81,7 +81,7 @@ class Work extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WorkImage", mappedBy="work")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WorkImage", mappedBy="work", cascade={"persist"})
      */
     private $images;
 

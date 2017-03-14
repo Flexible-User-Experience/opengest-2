@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
@@ -32,6 +31,15 @@ class WorkImageAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('Servei', $this->getFormMdSuccessBoxArray(6))
             ->add(
+                'imageFile',
+                FileType::class,
+                array(
+                    'label' => 'Imatge',
+                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->add(
                 'alt',
                 null,
                 array(
@@ -46,22 +54,13 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'imageFile',
-                FileType::class,
+                'work',
+                null,
                 array(
-                    'label' => 'Imatge',
-                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
-                    'required' => false,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'Actiu',
-                    'required' => false,
+                    'attr' => array(
+                        'hidden' => true,
+                    ),
+                    'required' => true,
                 )
             )
             ->end();
