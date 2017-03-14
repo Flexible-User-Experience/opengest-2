@@ -26,6 +26,85 @@ class VehicleAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'shortDescription',
+                null,
+                array(
+                    'label' => 'Descripció breu',
+                )
+            )
+            ->add(
+                'description',
+                CKEditorType::class,
+                array(
+                    'label' => 'Descripció',
+                    'config_name' => 'my_config',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'mainImageFile',
+                FileType::class,
+                array(
+                    'label' => 'Imatge',
+                    'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'attatchmentPDFFile',
+                'file',
+                array(
+                    'label' => 'Document',
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'link',
+                null,
+                array(
+                    'label' => 'Url',
+                    'required' => false,
+  //                  'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'category',
+                null,
+                array(
+                    'label' => 'Category',
+                    'required' => true,
+  //                  'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'Actiu',
+                    'required' => false,
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
