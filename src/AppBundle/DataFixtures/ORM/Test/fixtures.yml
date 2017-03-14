@@ -36,6 +36,16 @@ AppBundle\Entity\WorkImage:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# VehicleCategory
+AppBundle\Entity\VehicleCategory:
+  vehicleCategory{1..2}:
+    name: <name()>
+    position: <current()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+    vehicles: <word()>
+
 ## Users
 AppBundle\Entity\User:
     admin:

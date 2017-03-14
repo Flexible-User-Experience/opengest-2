@@ -6,6 +6,7 @@ use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Service.
@@ -41,7 +42,7 @@ class VehicleCategory extends AbstractBase
      */
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getVehicles()
     {
@@ -49,7 +50,7 @@ class VehicleCategory extends AbstractBase
     }
 
     /**
-     * @param mixed $vehicles
+     * @param string $vehicles
      *
      * @return VehicleCategory
      */
