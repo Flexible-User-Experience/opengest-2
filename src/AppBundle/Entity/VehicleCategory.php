@@ -98,6 +98,9 @@ class VehicleCategory extends AbstractBase
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;

@@ -8,6 +8,9 @@ use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Vehicle.
@@ -43,21 +46,50 @@ class Vehicle extends AbstractBase
     private $category;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", nullable=true)
      */
     private $shortDescription;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Url(checkDNS=true)
      */
     private $link;
 
+
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="document_vehicle", fileNameProperty="attatchmentPDF")
+     */
+    private $attatchmentPDFFile;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", nullable=true)
      */
     private $attatchmentPDF;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="vehicle", fileNameProperty="mainImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}
+     * )
+     * @Assert\Image(minWidth=1200)
+     */
+    private $mainImageFile;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     private $mainImage;
@@ -127,6 +159,31 @@ class Vehicle extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getAttatchmentPDFFile()
+    {
+        return $this->attatchmentPDFFile;
+    }
+
+    /**
+     * @param File|null $attatchmentPDFFile
+     *
+     * @return Vehicle
+     */
+    public function setAttatchmentPDFFile(File $attatchmentPDFFile = null)
+    {
+        $this->attatchmentPDFFile = $attatchmentPDFFile;
+        if ($attatchmentPDFFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getAttatchmentPDF()
@@ -142,6 +199,31 @@ class Vehicle extends AbstractBase
     public function setAttatchmentPDF($attatchmentPDF)
     {
         $this->attatchmentPDF = $attatchmentPDF;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getMainImageFile()
+    {
+        return $this->mainImageFile;
+    }
+
+    /**
+     * @param File|null $mainImageFile
+     *
+     * @return Vehicle
+     */
+    public function setMainImageFile(File $mainImageFile = null)
+    {
+        $this->mainImageFile = $mainImageFile;
+        if ($mainImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -164,5 +246,13 @@ class Vehicle extends AbstractBase
         $this->mainImage = $mainImage;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }
