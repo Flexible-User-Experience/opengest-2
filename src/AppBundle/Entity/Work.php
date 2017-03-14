@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Work.
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkRepository")
  * @ORM\Table(name="work")
  * @Vich\Uploadable()
+ * @UniqueEntity({"name"})
  */
 class Work extends AbstractBase
 {

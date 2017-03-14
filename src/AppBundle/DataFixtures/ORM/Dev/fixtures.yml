@@ -8,8 +8,6 @@ AppBundle\Entity\Service:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    works:
-        - @work<numberBetween(1,10)>
 
 # Work
 AppBundle\Entity\Work:
@@ -23,8 +21,6 @@ AppBundle\Entity\Work:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    images:
-        - @workImage*
 
 # WorkImage
 AppBundle\Entity\WorkImage:
@@ -35,6 +31,7 @@ AppBundle\Entity\WorkImage:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+    work: @work<numberBetween(1,10)>
 
 # VehicleCategory
 AppBundle\Entity\VehicleCategory:
@@ -44,12 +41,11 @@ AppBundle\Entity\VehicleCategory:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    vehicles: <word()>
 
 # Vehicle
 AppBundle\Entity\Vehicle:
   vehicle{1..10}:
-    category: <word()>
+    category: @vehicleCategory<numberBetween(1,10)>
     name: <name()>
     shortDescription: <sentence()>
     description: <paragraph()>

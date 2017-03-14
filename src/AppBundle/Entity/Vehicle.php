@@ -7,6 +7,7 @@ use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Vehicle.
@@ -17,6 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleRepository")
  * @ORM\Table(name="vehicle")
+ * @UniqueEntity({"name"})
  */
 class Vehicle extends AbstractBase
 {
@@ -33,7 +35,10 @@ class Vehicle extends AbstractBase
     private $slug;
 
     /**
-     * @ORM\Column(type="string")
+     * @var VehicleCategory
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="vehicles")
+     * @ORM\JoinColumn(name="vehicle_id", referencedColumnName="id")
      */
     private $category;
 
