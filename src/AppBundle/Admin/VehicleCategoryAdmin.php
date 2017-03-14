@@ -74,41 +74,41 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
 //            ->end();
 //    }
 
-//    /**
-//     * @param DatagridMapper $datagridMapper
-//     */
-//    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-//    {
-//        $datagridMapper
-//            ->add(
-//                'name',
-//                null,
-//                array(
-//                    'label' => 'Nom',
-//                )
-//            )
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label' => 'Posició',
-//                )
-//            )
-//            ->add(
-//                'description',
-//                null,
-//                array(
-//                    'label' => 'Descripció',
-//                )
-//            )
-//            ->add(
-//                'enabled',
-//                null,
-//                array(
-//                    'label' => 'Actiu',
-//                )
-//            );
-//    }
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'position',
+                null,
+                array(
+                    'label' => 'Posició',
+                )
+            )
+            ->add(
+                'vehicles',
+                null,
+                array(
+                    'label' => 'Vehicles',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
+            );
+    }
 
     /**
      * @param ListMapper $listMapper
