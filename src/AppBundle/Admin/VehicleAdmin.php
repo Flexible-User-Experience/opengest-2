@@ -82,14 +82,14 @@ class VehicleAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Category',
                     'required' => true,
-                    //                  'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
+                    'query_builder' => $this->rm->getVehicleCategoryRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
                 'link',
                 null,
                 array(
-                    'label' => 'Url',
+                    'label' => 'Pàgina web fabricant',
                     'required' => false,
                 )
             )
@@ -143,7 +143,7 @@ class VehicleAdmin extends AbstractBaseAdmin
                 'link',
                 null,
                 array(
-                    'label' => 'Url',
+                    'label' => 'Pàgina web fabricant',
                 )
             )
             ->add(
