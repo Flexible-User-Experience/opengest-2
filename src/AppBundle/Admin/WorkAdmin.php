@@ -142,6 +142,13 @@ class WorkAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'shortDescription',
+                null,
+                array(
+                    'label' => 'Descripció breu',
+                )
+            )
+            ->add(
                 'description',
                 null,
                 array(

@@ -10,10 +10,10 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
- * Class VehicleAdmin
+ * Class VehicleAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class VehicleAdmin extends AbstractBaseAdmin
@@ -55,6 +55,8 @@ class VehicleAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Recursos', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'mainImageFile',
                 FileType::class,
@@ -66,30 +68,29 @@ class VehicleAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'attatchmentPDFFile',
-                'file',
+                FileType::class,
                 array(
                     'label' => 'Document',
                     'required' => false,
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'link',
-                null,
-                array(
-                    'label' => 'Url',
-                    'required' => false,
-  //                  'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
-                )
-            )
+            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'category',
                 null,
                 array(
                     'label' => 'Category',
                     'required' => true,
-  //                  'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
+                    //                  'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'link',
+                null,
+                array(
+                    'label' => 'Url',
+                    'required' => false,
                 )
             )
             ->add(
@@ -122,6 +123,13 @@ class VehicleAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Categoria',
+                )
+            )
+            ->add(
+                'shortDescription',
+                null,
+                array(
+                    'label' => 'Descripció breu',
                 )
             )
             ->add(
@@ -167,14 +175,6 @@ class VehicleAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nom',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'shortDescription',
-                null,
-                array(
-                    'label' => 'Descripció breu',
                     'editable' => true,
                 )
             )

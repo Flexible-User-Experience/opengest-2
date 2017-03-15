@@ -90,13 +90,13 @@ class ServiceAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'Posició',
-                )
-            )
+//            ->add(
+//                'position',
+//                null,
+//                array(
+//                    'label' => 'Posició',
+//                )
+//            )
             ->add(
                 'description',
                 null,

@@ -19,7 +19,7 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Categoria Vehicles';
     protected $baseRoutePattern = 'web/categoria-vehicle';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
@@ -35,13 +35,6 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nom',
-                )
-            )
-            ->add(
-                'vehicles',
-                null,
-                array(
-                    'label' => 'Vehicles',
                 )
             )
             ->end()
@@ -77,20 +70,20 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'Posició',
-                )
-            )
-            ->add(
-                'vehicles',
-                null,
-                array(
-                    'label' => 'Vehicles',
-                )
-            )
+//            ->add(
+//                'position',
+//                null,
+//                array(
+//                    'label' => 'Posició',
+//                )
+//            )
+//            ->add(
+//                'vehicles',
+//                null,
+//                array(
+//                    'label' => 'Vehicles',
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
@@ -123,14 +116,14 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-            ->add(
-                'vehicles',
-                null,
-                array(
-                    'label' => 'Vehicles',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'vehicles',
+//                null,
+//                array(
+//                    'label' => 'Vehicles',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
