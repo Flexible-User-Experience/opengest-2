@@ -4,7 +4,13 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Service
+    app.vehicle_category_repository:
+        class: AppBundle\Repository\VehicleCategoryRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:VehicleCategory
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
             - "@app.service_repository"
+            - "@app.vehicle_category_repository"
