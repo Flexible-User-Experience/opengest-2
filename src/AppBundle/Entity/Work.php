@@ -83,7 +83,8 @@ class Work extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WorkImage", mappedBy="work", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WorkImage", mappedBy="work", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $images;
 
@@ -233,7 +234,7 @@ class Work extends AbstractBase
     }
 
     /**
-     * @param ArrayCollection $images
+     * @param ArrayCollection|array $images
      *
      * @return $this
      */
@@ -251,7 +252,10 @@ class Work extends AbstractBase
      */
     public function addImage(WorkImage $workImage)
     {
-        $this->images->add($workImage);
+        if (!$this->images->contains($workImage)) {
+            $workImage->setWork($this);
+            $this->images->add($workImage);
+        }
 
         return $this;
     }
@@ -263,7 +267,9 @@ class Work extends AbstractBase
      */
     public function removeImage(WorkImage $workImage)
     {
-        $this->images->removeElement($workImage);
+        if ($this->images->contains($workImage)) {
+            $this->images->removeElement($workImage);
+        }
 
         return $this;
     }

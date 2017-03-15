@@ -36,6 +36,7 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Imatge',
                     'help' => $this->getImageHelperFormMapperWithThumbnail(),
+                    'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
