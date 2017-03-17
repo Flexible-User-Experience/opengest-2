@@ -30,3 +30,13 @@ services:
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Usuaris" }
+# Menu
+    app.frontend_menu_builder:
+        class: AppBundle\Menu\FrontendMenuBuilder
+        arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@security.token_storage" ]
+    app.frontend_top_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.frontend_menu_builder", createTopMenu ]
+        arguments: [ "@request_stack" ]
+        tags:
+            - { name: knp_menu.menu, alias: top }
