@@ -26,6 +26,7 @@
 /vendor/
 
 # Assets and user uploads
+/web/assetic/
 /web/bundles/
 /web/uploads/*
 !/web/uploads/.gitkeep
