@@ -21,7 +21,11 @@ class DefaultController extends Controller
      */
     public function servicesAction(Request $request)
     {
-        return $this->render(':Frontend:services.html.twig', array());
+        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPosition();
+
+        return $this->render(':Frontend:services.html.twig', [
+            'services' => $services,
+        ]);
     }
 
     /**

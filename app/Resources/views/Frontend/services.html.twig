@@ -2,5 +2,11 @@
 
 {% block main %}
     <h1>Services</h1>
+    <div>
+        {% for service in services %}
+            <h3>{{ service.name }}</h3>
+            <h4>{{ service.position }}</h4>
+        {% endfor %}
+    </div>
 {% endblock %}
 
