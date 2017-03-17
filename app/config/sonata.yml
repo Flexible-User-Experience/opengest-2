@@ -42,6 +42,8 @@ sonata_admin:
         groups:
             Web:
                 icon: "<i class='fa fa-chrome'></i>"
+            Usuaris:
+                icon: "<i class='fa fa-user'></i>"
         blocks:
             -
                 position: top
@@ -49,7 +51,7 @@ sonata_admin:
                 class: col-md-12
                 settings:
                     content: >
-                        <h1 style="margin-top:0">Content Management System</h1>
+                        <h1 class="text-center" style="margin:0 0 25px 0">%project_web_title%</h1>
             -
                 position: top
                 type: sonata.admin.block.admin_list
@@ -61,28 +63,4 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ web ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ web ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ web ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ web ]
-#            -
-#                position: top
-#                type: sonata.admin.block.admin_list
-#                class: col-md-6
-#                settings:
-#                    groups: [ Usuaris ]
+                    groups: [ Usuaris ]
