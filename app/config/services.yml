@@ -40,3 +40,9 @@ services:
         arguments: [ "@request_stack" ]
         tags:
             - { name: knp_menu.menu, alias: top }
+# Twig
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        public: false
+        tags:
+            - { name: twig.extension }
