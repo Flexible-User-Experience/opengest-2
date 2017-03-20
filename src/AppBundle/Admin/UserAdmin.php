@@ -151,17 +151,17 @@ class UserAdmin extends ParentUserAdmin
                     'label' => 'Correu electrònic',
                 )
             )
-            ->add(
-                'roles',
-                'doctrine_orm_choice',
-                array(
-                    'label' => 'Rols',
-                    'field_type' => 'choice',
-                    'field_options' => array(
-                        'choices' => UserRolesEnum::getEnumArray(),
-                    ),
-                )
-            )
+//            ->add(
+//                'roles',
+//                'doctrine_orm_choice',
+//                array(
+//                    'label' => 'Rols',
+//                    'field_type' => 'choice',
+//                    'field_options' => array(
+//                        'choices' => UserRolesEnum::getEnumArray(),
+//                    ),
+//                )
+//            )
             ->add(
                 'enabled',
                 null,

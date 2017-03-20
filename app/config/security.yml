@@ -3,11 +3,11 @@ security:
         connection: default
     role_hierarchy:
         ROLE_SONATA_CMS:
-            - ROLE_ADMIN_SERVICE_ALL
-            - ROLE_ADMIN_WORK_ALL
-            - ROLE_ADMIN_WORKIMAGE_ALL
-            - ROLE_ADMIN_VEHICLE_ALL
-            - ROLE_ADMIN_VEHICLECATEGORY_ALL
+            - ROLE_APP_ADMIN_SERVICE_ALL
+            - ROLE_APP_ADMIN_WORK_ALL
+            - ROLE_APP_ADMIN_WORK_IMAGE_ALL
+            - ROLE_APP_ADMIN_VEHICLE_ALL
+            - ROLE_APP_ADMIN_VEHICLE_CATEGORY_ALL
         ROLE_SONATA_MANAGER:
             - ROLE_ADMIN_USER_ALL
         ROLE_CMS:
