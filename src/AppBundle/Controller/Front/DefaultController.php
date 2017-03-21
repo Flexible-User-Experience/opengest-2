@@ -29,14 +29,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/vehiculos", name="front_vehicles")
-     */
-    public function vehiclesAction(Request $request)
-    {
-        return $this->render(':Frontend:vehicles.html.twig', array());
-    }
-
-    /**
      * @Route("/trabajos", name="front_works")
      */
     public function worksAction(Request $request)

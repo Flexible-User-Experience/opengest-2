@@ -1,6 +1,39 @@
 {% extends ':Frontend:base.html.twig' %}
 
+{% block title %}Vehículos · {{ parent() }}{% endblock %}
+
 {% block main %}
-    <h1>Vehicles</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Vehículos</h1>
+            </div>
+        </div>
+        <div class="row">
+            {# left side menu #}
+            <div class="col-sm-3"></div>
+            {# right main content #}
+            <div class="col-sm-9">
+                {% for vehicle in vehicles %}
+                    <div class="fitxa_llista">
+                        <div class="fitxa_llista_container clearfix">
+                            <div class="fitxa_llista_conts">
+                                <h3>
+                                    <a href="#">{{ vehicle.name }}</a>
+                                </h3>
+                                <p>{{ vehicle.shortDescription }}</p>
+                                <a class="mesinfo" href="#">Más información del vehículo.</a>
+                            </div>
+                            <div class="fitxa_llista_img">
+                                <a href="#">
+                                    <img src="#" alt="...">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 

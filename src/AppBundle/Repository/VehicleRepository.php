@@ -2,8 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
-
 /**
  * Class VehicleRepository.
  *
@@ -11,6 +9,6 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class VehicleRepository extends EntityRepository
+class VehicleRepository extends VehicleCategoryRepository
 {
 }
