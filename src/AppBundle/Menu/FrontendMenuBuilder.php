@@ -64,7 +64,7 @@ class FrontendMenuBuilder
      */
     public function createTopMenu(RequestStack $requestStack)
     {
-        //        $route = $requestStack->getCurrentRequest()->get('_route');
+        $route = $requestStack->getCurrentRequest()->get('_route');
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
         if ($this->ts->getToken() && $this->ac->isGranted('ROLE_CMS')) {
@@ -89,7 +89,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Vehículos',
                 'route' => 'front_vehicles',
-//                'current' => $route == 'front_coworkers_list' || $route == 'front_coworker_detail',
+                'current' => $route == 'front_vehicles' || $route == 'front_vehicle_detail' || $route == 'front_vehicles_category',
             )
         );
         $menu->addChild(

@@ -14,6 +14,8 @@ class VehiclesController extends Controller
 {
     /**
      * @Route("/vehiculos", name="front_vehicles")
+     *
+     * @return Response
      */
     public function vehiclesAction()
     {
@@ -25,7 +27,29 @@ class VehiclesController extends Controller
     }
 
     /**
-     * @Route("/vehiculos/{slug}", name="front_vehicles_category")
+     * @Route("/vehiculo/{slug}", name="front_vehicle_detail")
+     *
+     * @param $slug
+     *
+     * @return Response
+     *
+     * @throws EntityNotFoundException
+     */
+    public function vehicleDetailAction($slug)
+    {
+        $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findOneBy(['slug' => $slug]);
+
+        if (!$vehicle) {
+            throw new EntityNotFoundException();
+        }
+
+        return $this->render(':Frontend:vehicle_detail.html.twig', [
+            'vehicle' => $vehicle,
+        ]);
+    }
+
+    /**
+     * @Route("/vehiculos/categoria/{slug}", name="front_vehicles_category")
      *
      * @param $slug
      *
