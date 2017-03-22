@@ -2,6 +2,8 @@
 
 namespace AppBundle\Menu;
 
+use AppBundle\Entity\VehicleCategory;
+use AppBundle\Repository\VehicleCategoryRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,19 +35,26 @@ class FrontendMenuBuilder
     private $ts;
 
     /**
+     * @var VehicleCategoryRepository
+     */
+    private $vcr;
+
+    /**
      * Methods.
      */
 
     /**
-     * @param FactoryInterface      $factory
-     * @param AuthorizationChecker  $ac
-     * @param TokenStorageInterface $ts
+     * @param FactoryInterface          $factory
+     * @param AuthorizationChecker      $ac
+     * @param TokenStorageInterface     $ts
+     * @param VehicleCategoryRepository $vcr
      */
-    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts)
+    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr)
     {
         $this->factory = $factory;
         $this->ac = $ac;
         $this->ts = $ts;
+        $this->vcr = $vcr;
     }
 
     /**
@@ -98,6 +107,33 @@ class FrontendMenuBuilder
                 'route' => 'front_company',
             )
         );
+
+        return $menu;
+    }
+
+    /**
+     * @param RequestStack $requestStack
+     *
+     * @return ItemInterface
+     */
+    public function createVehicleCategoryMenu(RequestStack $requestStack)
+    {
+        $menu = $this->factory->createItem('rootCategory');
+        $categories = $this->vcr->findEnabledSortedByName();
+
+        /** @var VehicleCategory $category */
+        foreach ($categories as $category) {
+            $menu->addChild(
+                $category->getSlug(),
+                array(
+                    'label' => $category->getName(),
+                    'route' => 'front_vehicles_category',
+                    'routeParameters' => array(
+                        'slug' => $category->getSlug(),
+                    ),
+                )
+            );
+        }
 
         return $menu;
     }
