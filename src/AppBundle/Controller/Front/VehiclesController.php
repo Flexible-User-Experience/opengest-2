@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
+use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,13 +30,22 @@ class VehiclesController extends Controller
      * @param $slug
      *
      * @return Response
+     *
+     * @throws EntityNotFoundException
      */
     public function vehiclesCategoryAction($slug)
     {
-        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByName();
+        $category = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findOneBy(['slug' => $slug]);
+
+        if (!$category) {
+            throw new EntityNotFoundException();
+        }
+
+        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByNameFilterCategory($category);
 
         return $this->render(':Frontend:vehicles.html.twig', [
             'vehicles' => $vehicles,
+            'category' => $category,
         ]);
     }
 }
