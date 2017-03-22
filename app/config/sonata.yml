@@ -1,0 +1,66 @@
+# Sonata Block
+sonata_block:
+    default_contexts: [ cms ]
+    blocks:
+        sonata.admin.block.admin_list:  ~
+        sonata.user.block.menu:         ~
+        sonata.block.service.text:      ~
+
+# Sonata User
+sonata_user:
+    security_acl: true
+    manager_type: orm
+
+# FOS User
+fos_user:
+    db_driver:      orm
+    firewall_name:  admin
+    user_class:     AppBundle\Entity\User
+    group:
+        group_class:   AppBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+# Admin
+sonata_admin:
+    title:      "%project_web_title%"
+#    title_logo: "/bundles/app/img/logo-espai-kowo-backend.png"
+    options:
+        html5_validate: true
+        confirm_exit:   true
+        use_select2:    true
+        pager_links:    10
+    persist_filters: true
+    security:
+        handler: sonata.admin.security.handler.role
+    templates:
+        layout: "::Admin/layout.html.twig"
+        edit:   "::Admin/edit.html.twig"
+#        show:   "::Admin/show.html.twig"
+    dashboard:
+        groups:
+            Web:
+                icon: "<i class='fa fa-chrome'></i>"
+            Usuaris:
+                icon: "<i class='fa fa-user'></i>"
+        blocks:
+            -
+                position: top
+                type: sonata.block.service.text
+                class: col-md-12
+                settings:
+                    content: >
+                        <h1 class="text-center" style="margin:0 0 25px 0">%project_web_title%</h1>
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Web ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Usuaris ]

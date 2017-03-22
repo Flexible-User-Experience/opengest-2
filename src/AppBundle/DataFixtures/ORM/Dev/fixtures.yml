@@ -1,0 +1,96 @@
+# Service
+AppBundle\Entity\Service:
+  service{1..20}:
+    name: <name()>
+    position: <current()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Work
+AppBundle\Entity\Work:
+  work{1..10}:
+    service: @service*
+    name: <name()>
+    date: <dateTimeBetween('-2 months', '-1 months')>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# WorkImage
+AppBundle\Entity\WorkImage:
+  workImage{1..10}:
+    alt: <sentence()>
+    position: <current()>
+    image: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+    work: @work<numberBetween(1,10)>
+
+# VehicleCategory
+AppBundle\Entity\VehicleCategory:
+  vehicleCategory{1..10}:
+    name: <name()>
+    position: <current()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Vehicle
+AppBundle\Entity\Vehicle:
+  vehicle{1..10}:
+    category: @vehicleCategory<numberBetween(1,10)>
+    name: <name()>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    link: <url()>
+    attatchmentPDF: <word()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Users
+AppBundle\Entity\User:
+    admin:
+        username: <{private_admin_prod_user}>
+        plainPassword: <{private_admin_prod_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_SUPER_ADMIN
+#    editor:
+#        username: <{private_editor_test_user}>
+#        plainPassword: <{private_editor_test_pass}>
+#        email: <safeEmail()>
+#        firstname: <name()>
+#        lastname: <lastname()>
+#        enabled: true
+#        roles:
+#            - ROLE_CMS
+    cms{1..4}:
+        username: <username()>
+        plainPassword: <password()>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_CMS
+    manager{1..2}:
+        username: <username()>
+        plainPassword: <password()>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_ADMIN

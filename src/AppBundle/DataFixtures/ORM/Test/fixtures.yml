@@ -1,0 +1,69 @@
+# Service
+AppBundle\Entity\Service:
+  service{1..2}:
+    name: <name()>
+    position: <current()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Work
+AppBundle\Entity\Work:
+  work{1..2}:
+    service: @service*
+    name: <name()>
+    date: <dateTimeBetween('-2 months', '-1 months')>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# WorkImage
+AppBundle\Entity\WorkImage:
+  workImage{1..2}:
+    alt: <sentence()>
+    position: <current()>
+    image: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+    work: @work<numberBetween(1,2)>
+
+# VehicleCategory
+AppBundle\Entity\VehicleCategory:
+  vehicleCategory{1..2}:
+    name: <name()>
+    position: <current()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Vehicle
+AppBundle\Entity\Vehicle:
+  vehicle{1..2}:
+    category: @vehicleCategory<numberBetween(1,2)>
+    name: <name()>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    link: <url()>
+    attatchmentPDF: <word()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+## Users
+AppBundle\Entity\User:
+    admin:
+        username: <{private_admin_test_user}>
+        plainPassword: <{private_admin_test_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_SUPER_ADMIN

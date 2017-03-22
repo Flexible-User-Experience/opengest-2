@@ -1,0 +1,136 @@
+# Liip Imagine
+liip_imagine:
+    loaders:
+       default:
+          filesystem:
+            locator: filesystem_insecure
+    resolvers:
+       default:
+          web_path: ~
+    cache: default
+    filter_sets:
+        cache: ~
+        2400x1000:
+            quality: 75
+            filters:
+                thumbnail: { size: [ 2400, 1000 ], mode: outbound }
+        2000x550:
+            quality: 75
+            filters:
+                thumbnail: { size: [ 2000, 550 ], mode: outbound }
+        2100xY:
+            quality: 75
+            filters:
+                thumbnail: { size: [ 2100, null ], mode: outbound }
+        1200xY:
+            quality: 75
+            filters:
+                thumbnail: { size: [ 1200, null ], mode: outbound }
+        1200x500:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 1200, 500 ], mode: outbound }
+        800x800:
+            quality: 90
+            filters:
+                thumbnail: { size: [ 800, 800 ], mode: outbound }
+        780xY:
+            quality: 90
+            filters:
+                thumbnail: { size: [ 780, null ], mode: outbound }
+        780xYBW:
+            quality: 90
+            filters:
+                thumbnail: { size: [ 780, null ], mode: outbound }
+                grayscale: ~
+        700x200:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 700, 200 ], mode: outbound }
+        700x400:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 700, 400 ], mode: inbound }
+        700xY:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 700, null ], mode: outbound }
+        480xY:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 480, null ], mode: outbound }
+        360x185:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 360, 185 ], mode: outbound }
+        350x180:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 350, 180 ], mode: outbound }
+        240x180:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 240, 180 ], mode: outbound }
+        Xx250:
+            quality: 80
+            filters:
+                thumbnail: { size: [ null, 250 ], mode: outbound }
+        Xx550:
+            quality: 80
+            filters:
+                thumbnail: { size: [ null, 550 ], mode: outbound }
+        256xY:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 256, null ], mode: outbound }
+        263xYxBW:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 263, null ], mode: outbound }
+                grayscale: ~
+        256xYxBW:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 256, null ], mode: outbound }
+                grayscale: ~
+        128x128:
+            quality: 85
+            filters:
+                thumbnail: { size: [ 128, 128 ], mode: outbound }
+        70x70:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 70, 70 ], mode: outbound }
+        60x60:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 60, 60 ], mode: outbound }
+        30x30:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 30, 30 ], mode: outbound }
+
+# Vich
+vich_uploader:
+    db_driver: orm
+    mappings:
+        service:
+            uri_prefix:         /uploads/images/service
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/service"
+            namer:              vich_uploader.namer_uniqid
+        work:
+            uri_prefix:         /uploads/images/work
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/work"
+            namer:              vich_uploader.namer_uniqid
+        workImage:
+            uri_prefix:         /uploads/images/workImage
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/workImage"
+            namer:              vich_uploader.namer_uniqid
+        vehicle:
+            uri_prefix:         /uploads/images/vehicle
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/vehicle"
+            namer:              vich_uploader.namer_uniqid
+        document_vehicle:
+            uri_prefix:         /uploads/documents/vehicle
+            upload_destination: '%kernel.root_dir%/../web/uploads/documents/vehicle'
+            namer:              vich_uploader.namer_uniqid
