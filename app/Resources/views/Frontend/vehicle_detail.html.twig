@@ -3,5 +3,32 @@
 {% block title %}{{ vehicle.name }} · Vehículo · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <h1>Detail</h1>
+    <div class="p-vertical-small">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Nuestros vehículos</h2>
+                    <a href="{{ path('front_vehicles') }}">Todos los vehículos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container container-main">
+        <div class="row">
+            {# left side #}
+            <div class="col-sm-6">
+                <h3 class="no-m-top">{{ vehicle.name }}</h3>
+                <p class="text-muted">{{ vehicle.description | raw }}</p>
+                <a href="{{ vehicle.attatchmentPDF }}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>
+                <br>
+                <a href="{{ vehicle.link }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> Pàgina web fabricant</a>
+            </div>
+            {# Right side #}
+            <div class="col-sm-6">
+                {% if vehicle.mainImage is not null %}
+                    <img src="{{ vich_uploader_asset(vehicle, 'mainImageFile') | imagine_filter('470x310') }}" class="img-responsive" alt="{{ vehicle.name }}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
