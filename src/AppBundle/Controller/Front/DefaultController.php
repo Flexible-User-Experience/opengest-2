@@ -29,14 +29,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/trabajos", name="front_works")
-     */
-    public function worksAction(Request $request)
-    {
-        return $this->render(':Frontend:works.html.twig', array());
-    }
-
-    /**
      * @Route("/empresa", name="front_company")
      */
     public function companyAction(Request $request)
