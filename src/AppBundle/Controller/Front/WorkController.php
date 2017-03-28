@@ -46,8 +46,11 @@ class WorkController extends Controller
             throw new EntityNotFoundException();
         }
 
+        $images = $this->getDoctrine()->getRepository('AppBundle:WorkImage')->findEnabledSortedByPosition($work);
+
         return $this->render(':Frontend:work_detail.html.twig', [
             'work' => $work,
+            'images' => $images,
         ]);
     }
 }

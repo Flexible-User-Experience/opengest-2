@@ -179,15 +179,15 @@ class WorkAdmin extends AbstractBaseAdmin
                     'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
                 )
             )
-            ->add(
-                'date',
-                'date',
-                array(
-                    'label' => 'Data',
-                    'format' => 'd/m/Y',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'date',
+//                'date',
+//                array(
+//                    'label' => 'Data',
+//                    'format' => 'd/m/Y',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'name',
                 null,
