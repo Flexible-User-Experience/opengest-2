@@ -14,7 +14,7 @@ AppBundle\Entity\Work:
   work{1..2}:
     service: @service*
     name: <name()>
-    date: <dateTimeBetween('-2 months', '-1 months')>
+    date: <dateTimeThisMonth()>
     shortDescription: <sentence()>
     description: <paragraph()>
     mainImage: <word()>
