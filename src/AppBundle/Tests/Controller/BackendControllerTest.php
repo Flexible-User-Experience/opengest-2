@@ -52,7 +52,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/servei/create'),
             array('/admin/web/servei/1/edit'),
             array('/admin/web/servei/1/delete'),
-//            array('/admin/web/treball/list'),
+            array('/admin/web/treball/list'),
             array('/admin/web/treball/create'),
             array('/admin/web/treball/1/edit'),
             array('/admin/web/treball/1/delete'),
