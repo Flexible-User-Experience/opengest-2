@@ -11,7 +11,17 @@ AppBundle\Entity\Service:
 
 # Work
 AppBundle\Entity\Work:
-  work{1..2}:
+  work1:
+    service: @service*
+    name: my title
+    date: <dateTimeThisMonth()>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+  work2:
     service: @service*
     name: <name()>
     date: <dateTimeThisMonth()>
@@ -35,8 +45,8 @@ AppBundle\Entity\WorkImage:
 
 # VehicleCategory
 AppBundle\Entity\VehicleCategory:
-  vehicleCategory{1..2}:
-    name: <name()>
+  vehicleCategory{1}:
+    name: grues
     position: <current()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
@@ -44,7 +54,18 @@ AppBundle\Entity\VehicleCategory:
 
 # Vehicle
 AppBundle\Entity\Vehicle:
-  vehicle{1..2}:
+  vehicle1:
+    category: @vehicleCategory<numberBetween(1,2)>
+    name: my title
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    link: <url()>
+    attatchmentPDF: <word()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+  vehicle2:
     category: @vehicleCategory<numberBetween(1,2)>
     name: <name()>
     shortDescription: <sentence()>
