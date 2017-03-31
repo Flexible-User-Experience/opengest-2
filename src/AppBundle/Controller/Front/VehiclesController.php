@@ -13,16 +13,21 @@ use Symfony\Component\HttpFoundation\Response;
 class VehiclesController extends Controller
 {
     /**
-     * @Route("/vehiculos", name="front_vehicles")
+     * @Route("/vehiculos/{pagina}", name="front_vehicles")
+     *
+     * @param int $pagina
      *
      * @return Response
      */
-    public function vehiclesAction()
+    public function vehiclesAction($pagina = 1)
     {
         $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByName();
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($vehicles, $pagina, 9);
+
         return $this->render(':Frontend:vehicles.html.twig', [
-            'vehicles' => $vehicles,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -52,12 +57,13 @@ class VehiclesController extends Controller
      * @Route("/vehiculos/categoria/{slug}", name="front_vehicles_category")
      *
      * @param $slug
+     * @param int $pagina
      *
      * @return Response
      *
      * @throws EntityNotFoundException
      */
-    public function vehiclesCategoryAction($slug)
+    public function vehiclesCategoryAction($slug, $pagina = 1)
     {
         $category = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findOneBy(['slug' => $slug]);
 
@@ -66,10 +72,12 @@ class VehiclesController extends Controller
         }
 
         $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByNameFilterCategory($category);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($vehicles, $pagina, 9);
 
         return $this->render(':Frontend:vehicles.html.twig', [
-            'vehicles' => $vehicles,
             'category' => $category,
+            'pagination' => $pagination,
         ]);
     }
 }
