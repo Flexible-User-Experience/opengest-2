@@ -108,3 +108,11 @@ ivory_ck_editor:
     configs:
         my_config:
             toolbar: standard
+
+# KNP Paginator
+knp_paginator:
+    page_range: 5
+    default_options:
+        page_name: pagina
+    template:
+        pagination: "::Pagination/custom_pagination.html.twig"
