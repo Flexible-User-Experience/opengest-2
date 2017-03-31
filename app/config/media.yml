@@ -134,9 +134,9 @@ vich_uploader:
             uri_prefix:         /uploads/images/work
             upload_destination: "%kernel.root_dir%/../web/uploads/images/work"
             namer:              vich_uploader.namer_uniqid
-        workImage:
-            uri_prefix:         /uploads/images/workImage
-            upload_destination: "%kernel.root_dir%/../web/uploads/images/workImage"
+        work_image:
+            uri_prefix:         /uploads/images/work_image
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/work_image"
             namer:              vich_uploader.namer_uniqid
         vehicle:
             uri_prefix:         /uploads/images/vehicle

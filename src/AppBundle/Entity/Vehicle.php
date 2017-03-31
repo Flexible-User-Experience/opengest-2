@@ -65,6 +65,10 @@ class Vehicle extends AbstractBase
      * @var File
      *
      * @Vich\UploadableField(mapping="document_vehicle", fileNameProperty="attatchmentPDF")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"application/pdf", "application/x-pdf"}
+     * )
      */
     private $attatchmentPDFFile;
 

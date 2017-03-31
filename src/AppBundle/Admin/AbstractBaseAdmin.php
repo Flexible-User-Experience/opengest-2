@@ -33,11 +33,12 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $rm;
 
     /**
-     * @param string         $code
-     * @param string         $class
-     * @param string         $baseControllerName
-     * @param UploaderHelper $vus
-     * @param CacheManager   $lis
+     * @param string              $code
+     * @param string              $class
+     * @param string              $baseControllerName
+     * @param UploaderHelper      $vus
+     * @param CacheManager        $lis
+     * @param RepositoriesManager $rm
      */
     public function __construct($code, $class, $baseControllerName, UploaderHelper $vus, CacheManager $lis, RepositoriesManager $rm)
     {
@@ -168,5 +169,19 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
                 $this->vus->asset($this->getSubject(), 'gifFile'),
                 '480xY'
             ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">mida 780x1168px (màx. 10MB amb GIF)</span>';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDownloadPdfButton()
+    {
+        if ($this->getSubject() && !is_null($this->getSubject()->getAttatchmentPDF())) {
+            $result = '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), 'attatchmentPDFFile').'" download="'.$this->getSubject()->getName().'.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>';
+
+            return $result;
+        }
+
+        return '';
     }
 }

@@ -50,7 +50,6 @@ AppBundle\Entity\Vehicle:
     shortDescription: <sentence()>
     description: <paragraph()>
     link: <url()>
-    attatchmentPDF: <word()>
     mainImage: <word()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
