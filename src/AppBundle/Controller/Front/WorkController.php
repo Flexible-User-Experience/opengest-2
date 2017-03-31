@@ -16,16 +16,21 @@ use Symfony\Component\HttpFoundation\Response;
 class WorkController extends Controller
 {
     /**
-     * @Route("/trabajos", name="front_works")
+     * @Route("/trabajos/{pagina}", name="front_works")
+     *
+     * @param int $pagina
      *
      * @return Response
      */
-    public function listAction()
+    public function listAction($pagina = 1)
     {
         $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByName();
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($works, $pagina, 9);
+
         return $this->render(':Frontend:works.html.twig', [
-            'works' => $works,
+            'pagination' => $pagination,
         ]);
     }
 
