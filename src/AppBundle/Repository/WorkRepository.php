@@ -21,8 +21,8 @@ class WorkRepository extends EntityRepository
     public function findEnabledSortedByNameQB()
     {
         return $this->createQueryBuilder('w')
-            ->where('w.enabled = :value')
-            ->setParameter('value', true)
+            ->where('w.enabled = :enabled')
+            ->setParameter('enabled', true)
             ->orderBy('w.name', 'ASC')
         ;
     }

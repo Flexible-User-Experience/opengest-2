@@ -9,5 +9,5 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 abstract class AbstractBaseController extends Controller
 {
-    const DEFAULT_PAGE_LIMIT = 3;
+    const DEFAULT_PAGE_LIMIT = 10;
 }

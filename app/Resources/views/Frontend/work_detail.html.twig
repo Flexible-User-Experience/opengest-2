@@ -22,22 +22,15 @@
                 <p><strong>{{ work.date | date('d/m/Y') }}</strong></p>
                 <h5>{{ work.shortDescription }}</h5>
                 <p>{{ work.description | raw }}</p>
+                {% if work.mainImage is not null %}
+                    <img src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('695xY') }}" class="img-responsive" alt="{{ work.name }}">
+                {% endif %}
             </div>
             {# Right side #}
-            <div class="col-sm-2">
-                {% if work.mainImage is not null %}
-                    <img src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('112x150') }}" class="img-responsive" alt="{{ work.name }}">
-                {% endif %}
-            </div>
-        </div>
-        <div class="row p-vertical-small">
-            <div class="col-sm-8">
-                {% if work.mainImage is not null %}
-                    <img src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('695xY') }}" class="img-responsive p-vertical-small" alt="{{ work.name }}">
-                {% endif %}
+            <div class="col-sm-4">
                 {% for img in work.images %}
                     {% if img.image is not null %}
-                        <img style="margin-bottom: 20px;" src="{{ vich_uploader_asset(img, 'imageFile') | imagine_filter('695xY') }}" class="img-responsive" alt="{{ img.alt }}">
+                        <img src="{{ vich_uploader_asset(img, 'imageFile') | imagine_filter('112x150') }}" class="img-responsive" alt="{{ img.alt }}">
                     {% endif %}
                 {% endfor %}
             </div>
