@@ -113,6 +113,6 @@ ivory_ck_editor:
 knp_paginator:
     page_range: 5
     default_options:
-        page_name: pagina
+        page_name: page
     template:
         pagination: "::Pagination/custom_pagination.html.twig"

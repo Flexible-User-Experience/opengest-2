@@ -4,27 +4,26 @@ namespace AppBundle\Controller\Front;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class VehiclesController.
  */
-class VehiclesController extends Controller
+class VehiclesController extends AbstractBaseController
 {
     /**
-     * @Route("/vehiculos/{pagina}", name="front_vehicles")
+     * @Route("/vehiculos/{page}", name="front_vehicles")
      *
-     * @param int $pagina
+     * @param int $page
      *
      * @return Response
      */
-    public function vehiclesAction($pagina = 1)
+    public function vehiclesAction($page = 1)
     {
         $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByName();
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($vehicles, $pagina, 9);
+        $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
 
         return $this->render(':Frontend:vehicles.html.twig', [
             'pagination' => $pagination,
@@ -54,16 +53,16 @@ class VehiclesController extends Controller
     }
 
     /**
-     * @Route("/vehiculos/categoria/{slug}", name="front_vehicles_category")
+     * @Route("/vehiculos/categoria/{slug}/{page}", name="front_vehicles_category")
      *
      * @param $slug
-     * @param int $pagina
+     * @param int $page
      *
      * @return Response
      *
      * @throws EntityNotFoundException
      */
-    public function vehiclesCategoryAction($slug, $pagina = 1)
+    public function vehiclesCategoryAction($slug, $page = 1)
     {
         $category = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findOneBy(['slug' => $slug]);
 
@@ -73,7 +72,7 @@ class VehiclesController extends Controller
 
         $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByNameFilterCategory($category);
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($vehicles, $pagina, 9);
+        $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
 
         return $this->render(':Frontend:vehicles.html.twig', [
             'category' => $category,
