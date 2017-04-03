@@ -21,8 +21,8 @@ class ServiceRepository extends EntityRepository
     private function findEnabledQB()
     {
         return $this->createQueryBuilder('s')
-            ->where('s.enabled = :value')
-            ->setParameter('value', true)
+            ->where('s.enabled = :enabled')
+            ->setParameter('enabled', true)
         ;
     }
 
