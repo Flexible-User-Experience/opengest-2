@@ -4,7 +4,7 @@ AppBundle\Entity\Service:
     name: <name()>
     position: <current()>
     description: <paragraph()>
-    mainImage: <word()>
+    mainImage: <numberBetween(1,4)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -17,7 +17,7 @@ AppBundle\Entity\Work:
     date: <dateTimeThisMonth()>
     shortDescription: <sentence()>
     description: <paragraph()>
-    mainImage: <word()>
+    mainImage: <numberBetween(1,4)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -50,7 +50,7 @@ AppBundle\Entity\Vehicle:
     shortDescription: <sentence()>
     description: <paragraph()>
     link: <url()>
-    mainImage: <word()>
+    mainImage: <numberBetween(1,4)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true

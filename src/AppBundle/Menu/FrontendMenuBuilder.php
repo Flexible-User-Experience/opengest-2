@@ -123,16 +123,18 @@ class FrontendMenuBuilder
 
         /** @var VehicleCategory $category */
         foreach ($categories as $category) {
-            $menu->addChild(
-                $category->getSlug(),
-                array(
-                    'label' => $category->getName(),
-                    'route' => 'front_vehicles_category',
-                    'routeParameters' => array(
-                        'slug' => $category->getSlug(),
-                    ),
-                )
-            );
+            if ($category->getVehicles()->count() > 0) {
+                $menu->addChild(
+                    $category->getSlug(),
+                    array(
+                        'label' => $category->getName(),
+                        'route' => 'front_vehicles_category',
+                        'routeParameters' => array(
+                            'slug' => $category->getSlug(),
+                        ),
+                    )
+                );
+            }
         }
 
         return $menu;

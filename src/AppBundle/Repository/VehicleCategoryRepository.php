@@ -21,6 +21,7 @@ class VehicleCategoryRepository extends EntityRepository
     public function findEnabledSortedByNameQB()
     {
         return $this->createQueryBuilder('vc')
+            ->join('vc.vehicles', 'v')
             ->where('vc.enabled = :value')
             ->setParameter('value', true)
             ->orderBy('vc.name', 'ASC')
