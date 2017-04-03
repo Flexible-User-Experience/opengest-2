@@ -27,7 +27,7 @@ AppBundle\Entity\WorkImage:
   workImage{1..10}:
     alt: <sentence()>
     position: <current()>
-    image: <word()>
+    image: <numberBetween(1,4)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true

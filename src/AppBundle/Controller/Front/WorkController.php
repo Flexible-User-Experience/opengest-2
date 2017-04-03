@@ -1,33 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wils
- * Date: 27/3/17
- * Time: 11:47.
- */
 
 namespace AppBundle\Controller\Front;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class WorkController extends Controller
+class WorkController extends AbstractBaseController
 {
     /**
-     * @Route("/trabajos/{pagina}", name="front_works")
+     * @Route("/trabajos/{page}", name="front_works")
      *
-     * @param int $pagina
+     * @param int $page
      *
      * @return Response
      */
-    public function listAction($pagina = 1)
+    public function listAction($page = 1)
     {
         $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByName();
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($works, $pagina, 9);
+        $pagination = $paginator->paginate($works, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
 
         return $this->render(':Frontend:works.html.twig', [
             'pagination' => $pagination,

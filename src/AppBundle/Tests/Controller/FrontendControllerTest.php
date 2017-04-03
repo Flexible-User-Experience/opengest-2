@@ -77,20 +77,20 @@ class FrontendControllerTest extends AbstractBaseTest
         );
     }
 
-    /**
+    /*
      * Test HTTP request is redirected.
      *
      * @dataProvider provideRedirectedUrls
      *
      * @param string $url
      */
-    public function testFrontendPagesAreRedirected($url)
-    {
-        $client = $this->createClient();           // anonymous user
-        $client->request('GET', $url);
-
-        $this->assertStatusCode(301, $client);
-    }
+//    public function testFrontendPagesAreRedirected($url)
+//    {
+//        $client = $this->createClient();           // anonymous user
+//        $client->request('GET', $url);
+//
+//        $this->assertStatusCode(301, $client);
+//    }
 
 //
 //    /**
