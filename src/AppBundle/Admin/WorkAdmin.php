@@ -185,7 +185,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Data',
                     'format' => 'd/m/Y',
-                    'editable' => false,
+                    'editable' => true,
                 )
             )
             ->add(
