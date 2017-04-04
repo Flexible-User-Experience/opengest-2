@@ -21,8 +21,8 @@ class ServiceRepository extends EntityRepository
     private function findEnabledQB()
     {
         return $this->createQueryBuilder('s')
-            ->where('s.enabled = :value')
-            ->setParameter('value', true)
+            ->where('s.enabled = :enabled')
+            ->setParameter('enabled', true)
         ;
     }
 
@@ -48,6 +48,32 @@ class ServiceRepository extends EntityRepository
     public function findEnabledSortedByName()
     {
         return $this->findEnabledSortedByNameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByPositionAndNameQB()
+    {
+        return $this->findEnabledQB()
+            ->orderBy('s.position', 'ASC')
+            ->addOrderBy('s.name', 'ASC');
+    }
+
+    /**
+     * @return Query
+     */
+    public function findEnabledSortedByPositionAndNameQ()
+    {
+        return $this->findEnabledSortedByPositionAndNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findEnabledSortedByPositionAndName()
+    {
+        return $this->findEnabledSortedByPositionAndNameQ()->getResult();
     }
 
     /**

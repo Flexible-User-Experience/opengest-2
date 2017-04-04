@@ -3,35 +3,51 @@
 {% block title %}Vehículos · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <div class="container">
+    <div class="p-vertical-small">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Nuestros vehículos</h2>
+                    <p>Consulte las características técnicas de nuestra amplia flotar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container container-main">
         <div class="row">
-            <div class="col-xs-12">
-                <h1>Vehículos</h1>
+            {# left side menu #}
+            <div class="col-sm-3">
+                {{ knp_menu_render('vehicle_category', {currentClass: 'active'}) }}
+            </div>
+            {# right main content #}
+            <div class="col-sm-9">
+                {% if pagination.getTotalItemCount %}
+                    {% for vehicle in pagination %}
+                        <div class="fitxa_llista">
+                            <div class="fitxa_llista_container clearfix">
+                                <div class="fitxa_llista_conts">
+                                    <h3>
+                                        <a href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">{{ vehicle.name }}</a>
+                                    </h3>
+                                    <p>{{ vehicle.shortDescription }}</p>
+                                    <a class="mesinfo" href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">Más información del vehículo.</a>
+                                </div>
+                                <div class="fitxa_llista_img">
+                                    <a href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">
+                                        {% if vehicle.mainImage is not null %}
+                                            <img src="{{ vich_uploader_asset(vehicle, 'mainImageFile') | imagine_filter('350x180') }}" class="img-responsive" alt="{{ vehicle.name }}">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         <div class="row">
-            {# left side menu #}
-            <div class="col-sm-3"></div>
-            {# right main content #}
-            <div class="col-sm-9">
-                {% for vehicle in vehicles %}
-                    <div class="fitxa_llista">
-                        <div class="fitxa_llista_container clearfix">
-                            <div class="fitxa_llista_conts">
-                                <h3>
-                                    <a href="#">{{ vehicle.name }}</a>
-                                </h3>
-                                <p>{{ vehicle.shortDescription }}</p>
-                                <a class="mesinfo" href="#">Más información del vehículo.</a>
-                            </div>
-                            <div class="fitxa_llista_img">
-                                <a href="#">
-                                    <img src="#" alt="...">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+            <div class="col-xs-12 text-center p-vertical-small">
+                {{ knp_pagination_render(pagination) }}
             </div>
         </div>
     </div>

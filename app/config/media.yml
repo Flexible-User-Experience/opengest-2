@@ -55,10 +55,22 @@ liip_imagine:
             quality: 80
             filters:
                 thumbnail: { size: [ 700, null ], mode: outbound }
+        695xY:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 695, null ], mode: outbound }
+        685x200:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 685, 200 ], mode: outbound }
         480xY:
             quality: 100
             filters:
                 thumbnail: { size: [ 480, null ], mode: outbound }
+        470x310:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 470, 310 ], mode: outbound }
         360x185:
             quality: 80
             filters:
@@ -97,6 +109,10 @@ liip_imagine:
             quality: 85
             filters:
                 thumbnail: { size: [ 128, 128 ], mode: outbound }
+        112x150:
+            quality: 85
+            filters:
+                thumbnail: { size: [ 112, 150 ], mode: outbound }
         70x70:
             quality: 95
             filters:
@@ -122,9 +138,9 @@ vich_uploader:
             uri_prefix:         /uploads/images/work
             upload_destination: "%kernel.root_dir%/../web/uploads/images/work"
             namer:              vich_uploader.namer_uniqid
-        workImage:
-            uri_prefix:         /uploads/images/workImage
-            upload_destination: "%kernel.root_dir%/../web/uploads/images/workImage"
+        work_image:
+            uri_prefix:         /uploads/images/work_image
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/work_image"
             namer:              vich_uploader.namer_uniqid
         vehicle:
             uri_prefix:         /uploads/images/vehicle

@@ -17,26 +17,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/servicios", name="front_services")
-     */
-    public function servicesAction(Request $request)
-    {
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPosition();
-
-        return $this->render(':Frontend:services.html.twig', [
-            'services' => $services,
-        ]);
-    }
-
-    /**
-     * @Route("/trabajos", name="front_works")
-     */
-    public function worksAction(Request $request)
-    {
-        return $this->render(':Frontend:works.html.twig', array());
-    }
-
-    /**
      * @Route("/empresa", name="front_company")
      */
     public function companyAction(Request $request)

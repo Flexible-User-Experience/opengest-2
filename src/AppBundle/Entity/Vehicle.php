@@ -61,11 +61,14 @@ class Vehicle extends AbstractBase
      */
     private $link;
 
-
     /**
      * @var File
      *
      * @Vich\UploadableField(mapping="document_vehicle", fileNameProperty="attatchmentPDF")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"application/pdf", "application/x-pdf"}
+     * )
      */
     private $attatchmentPDFFile;
 
@@ -254,6 +257,6 @@ class Vehicle extends AbstractBase
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->id ? $this->getName() : '---';
     }
 }

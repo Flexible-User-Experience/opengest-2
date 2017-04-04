@@ -41,7 +41,7 @@ class WorkImage extends AbstractBase
     /**
      * @var File
      *
-     * @Vich\UploadableField(mapping="workImage", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="work_image", fileNameProperty="image")
      * @Assert\File(
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}

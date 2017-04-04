@@ -71,6 +71,7 @@ class VehicleAdmin extends AbstractBaseAdmin
                 FileType::class,
                 array(
                     'label' => 'Document',
+                    'help' => $this->getDownloadPdfButton(),
                     'required' => false,
                 )
             )

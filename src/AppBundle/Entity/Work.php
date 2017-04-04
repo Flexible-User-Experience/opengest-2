@@ -279,6 +279,6 @@ class Work extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getDate()->format('y/m/Y').' · '.$this->getName() : '---';
+        return $this->id ? $this->getDate()->format('d/m/Y').' · '.$this->getName() : '---';
     }
 }

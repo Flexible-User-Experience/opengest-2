@@ -2,6 +2,10 @@
 
 namespace AppBundle\Menu;
 
+use AppBundle\Entity\Service;
+use AppBundle\Entity\VehicleCategory;
+use AppBundle\Repository\ServiceRepository;
+use AppBundle\Repository\VehicleCategoryRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,19 +37,33 @@ class FrontendMenuBuilder
     private $ts;
 
     /**
+     * @var VehicleCategoryRepository
+     */
+    private $vcr;
+
+    /**
+     * @var ServiceRepository
+     */
+    private $sr;
+
+    /**
      * Methods.
      */
 
     /**
-     * @param FactoryInterface      $factory
-     * @param AuthorizationChecker  $ac
-     * @param TokenStorageInterface $ts
+     * @param FactoryInterface          $factory
+     * @param AuthorizationChecker      $ac
+     * @param TokenStorageInterface     $ts
+     * @param VehicleCategoryRepository $vcr
+     * @param ServiceRepository         $sr
      */
-    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts)
+    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr)
     {
         $this->factory = $factory;
         $this->ac = $ac;
         $this->ts = $ts;
+        $this->vcr = $vcr;
+        $this->sr = $sr;
     }
 
     /**
@@ -55,7 +73,7 @@ class FrontendMenuBuilder
      */
     public function createTopMenu(RequestStack $requestStack)
     {
-        //        $route = $requestStack->getCurrentRequest()->get('_route');
+        $route = $requestStack->getCurrentRequest()->get('_route');
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
         if ($this->ts->getToken() && $this->ac->isGranted('ROLE_CMS')) {
@@ -72,7 +90,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Servicios',
                 'route' => 'front_services',
-//                'current' => $route == 'front_blog' || $route == 'front_blog_detail' || $route == 'front_blog_tag_detail',
+                'current' => $route == 'front_services' || $route == 'front_service_detail',
             )
         );
         $menu->addChild(
@@ -80,7 +98,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Vehículos',
                 'route' => 'front_vehicles',
-//                'current' => $route == 'front_coworkers_list' || $route == 'front_coworker_detail',
+                'current' => $route == 'front_vehicles' || $route == 'front_vehicle_detail' || $route == 'front_vehicles_category',
             )
         );
         $menu->addChild(
@@ -98,6 +116,60 @@ class FrontendMenuBuilder
                 'route' => 'front_company',
             )
         );
+
+        return $menu;
+    }
+
+    /**
+     * @param RequestStack $requestStack
+     *
+     * @return ItemInterface
+     */
+    public function createVehicleCategoryMenu(RequestStack $requestStack)
+    {
+        $menu = $this->factory->createItem('rootCategory');
+        $categories = $this->vcr->findEnabledSortedByName();
+
+        /** @var VehicleCategory $category */
+        foreach ($categories as $category) {
+            if ($category->getVehicles()->count() > 0) {
+                $menu->addChild(
+                    $category->getSlug(),
+                    array(
+                        'label' => $category->getName(),
+                        'route' => 'front_vehicles_category',
+                        'routeParameters' => array(
+                            'slug' => $category->getSlug(),
+                        ),
+                    )
+                );
+            }
+        }
+
+        return $menu;
+    }
+
+    /**
+     * @return ItemInterface
+     */
+    public function createServiceMenu()
+    {
+        $menu = $this->factory->createItem('rootService');
+        $services = $this->sr->findEnabledSortedByPositionAndName();
+
+        /** @var Service $service */
+        foreach ($services as $service) {
+            $menu->addChild(
+                $service->getSlug(),
+                array(
+                    'label' => $service->getName(),
+                    'route' => 'front_service_detail',
+                    'routeParameters' => array(
+                        'slug' => $service->getSlug(),
+                    ),
+                )
+            );
+        }
 
         return $menu;
     }
