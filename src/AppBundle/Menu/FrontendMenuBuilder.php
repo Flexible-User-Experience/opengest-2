@@ -90,7 +90,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Servicios',
                 'route' => 'front_services',
-//                'current' => $route == 'front_services' || $route == 'front_service_detail',
+                'current' => $route == 'front_services' || $route == 'front_service_detail',
             )
         );
         $menu->addChild(
