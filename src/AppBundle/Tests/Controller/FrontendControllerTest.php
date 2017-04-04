@@ -37,11 +37,11 @@ class FrontendControllerTest extends AbstractBaseTest
     {
         return array(
             array('/'),
-            array('/servicios'),
+            array('/servicio/my-title'),
             array('/empresa'),
             array('/vehiculos'),
             array('/vehiculo/my-title'),
-            array('/vehiculos/categoria/grues'),
+            array('/vehiculos/categoria/grues1'),
             array('/trabajos'),
             array('/trabajo/my-title'),
 //            array('/sitemap/sitemap.default.xml'),
@@ -77,32 +77,30 @@ class FrontendControllerTest extends AbstractBaseTest
         );
     }
 
-    /*
+    /**
      * Test HTTP request is redirected.
      *
      * @dataProvider provideRedirectedUrls
      *
      * @param string $url
      */
-//    public function testFrontendPagesAreRedirected($url)
-//    {
-//        $client = $this->createClient();           // anonymous user
-//        $client->request('GET', $url);
-//
-//        $this->assertStatusCode(301, $client);
-//    }
+    public function testFrontendPagesAreRedirected($url)
+    {
+        $client = $this->createClient();           // anonymous user
+        $client->request('GET', $url);
 
-//
-//    /**
-//     * Urls provider.
-//     *
-//     * @return array
-//     */
-//    public function provideRedirectedUrls()
-//    {
-//        return array(
-//            array('/vehiculos'),
-//            array('/vehiculo/alexzander-jacobi'),
-//        );
-//    }
+        $this->assertStatusCode(302, $client);
+    }
+
+    /**
+     * Urls provider.
+     *
+     * @return array
+     */
+    public function provideRedirectedUrls()
+    {
+        return array(
+            array('/servicios'),
+        );
+    }
 }

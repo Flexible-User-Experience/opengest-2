@@ -1,8 +1,16 @@
 # Service
 AppBundle\Entity\Service:
-  service{1..2}:
+  service1:
     name: <name()>
-    position: <current()>
+    position: 1
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+  service2:
+    name: my title
+    position: 2
     description: <paragraph()>
     mainImage: <word()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -45,8 +53,8 @@ AppBundle\Entity\WorkImage:
 
 # VehicleCategory
 AppBundle\Entity\VehicleCategory:
-  vehicleCategory{1}:
-    name: grues
+  vehicleCategory{1..2}:
+    name: grues<current()>
     position: <current()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
