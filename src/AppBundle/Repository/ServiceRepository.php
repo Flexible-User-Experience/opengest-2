@@ -53,6 +53,32 @@ class ServiceRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
+    public function findEnabledSortedByPositionAndNameQB()
+    {
+        return $this->findEnabledQB()
+            ->orderBy('s.position', 'ASC')
+            ->addOrderBy('s.name', 'ASC');
+    }
+
+    /**
+     * @return Query
+     */
+    public function findEnabledSortedByPositionAndNameQ()
+    {
+        return $this->findEnabledSortedByPositionAndNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findEnabledSortedByPositionAndName()
+    {
+        return $this->findEnabledSortedByPositionAndNameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
     public function findEnabledSortedByPositionQB()
     {
         return $this->findEnabledQB()->orderBy('s.position', 'ASC');
