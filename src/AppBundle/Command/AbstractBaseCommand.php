@@ -39,6 +39,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      */
     public function init()
     {
+        ini_set('auto_detect_line_endings', true);
         $this->em = $this->getContainer()->get('doctrine');
         $this->fss = $this->getContainer()->get('filesystem');
 

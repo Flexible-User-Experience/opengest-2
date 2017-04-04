@@ -43,7 +43,6 @@ class ReadCsvTestCommand extends AbstractBaseCommand
 
         // File validations
         $output->writeln('<comment>loading data, please wait...</comment>');
-        ini_set('auto_detect_line_endings', true);
         $filename = $input->getArgument('filename');
         $fr = fopen($filename, 'r');
         if (!$this->fss->exists($filename)) {
