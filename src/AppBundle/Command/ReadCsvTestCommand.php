@@ -63,7 +63,6 @@ class ReadCsvTestCommand extends AbstractBaseCommand
         // Print totals
         $endTimestamp = new \DateTime();
         $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
-        $output->writeln('<comment>Total ellapsed time: '.$beginTimestamp->diff($endTimestamp)->format('%H:%I:%S').'</comment>');
-        $output->writeln('<info>EOF</info>');
+        $output->writeln('<info>Total ellapsed time: '.$beginTimestamp->diff($endTimestamp)->format('%H:%I:%S').'</info>');
     }
 }
