@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\Service;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,15 +15,17 @@ class ServicesController extends Controller
      */
     public function servicesAction()
     {
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPosition();
+        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPositionAndName();
+        /** @var Service $service */
+        $service = $services[0];
 
-        return $this->render(':Frontend:services_detail.html.twig', [
-            'services' => $services,
+        return $this->redirectToRoute('front_service_detail', [
+            'slug' => $service->getSlug(),
         ]);
     }
 
     /**
-     * @Route("/servicios/{slug}", name="front_service_detail")
+     * @Route("/servicio/{slug}", name="front_service_detail")
      *
      * @param $slug
      *
@@ -34,14 +37,12 @@ class ServicesController extends Controller
     {
         $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => $slug]);
 
-        if ($service) {
+        if (!$service) {
             throw new EntityNotFoundException();
         }
 
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByName();
-
         return $this->render(':Frontend:services_detail.html.twig', [
-            'services' => $services,
+            'service' => $service,
         ]);
     }
 }

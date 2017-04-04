@@ -1,7 +1,6 @@
 {% extends ':Frontend:base.html.twig' %}
 
 {% block main %}
-    <h1>Services</h1>
     <div class="container container-main">
         <div class="row">
             {# left side menu #}
@@ -10,19 +9,17 @@
             </div>
             {# right main content #}
             <div class="col-sm-9">
-                {% for service in services %}
-                    <div class="fitxa_llista">
-                        <div class="fitxa_llista_container clearfix">
-                            <div class="fitxa_llista_conts">
-                                <h3>{{ service.name }}</h3>
-                                {% if service.mainImage is not null %}
-                                    <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('685x200') }}" class="img-responsive" alt="{{ service.name }}">
-                                {% endif %}
-                                <p>{{ service.description }}</p>
-                            </div>
+                <div class="fitxa_llista">
+                    <div class="fitxa_llista_container clearfix">
+                        <div class="fitxa_llista_conts">
+                            <h3>{{ service.name }}</h3>
+                            {% if service.mainImage is not null %}
+                                <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('685x200') }}" class="img-responsive" alt="{{ service.name }}">
+                            {% endif %}
+                            <p>{{ service.description }}</p>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
     </div>
