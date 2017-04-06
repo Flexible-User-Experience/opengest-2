@@ -8,9 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ReadCsvTestCommand
- *
- * @package AppBundle\Command
+ * Class ReadCsvTestCommand.
  */
 class ReadCsvTestCommand extends AbstractBaseCommand
 {
@@ -27,10 +25,11 @@ class ReadCsvTestCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int|null|void
+     *
      * @throws InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -44,10 +43,11 @@ class ReadCsvTestCommand extends AbstractBaseCommand
         // File validations
         $output->writeln('<comment>loading data, please wait...</comment>');
         $filename = $input->getArgument('filename');
-        $fr = fopen($filename, 'r');
         if (!$this->fss->exists($filename)) {
             throw new InvalidArgumentException('The file '.$filename.' does not exists');
         }
+
+        $fr = fopen($filename, 'r');
         if (!$fr) {
             throw new InvalidArgumentException('The file '.$filename.' exists but can not be readed');
         }
@@ -57,7 +57,7 @@ class ReadCsvTestCommand extends AbstractBaseCommand
         $rowsRead = 0;
         while (($data = $this->readRow($fr)) !== false) {
             echo implode(self::CSV_DELIMITER, $data).PHP_EOL;
-            $rowsRead++;
+            ++$rowsRead;
         }
 
         // Print totals
