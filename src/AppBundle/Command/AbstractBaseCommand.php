@@ -5,11 +5,12 @@ namespace AppBundle\Command;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class AbstractBaseCommand
- *
- * @package AppBundle\Command
+ * Class AbstractBaseCommand.
  */
 abstract class AbstractBaseCommand extends ContainerAwareCommand
 {
@@ -29,11 +30,11 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected $fss;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * Command initializer
+     * Command initializer.
      *
      * @return $this
      */
@@ -49,10 +50,11 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     /**
      * Load column data (index) from searched array (row) if exists, else throws an exception.
      *
-     * @param int $index column index
-     * @param array $row data
+     * @param int   $index column index
+     * @param array $row   data
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     protected function readColumn($index, $row)
@@ -86,5 +88,38 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         $cm = new \DateTime();
 
         return $cm->format('Y/m/d H:i:s');
+    }
+
+    /**
+     * Execute.
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return resource
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function initialValidation(InputInterface $input, OutputInterface $output)
+    {
+        // Welcome
+        $output->writeln('<info>Welcome to "'.$this->getDescription().'" command.</info>');
+
+        // Initializations
+        $this->init();
+
+        // File validations
+        $output->writeln('<comment>loading data, please wait...</comment>');
+        $filename = $input->getArgument('filename');
+        if (!$this->fss->exists($filename)) {
+            throw new InvalidArgumentException('The file '.$filename.' does not exists');
+        }
+
+        $fr = fopen($filename, 'r');
+        if (!$fr) {
+            throw new InvalidArgumentException('The file '.$filename.' exists but can not be readed');
+        }
+
+        return $fr;
     }
 }

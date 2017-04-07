@@ -8,17 +8,17 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ReadCsvTestCommand.
+ * Class ImportWorkCsvCommand.
  */
-class ReadCsvTestCommand extends AbstractBaseCommand
+class ImportWorkCsvCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:read-csv-test');
-        $this->setDescription('Read a CSV file');
+        $this->setName('app:import:work');
+        $this->setDescription('Import work from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
 
@@ -35,19 +35,6 @@ class ReadCsvTestCommand extends AbstractBaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Welcome & Initialization & File validations
-        $fr = $this->initialValidation($input, $output);
-
-        // Print CSV rows
-        $beginTimestamp = new \DateTime();
-        $rowsRead = 0;
-        while (($data = $this->readRow($fr)) !== false) {
-            echo implode(self::CSV_DELIMITER, $data).PHP_EOL;
-            ++$rowsRead;
-        }
-
-        // Print totals
-        $endTimestamp = new \DateTime();
-        $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
-        $output->writeln('<info>Total ellapsed time: '.$beginTimestamp->diff($endTimestamp)->format('%H:%I:%S').'</info>');
+        $this->initialValidation($input, $output);
     }
 }
