@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\Work;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,6 +36,29 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Welcome & Initialization & File validations
-        $this->initialValidation($input, $output);
+        $fr = $this->initialValidation($input, $output);
+
+        // Import CSV rows
+        $beginTimestamp = new \DateTime();
+        $rowsRead = 0;
+        while (($row = $this->readRow($fr)) !== false) {
+            $work = new Work();
+            $work
+                ->setName($this->readColumn(0, $row))
+                ->setDate($this->readColumn(1, $row))
+                ->setDescription($this->readColumn(2, $row))
+                ->setShortDescription($this->readColumn(3, $row))
+            ;
+            ++$rowsRead;
+
+            $this->em->persist($work);
+        }
+
+        $this->em->flush();
+
+        // Print totals
+        $endTimestamp = new \DateTime();
+        $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
+        $output->writeln('<info>Total ellapsed time: '.$beginTimestamp->diff($endTimestamp)->format('%H:%I:%S').'</info>');
     }
 }
