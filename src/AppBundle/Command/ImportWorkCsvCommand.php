@@ -53,6 +53,15 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
                     ->setMainImage($this->readColumn(3, $row))
                 ;
                 $this->em->persist($work);
+            } else {
+                $work
+                    ->setName($this->readColumn(0, $row))
+                    ->setDate(new \DateTime())
+                    ->setDescription($this->readColumn(1, $row))
+                    ->setShortDescription($this->readColumn(2, $row))
+                    ->setMainImage($this->readColumn(3, $row))
+                ;
+                $this->em->persist($work);
             }
             ++$rowsRead;
         }
