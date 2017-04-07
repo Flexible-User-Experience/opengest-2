@@ -42,16 +42,19 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         while (($row = $this->readRow($fr)) !== false) {
-            $work = new Work();
-            $work
-                ->setName($this->readColumn(0, $row))
-                ->setDate($this->readColumn(1, $row))
-                ->setDescription($this->readColumn(2, $row))
-                ->setShortDescription($this->readColumn(3, $row))
-            ;
+            $work = $this->em->getRepository('AppBundle:Work')->findOneBy(['name' => $this->readColumn(0, $row)]);
+            if (!$work) {
+                $work = new Work();
+                $work
+                    ->setName($this->readColumn(0, $row))
+                    ->setDate(new \DateTime())
+                    ->setDescription($this->readColumn(1, $row))
+                    ->setShortDescription($this->readColumn(2, $row))
+                    ->setMainImage($this->readColumn(3, $row))
+                ;
+                $this->em->persist($work);
+            }
             ++$rowsRead;
-
-            $this->em->persist($work);
         }
 
         $this->em->flush();
