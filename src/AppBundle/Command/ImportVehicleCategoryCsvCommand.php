@@ -2,24 +2,24 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Work;
+use AppBundle\Entity\VehicleCategory;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportWorkCsvCommand.
+ * Class ImportVehicleCategoryCsvCommand.
  */
-class ImportWorkCsvCommand extends AbstractBaseCommand
+class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:work');
-        $this->setDescription('Import work from CSV file');
+        $this->setName('app:import:vehicle-category');
+        $this->setDescription('Import vehicle category from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
 
@@ -43,21 +43,17 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (($row = $this->readRow($fr)) !== false) {
-            $work = $this->em->getRepository('AppBundle:Work')->findOneBy(['name' => $this->readColumn(0, $row)]);
-            // new work
-            if (!$work) {
-                $work = new Work();
+            $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(1, $row)]);
+            // new vehicle category
+            if (!$vehicleCategory) {
+                $vehicleCategory = new VehicleCategory();
                 ++$newRecords;
             }
-            // update work
-            $work
-                ->setName($this->readColumn(0, $row))
-                ->setDate(new \DateTime())
-                ->setDescription($this->readColumn(1, $row))
-                ->setShortDescription($this->readColumn(2, $row))
-                ->setMainImage($this->readColumn(3, $row))
+            // update vehicle category
+            $vehicleCategory
+                ->setName($this->readColumn(1, $row))
             ;
-            $this->em->persist($work);
+            $this->em->persist($vehicleCategory);
             ++$rowsRead;
         }
 
