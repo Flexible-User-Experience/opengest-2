@@ -50,10 +50,9 @@ class ImportServiceCsvCommand extends AbstractBaseCommand
                 ++$newRecords;
             }
             // update service
-            $name = utf8_decode($this->readColumn(8, $row));
             $service
-                ->setName($name)
-                ->setMainImage($name)
+                ->setName($this->readColumn(8, $row))
+                ->setMainImage('1.jpg')
             ;
             $this->em->persist($service);
             ++$rowsRead;
