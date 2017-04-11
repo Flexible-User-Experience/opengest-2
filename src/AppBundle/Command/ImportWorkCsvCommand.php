@@ -43,7 +43,7 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (($row = $this->readRow($fr)) !== false) {
-            $work = $this->em->getRepository('AppBundle:Work')->findOneBy(['name' => $this->readColumn(0, $row)]);
+            $work = $this->em->getRepository('AppBundle:Work')->findOneBy(['name' => $this->readColumn(8, $row)]);
             // new work
             if (!$work) {
                 $work = new Work();
@@ -51,12 +51,25 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
             }
             // update work
             $work
-                ->setName($this->readColumn(0, $row))
-                ->setDate(new \DateTime())
-                ->setDescription($this->readColumn(1, $row))
-                ->setShortDescription($this->readColumn(2, $row))
-                ->setMainImage($this->readColumn(3, $row))
+                ->setName($this->readColumn(8, $row))
+                ->setDescription($this->readColumn(10, $row))
+                ->setShortDescription($this->readColumn(9, $row))
             ;
+            $image = $this->readColumn(2, $row);
+            if (strlen($image) > 0) {
+                $work->setMainImage($image);
+            } else {
+                $work->setMainImage('1.jpg');
+            }
+            $date = date_create_from_format('Y-m-d', $this->readColumn(3, $row));
+            if ($date) {
+                $work->setDate($date);
+            }
+            $createdAt = date_create_from_format('Y-m-d H:i:s', $this->readColumn(12, $row));
+            if ($createdAt) {
+                $work->setCreatedAt($createdAt);
+            }
+
             $this->em->persist($work);
             ++$rowsRead;
         }
