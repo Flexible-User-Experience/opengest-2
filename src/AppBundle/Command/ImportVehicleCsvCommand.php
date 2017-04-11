@@ -54,13 +54,24 @@ class ImportVehicleCsvCommand extends AbstractBaseCommand
                 ->setName($this->readColumn(9, $row))
                 ->setDescription($this->readColumn(11, $row))
                 ->setShortDescription($this->readColumn(10, $row))
-                ->setMainImage($this->readColumn(3, $row))
-                ->setAttatchmentPDF($this->readColumn(14, $row))
-                ->setLink($this->readColumn(18, $row))
             ;
             $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(26, $row)]);
             if ($vehicleCategory) {
                 $vehicle->setCategory($vehicleCategory);
+            }
+            $link = $this->readColumn(18, $row);
+            if (strlen($link) > 0) {
+                $vehicle->setLink($link);
+            }
+            $attatchmentPDF = $this->readColumn(14, $row);
+            if (strlen($attatchmentPDF) > 0) {
+                $vehicle->setAttatchmentPDF($attatchmentPDF);
+            }
+            $image = $this->readColumn(3, $row);
+            if (strlen($image) > 0) {
+                $vehicle->setMainImage($image);
+            } else {
+                $vehicle->setMainImage('1.jpg');
             }
 
             $this->em->persist($vehicle);
