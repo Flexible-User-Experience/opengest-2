@@ -18,7 +18,7 @@ class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
      */
     protected function configure()
     {
-        $this->setName('app:import:vehicle-category');
+        $this->setName('app:import:vehicle:category');
         $this->setDescription('Import vehicle category from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
@@ -43,7 +43,7 @@ class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (($row = $this->readRow($fr)) !== false) {
-            $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(1, $row)]);
+            $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(4, $row)]);
             // new vehicle category
             if (!$vehicleCategory) {
                 $vehicleCategory = new VehicleCategory();
@@ -51,7 +51,7 @@ class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
             }
             // update vehicle category
             $vehicleCategory
-                ->setName($this->readColumn(1, $row))
+                ->setName($this->readColumn(4, $row))
             ;
             $this->em->persist($vehicleCategory);
             ++$rowsRead;
