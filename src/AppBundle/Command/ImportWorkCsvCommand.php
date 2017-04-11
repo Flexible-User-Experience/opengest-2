@@ -62,12 +62,8 @@ class ImportWorkCsvCommand extends AbstractBaseCommand
         }
 
         $this->em->flush();
-
-        // Print totals
         $endTimestamp = new \DateTime();
-        $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
-        $output->writeln('<comment>'.$newRecords.' new records.</comment>');
-        $output->writeln('<comment>'.($rowsRead - $newRecords).' updated records.</comment>');
-        $output->writeln('<info>Total ellapsed time: '.$beginTimestamp->diff($endTimestamp)->format('%H:%I:%S').'</info>');
+        // Print totals
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
     }
 }
