@@ -24,9 +24,9 @@
 @ek-font-size-small: ceil((@font-size-base * 0.95));
 
 // Custom Navbar
-@navbar-inverse-bg: @ek-c-green;
+@navbar-inverse-bg: @gr-c-blue;
 @navbar-inverse-link-active-bg: @ek-c-black;
-@navbar-inverse-link-hover-bg: darken(@ek-c-green, 10%);
+@navbar-inverse-link-hover-bg: darken(@gr-c-blue, 10%);
 @navbar-height: 110px;
 @navbar-border-radius: 0;
 @navbar-inverse-link-active-color: @ek-c-white;
@@ -49,7 +49,7 @@
 }
 
 // Custom buttons
-.ek-button-mixin(btn-kowo, @ek-c-white, @ek-c-green);
+.ek-button-mixin(btn-kowo, @ek-c-white, @gr-c-blue);
 .ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-orange);
 
 // Custom anchors
@@ -96,50 +96,6 @@
   padding-bottom: @gap-normal;
 }
 
-// Custom alerts
-.alert-green {
-  .alert-variant(@ek-c-green; @ek-c-green; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-orange {
-  .alert-variant(@ek-c-orange; @ek-c-orange; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-violet {
-  .alert-variant(@ek-c-violet; @ek-c-violet; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-magenta {
-  .alert-variant(@ek-c-magenta; @ek-c-magenta; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-dark-cyan {
-  .alert-variant(@ek-c-dark-cyan; @ek-c-dark-cyan; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert {
-  h4 {
-    font-weight: normal;
-    line-height: 1.5;
-    white-space: nowrap;
-  }
-}
-
 // Pagination
 ul.pagination {
   li.active {
@@ -149,7 +105,6 @@ ul.pagination {
     }
   }
 }
-
 
 ul.categories-selector {
   li {
@@ -302,13 +257,13 @@ footer {
   padding: 40px 0;
   margin: 0;
   &.footer {
-    background-color: black;
+    background-color: @gr-c-grey;
   }
   a {
     color: @ek-c-white;
     &:hover {
       text-decoration: none;
-      color: @ek-c-green;
+      color: @gr-c-blue;
     }
   }
 }
@@ -320,7 +275,7 @@ footer {
 }
 
 .text-title {
-  color: @ek-c-green;
+  color: @gr-c-blue;
 }
 
 .under-construction-warning {

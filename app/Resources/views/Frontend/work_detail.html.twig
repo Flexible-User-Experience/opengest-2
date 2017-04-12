@@ -28,7 +28,7 @@
             </div>
             {# Right side #}
             <div class="col-sm-4">
-                {% if work.service is defined %}
+                {% if work.service is not null %}
                     <p>Conozca el proceso de actuación en un trabajo que requiere una <strong>{{ work.service.name }}</strong></p>
                     <a class="btn btn-success" href="{{ path('front_service_detail', {slug: work.service.slug}) }}">Sí, habladme de este servicio</a>
                 {% endif %}
