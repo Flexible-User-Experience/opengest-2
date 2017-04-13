@@ -3,30 +3,27 @@
 {% block title %}{{ vehicle.name }} · Vehículo · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <div class="p-vertical-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>Nuestros vehículos</h2>
-                    <a href="{{ path('front_vehicles') }}">Todos los vehículos</a>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title">Nuestros vehículos</h1>
+                <a href="{{ path('front_vehicles') }}"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Todos los vehículos</a>
             </div>
         </div>
-    </div>
-    <div class="container container-main">
+        <hr class="hr-divider">
         <div class="row">
             {# left side #}
             <div class="col-sm-6">
-                <h3 class="no-m-top">{{ vehicle.name }}</h3>
+                <h3 class="no-m-top title">{{ vehicle.name }}</h3>
                 <p class="text-muted">{{ vehicle.description | raw }}</p>
                 {% if vehicle.attatchmentPDF %}
-                    <a href="{{ vich_uploader_asset(vehicle, 'attatchmentPDFFile') }}" download="{{ vehicle.name }}.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>
+                    <a class="btn btn-warning btn-sm small-m-bottom" href="{{ vich_uploader_asset(vehicle, 'attatchmentPDFFile') }}" download="{{ vehicle.name }}.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Ficha técnica</a>
                 {% endif %}
                 {% if vehicle.attatchmentPDF and vehicle.link %}
                     <br>
                 {% endif %}
                 {% if vehicle.link %}
-                    <a href="{{ vehicle.link }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> Pàgina web fabricant</a>
+                    <a class="btn btn-warning btn-sm" href="{{ vehicle.link }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> Web fabricante</a>
                 {% endif %}
             </div>
             {# Right side #}
@@ -36,5 +33,6 @@
                 {% endif %}
             </div>
         </div>
+        <hr class="hr-divider">
     </div>
 {% endblock %}
