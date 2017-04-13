@@ -30,7 +30,7 @@
                     <div class="col-sm-2">
                         {% if work.mainImage is not null %}
                             <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
-                                <img class="img-responsive" src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('112x150') }}" alt="{{ work.name }}">
+                                <img class="img-responsive" src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('480xY') }}" alt="{{ work.name }}">
                             </a>
                         {% endif %}
                     </div>
