@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Front;
 use AppBundle\Entity\VehicleCategory;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -15,7 +16,7 @@ class VehiclesController extends AbstractBaseController
     /**
      * @Route("/vehiculos", name="front_vehicles")
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @throws EntityNotFoundException
      */
