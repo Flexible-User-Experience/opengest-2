@@ -7,8 +7,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2>Nuestros vehículos</h2>
-                    <p>Consulte las características técnicas de nuestra amplia flotar</p>
+                    <h1 class="main-title">Nuestros vehículos</h1>
+                    <h2 class="main-subtitle">Consulte las características técnicas de nuestra amplia flotar</h2>
                 </div>
             </div>
         </div>
@@ -23,24 +23,27 @@
             <div class="col-sm-9">
                 {% if pagination.getTotalItemCount %}
                     {% for vehicle in pagination %}
-                        <div class="fitxa_llista">
-                            <div class="fitxa_llista_container clearfix">
-                                <div class="fitxa_llista_conts">
-                                    <h3>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="left-line-yellow">
+                                    <h3 class="title no-m-top">
                                         <a href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">{{ vehicle.name }}</a>
                                     </h3>
                                     <p>{{ vehicle.shortDescription }}</p>
-                                    <a class="mesinfo" href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">Más información del vehículo.</a>
-                                </div>
-                                <div class="fitxa_llista_img">
                                     <a href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">
-                                        {% if vehicle.mainImage is not null %}
-                                            <img src="{{ vich_uploader_asset(vehicle, 'mainImageFile') | imagine_filter('350x180') }}" class="img-responsive" alt="{{ vehicle.name }}">
-                                        {% endif %}
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i> Más información del vehículo.
                                     </a>
                                 </div>
                             </div>
+                            <div class="col-sm-3">
+                                {% if vehicle.mainImage is not null %}
+                                    <a href="{{ path('front_vehicle_detail', { slug: vehicle.slug }) }}">
+                                        <img src="{{ vich_uploader_asset(vehicle, 'mainImageFile') | imagine_filter('350xY') }}" class="img-responsive" alt="{{ vehicle.name }}">
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
+                        <hr class="hr-divider">
                     {% endfor %}
                 {% endif %}
             </div>
