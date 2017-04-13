@@ -128,6 +128,7 @@ class FrontendMenuBuilder
     public function createVehicleCategoryMenu(RequestStack $requestStack)
     {
         $menu = $this->factory->createItem('rootCategory');
+        $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked nav-yellow');
         $categories = $this->vcr->findEnabledSortedByName();
 
         /** @var VehicleCategory $category */

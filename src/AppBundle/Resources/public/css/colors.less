@@ -11,12 +11,16 @@
 @gr-c-yellow:     #FAAE24;
 @gr-c-blue:       #2B6299;
 @gr-c-grey:       #666666;
+@gr-c-black:      #000000;
+
 
 .c-white  { color: @ek-c-white;  }
 .c-blue   { color: @gr-c-blue;  }
 .c-orange { color: @ek-c-orange; }
 .c-grey   { color: @gr-c-grey;   }
 .c-yellow { color: @gr-c-yellow; }
+.c-yellow-dark { color: darken(@gr-c-yellow, 15%); }
+.c-yellow-light { color: lighten(@gr-c-yellow, 35%); }
 
 .white-background { background-color: @ek-c-white;      }
 .grey-background  { background-color: @gr-c-grey; }
@@ -26,3 +30,5 @@
 .blue-background-light { background-color: lighten(@gr-c-blue, 35%); }
 .orange-background { background-color: @ek-c-orange; }
 .yellow-background { background-color: @gr-c-yellow; }
+.yellow-background-dark   { background-color: darken(@gr-c-yellow, 15%); }
+.yellow-background-light  { background-color: lighten(@gr-c-yellow, 35%); }

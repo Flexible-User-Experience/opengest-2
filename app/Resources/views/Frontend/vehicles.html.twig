@@ -3,18 +3,14 @@
 {% block title %}Vehículos · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <div class="p-vertical-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="main-title">Nuestros vehículos</h1>
-                    <h2 class="main-subtitle">Consulte las características técnicas de nuestra amplia flotar</h2>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title">Nuestros vehículos</h1>
+                <h2 class="main-subtitle">Consulte las características técnicas de nuestra amplia flotar</h2>
             </div>
         </div>
-    </div>
-    <div class="container container-main">
-        <div class="row">
+        <div class="row extra-m-top">
             {# left side menu #}
             <div class="col-sm-3">
                 {{ knp_menu_render('vehicle_category', {currentClass: 'active'}) }}

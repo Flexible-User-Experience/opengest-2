@@ -329,3 +329,34 @@ textarea { .resizable(vertical); }
   border-left: solid @gr-c-yellow @gap-small;
   padding-left: @gap-small;
 }
+
+// Customs Yellow Nav
+.nav-yellow {
+  li {
+    background-color: lighten(@gr-c-yellow, 35%);
+    margin-bottom: 5px;
+    a {
+      color: @gr-c-black;
+    }
+    &.active {
+      a {
+        background-color: @gr-c-yellow;
+        border-radius: 0;
+        font-weight: bolder;
+        color: @gr-c-black;
+      }
+    }
+    &:hover {
+      a {
+        background-color: @gr-c-yellow;
+        border-radius: 0;
+      }
+    }
+    &.active:hover {
+      a {
+        background-color: @gr-c-yellow;
+        border-radius: 0;
+      }
+    }
+  }
+}
