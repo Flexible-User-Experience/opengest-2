@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\VehicleCategory;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,21 +13,23 @@ use Symfony\Component\HttpFoundation\Response;
 class VehiclesController extends AbstractBaseController
 {
     /**
-     * @Route("/vehiculos/{page}", name="front_vehicles")
-     *
-     * @param int $page
+     * @Route("/vehiculos", name="front_vehicles")
      *
      * @return Response
+     *
+     * @throws EntityNotFoundException
      */
-    public function vehiclesAction($page = 1)
+    public function vehiclesAction()
     {
-        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByName();
+        $categories = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findEnabledSortedByName();
+        if (count($categories) == 0) {
+            throw new EntityNotFoundException();
+        }
+        /** @var VehicleCategory $categoria */
+        $categoria = $categories[0];
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
-
-        return $this->render(':Frontend:vehicles.html.twig', [
-            'pagination' => $pagination,
+        return $this->redirectToRoute('front_vehicles_category', [
+            'slug' => $categoria->getSlug(),
         ]);
     }
 

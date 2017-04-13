@@ -156,6 +156,7 @@ class FrontendMenuBuilder
     public function createServiceMenu()
     {
         $menu = $this->factory->createItem('rootService');
+        $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked nav-yellow');
         $services = $this->sr->findEnabledSortedByPositionAndName();
 
         /** @var Service $service */

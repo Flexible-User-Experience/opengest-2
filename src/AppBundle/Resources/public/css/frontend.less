@@ -346,16 +346,11 @@ textarea { .resizable(vertical); }
         color: @gr-c-black;
       }
     }
-    &:hover {
+    &:hover, &.active:hover {
       a {
         background-color: @gr-c-yellow;
         border-radius: 0;
-      }
-    }
-    &.active:hover {
-      a {
-        background-color: @gr-c-yellow;
-        border-radius: 0;
+        color: @gr-c-black;
       }
     }
   }
