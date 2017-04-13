@@ -16,14 +16,16 @@
             {% for work in pagination %}
                 <div class="row">
                     <div class="col-sm-8">
-                        <h3 class="title no-m-top">
-                            <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">{{ work.name }}</a>
-                        </h3>
-                        <p><strong><i class="fa fa-calendar c-yellow" aria-hidden="true"></i> {{ work.date | date('d/m/Y') }}</strong></p>
-                        <p>{{ work.shortDescription }}</p>
-                        <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
-                            <i class="fa fa-plus-square" aria-hidden="true"></i> Más información del trabajo
-                        </a>
+                        <div class="left-line-yellow">
+                            <h3 class="title no-m-top">
+                                <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">{{ work.name }}</a>
+                            </h3>
+                            <p><strong><i class="fa fa-calendar c-yellow" aria-hidden="true"></i> {{ work.date | date('d/m/Y') }}</strong></p>
+                            <p>{{ work.shortDescription }}</p>
+                            <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
+                                <i class="fa fa-plus-square" aria-hidden="true"></i> Más información del trabajo
+                            </a>
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         {% if work.mainImage is not null %}
