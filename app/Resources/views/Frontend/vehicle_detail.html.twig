@@ -1,6 +1,6 @@
 {% extends ':Frontend:base.html.twig' %}
 
-{% block title %}{{ vehicle.name }} · Vehículo · {{ parent() }}{% endblock %}
+{% block title %}{{ vehicle.name | upper }} · Vehículo · {{ parent() }}{% endblock %}
 
 {% block main %}
     <div class="container">
