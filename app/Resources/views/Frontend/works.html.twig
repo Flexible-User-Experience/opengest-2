@@ -1,17 +1,14 @@
 {% extends ':Frontend:base.html.twig' %}
 
 {% block main %}
-    <div class="p-vertical-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="main-title">Trabajos y clientes</h1>
-                    <h2 class="main-subtitle">Conozca algunos de nuestros trabajos más destacados.</h2>
-                </div>
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title no-m">Trabajos y clientes</h1>
+                <h2 class="main-subtitle no-m">Conozca algunos de nuestros trabajos más destacados.</h2>
             </div>
         </div>
-    </div>
-    <div class="container container-main">
+        <hr class="hr-divider">
         {% if pagination.getTotalItemCount > 0 %}
             {% for work in pagination %}
                 <div class="row">
@@ -30,7 +27,9 @@
                     <div class="col-sm-2">
                         {% if work.mainImage is not null %}
                             <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
-                                <img class="img-responsive" src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('480xY') }}" alt="{{ work.name }}">
+                                <img class="img-responsive"
+                                     src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('480xY') }}"
+                                     alt="{{ work.name }}">
                             </a>
                         {% endif %}
                     </div>
@@ -39,7 +38,7 @@
             {% endfor %}
         {% endif %}
         <div class="row">
-            <div class="col-xs-12 text-center p-vertical-small">
+            <div class="col-xs-12">
                 {{ knp_pagination_render(pagination) }}
             </div>
         </div>

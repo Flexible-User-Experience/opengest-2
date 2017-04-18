@@ -5,6 +5,13 @@
 {% block main %}
     <div class="container container-main">
         <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title no-m">Nuestros servicios</h1>
+                <h2 class="main-subtitle no-m">Consulte todos los servicios que ofrecemos.</h2>
+            </div>
+        </div>
+        <hr class="hr-divider">
+        <div class="row">
             {# left side menu #}
             <div class="col-sm-3">
                 {{ knp_menu_render('service', {currentClass: 'active'}) }}
