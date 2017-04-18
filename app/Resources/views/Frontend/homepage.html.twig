@@ -23,29 +23,31 @@
                         <a href="#">Descubre por qué las grúas de celosía de Grúas Romaní son su mejor opción <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="{{ asset('bundles/app/img/icon_serv_gh.png') }}" alt="Grúas hidráulicas logo">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><strong>Grúas hidráulicas:</strong> rapidez en el montaje y precisión en el manejo.</h4>
-                        <p></p>
-                        <a href="#">Encuentre una solución para elevar su carga <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-                {% if service is not null and service.enabled %}
+                {% if serviceGH is not null and serviceGH.enabled %}
                     <div class="media">
                         <div class="media-left">
-                            <a href="{{ path('front_service_detail', {slug: service.slug}) }}">
+                            <a href="{{ path('front_service_detail', {slug: serviceGH.slug}) }}">
+                                <img class="media-object" src="{{ asset('bundles/app/img/icon_serv_gh.png') }}" alt="Grúas hidráulicas logo">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><strong>Grúas hidráulicas:</strong> rapidez en el montaje y precisión en el manejo.</h4>
+                            <p></p>
+                            <a href="{{ path('front_service_detail', {slug: serviceGH.slug}) }}">Encuentre una solución para elevar su carga <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if serviceMR is not null and serviceMR.enabled %}
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="{{ path('front_service_detail', {slug: serviceMR.slug}) }}">
                                 <img class="media-object" src="{{ asset('bundles/app/img/icon_serv_pa.png') }}" alt="Trabajos de maniobralidad reducida logo">
                             </a>
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading"><strong>Trabajos de maniobralidad reducida:</strong> habilidad y experiencia para actuar en espacios de movilidad limitada.</h4>
                             <p></p>
-                            <a href="{{ path('front_service_detail', {slug: service.slug}) }}">Conozca cómo actuamos ante una maniobra compleja <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
+                            <a href="{{ path('front_service_detail', {slug: serviceMR.slug}) }}">Conozca cómo actuamos ante una maniobra compleja <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 {% endif %}

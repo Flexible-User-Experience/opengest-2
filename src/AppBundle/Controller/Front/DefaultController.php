@@ -13,10 +13,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'maniobrabilidad-reducida']);
+        $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
+        $serviceMR = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'maniobrabilidad-reducida']);
 
         return $this->render(':Frontend:homepage.html.twig', array(
-            'service' => $service,
+            'serviceGH' => $serviceGH,
+            'serviceMR' => $serviceMR,
         ));
     }
 
