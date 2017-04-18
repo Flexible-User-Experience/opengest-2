@@ -71,6 +71,7 @@ class Service extends AbstractBase
      * @var VehicleCategory
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="services")
+     * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
      */
     private $vehicleCategory;
 

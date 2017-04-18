@@ -60,6 +60,15 @@ class ServiceAdmin extends AbstractBaseAdmin
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
+                'vehicleCategory',
+                null,
+                array(
+                    'label' => 'Categoria vehicle',
+                    'required' => true,
+                    'query_builder' => $this->rm->getVehicleCategoryRepository()->findEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
                 'position',
                 null,
                 array(
@@ -90,13 +99,13 @@ class ServiceAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label' => 'Posició',
-//                )
-//            )
+            ->add(
+                'vehicleCategory',
+                null,
+                array(
+                    'label' => 'Categoria vehicle',
+                )
+            )
             ->add(
                 'description',
                 null,
@@ -134,6 +143,25 @@ class ServiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Nom',
                     'editable' => true,
+                )
+            )
+//            ->add(
+//                'vehicleCategory',
+//                null,
+//                array(
+//                    'label' => 'Categoria vehicle',
+//                )
+//            )
+            ->add(
+                'vehicleCategory',
+                null,
+                array(
+                    'label' => 'Categoria vehicle',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'vehicleCategory')),
                 )
             )
             ->add(
