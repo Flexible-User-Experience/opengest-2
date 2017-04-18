@@ -137,7 +137,7 @@ class FrontendMenuBuilder
                 $menu->addChild(
                     $category->getSlug(),
                     array(
-                        'label' => $category->getName(),
+                        'label' => ucfirst(strtolower($category->getName())),
                         'route' => 'front_vehicles_category',
                         'routeParameters' => array(
                             'slug' => $category->getSlug(),
@@ -164,7 +164,7 @@ class FrontendMenuBuilder
             $menu->addChild(
                 $service->getSlug(),
                 array(
-                    'label' => $service->getName(),
+                    'label' => ucfirst(strtolower($service->getName())),
                     'route' => 'front_service_detail',
                     'routeParameters' => array(
                         'slug' => $service->getSlug(),

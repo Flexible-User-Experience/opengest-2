@@ -1,5 +1,7 @@
 {% extends ':Frontend:base.html.twig' %}
 
+{% block title %}{{ service.name | capitalize }} · Servicios · {{ parent() }}{% endblock %}
+
 {% block main %}
     <div class="container container-main">
         <div class="row">
@@ -9,17 +11,11 @@
             </div>
             {# right main content #}
             <div class="col-sm-9">
-                <div class="fitxa_llista">
-                    <div class="fitxa_llista_container clearfix">
-                        <div class="fitxa_llista_conts">
-                            <h3>{{ service.name }}</h3>
-                            {% if service.mainImage is not null %}
-                                <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('685x200') }}" class="img-responsive" alt="{{ service.name }}">
-                            {% endif %}
-                            <p>{{ service.description }}</p>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="no-m-top">{{ service.name | capitalize }}</h3>
+                {% if service.mainImage is not null %}
+                    <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('685x200') }}" class="img-responsive" alt="{{ service.name }}">
+                {% endif %}
+                <p>{{ service.description }}</p>
             </div>
         </div>
     </div>
