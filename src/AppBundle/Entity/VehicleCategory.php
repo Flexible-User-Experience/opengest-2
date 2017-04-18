@@ -43,6 +43,13 @@ class VehicleCategory extends AbstractBase
     private $vehicles;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Service", mappedBy="vehicleCategory")
+     */
+    private $services;
+
+    /**
      * Methods.
      */
 
@@ -52,6 +59,7 @@ class VehicleCategory extends AbstractBase
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
+        $this->services = new ArrayCollection();
     }
 
     /**
@@ -94,6 +102,26 @@ class VehicleCategory extends AbstractBase
     public function removeVehicle(Vehicle $vehicle)
     {
         $this->vehicles->removeElement($vehicle);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * @param ArrayCollection $services
+     *
+     * @return VehicleCategory
+     */
+    public function setServices($services)
+    {
+        $this->services = $services;
 
         return $this;
     }
