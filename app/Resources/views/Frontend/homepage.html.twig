@@ -1,15 +1,55 @@
 {% extends ':Frontend:base.html.twig' %}
 
 {% block main %}
-    <div class="p-vertical-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>Homepage</h2>
-                    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 extra-m-top">
+                <h1 class="main-title no-m-top">Fuerza</h1>
+                <h2 class="main-subtitle no-m-top">inteligentemente contenida.</h2>
+                <h4>Elevación y transporte de grandes volúmnenes.</h4>
+            </div>
+        </div>
+        <hr class="hr-divider">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="{{ asset('bundles/app/img/icon_serv_gc.png') }}" alt="Grúas de celosía logo">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><strong>Grúas de celosía:</strong> combinamos los profesionales más experimentados con la mejor maquinaria.</h4>
+                        <a href="#">Descubre por qué las grúas de celosía de Grúas Romaní son su mejor opción <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="{{ asset('bundles/app/img/icon_serv_gh.png') }}" alt="Grúas hidráulicas logo">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><strong>Grúas hidráulicas:</strong> rapidez en el montaje y precisión en el manejo.</h4>
+                        <p></p>
+                        <a href="#">Encuentre una solución para elevar su carga <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="{{ asset('bundles/app/img/icon_serv_pa.png') }}" alt="Trabajos de maniobralidad reducida logo">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><strong>Trabajos de maniobralidad reducida:</strong> habilidad y experiencia para actuar en espacios de movilidad limitada.</h4>
+                        <p></p>
+                        <a href="#">Conozca cómo actuamos ante una maniobra compleja <i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
+        <hr class="hr-divider">
     </div>
 {% endblock %}
 
