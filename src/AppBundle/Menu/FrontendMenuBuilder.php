@@ -106,7 +106,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Trabajos',
                 'route' => 'front_works',
-//                'current' => $route == 'front_events_list' || $route == 'front_event_detail' || $route == 'front_category_event',
+                'current' => $route == 'front_works' || $route == 'front_work_detail',
             )
         );
         $menu->addChild(
