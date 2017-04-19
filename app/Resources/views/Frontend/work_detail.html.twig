@@ -26,7 +26,7 @@
             <div class="col-sm-4">
                 {% if work.service is not null %}
                     <p>Conozca el proceso de actuación en un trabajo que requiere una <strong>{{ work.service.name }}</strong></p>
-                    <a class="btn btn-success" href="{{ path('front_service_detail', {slug: work.service.slug}) }}">Sí, habladme de este servicio</a>
+                    <a class="btn btn-warning" href="{{ path('front_service_detail', {slug: work.service.slug}) }}">Sí, habladme de este servicio</a>
                 {% endif %}
                 {% for img in work.images %}
                     {% if img.image is not null %}
