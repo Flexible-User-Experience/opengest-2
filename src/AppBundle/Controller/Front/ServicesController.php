@@ -6,16 +6,24 @@ use AppBundle\Entity\Service;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class ServicesController extends Controller
 {
     /**
      * @Route("/servicios", name="front_services")
+     *
+     * @return RedirectResponse
+     *
+     * @throws EntityNotFoundException
      */
     public function servicesAction()
     {
         $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPositionAndName();
+        if (count($services) == 0) {
+            throw new EntityNotFoundException();
+        }
         /** @var Service $service */
         $service = $services[0];
 

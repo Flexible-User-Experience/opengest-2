@@ -11,9 +11,17 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="front_homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        return $this->render(':Frontend:homepage.html.twig', array());
+        $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-de-celosia']);
+        $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
+        $serviceMR = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'maniobrabilidad-reducida']);
+
+        return $this->render(':Frontend:homepage.html.twig', array(
+            'serviceGC' => $serviceGC,
+            'serviceGH' => $serviceGH,
+            'serviceMR' => $serviceMR,
+        ));
     }
 
     /**

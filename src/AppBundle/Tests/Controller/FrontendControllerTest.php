@@ -39,7 +39,6 @@ class FrontendControllerTest extends AbstractBaseTest
             array('/'),
             array('/servicio/my-title'),
             array('/empresa'),
-            array('/vehiculos'),
             array('/vehiculo/my-title'),
             array('/vehiculos/categoria/grues1'),
             array('/trabajos'),
@@ -101,6 +100,7 @@ class FrontendControllerTest extends AbstractBaseTest
     {
         return array(
             array('/servicios'),
+            array('/vehiculos'),
         );
     }
 }

@@ -106,7 +106,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Trabajos',
                 'route' => 'front_works',
-//                'current' => $route == 'front_events_list' || $route == 'front_event_detail' || $route == 'front_category_event',
+                'current' => $route == 'front_works' || $route == 'front_work_detail',
             )
         );
         $menu->addChild(
@@ -128,6 +128,7 @@ class FrontendMenuBuilder
     public function createVehicleCategoryMenu(RequestStack $requestStack)
     {
         $menu = $this->factory->createItem('rootCategory');
+        $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked nav-yellow');
         $categories = $this->vcr->findEnabledSortedByName();
 
         /** @var VehicleCategory $category */
@@ -136,7 +137,7 @@ class FrontendMenuBuilder
                 $menu->addChild(
                     $category->getSlug(),
                     array(
-                        'label' => $category->getName(),
+                        'label' => ucfirst(strtolower($category->getName())),
                         'route' => 'front_vehicles_category',
                         'routeParameters' => array(
                             'slug' => $category->getSlug(),
@@ -155,6 +156,7 @@ class FrontendMenuBuilder
     public function createServiceMenu()
     {
         $menu = $this->factory->createItem('rootService');
+        $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked nav-yellow');
         $services = $this->sr->findEnabledSortedByPositionAndName();
 
         /** @var Service $service */
@@ -162,7 +164,7 @@ class FrontendMenuBuilder
             $menu->addChild(
                 $service->getSlug(),
                 array(
-                    'label' => $service->getName(),
+                    'label' => ucfirst(strtolower($service->getName())),
                     'route' => 'front_service_detail',
                     'routeParameters' => array(
                         'slug' => $service->getSlug(),

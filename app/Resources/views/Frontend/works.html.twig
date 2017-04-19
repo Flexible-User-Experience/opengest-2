@@ -1,52 +1,44 @@
 {% extends ':Frontend:base.html.twig' %}
 
 {% block main %}
-    <div class="p-vertical-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>Trabajos y clientes</h2>
-                    <p>Conozca algunos de nuestros trabajos más destacados.</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container container-main">
         <div class="row">
-            {% if pagination.getTotalItemCount > 0 %}
-                {% for work in pagination %}
-                    <div class="col-sm-8 p-vertical-small">
-                        <div class="fitxa_llista">
-                            <div class="fitxa_llista_container clearfix">
-                                <div class="fitxa_llista_conts">
-                                    <h3>
-                                        <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">{{ work.name }}</a>
-                                    </h3>
-                                    <p>{{ work.date | date('d/m/Y') }}</p>
-                                    <p>{{ work.shortDescription }}</p>
-                                    <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">Más información del trabajo</a>
-                                </div>
-                            </div>
+            <div class="col-xs-12">
+                <h1 class="main-title no-m">Trabajos y clientes</h1>
+                <h2 class="main-subtitle no-m">Conozca algunos de nuestros trabajos más destacados.</h2>
+            </div>
+        </div>
+        <hr class="hr-divider">
+        {% if pagination.getTotalItemCount > 0 %}
+            {% for work in pagination %}
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="left-line-yellow">
+                            <h3 class="title no-m-top">
+                                <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">{{ work.name }}</a>
+                            </h3>
+                            <p><strong><i class="fa fa-calendar c-yellow" aria-hidden="true"></i> {{ work.date | date('d/m/Y') }}</strong></p>
+                            <p>{{ work.shortDescription }}</p>
+                            <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
+                                <i class="fa fa-plus-square" aria-hidden="true"></i> Más información del trabajo
+                            </a>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="fitxa_llista p-vertical-small">
-                            <div class="fitxa_llista_container clearfix">
-                                <div class="fitxa_llista_conts">
-                                    {% if work.mainImage is not null %}
-                                        <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
-                                            <img src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('112x150') }}" alt="{{ work.name }}">
-                                        </a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
+                        {% if work.mainImage is not null %}
+                            <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
+                                <img class="img-responsive"
+                                     src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('480xY') }}"
+                                     alt="{{ work.name }}">
+                            </a>
+                        {% endif %}
                     </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+                </div>
+                <hr class="hr-divider">
+            {% endfor %}
+        {% endif %}
         <div class="row">
-            <div class="col-xs-12 text-center p-vertical-small">
+            <div class="col-xs-12">
                 {{ knp_pagination_render(pagination) }}
             </div>
         </div>

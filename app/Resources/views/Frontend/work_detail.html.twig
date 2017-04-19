@@ -3,23 +3,19 @@
 {% block title %}{{ work.name }} · Trabajo · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <div class="p-vertical-small">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>Trabajos y clientes</h2>
-                    <a href="{{ path('front_works') }}">Todos los trabajos</a>
-                    <hr>
-                </div>
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title no-m">Trabajos y clientes</h1>
+                <a href="{{ path('front_works') }}"><i class="fa fa-caret-square-o-left" aria-hidden="true"></i> Todos los trabajos</a>
             </div>
         </div>
-    </div>
-    <div class="container container-main">
+        <hr class="hr-divider">
         <div class="row">
             {# Left side #}
             <div class="col-sm-8">
-                <h3 class="no-m-top">{{ work.name }}</h3>
-                <p><strong>{{ work.date | date('d/m/Y') }}</strong></p>
+                <h3 class="title no-m-top">{{ work.name }}</h3>
+                <p><strong><i class="fa fa-calendar c-yellow" aria-hidden="true"></i> {{ work.date | date('d/m/Y') }}</strong></p>
                 <h5>{{ work.shortDescription }}</h5>
                 <p>{{ work.description | raw }}</p>
                 {% if work.mainImage is not null %}
@@ -28,7 +24,7 @@
             </div>
             {# Right side #}
             <div class="col-sm-4">
-                {% if work.service is defined %}
+                {% if work.service is not null %}
                     <p>Conozca el proceso de actuación en un trabajo que requiere una <strong>{{ work.service.name }}</strong></p>
                     <a class="btn btn-success" href="{{ path('front_service_detail', {slug: work.service.slug}) }}">Sí, habladme de este servicio</a>
                 {% endif %}

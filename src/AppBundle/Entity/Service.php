@@ -68,6 +68,14 @@ class Service extends AbstractBase
     private $works;
 
     /**
+     * @var VehicleCategory
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="services")
+     * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
+     */
+    private $vehicleCategory;
+
+    /**
      * Methods.
      */
 
@@ -164,6 +172,26 @@ class Service extends AbstractBase
     public function removeWork(Work $work)
     {
         $this->works->removeElement($work);
+
+        return $this;
+    }
+
+    /**
+     * @return VehicleCategory
+     */
+    public function getVehicleCategory()
+    {
+        return $this->vehicleCategory;
+    }
+
+    /**
+     * @param VehicleCategory $vehicleCategory
+     *
+     * @return Service
+     */
+    public function setVehicleCategory($vehicleCategory)
+    {
+        $this->vehicleCategory = $vehicleCategory;
 
         return $this;
     }
