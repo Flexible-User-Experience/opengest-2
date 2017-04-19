@@ -1,6 +1,64 @@
 {% extends ':Frontend:base.html.twig' %}
 
+{% block title %}Acerca de · {{ parent() }}{% endblock %}
+
 {% block main %}
-    <h1>Company</h1>
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title no-m">Grúas Romaní</h1>
+                <h2 class="main-subtitle no-m">Elevación y transporte de grandes volúmenes.</h2>
+            </div>
+        </div>
+        <hr class="hr-divider">
+        <div class="row">
+            <div class="col-sm-9">
+                <img src="{{ asset('bundles/app/img/decor_head_empresa.jpg') }}" alt="imagen empresa" class="ImagePreviewBox">
+                <h3 class="main-subtitle">Grúas Romaní forma parte de un grupo de empresas especializadas en transportes especiales y alquiler de grúas</h3>
+                <p>El grupo corporativo está formado por:</p>
+                <ul>
+                    <li><strong>Grúas Romaní</strong>, con sede en Amposta</li>
+                    <li><strong>Grúas Ribera d'Ebre</strong>, con sede en Móra la Nova</li>
+                </ul>
+                <h3 class="main-subtitle">Calidad certificada</h3>
+                <p>Grúas Romaní dispone de un certificado como proveedor homologado para la prestación de servicios a todas las empresas que pertenecen a la
+                    <a href="http://www.aeqtonline.com/" target="_blank">Asociación Empresarial Química de Tarragona.</a></p>
+                <img src="{{ asset('bundles/app/img/logo_aeqt.png') }}" alt="Asociacion empresarial quimica de tarragona logo" class="img-responsive">
+                <h3 class="main-subtitle">Nos avalan más de 30 años de experiencia</h3>
+                <p>Desde 1977, Grúas Romaní ofrece servicios de alquiler de:</p>
+                <ul>
+                    <li>Grúas hidráulicas autopropulsadas todo terreno.</li>
+                    <li>Grúas de celosía sobre cadenas.</li>
+                    <li>Camiones pluma autocargantes.</li>
+                    <li>Transportes especiales.</li>
+                </ul>
+                <h3 class="main-subtitle">Una gran flota nos proporciona versatilidad.</h3>
+                <p>Disponemos de una amplia gamma de vehículos desde pequeño hasta gran tonelaje para adaptarnos mejor a sus necesidades, así como una variedad de maquinaria que nos permite atender sus necesidades en múltiples sectores.</p>
+                <p>Podemos realizar trabajos en:</p>
+                <ul>
+                    <li>Obras de construcción.</li>
+                    <li>Puertos marítimos.</li>
+                    <li>Industrias.</li>
+                    <li>Asistencia en carretera.</li>
+                </ul>
+                <h3 class="main-subtitle">Somos exigentes con nosotros mismos.</h3>
+                <p>Nuestro objetivo es siempre la satisfacción de nuestros clientes, así como poder solucionar sus problemas de forma rápida y eficiente ya sea con nuestros medios o con la fabricación de nuevos utensilios para optimizar sus trabajos.</p>
+                <p>Contamos con un equipo de profesionales con muchos años de experiencia, constantemente formados en seguridad y manipulación de maquinaria pesada altamente cualificados para ofrecer nuestros servicios con la máxima calidad.</p>
+            </div>
+            <div class="col-sm-3 yellow-background-light">
+                <h4>Nuestros Servicios</h4>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Alquiler de grúa hidráulica.</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Alquiler de grúa de celosía</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Dragados y escolleras de puertos marítimos.</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Derribos industriales.</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Salvamento y asistencia en carretera para turísmos y camiones.</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Transportes especiales de mercancías por carretera.</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Alquiler de plataformas elevadoras para la construcción.</li>
+                    <li><i class="fa fa-circle c-blue" aria-hidden="true"></i> Movimiento de maquinaria industrial en espacios cubiertos.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
