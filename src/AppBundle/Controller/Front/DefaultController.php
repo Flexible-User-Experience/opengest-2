@@ -46,6 +46,8 @@ class DefaultController extends Controller
                 'notice',
                 'Tu mensaje se ha enviado correctamente'
             );
+            // Persist new contact message into DB
+
             // Clean up new form
             $contactMessage = new ContactMessage();
             $form = $this->createForm(ContactMessageForm::class, $contactMessage);

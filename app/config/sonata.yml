@@ -42,6 +42,8 @@ sonata_admin:
         groups:
             Web:
                 icon: "<i class='fa fa-chrome'></i>"
+            Contactes:
+                icon: "<i class='fa fa-envelope'></i>"
             Usuaris:
                 icon: "<i class='fa fa-user'></i>"
         blocks:
@@ -58,6 +60,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Web ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Contactes ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
