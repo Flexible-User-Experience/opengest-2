@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\ContactMessage;
+use AppBundle\Form\ContactMessageForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -26,9 +29,30 @@ class DefaultController extends Controller
 
     /**
      * @Route("/empresa", name="front_company")
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function companyAction(Request $request)
     {
-        return $this->render(':Frontend:company.html.twig', array());
+        $contactMessage = new ContactMessage();
+        $form = $this->createForm(ContactMessageForm::class, $contactMessage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Set frontend flash message
+            $this->addFlash(
+                'notice',
+                'Tu mensaje se ha enviado correctamente'
+            );
+            // Clean up new form
+            $contactMessage = new ContactMessage();
+            $form = $this->createForm(ContactMessageForm::class, $contactMessage);
+        }
+
+        return $this->render(':Frontend:company.html.twig', array(
+            'contactForm' => $form->createView(),
+        ));
     }
 }

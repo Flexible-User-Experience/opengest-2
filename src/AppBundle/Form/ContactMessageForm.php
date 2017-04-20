@@ -25,7 +25,7 @@ class ContactMessageForm extends AbstractType
                     'label' => false,
                     'required' => true,
                     'attr' => array(
-                        'placeholder' => 'Nombre',
+                        'placeholder' => 'Nombre *',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
@@ -39,7 +39,7 @@ class ContactMessageForm extends AbstractType
                     'label' => false,
                     'required' => true,
                     'attr' => array(
-                        'placeholder' => 'Email',
+                        'placeholder' => 'Email *',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
@@ -56,6 +56,9 @@ class ContactMessageForm extends AbstractType
                 SubmitType::class,
                 array(
                     'label' => 'Enviar',
+                    'attr' => array(
+                        'class' => 'btn btn-primary',
+                    ),
                 )
             );
     }

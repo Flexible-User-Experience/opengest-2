@@ -50,6 +50,12 @@
                 <p>Contamos con un equipo de profesionales con muchos años de experiencia, constantemente formados en seguridad y manipulación de maquinaria pesada altamente cualificados para ofrecer nuestros servicios con la máxima calidad.</p>
             </div>
             <div class="col-sm-4 col-sm-offset-1">
+                <div class="panel blue-background-light">
+                    <div class="panel-heading">
+                        {% include ':Frontend/includes:notice_flash.html.twig' %}
+                        {{ form(contactForm) }}
+                    </div>
+                </div>
                 <div class="panel yellow-background-light">
                     <div class="panel-heading">
                         <h4 class="no-m-top normal-m-bottom">Nuestros Servicios</h4>
