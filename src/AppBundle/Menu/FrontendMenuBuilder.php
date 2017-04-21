@@ -175,4 +175,36 @@ class FrontendMenuBuilder
 
         return $menu;
     }
+
+    /**
+     * @return ItemInterface
+     */
+    public function createFooterMenu()
+    {
+        $menu = $this->factory->createItem('rootFooter');
+        $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked nav-yellow');
+        $menu->addChild(
+            'front_about',
+            array(
+                'label' => 'Sobre este sitio',
+                'route' => 'front_about',
+            )
+        );
+        $menu->addChild(
+            'front_privacy',
+            array(
+                'label' => 'Privacidad',
+                'route' => 'front_privacy',
+            )
+        );
+        $menu->addChild(
+            'front_sitemap',
+            array(
+                'label' => 'Mapa del web',
+                'route' => 'front_sitemap',
+            )
+        );
+
+        return $menu;
+    }
 }

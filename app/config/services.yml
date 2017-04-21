@@ -64,6 +64,12 @@ services:
         arguments: [ "@request_stack" ]
         tags:
             - { name: knp_menu.menu, alias: service }
+    app.frontend_footer_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.frontend_menu_builder", createFooterMenu ]
+        arguments: [ "@request_stack" ]
+        tags:
+            - { name: knp_menu.menu, alias: footer }
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
