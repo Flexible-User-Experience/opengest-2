@@ -47,10 +47,15 @@ class DefaultController extends Controller
                 'Tu mensaje se ha enviado correctamente'
             );
             // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactMessage);
+            $em->flush();
 
-            // Clean up new form
-            $contactMessage = new ContactMessage();
-            $form = $this->createForm(ContactMessageForm::class, $contactMessage);
+            // Clean up new form in production envioronment
+            if ($this->get('kernel')->getEnvironment() == 'prod') {
+                $contactMessage = new ContactMessage();
+                $form = $this->createForm(ContactMessageForm::class, $contactMessage);
+            }
         }
 
         return $this->render(':Frontend:company.html.twig', array(
