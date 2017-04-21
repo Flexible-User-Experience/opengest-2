@@ -50,7 +50,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contactMessage);
             $em->flush();
-
+            // Send notification
+            $messenger = $this->get('app.notification');
+            $messenger->sendCommonUserNotification($contactMessage);
+            $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form in production envioronment
             if ($this->get('kernel')->getEnvironment() == 'prod') {
                 $contactMessage = new ContactMessage();
