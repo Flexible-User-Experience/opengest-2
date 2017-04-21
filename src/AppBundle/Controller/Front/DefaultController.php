@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class DefaultController extends Controller
 {
@@ -63,6 +64,26 @@ class DefaultController extends Controller
 
         return $this->render(':Frontend:company.html.twig', array(
             'contactForm' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/test-email", name="front_test_email")
+     *
+     * @return Response
+     *
+     * @throws HttpException
+     */
+    public function testEmailAction()
+    {
+        if ($this->get('kernel')->getEnvironment() == 'prod') {
+            throw new HttpException(403);
+        }
+
+        $contactMessage = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
+
+        return $this->render(':Mails:common_user_notification.html.twig', array(
+            'contact' => $contactMessage,
         ));
     }
 }

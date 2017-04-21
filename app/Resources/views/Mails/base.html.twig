@@ -22,7 +22,7 @@
     <body>
     {% block body %}
         <table class="body">
-            <tr class="green-background">
+            <tr class="blue-background">
                 <td class="center" align="center" valign="top">
                     <center>
                         <table class="container">
@@ -35,11 +35,12 @@
                                         <tr>
                                             <th class="small-12 large-6 first columns white-color padding-bottom">
                                                 <a href="{{ url('front_homepage') }}">
-                                                    <img src="{{ absolute_url(asset('bundles/app/img/logo-espai-kowo-small.png')) }}">
+                                                    Grúas Romaní
+                                                    {#<img src="{{ absolute_url(asset('bundles/app/img/logo-espai-kowo-small.png')) }}">#}
                                                 </a>
                                             </th>
                                             <th class="small-12 large-6 last columns white-color vertical-padding">
-                                                <h2 class="text-right">{% block subject %}Espai Kowo{% endblock %}</h2>
+                                                <h2 class="text-right">{% block subject %}Grúas Romaní{% endblock %}</h2>
                                             </th>
                                             <th class="expander"></th>
                                         </tr>
@@ -52,21 +53,15 @@
                                         <table class="row black-background">
                                             <tr>
                                                 <th class="small-12 large-5 first columns vertical-padding">
-                                                    <h6 class="green-color">Espai Kowo</h6>
+                                                    <h6 class="yellow-color">Grúas Romaní, SA</h6>
                                                     <p class="white-color">
-                                                        C. Primer de maig, 1 3r B<br>
+                                                        Ctra. Santa Bárbara, Km. 1'5<br>
                                                         43870 Amposta<br>
                                                         (Tarragona)
                                                     </p>
                                                 </th>
                                                 <th class="small-6 large-1 vertical-padding ">
-                                                    <a href="https://www.facebook.com/espaikowo/">
-                                                        <img src="{{ absolute_url(asset('bundles/app/img/facebook30x30.png')) }}">
-                                                    </a>
                                                 <th class="small-6 large-1 vertical-padding ">
-                                                    <a href="https://twitter.com/espaikowo">
-                                                        <img src="{{ absolute_url(asset('bundles/app/img/twitter30x30.png')) }}">
-                                                    </a>
                                                 </th>
                                                 <th class="small-12 large-5 last columns vertical-padding">
                                                     <p class="white-color text-right">
