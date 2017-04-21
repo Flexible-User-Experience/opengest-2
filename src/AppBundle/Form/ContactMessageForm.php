@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -48,6 +49,32 @@ class ContactMessageForm extends AbstractType
                             'checkMX' => true,
                             'checkHost' => true,
                         )),
+                    ),
+                )
+            )
+            ->add(
+                'phone',
+                TextType::class,
+                array(
+                    'label' => false,
+                    'required' => false,
+                    'attr' => array(
+                        'placeholder' => 'Teléfono',
+                    ),
+                )
+            )
+            ->add(
+                'message',
+                TextareaType::class,
+                array(
+                    'label' => false,
+                    'required' => true,
+                    'attr' => array(
+                        'rows' => 5,
+                        'placeholder' => 'Mensaje *',
+                    ),
+                    'constraints' => array(
+                        new Assert\NotBlank(),
                     ),
                 )
             )
