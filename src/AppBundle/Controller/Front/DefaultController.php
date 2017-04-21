@@ -80,11 +80,12 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
 
-        $contactMessage = new ContactMessage();
-        $contactMessage
-            ->setName('Manolito');
+//        $contactMessage = new ContactMessage();
+//        $contactMessage
+//            ->setName('Manolito');
+        $contactMessage = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
 
-        return $this->render(':Mails:common_user_notification.html.twig', array(
+        return $this->render(':Mails:contact_form_admin_notification.html.twig', array(
             'contact' => $contactMessage,
         ));
     }
