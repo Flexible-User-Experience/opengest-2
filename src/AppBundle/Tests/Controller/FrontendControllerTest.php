@@ -43,6 +43,9 @@ class FrontendControllerTest extends AbstractBaseTest
             array('/vehiculos/categoria/grues1'),
             array('/trabajos'),
             array('/trabajo/my-title'),
+            array('/sobre-este-sitio'),
+            array('/privacidad'),
+            array('/mapa-del-web'),
 //            array('/sitemap/sitemap.default.xml'),
         );
     }

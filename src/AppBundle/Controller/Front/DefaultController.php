@@ -84,6 +84,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/mapa-del-web", name="front_sitemap")
+     */
+    public function sitemapAction()
+    {
+        return $this->render(':Frontend:sitemap.html.twig');
+    }
+
+    /**
      * @Route("/test-email", name="front_test_email")
      *
      * @return Response
