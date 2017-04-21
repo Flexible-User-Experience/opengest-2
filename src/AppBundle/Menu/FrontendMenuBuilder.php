@@ -249,13 +249,28 @@ class FrontendMenuBuilder
                 )
             );
         }
-        $menu->addChild(
+        $vehicleMenu = $menu->addChild(
             'front_vehicles',
             array(
                 'label' => 'Vehículos',
                 'route' => 'front_vehicles',
             )
         );
+        $vehicleCategories = $this->vcr->findEnabledSortedByName();
+        /** @var VehicleCategory $vehicleCategory */
+        foreach ($vehicleCategories as $vehicleCategory) {
+            $vehicleMenu->addChild(
+                $vehicleCategory->getSlug(),
+                array(
+                    'label' => ucfirst(strtolower($vehicleCategory->getName())),
+                    'route' => 'front_vehicles_category',
+                    'routeParameters' => array(
+                        'slug' => $vehicleCategory->getSlug(),
+                    ),
+                )
+            );
+        }
+
         $workMenu = $menu->addChild(
             'front_works',
             array(
