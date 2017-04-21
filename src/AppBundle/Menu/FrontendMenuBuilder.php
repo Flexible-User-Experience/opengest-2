@@ -207,4 +207,84 @@ class FrontendMenuBuilder
 
         return $menu;
     }
+
+    /**
+     * @return ItemInterface
+     */
+    public function createSitemapMenu()
+    {
+        $menu = $this->factory->createItem('rootSitemap');
+        $menu->addChild(
+            'front_homepage',
+            array(
+                'label' => 'Inicio',
+                'route' => 'front_homepage',
+            )
+        );
+        $serviceMenu = $menu->addChild(
+            'front_services',
+            array(
+                'label' => 'Servicios',
+                'route' => 'front_services',
+            )
+        );
+        $services = $this->sr->findEnabledSortedByPositionAndName();
+        /** @var Service $service */
+        foreach ($services as $service) {
+            $serviceMenu->addChild(
+                $service->getSlug(),
+                array(
+                    'label' => ucfirst(strtolower($service->getName())),
+                    'route' => 'front_service_detail',
+                    'routeParameters' => array(
+                        'slug' => $service->getSlug(),
+                    ),
+                )
+            );
+        }
+        $menu->addChild(
+            'front_vehicles',
+            array(
+                'label' => 'Vehículos',
+                'route' => 'front_vehicles',
+            )
+        );
+        $menu->addChild(
+            'front_works',
+            array(
+                'label' => 'Trabajos',
+                'route' => 'front_works',
+            )
+        );
+        $menu->addChild(
+            'front_company',
+            array(
+                'label' => 'Empresa',
+                'route' => 'front_company',
+            )
+        );
+        $menu->addChild(
+            'front_about',
+            array(
+                'label' => 'Sobre este sitio',
+                'route' => 'front_about',
+            )
+        );
+        $menu->addChild(
+            'front_privacy',
+            array(
+                'label' => 'Privacidad',
+                'route' => 'front_privacy',
+            )
+        );
+        $menu->addChild(
+            'front_sitemap',
+            array(
+                'label' => 'Mapa del web',
+                'route' => 'front_sitemap',
+            )
+        );
+
+        return $menu;
+    }
 }

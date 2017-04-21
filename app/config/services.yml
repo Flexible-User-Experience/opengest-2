@@ -70,6 +70,12 @@ services:
         arguments: [ "@request_stack" ]
         tags:
             - { name: knp_menu.menu, alias: footer }
+    app.frontend_sitemap_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.frontend_menu_builder", createSitemapMenu ]
+        arguments: [ "@request_stack" ]
+        tags:
+            - { name: knp_menu.menu, alias: sitemap }
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
