@@ -80,12 +80,14 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
 
-//        $contactMessage = new ContactMessage();
-//        $contactMessage
-//            ->setName('Manolito');
-        $contactMessage = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
+        $contactMessage = new ContactMessage();
+        $contactMessage
+            ->setName('Manolito')
+            ->setMessage('Grúa hidráulica todo terreno con capacidad máxima de 300TM.')
+        ;
+//        $contactMessage = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
 
-        return $this->render(':Mails:contact_form_admin_notification.html.twig', array(
+        return $this->render(':Mails:user_backend_answer_notification.html.twig', array(
             'contact' => $contactMessage,
         ));
     }
