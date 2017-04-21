@@ -68,6 +68,14 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/sobre-este-sitio", name="front_about")
+     */
+    public function abotuAction()
+    {
+        return $this->render(':Frontend:about.html.twig');
+    }
+
+    /**
      * @Route("/test-email", name="front_test_email")
      *
      * @return Response
