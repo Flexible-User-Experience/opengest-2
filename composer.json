@@ -26,6 +26,7 @@
         "doctrine/migrations": "^1.0",
         "egeloen/ckeditor-bundle": "^4.0",
         "egulias/email-validator": "^1.2",
+        "hampe/zurb-ink-bundle": "^2.2",
         "hautelook/alice-bundle": "^1.0",
         "ircmaxell/password-compat": "~1.0",
         "knplabs/knp-menu-bundle": "^2.0",
