@@ -70,9 +70,17 @@ class DefaultController extends Controller
     /**
      * @Route("/sobre-este-sitio", name="front_about")
      */
-    public function abotuAction()
+    public function aboutAction()
     {
         return $this->render(':Frontend:about.html.twig');
+    }
+
+    /**
+     * @Route("/privacidad", name="front_privacy")
+     */
+    public function privacyAction()
+    {
+        return $this->render(':Frontend:privacy.html.twig');
     }
 
     /**
