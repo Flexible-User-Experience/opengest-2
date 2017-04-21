@@ -4,8 +4,10 @@ namespace AppBundle\Menu;
 
 use AppBundle\Entity\Service;
 use AppBundle\Entity\VehicleCategory;
+use AppBundle\Entity\Work;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
+use AppBundle\Repository\WorkRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -47,6 +49,11 @@ class FrontendMenuBuilder
     private $sr;
 
     /**
+     * @var WorkRepository
+     */
+    private $wr;
+
+    /**
      * Methods.
      */
 
@@ -56,14 +63,16 @@ class FrontendMenuBuilder
      * @param TokenStorageInterface     $ts
      * @param VehicleCategoryRepository $vcr
      * @param ServiceRepository         $sr
+     * @param WorkRepository            $wr
      */
-    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr)
+    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr, WorkRepository $wr)
     {
         $this->factory = $factory;
         $this->ac = $ac;
         $this->ts = $ts;
         $this->vcr = $vcr;
         $this->sr = $sr;
+        $this->wr = $wr;
     }
 
     /**
@@ -121,11 +130,9 @@ class FrontendMenuBuilder
     }
 
     /**
-     * @param RequestStack $requestStack
-     *
      * @return ItemInterface
      */
-    public function createVehicleCategoryMenu(RequestStack $requestStack)
+    public function createVehicleCategoryMenu()
     {
         $menu = $this->factory->createItem('rootCategory');
         $menu->setChildrenAttribute('class', 'nav nav-pills nav-stacked nav-yellow');
@@ -249,13 +256,28 @@ class FrontendMenuBuilder
                 'route' => 'front_vehicles',
             )
         );
-        $menu->addChild(
+        $workMenu = $menu->addChild(
             'front_works',
             array(
                 'label' => 'Trabajos',
                 'route' => 'front_works',
             )
         );
+        $works = $this->wr->findEnabledSortedByName();
+        /** @var Work $work */
+        foreach ($works as $work) {
+            $workMenu->addChild(
+                $work->getSlug(),
+                array(
+                    'label' => ucfirst(strtolower($work->getName())),
+                    'route' => 'front_work_detail',
+                    'routeParameters' => array(
+                        'slug' => $work->getSlug(),
+                    ),
+                )
+            );
+        }
+
         $menu->addChild(
             'front_company',
             array(

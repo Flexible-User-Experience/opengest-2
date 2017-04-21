@@ -9,6 +9,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:VehicleCategory
+    app.work_repository:
+        class: AppBundle\Repository\WorkRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Work
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
