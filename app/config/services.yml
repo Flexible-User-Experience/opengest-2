@@ -76,6 +76,11 @@ services:
         arguments: [ "@request_stack" ]
         tags:
             - { name: knp_menu.menu, alias: sitemap }
+# Sitemap
+    app.sitemap:
+        class: AppBundle\Listener\SitemapListener
+        arguments: [ "@router", "@app.frontend_menu_builder" ]
+        tags: [ { name: "presta.sitemap.listener" } ]
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
