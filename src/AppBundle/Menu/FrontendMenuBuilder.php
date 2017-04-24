@@ -222,6 +222,7 @@ class FrontendMenuBuilder
     public function createSitemapMenu()
     {
         $menu = $this->factory->createItem('rootSitemap');
+        $menu->setChildrenAttribute('class', 'ul-sitemap');
         $menu->addChild(
             'front_homepage',
             array(
