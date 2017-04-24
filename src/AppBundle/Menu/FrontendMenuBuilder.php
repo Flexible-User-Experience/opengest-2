@@ -3,6 +3,7 @@
 namespace AppBundle\Menu;
 
 use AppBundle\Entity\Service;
+use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleCategory;
 use AppBundle\Entity\Work;
 use AppBundle\Repository\ServiceRepository;
@@ -259,7 +260,7 @@ class FrontendMenuBuilder
         $vehicleCategories = $this->vcr->findEnabledSortedByName();
         /** @var VehicleCategory $vehicleCategory */
         foreach ($vehicleCategories as $vehicleCategory) {
-            $vehicleMenu->addChild(
+            $vehicleChildMenu = $vehicleMenu->addChild(
                 $vehicleCategory->getSlug(),
                 array(
                     'label' => ucfirst(strtolower($vehicleCategory->getName())),
@@ -269,6 +270,19 @@ class FrontendMenuBuilder
                     ),
                 )
             );
+            /** @var Vehicle $vehicle */
+            foreach ($vehicleCategory->getVehicles() as $vehicle) {
+                $vehicleChildMenu->addChild(
+                    $vehicle->getSlug(),
+                    array(
+                        'label' => strtoupper($vehicle->getName()),
+                        'route' => 'front_vehicle_detail',
+                        'routeParameters' => array(
+                            'slug' => $vehicle->getSlug(),
+                        ),
+                    )
+                );
+            }
         }
 
         $workMenu = $menu->addChild(
