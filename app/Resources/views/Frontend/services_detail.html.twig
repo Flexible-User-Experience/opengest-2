@@ -21,11 +21,20 @@
             </div>
             {# right main content #}
             <div class="col-sm-9">
-                <h3 class="no-m-top">{{ service.name | capitalize }}</h3>
+                <h3 class="no-m-top main-subtitle">{{ service.name | capitalize }}</h3>
                 {% if service.mainImage is not null %}
                     <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('685x200') }}" class="img-responsive" alt="{{ service.name }}">
                 {% endif %}
                 <p>{{ service.description }}</p>
+                <div class="panel yellow-background-light">
+                    <div class="panel-heading c-blue">
+                        <h6 class="panel-title no-m-top">¿Desea conocer más detalles sobre {{ service.name | lower }}? Contacte ahora con nosotros</h6>
+                        <p class="normal-m-top">
+                            <i class="fa fa-phone" aria-hidden="true"></i> llamando al <strong>636 963 304</strong><br>
+                            <i class="fa fa-mouse-pointer" aria-hidden="true"></i> mediante este sencillo formulario
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
