@@ -7,7 +7,6 @@ use Knp\Menu\MenuItem;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -51,17 +50,27 @@ class SitemapListener implements SitemapListenerInterface
             $sitemap = $this->menuBuilder->createSitemapMenu();
             /** @var MenuItem $item */
             foreach ($sitemap->getIterator() as $item) {
-                $url = $this->router->generate(
-                    'front_homepage',
-                    array(
-                        'slug' => $item->getUri(),
-                    ),
-                    UrlGeneratorInterface::ABSOLUTE_URL
-                );
-//                $item->getUri();
+                //                $url = $this->router->generate(
+//                    $item->getName(),
+//                    array(
+//                    ),
+//                    UrlGeneratorInterface::ABSOLUTE_URL
+//                );
+
                 $event
                     ->getUrlContainer()
-                    ->addUrl($this->makeUrlConcrete($url), 'default');
+                    ->addUrl($this->makeUrlConcrete($item->getName()), 'default');
+                if (count($item->getChildren()) > 0) {
+                    /** @var MenuItem $child */
+                    foreach ($item->getChildren() as $child) {
+                        //                        $url = $this->router->generate(
+//                            $child->getName(), array(), UrlGeneratorInterface::ABSOLUTE_URL
+//                        );
+                        $event
+                            ->getUrlContainer()
+                            ->addUrl($this->makeUrlConcrete($child->getName()), 'default');
+                    }
+                }
             }
         }
     }
@@ -71,12 +80,12 @@ class SitemapListener implements SitemapListenerInterface
      *
      * @return string
      */
-    private function makeUrl($routeName)
-    {
-        return $this->router->generate(
-            $routeName, array(), UrlGeneratorInterface::ABSOLUTE_URL
-        );
-    }
+//    private function makeUrl($routeName)
+//    {
+//        return $this->router->generate(
+//            $routeName, array(), UrlGeneratorInterface::ABSOLUTE_URL
+//        );
+//    }
 
     /**
      * @param string         $url

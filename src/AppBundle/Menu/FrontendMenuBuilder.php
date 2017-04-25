@@ -12,6 +12,8 @@ use AppBundle\Repository\WorkRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
@@ -55,6 +57,11 @@ class FrontendMenuBuilder
     private $wr;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * Methods.
      */
 
@@ -65,8 +72,9 @@ class FrontendMenuBuilder
      * @param VehicleCategoryRepository $vcr
      * @param ServiceRepository         $sr
      * @param WorkRepository            $wr
+     * @param RouterInterface           $router
      */
-    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr, WorkRepository $wr)
+    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr, WorkRepository $wr, RouterInterface $router)
     {
         $this->factory = $factory;
         $this->ac = $ac;
@@ -74,6 +82,7 @@ class FrontendMenuBuilder
         $this->vcr = $vcr;
         $this->sr = $sr;
         $this->wr = $wr;
+        $this->router = $router;
     }
 
     /**
@@ -224,14 +233,14 @@ class FrontendMenuBuilder
         $menu = $this->factory->createItem('rootSitemap');
         $menu->setChildrenAttribute('class', 'ul-sitemap');
         $menu->addChild(
-            'front_homepage',
+            $this->router->generate('front_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Inicio',
                 'route' => 'front_homepage',
             )
         );
         $serviceMenu = $menu->addChild(
-            'front_services',
+            $this->router->generate('front_services', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Servicios',
                 'route' => 'front_services',
@@ -241,7 +250,7 @@ class FrontendMenuBuilder
         /** @var Service $service */
         foreach ($services as $service) {
             $serviceMenu->addChild(
-                $service->getSlug(),
+                $this->router->generate('front_service_detail', ['slug' => $service->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 array(
                     'label' => ucfirst(strtolower($service->getName())),
                     'route' => 'front_service_detail',
@@ -252,7 +261,7 @@ class FrontendMenuBuilder
             );
         }
         $vehicleMenu = $menu->addChild(
-            'front_vehicles',
+            $this->router->generate('front_vehicles', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Vehículos',
                 'route' => 'front_vehicles',
@@ -262,7 +271,7 @@ class FrontendMenuBuilder
         /** @var VehicleCategory $vehicleCategory */
         foreach ($vehicleCategories as $vehicleCategory) {
             $vehicleChildMenu = $vehicleMenu->addChild(
-                $vehicleCategory->getSlug(),
+                $this->router->generate('front_vehicles_category', ['slug' => $vehicleCategory->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 array(
                     'label' => ucfirst(strtolower($vehicleCategory->getName())),
                     'route' => 'front_vehicles_category',
@@ -274,7 +283,7 @@ class FrontendMenuBuilder
             /** @var Vehicle $vehicle */
             foreach ($vehicleCategory->getVehicles() as $vehicle) {
                 $vehicleChildMenu->addChild(
-                    $vehicle->getSlug(),
+                    $this->router->generate('front_vehicle_detail', ['slug' => $vehicle->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                     array(
                         'label' => strtoupper($vehicle->getName()),
                         'route' => 'front_vehicle_detail',
@@ -287,7 +296,7 @@ class FrontendMenuBuilder
         }
 
         $workMenu = $menu->addChild(
-            'front_works',
+            $this->router->generate('front_works', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Trabajos',
                 'route' => 'front_works',
@@ -297,7 +306,7 @@ class FrontendMenuBuilder
         /** @var Work $work */
         foreach ($works as $work) {
             $workMenu->addChild(
-                $work->getSlug(),
+                $this->router->generate('front_work_detail', ['slug' => $work->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 array(
                     'label' => ucfirst(strtolower($work->getName())),
                     'route' => 'front_work_detail',
@@ -309,28 +318,28 @@ class FrontendMenuBuilder
         }
 
         $menu->addChild(
-            'front_company',
+            $this->router->generate('front_company', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Empresa',
                 'route' => 'front_company',
             )
         );
         $menu->addChild(
-            'front_about',
+            $this->router->generate('front_about', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Sobre este sitio',
                 'route' => 'front_about',
             )
         );
         $menu->addChild(
-            'front_privacy',
+            $this->router->generate('front_privacy', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Privacidad',
                 'route' => 'front_privacy',
             )
         );
         $menu->addChild(
-            'front_sitemap',
+            $this->router->generate('front_sitemap', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
                 'label' => 'Mapa del web',
                 'route' => 'front_sitemap',
