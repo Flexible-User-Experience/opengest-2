@@ -50,42 +50,28 @@ class SitemapListener implements SitemapListenerInterface
             $sitemap = $this->menuBuilder->createSitemapMenu();
             /** @var MenuItem $item */
             foreach ($sitemap->getIterator() as $item) {
-                //                $url = $this->router->generate(
-//                    $item->getName(),
-//                    array(
-//                    ),
-//                    UrlGeneratorInterface::ABSOLUTE_URL
-//                );
-
                 $event
                     ->getUrlContainer()
                     ->addUrl($this->makeUrlConcrete($item->getName()), 'default');
                 if (count($item->getChildren()) > 0) {
                     /** @var MenuItem $child */
                     foreach ($item->getChildren() as $child) {
-                        //                        $url = $this->router->generate(
-//                            $child->getName(), array(), UrlGeneratorInterface::ABSOLUTE_URL
-//                        );
                         $event
                             ->getUrlContainer()
-                            ->addUrl($this->makeUrlConcrete($child->getName()), 'default');
+                            ->addUrl($this->makeUrlConcrete($child->getName(), 0.8), 'default');
+                        if (count($child->getChildren()) > 0) {
+                            /** @var MenuItem $grandchild */
+                            foreach ($child->getChildren() as $grandchild) {
+                                $event
+                                    ->getUrlContainer()
+                                    ->addUrl($this->makeUrlConcrete($grandchild->getName(), 0.5), 'default');
+                            }
+                        }
                     }
                 }
             }
         }
     }
-
-    /**
-     * @param string $routeName
-     *
-     * @return string
-     */
-//    private function makeUrl($routeName)
-//    {
-//        return $this->router->generate(
-//            $routeName, array(), UrlGeneratorInterface::ABSOLUTE_URL
-//        );
-//    }
 
     /**
      * @param string         $url
