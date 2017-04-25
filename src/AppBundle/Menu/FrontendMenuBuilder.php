@@ -283,11 +283,12 @@ class FrontendMenuBuilder
             /** @var Vehicle $vehicle */
             foreach ($vehicleCategory->getVehicles() as $vehicle) {
                 $vehicleChildMenu->addChild(
-                    $this->router->generate('front_vehicle_detail', ['slug' => $vehicle->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
+                    $this->router->generate('front_vehicle_detail', ['category_slug' => $vehicle->getCategory()->getSlug(), 'slug' => $vehicle->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                     array(
                         'label' => strtoupper($vehicle->getName()),
                         'route' => 'front_vehicle_detail',
                         'routeParameters' => array(
+                            'category_slug' => $vehicle->getCategory()->getSlug(),
                             'slug' => $vehicle->getSlug(),
                         ),
                     )

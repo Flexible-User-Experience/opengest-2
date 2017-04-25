@@ -35,7 +35,7 @@ class VehiclesController extends AbstractBaseController
     }
 
     /**
-     * @Route("/vehiculo/{slug}", name="front_vehicle_detail")
+     * @Route("/vehiculo/{category_slug}/{slug}", name="front_vehicle_detail")
      *
      * @param $slug
      *

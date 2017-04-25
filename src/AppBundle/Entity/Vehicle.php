@@ -103,7 +103,7 @@ class Vehicle extends AbstractBase
      */
 
     /**
-     * @return string
+     * @return VehicleCategory
      */
     public function getCategory()
     {
@@ -111,7 +111,7 @@ class Vehicle extends AbstractBase
     }
 
     /**
-     * @param string $category
+     * @param VehicleCategory $category
      *
      * @return $this
      */
