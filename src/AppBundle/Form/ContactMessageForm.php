@@ -84,7 +84,7 @@ class ContactMessageForm extends AbstractType
                 array(
                     'label' => 'Enviar',
                     'attr' => array(
-                        'class' => 'btn btn-primary',
+                        'class' => 'btn btn-primary no-m-bottom',
                     ),
                 )
             );
