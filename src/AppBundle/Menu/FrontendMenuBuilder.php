@@ -249,7 +249,7 @@ class FrontendMenuBuilder
         $services = $this->sr->findEnabledSortedByPositionAndName();
         /** @var Service $service */
         foreach ($services as $service) {
-            $serviceMenu->addChild(
+            $item = $serviceMenu->addChild(
                 $this->router->generate('front_service_detail', ['slug' => $service->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 array(
                     'label' => ucfirst(strtolower($service->getName())),
@@ -259,6 +259,7 @@ class FrontendMenuBuilder
                     ),
                 )
             );
+            $item->setExtra('updated_at', $service->getUpdatedAt());
         }
         $vehicleMenu = $menu->addChild(
             $this->router->generate('front_vehicles', [], UrlGeneratorInterface::ABSOLUTE_URL),
@@ -280,9 +281,10 @@ class FrontendMenuBuilder
                     ),
                 )
             );
+            $vehicleChildMenu->setExtra('updated_at', $vehicleCategory->getUpdatedAt());
             /** @var Vehicle $vehicle */
             foreach ($vehicleCategory->getVehicles() as $vehicle) {
-                $vehicleChildMenu->addChild(
+                $item = $vehicleChildMenu->addChild(
                     $this->router->generate('front_vehicle_detail', ['category_slug' => $vehicle->getCategory()->getSlug(), 'slug' => $vehicle->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                     array(
                         'label' => strtoupper($vehicle->getName()),
@@ -293,6 +295,7 @@ class FrontendMenuBuilder
                         ),
                     )
                 );
+                $item->setExtra('updated_at', $vehicle->getUpdatedAt());
             }
         }
 
@@ -306,7 +309,7 @@ class FrontendMenuBuilder
         $works = $this->wr->findEnabledSortedByName();
         /** @var Work $work */
         foreach ($works as $work) {
-            $workMenu->addChild(
+            $item = $workMenu->addChild(
                 $this->router->generate('front_work_detail', ['slug' => $work->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
                 array(
                     'label' => ucfirst(strtolower($work->getName())),
@@ -316,6 +319,7 @@ class FrontendMenuBuilder
                     ),
                 )
             );
+            $item->setExtra('updated_at', $work->getUpdatedAt());
         }
 
         $menu->addChild(

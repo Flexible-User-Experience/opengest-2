@@ -50,21 +50,39 @@ class SitemapListener implements SitemapListenerInterface
             $sitemap = $this->menuBuilder->createSitemapMenu();
             /** @var MenuItem $item */
             foreach ($sitemap->getIterator() as $item) {
-                $event
-                    ->getUrlContainer()
-                    ->addUrl($this->makeUrlConcrete($item->getName()), 'default');
+                if ($item->getExtra('updated_at')) {
+                    $event
+                        ->getUrlContainer()
+                        ->addUrl($this->makeUrlConcrete($item->getName(), 1, $item->getExtra('updated_at')), 'default');
+                } else {
+                    $event
+                        ->getUrlContainer()
+                        ->addUrl($this->makeUrlConcrete($item->getName()), 'default');
+                }
                 if (count($item->getChildren()) > 0) {
                     /** @var MenuItem $child */
                     foreach ($item->getChildren() as $child) {
-                        $event
-                            ->getUrlContainer()
-                            ->addUrl($this->makeUrlConcrete($child->getName(), 0.8), 'default');
+                        if ($child->getExtra('updated_at')) {
+                            $event
+                                ->getUrlContainer()
+                                ->addUrl($this->makeUrlConcrete($child->getName(), 0.8, $child->getExtra('updated_at')), 'default');
+                        } else {
+                            $event
+                                ->getUrlContainer()
+                                ->addUrl($this->makeUrlConcrete($child->getName(), 0.8), 'default');
+                        }
                         if (count($child->getChildren()) > 0) {
                             /** @var MenuItem $grandchild */
                             foreach ($child->getChildren() as $grandchild) {
-                                $event
-                                    ->getUrlContainer()
-                                    ->addUrl($this->makeUrlConcrete($grandchild->getName(), 0.5), 'default');
+                                if ($grandchild->getExtra('updated_at')) {
+                                    $event
+                                        ->getUrlContainer()
+                                        ->addUrl($this->makeUrlConcrete($grandchild->getName(), 0.5, $grandchild->getExtra('updated_at')), 'default');
+                                } else {
+                                    $event
+                                        ->getUrlContainer()
+                                        ->addUrl($this->makeUrlConcrete($grandchild->getName(), 0.5), 'default');
+                                }
                             }
                         }
                     }
