@@ -39,11 +39,14 @@ class FrontendControllerTest extends AbstractBaseTest
             array('/'),
             array('/servicio/my-title'),
             array('/empresa'),
-            array('/vehiculo/my-title'),
-            array('/vehiculos/categoria/grues1'),
+            array('/vehiculo/my-vehicle-category/my-title'),
+            array('/vehiculos/categoria/grues2'),
             array('/trabajos'),
             array('/trabajo/my-title'),
-//            array('/sitemap/sitemap.default.xml'),
+            array('/sobre-este-sitio'),
+            array('/privacidad'),
+            array('/mapa-del-web'),
+            array('/sitemap/sitemap.default.xml'),
         );
     }
 

@@ -80,7 +80,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Servei',
-                    'required' => true,
+                    'required' => false,
                     'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
                 )
             )

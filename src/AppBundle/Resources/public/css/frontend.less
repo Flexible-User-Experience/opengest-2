@@ -84,6 +84,7 @@
 .extra-m-bottom { margin-bottom: @gap-big; }
 .small-m-top    { margin-top: @gap-small; }
 .small-m-bottom { margin-bottom: @gap-small; }
+.normal-m-bottom { margin-bottom: @gap-normal; }
 
 // Custom paddings
 .p-vertical {
@@ -94,6 +95,10 @@
 .p-vertical-small {
   padding-top: @gap-normal;
   padding-bottom: @gap-normal;
+}
+
+.extra-padding {
+  padding: @gap-normal;
 }
 
 // Pagination
@@ -355,3 +360,12 @@ textarea { .resizable(vertical); }
     }
   }
 }
+
+.ul-sitemap {
+  padding-left: @gap-normal;
+}
+
+//// Customs button
+//div.form-group:has( > button.no-m-bottom) {
+//  margin-bottom: 0;
+//}

@@ -1,0 +1,30 @@
+{% extends ':Mails:base.html.twig' %}
+
+{% block subject %}Notificación{% endblock %}
+
+{% block content %}
+    <table class="row">
+        <tbody>
+        <tr>
+            <th><img src="{{ absolute_url(asset('bundles/app/img/base-email-notification-gr.jpg')) }}"></th>
+        </tr>
+        </tbody>
+    </table>
+    <table class="row">
+        <tbody>
+        <tr>
+            <th class="small-12 large-12 columns first last vertical-padding">
+                <table>
+                    <tr>
+                        <th>
+                            <h4>Gracias por contactar con nosotros <br> {{ contact.name }}</h4>
+                            <p class="grey-color">Te responderemos lo más rápido posible. Seguimos en contacto.</p>
+                        </th>
+                        <th class="expander"></th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

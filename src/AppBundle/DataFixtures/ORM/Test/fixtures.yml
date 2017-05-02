@@ -1,3 +1,17 @@
+# Contact messages
+AppBundle\Entity\ContactMessage:
+  contactmessage{1..2}:
+    name: <name()>
+    answer: <word()>
+    email: <safeEmail()>
+    phone: <phoneNumber()>
+    message: <paragraph()>
+    checked: <boolean(70)>
+    answered: <boolean(30)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Service
 AppBundle\Entity\Service:
   service1:
@@ -53,9 +67,15 @@ AppBundle\Entity\WorkImage:
 
 # VehicleCategory
 AppBundle\Entity\VehicleCategory:
-  vehicleCategory{1..2}:
-    name: grues<current()>
-    position: <current()>
+  vehicleCategory1:
+    name: my vehicle category
+    position: 1
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+  vehicleCategory2:
+    name: grues2
+    position: 2
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -63,7 +83,7 @@ AppBundle\Entity\VehicleCategory:
 # Vehicle
 AppBundle\Entity\Vehicle:
   vehicle1:
-    category: @vehicleCategory<numberBetween(1,2)>
+    category: @vehicleCategory1
     name: my title
     shortDescription: <sentence()>
     description: <paragraph()>

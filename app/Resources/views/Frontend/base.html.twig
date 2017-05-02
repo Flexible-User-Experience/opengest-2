@@ -35,10 +35,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="{{ path('front_homepage') }}">
-                    <img alt="Grúas Romaní logo" src="{{ asset('/bundles/app/img/Logo_empresa_peu.png') }}">
-                    {#<svg height="70" width="70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
-                        {#<image height="70" width="70" class="navbar-logo" xlink:href="#" alt="Grúas Romaní Logo"></image>#}
-                    {#</svg>#}
+                    {#<img alt="Grúas Romaní logo" src="{{ asset('/bundles/app/img/Logo_empresa_peu.png') }}">#}
+                    <svg style="background-color: #FFFFFF; margin-top: 5px;" height="60" width="140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <image height="60" width="140" class="navbar-logo" xlink:href="{{ asset('bundles/app/svg/logo_romani.svg') }}" alt="Grúas Romaní Logo"></image>
+                    </svg>
                 </a>
             </div>
             {#<!-- Collect the nav links, forms, and other content for toggling -->#}
@@ -62,10 +62,9 @@
                 </div>
                 <div class="col-sm-7">
                     <p>
-                        Ctra. Santa Bárbara, Km. 1'5<br>
+                        <a target="_blank" href="https://goo.gl/maps/wNjh5avogrH2"><i class="fa fa-map-marker" aria-hidden="true"></i></a> Ctra. Santa Bárbara, Km. 1'5<br>
                         43870 Amposta<br>
                         Tarragona (Spain)<br>
-                        <a target="_blank" href="https://goo.gl/maps/wNjh5avogrH2"><i class="fa fa-map-marker" aria-hidden="true"></i></a><br>
                         <br>
                         <i class="fa fa-phone" aria-hidden="true"></i> (+34) 977 701 795<br>
                         <i class="fa fa-mobile" aria-hidden="true"></i> (+34) 636 963 330<br>
@@ -75,9 +74,9 @@
                 </div>
                 <div class="col-sm-2 text-right">
                     <p>
-                        <a href="#">Sobre este sito</a> <i class="fa fa-caret-right c-yellow" aria-hidden="true"></i><br>
-                        <a href="#">Privacidad</a> <i class="fa fa-caret-right c-yellow" aria-hidden="true"></i><br>
-                        <a href="#">Mapa del web</a> <i class="fa fa-caret-right c-yellow" aria-hidden="true"></i>
+                        <a href="{{ path('front_about') }}">Sobre este sito</a> <i class="fa fa-caret-right c-yellow" aria-hidden="true"></i><br>
+                        <a href="{{ path('front_privacy') }}">Privacidad</a> <i class="fa fa-caret-right c-yellow" aria-hidden="true"></i><br>
+                        <a href="{{ path('front_sitemap') }}">Mapa del web</a> <i class="fa fa-caret-right c-yellow" aria-hidden="true"></i>
                     </p>
                 </div>
             </div>
