@@ -52,6 +52,11 @@
 # Composer PHAR
 /composer.phar
 
+# Ansible
+/app/ansible/vars/*
+!/app/ansible/vars/.gitkeep
+/app/ansible/*.retry
+
 # Custom scripts
 /dbreset.sh
 /test.sh
