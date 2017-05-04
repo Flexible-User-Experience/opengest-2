@@ -4,14 +4,6 @@
   vars_files:
     - "{{ playbook_dir }}/vars/config.yml"
   tasks:
-    - name: copy remote pdfs directory to local
-      synchronize:
-        mode: pull
-        recursive: yes
-        perms: yes
-        times: yes
-        src: "{{ vhost_path }}/shared/web/pdfs"
-        dest: "{{ playbook_dir }}/../../web"
     - name: copy remote uploads directory to local
       synchronize:
         mode: pull
