@@ -21,7 +21,7 @@
                 {% include ':Frontend/includes:notice_flash.html.twig' %}
                 <h3 class="no-m-top main-subtitle">{{ service.name | capitalize }}</h3>
                 {% if service.mainImage is not null %}
-                    <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('685x200') }}" class="img-responsive" alt="{{ service.name }}">
+                    <img src="{{ vich_uploader_asset(service, 'mainImageFile') | imagine_filter('878x350') }}" class="img-responsive" alt="{{ service.name }}">
                 {% endif %}
                 {{ service.description | raw }}
                 {% if service.vehicleCategory is not null %}
