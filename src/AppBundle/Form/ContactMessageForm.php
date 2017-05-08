@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Beelab\Recaptcha2Bundle\Form\Type\RecaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -79,12 +80,21 @@ class ContactMessageForm extends AbstractType
                 )
             )
             ->add(
+                'captcha',
+                RecaptchaType::class,
+                array(
+                    'mapped' => false,
+                    'label' => false,
+                )
+            )
+            ->add(
                 'send',
                 SubmitType::class,
                 array(
                     'label' => 'Enviar',
                     'attr' => array(
                         'class' => 'btn btn-primary no-m-bottom',
+                        'style' => 'margin-bottom: -15px',
                     ),
                 )
             );
