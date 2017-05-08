@@ -13,6 +13,7 @@
     },
     "require": {
         "beberlei/DoctrineExtensions": "^1.0",
+        "beelab/recaptcha2-bundle": "^1.3",
         "components/font-awesome": "^4.0",
         "components/jquery": "^2.0",
         "cypresslab/gitelephant-bundle": "^0.0.6",
@@ -75,7 +76,6 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": null
+        }
     }
 }

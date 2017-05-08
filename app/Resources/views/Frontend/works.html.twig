@@ -12,7 +12,7 @@
         {% if pagination.getTotalItemCount > 0 %}
             {% for work in pagination %}
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                         <div class="left-line-yellow">
                             <h3 class="title no-m-top">
                                 <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">{{ work.name }}</a>
@@ -24,7 +24,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         {% if work.mainImage is not null %}
                             <a href="{{ path('front_work_detail', {slug: work.slug} ) }}">
                                 <img class="img-responsive"
