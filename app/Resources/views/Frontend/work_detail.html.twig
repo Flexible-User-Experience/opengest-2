@@ -24,7 +24,7 @@
             </div>
             {# Right side #}
             <div class="col-sm-4">
-                {% if work.mainImage is not null %}
+                {% if work.mainImage is not null and work.images | length == 0 %}
                     <img src="{{ vich_uploader_asset(work, 'mainImageFile') | imagine_filter('470x310') }}" class="img-responsive" alt="{{ work.name }}">
                 {% endif %}
                 {% if work.service is not null %}
