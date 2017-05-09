@@ -47,14 +47,14 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'checked',
                 null,
                 array(
-                    'label' => 'Leido',
+                    'label' => 'Llegit',
                 )
             )
             ->add(
                 'createdAt',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Fecha creación',
+                    'label' => 'Data creació',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -62,7 +62,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -76,21 +76,21 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'answer',
                 null,
                 array(
-                    'label' => 'Contestar',
+                    'label' => 'Resposta',
                 )
             )
             ->add(
                 'message',
                 null,
                 array(
-                    'label' => 'Mensaje',
+                    'label' => 'Missatge',
                 )
             )
             ->add(
                 'answered',
                 null,
                 array(
-                    'label' => 'Contestado',
+                    'label' => 'Contestat',
                 )
             );
     }
@@ -105,14 +105,14 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'checked',
                 null,
                 array(
-                    'label' => 'Leido',
+                    'label' => 'Llegit',
                 )
             )
             ->add(
                 'createdAt',
                 'date',
                 array(
-                    'label' => 'Fecha creación',
+                    'label' => 'Data creació',
                     'format' => 'd/m/Y H:i',
                 )
             )
@@ -120,7 +120,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -134,14 +134,14 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'message',
                 'textarea',
                 array(
-                    'label' => 'Mensaje',
+                    'label' => 'Missatge',
                 )
             )
             ->add(
                 'answered',
                 null,
                 array(
-                    'label' => 'Contestado',
+                    'label' => 'Contestat',
                 )
             );
         if ($this->getSubject()->getAnswered()) {
@@ -150,7 +150,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                     'answer',
                     'textarea',
                     array(
-                        'label' => 'Contestado',
+                        'label' => 'Resposta',
                     )
                 );
         }
@@ -167,14 +167,14 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'checked',
                 null,
                 array(
-                    'label' => 'Leido',
+                    'label' => 'Llegit',
                 )
             )
             ->add(
                 'createdAt',
                 'date',
                 array(
-                    'label' => 'Fecha creación',
+                    'label' => 'Data creació',
                     'format' => 'd/m/Y',
                 )
             )
@@ -182,7 +182,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -196,7 +196,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'answered',
                 null,
                 array(
-                    'label' => 'Contestado',
+                    'label' => 'Contestat',
                 )
             )
             ->add(
@@ -211,6 +211,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                             'template' => '::Admin/Cells/list__action_answer.html.twig',
                         ),
                     ),
+                    'label' => 'Accions',
                 )
             );
     }
