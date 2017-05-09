@@ -5,6 +5,7 @@ sonata_block:
         sonata.admin.block.admin_list:  ~
         sonata.user.block.menu:         ~
         sonata.block.service.text:      ~
+        app.block.contact_message:      ~
 
 # Sonata User
 sonata_user:
@@ -73,6 +74,10 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Usuaris ]
+            -
+                position: top
+                type: app.block.contact_message
+                class: col-md-6
             -
                 position: bottom
                 type: sonata.block.service.text

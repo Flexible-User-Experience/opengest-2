@@ -87,3 +87,9 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+# Block
+    app.block.contact_message:
+        class: AppBundle\Block\ContactMessageBlock
+        arguments: [ "app.block.contact_message", "@templating" ]
+        tags:
+            - { name: sonata.block }
