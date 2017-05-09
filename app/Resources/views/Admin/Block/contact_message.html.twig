@@ -1,9 +1,20 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <div class="box box-success">
-        <div class="box box-header">
-            <h3 class="sonata-feed-title">{{ settings.title }}</h3>
+    {% if is_granted('ROLE_CMS') %}
+        <div class="box{% if pendingMessages > 0 %} box-danger{% endif %}">
+            <div class="box box-success">
+                <div class="box box-header">
+                    <h3 class="box-title">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        {% if pendingMessages > 0 %}
+                            {{ pendingMessages }} missatges pendents de llegir
+                        {% else %}
+                            no tens cap missatge pendent de llegir
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}

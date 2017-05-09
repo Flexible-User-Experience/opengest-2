@@ -75,7 +75,7 @@ sonata_admin:
                 settings:
                     groups: [ Usuaris ]
             -
-                position: top
+                position: bottom
                 type: app.block.contact_message
                 class: col-md-6
             -
