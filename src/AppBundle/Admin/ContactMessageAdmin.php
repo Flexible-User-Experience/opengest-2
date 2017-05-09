@@ -147,7 +147,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
         if ($this->getSubject()->getAnswered()) {
             $showMapper
                 ->add(
-                    'description',
+                    'answer',
                     'textarea',
                     array(
                         'label' => 'Contestado',
