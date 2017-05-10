@@ -7,7 +7,11 @@
                 <h3 class="box-title">
                     <i class="fa fa-envelope-o" aria-hidden="true"></i>
                     {% if pendingMessages > 0 %}
-                        {{ pendingMessages }} missatges pendents de llegir
+                        {% if pendingMessages == 1 %}
+                            {{ pendingMessages }} missatge pendent de llegir
+                        {% else %}
+                            {{ pendingMessages }} missatges pendents de llegir
+                        {% endif %}
                     {% else %}
                         no tens cap missatge pendent de llegir
                     {% endif %}

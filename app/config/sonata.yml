@@ -64,6 +64,10 @@ sonata_admin:
                     groups: [ Web ]
             -
                 position: right
+                type: app.block.contact_message
+                class: col-md-6
+            -
+                position: right
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
@@ -74,10 +78,6 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Usuaris ]
-            -
-                position: left
-                type: app.block.contact_message
-                class: col-md-6
             -
                 position: bottom
                 type: sonata.block.service.text
