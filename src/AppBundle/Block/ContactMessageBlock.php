@@ -47,13 +47,13 @@ class ContactMessageBlock extends AbstractBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         // merge settings
-//        $settings = $blockContext->getSettings();
+        $settings = $blockContext->getSettings();
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
             array(
                 'block' => $blockContext->getBlock(),
-                'settings' => $blockContext->getSettings(),
+                'settings' => $settings,
                 'title' => 'Notificacions',
                 'pendingMessages' => $this->em->getRepository('AppBundle:ContactMessage')->getPendingMessagesAmount(),
             ),
