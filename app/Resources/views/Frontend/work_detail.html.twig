@@ -33,7 +33,7 @@
                 {% endif %}
                 {% for img in work.images %}
                     {% if img.image is not null %}
-                        <img src="{{ vich_uploader_asset(img, 'imageFile') | imagine_filter('112x150') }}" class="img-responsive" alt="{{ img.alt }}">
+                        <img src="{{ vich_uploader_asset(img, 'imageFile') | imagine_filter('470x310') }}" class="img-responsive" alt="{{ img.alt }}">
                     {% endif %}
                 {% endfor %}
             </div>
