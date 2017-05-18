@@ -92,25 +92,28 @@ class WorkAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end()
-            ->with('Imatges', $this->getFormMdSuccessBoxArray(12))
-            ->add(
-                'images',
-                'sonata_type_collection',
-                array(
-                    'label' => 'Imatges',
-                    'required' => true,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'by_reference' => false,
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                    'sortable' => 'position',
-                )
-            )
             ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('Imatges', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'images',
+                    'sonata_type_collection',
+                    array(
+                        'label' => 'Imatges',
+                        'required' => true,
+                        'cascade_validation' => true,
+                        'error_bubbling' => true,
+                        'by_reference' => false,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position',
+                    )
+                )
+                ->end();
+        }
     }
 
     /**
