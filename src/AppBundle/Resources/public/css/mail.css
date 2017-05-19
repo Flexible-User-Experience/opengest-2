@@ -28,3 +28,9 @@
 .left-margin-negative {
    margin-left: 15px;
 }
+
+/* Customer logo */
+.email-logo {
+   max-width: 180px;
+   margin-top: 7px;
+}
