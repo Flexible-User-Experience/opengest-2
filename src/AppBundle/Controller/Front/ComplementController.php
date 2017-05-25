@@ -14,6 +14,10 @@ class ComplementController extends AbstractBaseController
      */
     public function complementAction()
     {
-        return $this->render(':Frontend:complement.html.twig');
+        $complements = $this->getDoctrine()->getRepository('AppBundle:Complement')->findEnabledSortedByName();
+
+        return $this->render(':Frontend:complement.html.twig', [
+            'complements' => $complements,
+        ]);
     }
 }
