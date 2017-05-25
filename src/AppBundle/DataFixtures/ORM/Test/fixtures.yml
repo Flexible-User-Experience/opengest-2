@@ -105,7 +105,26 @@ AppBundle\Entity\Vehicle:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
-## Users
+# Complement
+AppBundle\Entity\Complement:
+  complement1:
+    name: my title
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+  complement2:
+    name: <name()>
+    shortDescription: <sentence()>
+    description: <paragraph()>
+    mainImage: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Users
 AppBundle\Entity\User:
     admin:
         username: <{private_admin_test_user}>
