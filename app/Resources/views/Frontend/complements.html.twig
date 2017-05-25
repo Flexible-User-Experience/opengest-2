@@ -11,10 +11,10 @@
             </div>
         </div>
         <hr class="hr-divider">
-        <div class="row">
-            {% for complement in complements %}
+        {% for complement in complements %}
+            <div class="row">
                 <div class="col-xs-9">
-                    <div class="caption">
+                    <div class="caption left-line-yellow">
                         <h3 class="title no-m-top">
                             <a href="{{ path('front_complement_detail', { slug: complement.slug }) }}">{{ complement.name }}</a>
                         </h3>
@@ -33,7 +33,8 @@
                         </a>
                     {% endif %}
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+            <hr class="hr-divider">
+        {% endfor %}
     </div>
 {% endblock %}

@@ -133,7 +133,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Accesorios',
                 'route' => 'front_complement',
-//                'current' => $route == 'front_complement' || $route == 'front_complement_detail',
+                'current' => $route == 'front_complement' || $route == 'front_complement_detail',
             )
         );
         $menu->addChild(
