@@ -50,7 +50,7 @@ services:
 # Menu
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
-        arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@security.token_storage", "@app.vehicle_category_repository", "@app.service_repository", "@app.work_repository", "@router" ]
+        arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@security.token_storage", "@app.vehicle_category_repository", "@app.service_repository", "@app.work_repository", "@app.complement_repository", "@router" ]
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.frontend_menu_builder", createTopMenu ]
