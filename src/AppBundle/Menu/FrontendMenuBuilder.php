@@ -129,6 +129,14 @@ class FrontendMenuBuilder
             )
         );
         $menu->addChild(
+            'front_complement',
+            array(
+                'label' => 'Accesorios',
+                'route' => 'front_complement',
+//                'current' => $route == 'front_complement' || $route == 'front_complement_detail',
+            )
+        );
+        $menu->addChild(
             'front_company',
             array(
                 'label' => 'Empresa',
