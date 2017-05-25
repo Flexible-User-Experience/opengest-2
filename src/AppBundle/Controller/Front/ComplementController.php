@@ -24,7 +24,7 @@ class ComplementController extends AbstractBaseController
     }
 
     /**
-     * @Route("/complement/{slug}", name="front_complement_detail")
+     * @Route("/accesorio/{slug}", name="front_complement_detail")
      *
      * @param $slug
      *

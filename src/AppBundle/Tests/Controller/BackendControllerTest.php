@@ -71,7 +71,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/accesorio/list'),
             array('/admin/web/accesorio/create'),
             array('/admin/web/accesorio/1/edit'),
-            array('/admin/web/accesorio/1/delete'),
             array('/admin/contact/message/list'),
             array('/admin/contact/message/1/show'),
             array('/admin/contact/message/1/answer'),
@@ -107,6 +106,7 @@ class BackendControllerTest extends AbstractBaseTest
         return array(
             array('/admin/web/servei/1/show'),
             array('/admin/web/servei/batch'),
+            array('/admin/web/accesorio/1/delete'),
             array('/admin/users/show'),
             array('/admin/users/batch'),
         );
