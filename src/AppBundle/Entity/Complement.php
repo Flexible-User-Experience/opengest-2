@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ComplementRepository")
  * @ORM\Table(name="complement")
  * @Vich\Uploadable()
  * @UniqueEntity({"name"})
