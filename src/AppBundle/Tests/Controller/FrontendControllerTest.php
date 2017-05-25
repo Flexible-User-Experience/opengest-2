@@ -43,6 +43,8 @@ class FrontendControllerTest extends AbstractBaseTest
             array('/vehiculos/categoria/grues2'),
             array('/trabajos'),
             array('/trabajo/my-title'),
+            array('/accesorios'),
+            array('/accesorio/my-title'),
             array('/sobre-este-sitio'),
             array('/privacidad'),
             array('/mapa-del-web'),

@@ -2,10 +2,12 @@
 
 namespace AppBundle\Menu;
 
+use AppBundle\Entity\Complement;
 use AppBundle\Entity\Service;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleCategory;
 use AppBundle\Entity\Work;
+use AppBundle\Repository\ComplementRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
 use AppBundle\Repository\WorkRepository;
@@ -57,6 +59,11 @@ class FrontendMenuBuilder
     private $wr;
 
     /**
+     * @var ComplementRepository
+     */
+    private $cr;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -72,9 +79,10 @@ class FrontendMenuBuilder
      * @param VehicleCategoryRepository $vcr
      * @param ServiceRepository         $sr
      * @param WorkRepository            $wr
+     * @param ComplementRepository      $cr
      * @param RouterInterface           $router
      */
-    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr, WorkRepository $wr, RouterInterface $router)
+    public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts, VehicleCategoryRepository $vcr, ServiceRepository $sr, WorkRepository $wr, ComplementRepository $cr, RouterInterface $router)
     {
         $this->factory = $factory;
         $this->ac = $ac;
@@ -83,6 +91,7 @@ class FrontendMenuBuilder
         $this->sr = $sr;
         $this->wr = $wr;
         $this->router = $router;
+        $this->cr = $cr;
     }
 
     /**
@@ -126,6 +135,14 @@ class FrontendMenuBuilder
                 'label' => 'Trabajos',
                 'route' => 'front_works',
                 'current' => $route == 'front_works' || $route == 'front_work_detail',
+            )
+        );
+        $menu->addChild(
+            'front_complement',
+            array(
+                'label' => 'Accesorios',
+                'route' => 'front_complement',
+                'current' => $route == 'front_complement' || $route == 'front_complement_detail',
             )
         );
         $menu->addChild(
@@ -298,7 +315,6 @@ class FrontendMenuBuilder
                 $item->setExtra('updated_at', $vehicle->getUpdatedAt());
             }
         }
-
         $workMenu = $menu->addChild(
             $this->router->generate('front_works', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
@@ -321,7 +337,28 @@ class FrontendMenuBuilder
             );
             $item->setExtra('updated_at', $work->getUpdatedAt());
         }
-
+        $complementMenu = $menu->addChild(
+            $this->router->generate('front_complement', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            array(
+                'label' => 'Accesorios',
+                'route' => 'front_complement',
+            )
+        );
+        $complements = $this->cr->findEnabledSortedByName();
+        /** @var Complement $complement */
+        foreach ($complements as $complement) {
+            $item = $complementMenu->addChild(
+                $this->router->generate('front_complement_detail', ['slug' => $complement->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
+                array(
+                    'label' => ucfirst(strtolower($complement->getName())),
+                    'route' => 'front_complement_detail',
+                    'routeParameters' => array(
+                        'slug' => $complement->getSlug(),
+                    ),
+                )
+            );
+            $item->setExtra('updated_at', $complement->getUpdatedAt());
+        }
         $menu->addChild(
             $this->router->generate('front_company', [], UrlGeneratorInterface::ABSOLUTE_URL),
             array(
