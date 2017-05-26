@@ -19,12 +19,12 @@ class DefaultController extends Controller
     {
         $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-de-celosia']);
         $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
-        $serviceMR = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'maniobrabilidad-reducida']);
+        $servicePA = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'plataformas-aereas-sobre-camion']);
 
         return $this->render(':Frontend:homepage.html.twig', array(
             'serviceGC' => $serviceGC,
             'serviceGH' => $serviceGH,
-            'serviceMR' => $serviceMR,
+            'servicePA' => $servicePA,
         ));
     }
 
