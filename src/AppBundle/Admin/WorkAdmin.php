@@ -21,8 +21,8 @@ class WorkAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Treball';
     protected $baseRoutePattern = 'web/treball';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
-        '_sort_order' => 'asc',
+        '_sort_by' => 'date',
+        '_sort_order' => 'desc',
     );
 
     /**
