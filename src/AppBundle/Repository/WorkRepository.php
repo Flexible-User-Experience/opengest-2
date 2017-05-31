@@ -42,4 +42,32 @@ class WorkRepository extends EntityRepository
     {
         return $this->findEnabledSortedByNameQ()->getResult();
     }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByDateQB()
+    {
+        return $this->createQueryBuilder('w')
+            ->where('w.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('w.date', 'DESC')
+            ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function findEnabledSortedByDateQ()
+    {
+        return $this->findEnabledSortedByDateQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findEnabledSortedByDate()
+    {
+        return $this->findEnabledSortedByDateQ()->getResult();
+    }
 }
