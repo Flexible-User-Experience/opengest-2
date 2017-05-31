@@ -17,7 +17,7 @@ class WorkController extends AbstractBaseController
      */
     public function listAction($page = 1)
     {
-        $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByName();
+        $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByDate();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($works, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
