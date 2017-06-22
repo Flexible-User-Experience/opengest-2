@@ -74,7 +74,7 @@ class VehiclesController extends AbstractBaseController
             throw new EntityNotFoundException();
         }
 
-        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByNameFilterCategory($category);
+        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndName();
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
 
