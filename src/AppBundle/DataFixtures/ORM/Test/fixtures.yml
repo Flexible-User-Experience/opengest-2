@@ -85,6 +85,7 @@ AppBundle\Entity\Vehicle:
   vehicle1:
     category: @vehicleCategory1
     name: my title
+    position: 1
     shortDescription: <sentence()>
     description: <paragraph()>
     link: <url()>
@@ -96,6 +97,7 @@ AppBundle\Entity\Vehicle:
   vehicle2:
     category: @vehicleCategory<numberBetween(1,2)>
     name: <name()>
+    position: 2
     shortDescription: <sentence()>
     description: <paragraph()>
     link: <url()>

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -27,6 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Vehicle extends AbstractBase
 {
     use NameTrait;
+    use PositionTrait;
     use SlugTrait;
     use DescriptionTrait;
 
