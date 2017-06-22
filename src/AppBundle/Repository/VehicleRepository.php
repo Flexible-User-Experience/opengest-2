@@ -79,4 +79,32 @@ class VehicleRepository extends EntityRepository
     {
         return $this->findEnabledSortedByNameFilterCategoryQ($category)->getResult();
     }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByPositionAndNameQB()
+    {
+        return $this->createQueryBuilder('v')
+            ->where('v.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('v.position', 'ASC')
+            ->addOrderBy('v.name', 'ASC');
+    }
+
+    /**
+     * @return Query
+     */
+    public function findEnabledSortedByPositionAndNameQ()
+    {
+        return $this->findEnabledSortedByPositionAndNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findEnabledSortedByPositionAndName()
+    {
+        return $this->findEnabledSortedByPositionAndNameQ()->getResult();
+    }
 }
