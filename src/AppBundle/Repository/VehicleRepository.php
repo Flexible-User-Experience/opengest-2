@@ -79,4 +79,41 @@ class VehicleRepository extends EntityRepository
     {
         return $this->findEnabledSortedByNameFilterCategoryQ($category)->getResult();
     }
+
+    /**
+     * @param VehicleCategory $category
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByPositionAndNameQB(VehicleCategory $category)
+    {
+        return $this->createQueryBuilder('v')
+            ->join('v.category', 'vc')
+            ->where('v.enabled = :enabled')
+            ->andWhere('v.category = :category')
+            ->setParameter('enabled', true)
+            ->setParameter('category', $category)
+            ->orderBy('v.position', 'ASC')
+            ->addOrderBy('v.name', 'ASC');
+    }
+
+    /**
+     * @param VehicleCategory $category
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByPositionAndNameQ(VehicleCategory $category)
+    {
+        return $this->findEnabledSortedByPositionAndNameQB($category)->getQuery();
+    }
+
+    /**
+     * @param VehicleCategory $category
+     *
+     * @return array
+     */
+    public function findEnabledSortedByPositionAndName(VehicleCategory $category)
+    {
+        return $this->findEnabledSortedByPositionAndNameQ($category)->getResult();
+    }
 }
