@@ -2,7 +2,10 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class ProvinceAdmin.
@@ -19,6 +22,85 @@ class ProvinceAdmin extends AbstractBaseAdmin
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi postal',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'country',
+                null,
+                array(
+                    'label' => 'Pais',
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'Actiu',
+                    'required' => false,
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi postal',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'country',
+                null,
+                array(
+                    'label' => 'Pais',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
+            )
+        ;
+    }
 
     /**
      * @param ListMapper $listMapper
@@ -70,6 +152,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }
