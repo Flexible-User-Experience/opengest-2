@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProvinceRepository")
  * @ORM\Table(name="province")
- * @UniqueEntity("code", "country")
+ * @UniqueEntity({"code", "country"})
  */
 class Province extends AbstractBase
 {
