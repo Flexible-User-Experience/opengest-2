@@ -19,8 +19,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  */
 class ComplementAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Accesorio';
-    protected $baseRoutePattern = 'web/accesorio';
+    protected $classnameLabel = 'Accesori';
+    protected $baseRoutePattern = 'web/accesori';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

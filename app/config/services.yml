@@ -29,17 +29,22 @@ services:
         class: AppBundle\Admin\ComplementAdmin
         arguments: [ ~ , AppBundle\Entity\Complement, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Accesorios", group: "Web" }
+            - { name: sonata.admin, manager_type: orm, label: "Accesori", group: "Web" }
     app.admin.contact_message:
         class: AppBundle\Admin\ContactMessageAdmin
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Contactes" }
+    app.admin.province:
+        class: AppBundle\Admin\ProvinceAdmin
+        arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administracio" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Usuaris" }
+            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administracio" }
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
