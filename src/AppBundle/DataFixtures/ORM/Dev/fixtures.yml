@@ -80,6 +80,13 @@ AppBundle\Entity\Complement:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# Province
+AppBundle\Entity\Province:
+  province{1..2}:
+    code: <postcode()>
+    name: <city()>
+    country: <country()>
+
 # Users
 AppBundle\Entity\User:
     admin:
