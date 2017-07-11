@@ -87,6 +87,13 @@ AppBundle\Entity\Province:
     name: <city()>
     country: <country()>
 
+# City
+AppBundle\Entity\City:
+  city{1..2}:
+    name: <city()>
+    postalCode: <postcode()>
+    province: @province*
+
 # Users
 AppBundle\Entity\User:
     admin:
