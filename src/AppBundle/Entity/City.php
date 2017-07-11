@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CityRepository")
  * @ORM\Table(name="city")
  * @UniqueEntity({"postalCode", "province"})
  */
@@ -101,5 +101,13 @@ class City extends AbstractBase
         $this->province = $province;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getName() : '---';
     }
 }
