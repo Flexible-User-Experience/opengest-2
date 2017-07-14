@@ -16,8 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  */
 class CityAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'City';
-    protected $baseRoutePattern = 'administracio/city';
+    protected $classnameLabel = 'Ciutat';
+    protected $baseRoutePattern = 'administracio/ciutat';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
