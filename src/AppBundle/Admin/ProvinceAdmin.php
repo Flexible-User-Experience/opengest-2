@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 /**
  * Class ProvinceAdmin.
@@ -34,7 +35,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi postal',
+                    'label' => 'Codi',
                 )
             )
             ->add(
@@ -46,9 +47,10 @@ class ProvinceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'country',
-                null,
+                CountryType::class,
                 array(
                     'label' => 'Pais',
+                    'preferred_choices' => array('ES'),
                 )
             )
             ->end()
@@ -75,7 +77,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi postal',
+                    'label' => 'Codi',
                 )
             )
             ->add(
@@ -85,13 +87,13 @@ class ProvinceAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
-            ->add(
-                'country',
-                null,
-                array(
-                    'label' => 'Pais',
-                )
-            )
+//            ->add(
+//                'country',
+//                null,
+//                array(
+//                    'label' => 'Pais',
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
@@ -113,7 +115,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi postal',
+                    'label' => 'Codi',
                     'editable' => true,
                 )
             )
@@ -130,7 +132,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Pais',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(

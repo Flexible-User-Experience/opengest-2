@@ -31,13 +31,6 @@ class CityAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
                 'postalCode',
                 null,
                 array(
@@ -45,10 +38,18 @@ class CityAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
                 'province',
                 null,
                 array(
                     'label' => 'Província',
+                    'required' => true,
                 )
             )
             ->end()
@@ -72,17 +73,17 @@ class CityAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
                 'postalCode',
                 null,
                 array(
                     'label' => 'Codi postal',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -110,18 +111,18 @@ class CityAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'postalCode',
                 null,
                 array(
                     'label' => 'Codi Postal',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )

@@ -108,6 +108,6 @@ class City extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getName() : '---';
+        return $this->id ? $this->getPostalCode().' · '.$this->getName() : '---';
     }
 }

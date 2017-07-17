@@ -108,6 +108,6 @@ class Province extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getName() : '---';
+        return $this->id ? $this->getCode().' · '.$this->getName() : '---';
     }
 }
