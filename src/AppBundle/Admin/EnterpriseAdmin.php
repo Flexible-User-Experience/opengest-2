@@ -69,10 +69,31 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
+                'businessName',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Nom empresa',
+                )
+            )
+            ->add(
+                'www',
+                null,
+                array(
+                    'label' => 'Web corporativa',
+                )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'Email',
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'Ciutat',
                 )
             )
             ->add(
@@ -93,10 +114,42 @@ class EnterpriseAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'logo',
+                null,
+                array(
+                    'label' => 'Logo',
+                    'template' => '::Admin/Cells/list__cell_logo_image_field.html.twig',
+                )
+            )
+            ->add(
+                'taxIdentificationNumber',
+                null,
+                array(
+                    'label' => 'CIF',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'Email',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'Ciutat',
                     'editable' => true,
                 )
             )

@@ -149,9 +149,9 @@ AppBundle\Entity\City:
 # Enterprise
 AppBundle\Entity\Enterprise:
   enterprise{1..2}:
-    name: <name()>
+    name: <company()>
     taxIdentificationNumber: <bothify('######?')>
-    businessName: <name()>
+    businessName: <company()>
     address: <streetAddress()>
     city: @city*
     phone1: <phoneNumber()>

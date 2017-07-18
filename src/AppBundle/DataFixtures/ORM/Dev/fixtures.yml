@@ -103,9 +103,9 @@ AppBundle\Entity\City:
 # Enterprise
 AppBundle\Entity\Enterprise:
   enterprise{1..10}:
-    name: <name()>
+    name: <company()>
     taxIdentificationNumber: <bothify('######?')>
-    businessName: <name()>
+    businessName: <company()>
     address: <streetAddress()>
     city: @city*
     phone1: <phoneNumber()>
@@ -114,7 +114,7 @@ AppBundle\Entity\Enterprise:
     fax: <phoneNumber()>
     email: <safeEmail()>
     www: <safeEmailDomain()>
-    logo: <word()>
+    logo: <numberBetween(1,2)>.jpg
     deedOfIncorporation: <word()>
     taxIdentificationNumberCard: <word()>
     tc1Receipt: <word()>
