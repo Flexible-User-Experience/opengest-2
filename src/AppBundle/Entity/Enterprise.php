@@ -89,6 +89,7 @@ class Enterprise extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
 
