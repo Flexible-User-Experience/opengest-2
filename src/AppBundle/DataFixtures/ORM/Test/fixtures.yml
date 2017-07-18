@@ -132,6 +132,9 @@ AppBundle\Entity\Province:
     code: <postcode()>
     name: <city()>
     country: <country()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
 
 # City
 AppBundle\Entity\City:
@@ -139,6 +142,51 @@ AppBundle\Entity\City:
     name: <city()>
     postalCode: <postcode()>
     province: @province*
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Enterprise
+AppBundle\Entity\Enterprise:
+  enterprise{1..2}:
+    name: <name()>
+    taxIdentificationNumber: <bothify('######?')>
+    businessName: <name()>
+    address: <streetAddress()>
+    city: @city*
+    phone1: <phoneNumber()>
+    phone2: <phoneNumber()>
+    phone3: <phoneNumber()>
+    fax: <phoneNumber()>
+    email: <safeEmail()>
+    www: <safeEmailDomain()>
+    logo: <word()>
+    deedOfIncorporation: <word()>
+    taxIdentificationNumberCard: <word()>
+    tc1Receipt: <word()>
+    tc2Receipt: <word()>
+    ssRegistration: <word()>
+    ssPaymentCertificate: <word()>
+    rc1Insurance: <word()>
+    rc2Insurance: <word()>
+    rcReceipt: <word()>
+    preventionServiceContract: <word()>
+    preventionServiceInvoice: <word()>
+    preventionServiceReceipt: <word()>
+    occupationalAccidentsInsurance: <word()>
+    occupationalReceipt: <word()>
+    laborRiskAssessment: <word()>
+    securityPlan: <word()>
+    reaCertificate: <word()>
+    oilCertificate: <word()>
+    gencatPaymentCertificate: <word()>
+    deedsOfPowers: <word()>
+    iaeRegistration: <word()>
+    iaeReceipt: <word()>
+    mutualPartnership: <word()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
 
 # Users
 AppBundle\Entity\User:

@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Enterprise.
@@ -15,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseRepository")
  * @ORM\Table(name="enterprise")
+ * @Vich\Uploadable()
  * @UniqueEntity({"taxIdentificationNumber"})
  */
 class Enterprise extends AbstractBase
@@ -78,7 +81,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $fax;
 
@@ -92,9 +95,9 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $wwww;
+    private $www;
 
     /**
      * @var File
@@ -759,19 +762,19 @@ class Enterprise extends AbstractBase
     /**
      * @return string
      */
-    public function getWwww()
+    public function getWww()
     {
-        return $this->wwww;
+        return $this->www;
     }
 
     /**
-     * @param string $wwww
+     * @param string $www
      *
      * @return Enterprise
      */
-    public function setWwww($wwww)
+    public function setWww($www)
     {
-        $this->wwww = $wwww;
+        $this->www = $www;
 
         return $this;
     }
