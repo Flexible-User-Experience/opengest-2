@@ -108,7 +108,7 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
+     * @Assert\Image(minWidth=300)
      */
     private $logoFile;
 

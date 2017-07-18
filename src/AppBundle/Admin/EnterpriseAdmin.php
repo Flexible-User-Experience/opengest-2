@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * Class EnterpriseAdmin.
@@ -40,7 +41,14 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'taxIdentificationNumber',
+                null,
+                array(
+                    'label' => 'CIF',
+                )
+            )
             ->add(
                 'name',
                 null,
@@ -48,8 +56,55 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
+            ->add(
+                'businessName',
+                null,
+                array(
+                    'label' => 'Nom fiscal',
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'Email',
+                )
+            )
+            ->add(
+                'www',
+                null,
+                array(
+                    'label' => 'Web corporativa',
+                )
+            )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->with('Documents', $this->getFormMdSuccessBoxArray(4))
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'logoFile',
+                FileType::class,
+                array(
+                    'label' => 'Logo',
+                    'help' => $this->getLogoHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'Ciutat',
+                    'required' => true,
+                )
+            )
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -69,17 +124,17 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'businessName',
+                'taxIdentificationNumber',
                 null,
                 array(
-                    'label' => 'Nom empresa',
+                    'label' => 'CIF',
                 )
             )
             ->add(
-                'www',
+                'name',
                 null,
                 array(
-                    'label' => 'Web corporativa',
+                    'label' => 'Nom',
                 )
             )
             ->add(
