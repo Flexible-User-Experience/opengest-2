@@ -42,15 +42,14 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string              $code
      * @param string              $class
      * @param string              $baseControllerName
-     * @param UploaderHelper      $vus
      * @param CacheManager        $lis
      * @param RepositoriesManager $rm
      * @param FileService         $fs
      */
-    public function __construct($code, $class, $baseControllerName, UploaderHelper $vus, CacheManager $lis, RepositoriesManager $rm, FileService $fs)
+    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs)
     {
         parent::__construct($code, $class, $baseControllerName);
-        $this->vus = $vus;
+        $this->vus = $fs->getUhs();
         $this->lis = $lis;
         $this->rm = $rm;
         $this->fs = $fs;

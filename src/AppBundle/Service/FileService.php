@@ -25,6 +25,10 @@ class FileService
 
     /**
      * Methods.
+     */
+
+    /**
+     * Constructor.
      *
      * @param UploaderHelper $uhs
      * @param string         $krd
@@ -33,6 +37,14 @@ class FileService
     {
         $this->uhs = $uhs;
         $this->krd = $krd;
+    }
+
+    /**
+     * @return UploaderHelper
+     */
+    public function getUhs()
+    {
+        return $this->uhs;
     }
 
     /**
