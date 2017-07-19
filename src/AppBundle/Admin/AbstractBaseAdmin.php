@@ -162,6 +162,34 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
+     * Get image helper form mapper with thumbnail.
+     *
+     * @param string $attribute
+     * @param string $uploaderMapping
+     *
+     * @return string
+     */
+    protected function getSmartHelper($attribute, $uploaderMapping)
+    {
+        if ($this->getSubject() && $this->getSubject()->$attribute()) {
+            $attributeFile = $attribute.'File';
+            if ($this->getSubject()->$attributeFile()->getMineType() == 'application/pdf' || $this->getSubject()->$attributeFile()->getMineType() == 'application/x-pdf') {
+                // PDF case
+                return '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), $uploaderMapping).'" download="'.$this->getSubject()->$attribute().'.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>';
+            } else {
+                // Image case
+                return ($this->getSubject() ? $this->getSubject()->$attribute() ? '<img src="'.$this->lis->getBrowserPath(
+                            $this->vus->asset($this->getSubject(), $uploaderMapping),
+                            '480xY'
+                        ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 1200px (màx. 10MB amb JPG o PNG)</span>';
+            }
+        } else {
+            // Undefined case
+            return '<span style="width:100%;display:block;">Pots adjuntar un PDF o una imatge d\'una amplada mínima de 1200px. Pes màxim 10MB.</span>';
+        }
+    }
+
+    /**
      * Get image helper form mapper with thumbnail for black&white.
      *
      * @return string

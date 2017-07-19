@@ -41,78 +41,125 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'taxIdentificationNumber',
-                null,
-                array(
-                    'label' => 'CIF',
-                )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
-                'businessName',
-                null,
-                array(
-                    'label' => 'Nom fiscal',
-                )
-            )
-            ->add(
-                'address',
-                null,
-                array(
-                    'label' => 'Adreça',
-                )
-            )
-            ->add(
-                'email',
-                null,
-                array(
-                    'label' => 'Email',
-                )
-            )
-            ->add(
-                'www',
-                null,
-                array(
-                    'label' => 'Web corporativa',
-                )
-            )
+            ->tab('Informació')
+                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'logoFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Logo',
+                            'help' => $this->getLogoHelperFormMapperWithThumbnail(),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'taxIdentificationNumber',
+                        null,
+                        array(
+                            'label' => 'CIF',
+                        )
+                    )
+                    ->add(
+                        'name',
+                        null,
+                        array(
+                            'label' => 'Nom',
+                        )
+                    )
+                    ->add(
+                        'businessName',
+                        null,
+                        array(
+                            'label' => 'Nom fiscal',
+                        )
+                    )
+                ->end()
+                ->with('Contacte', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'address',
+                        null,
+                        array(
+                            'label' => 'Adreça',
+                        )
+                    )
+                    ->add(
+                        'city',
+                        null,
+                        array(
+                            'label' => 'Ciutat',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'email',
+                        null,
+                        array(
+                            'label' => 'Email',
+                        )
+                    )
+                    ->add(
+                        'www',
+                        null,
+                        array(
+                            'label' => 'Web corporativa',
+                        )
+                    )
+                    ->add(
+                        'phone1',
+                        null,
+                        array(
+                            'label' => 'Telèfon 1',
+                        )
+                    )
+                    ->add(
+                        'phone2',
+                        null,
+                        array(
+                            'label' => 'Telèfon 2',
+                        )
+                    )
+                    ->add(
+                        'phone3',
+                        null,
+                        array(
+                            'label' => 'Telèfon 3',
+                        )
+                    )
+                ->end()
+                ->with('Controls', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'enabled',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Actiu',
+                            'required' => false,
+                        )
+                    )
+                ->end()
             ->end()
-            ->with('Documents', $this->getFormMdSuccessBoxArray(4))
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'logoFile',
-                FileType::class,
-                array(
-                    'label' => 'Logo',
-                    'help' => $this->getLogoHelperFormMapperWithThumbnail(),
-                    'required' => false,
-                )
-            )
-            ->add(
-                'city',
-                null,
-                array(
-                    'label' => 'Ciutat',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'Actiu',
-                    'required' => false,
-                )
-            )
+            ->tab('Recursos')
+                ->with('TC\'s', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'tc1ReceiptFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut TC1',
+                            'help' => $this->getSmartHelper('getTc1Receipt', 'tc1ReceiptFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'tc2ReceiptFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut TC2',
+                            'help' => $this->getSmartHelper('getTc2Receipt', 'tc2ReceiptFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+//                ->with('Documents', $this->getFormMdSuccessBoxArray(6))
+//                ->end()
             ->end()
         ;
     }

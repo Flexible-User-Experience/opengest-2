@@ -113,3 +113,7 @@ services:
         arguments: [ "app.block.contact_message", "@templating", "@doctrine.orm.entity_manager" ]
         tags:
             - { name: sonata.block }
+# File
+    app.file_service:
+        class: AppBundle\Service\FileService
+        arguments: [ "@vich_uploader.templating.helper.uploader_helper" ]
