@@ -30,13 +30,15 @@
 # Assets and user uploads
 /web/assetic/
 /web/bundles/
-/web/uploads/*
+/web/uploads/
 !/web/uploads/.gitkeep
-/web/media/*
+!/web/uploads/images/enterprise/1.jpg
+!/web/uploads/images/enterprise/2.jpg
+/web/media/
 !/web/media/.gitkeep
 /web/js/
 /web/css/
-/web/pdfs/*
+/web/pdfs/
 !/web/pdfs/.gitkeep
 
 # Assets managed by Bower
@@ -70,5 +72,4 @@
 /gulp-config.json
 /node_modules/*
 !web/media/.gitkeep
-/web/uploads/
 !.travis.yml

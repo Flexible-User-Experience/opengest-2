@@ -115,29 +115,29 @@ AppBundle\Entity\Enterprise:
     email: <safeEmail()>
     www: <safeEmailDomain()>
     logo: <numberBetween(1,2)>.jpg
-    deedOfIncorporation: <word()>
-    taxIdentificationNumberCard: <word()>
-    tc1Receipt: <word()>
-    tc2Receipt: <word()>
-    ssRegistration: <word()>
-    ssPaymentCertificate: <word()>
-    rc1Insurance: <word()>
-    rc2Insurance: <word()>
-    rcReceipt: <word()>
-    preventionServiceContract: <word()>
-    preventionServiceInvoice: <word()>
-    preventionServiceReceipt: <word()>
-    occupationalAccidentsInsurance: <word()>
-    occupationalReceipt: <word()>
-    laborRiskAssessment: <word()>
-    securityPlan: <word()>
-    reaCertificate: <word()>
-    oilCertificate: <word()>
-    gencatPaymentCertificate: <word()>
-    deedsOfPowers: <word()>
-    iaeRegistration: <word()>
-    iaeReceipt: <word()>
-    mutualPartnership: <word()>
+    deedOfIncorporation: <numberBetween(1,2)>.jpg
+    taxIdentificationNumberCard: <numberBetween(1,2)>.jpg
+    tc1Receipt: <numberBetween(1,2)>.jpg
+    tc2Receipt: <numberBetween(1,2)>.jpg
+    ssRegistration: <numberBetween(1,2)>.jpg
+    ssPaymentCertificate: <numberBetween(1,2)>.jpg
+    rc1Insurance: <numberBetween(1,2)>.jpg
+    rc2Insurance: <numberBetween(1,2)>.jpg
+    rcReceipt: <numberBetween(1,2)>.jpg
+    preventionServiceContract: <numberBetween(1,2)>.jpg
+    preventionServiceInvoice: <numberBetween(1,2)>.jpg
+    preventionServiceReceipt: <numberBetween(1,2)>.jpg
+    occupationalAccidentsInsurance: <numberBetween(1,2)>.jpg
+    occupationalReceipt: <numberBetween(1,2)>.jpg
+    laborRiskAssessment: <numberBetween(1,2)>.jpg
+    securityPlan: <numberBetween(1,2)>.jpg
+    reaCertificate: <numberBetween(1,2)>.jpg
+    oilCertificate: <numberBetween(1,2)>.jpg
+    gencatPaymentCertificate: <numberBetween(1,2)>.jpg
+    deedsOfPowers: <numberBetween(1,2)>.jpg
+    iaeRegistration: <numberBetween(1,2)>.jpg
+    iaeReceipt: <numberBetween(1,2)>.jpg
+    mutualPartnership: <numberBetween(1,2)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
