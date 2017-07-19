@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Manager\RepositoriesManager;
+use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -33,19 +34,26 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $rm;
 
     /**
+     * @var FileService
+     */
+    protected $fs;
+
+    /**
      * @param string              $code
      * @param string              $class
      * @param string              $baseControllerName
      * @param UploaderHelper      $vus
      * @param CacheManager        $lis
      * @param RepositoriesManager $rm
+     * @param FileService         $fs
      */
-    public function __construct($code, $class, $baseControllerName, UploaderHelper $vus, CacheManager $lis, RepositoriesManager $rm)
+    public function __construct($code, $class, $baseControllerName, UploaderHelper $vus, CacheManager $lis, RepositoriesManager $rm, FileService $fs)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->vus = $vus;
         $this->lis = $lis;
         $this->rm = $rm;
+        $this->fs = $fs;
     }
 
     /**
@@ -173,7 +181,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     {
         if ($this->getSubject() && $this->getSubject()->$attribute()) {
             $attributeFile = $attribute.'File';
-            if ($this->getSubject()->$attributeFile()->getMineType() == 'application/pdf' || $this->getSubject()->$attributeFile()->getMineType() == 'application/x-pdf') {
+            if ($this->fs->isPdf($this->getSubject(), $uploaderMapping)) {
                 // PDF case
                 return '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), $uploaderMapping).'" download="'.$this->getSubject()->$attribute().'.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>';
             } else {

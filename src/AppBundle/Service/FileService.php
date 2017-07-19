@@ -19,13 +19,20 @@ class FileService
     private $uhs;
 
     /**
+     * @var string
+     */
+    private $krd;
+
+    /**
      * Methods.
      *
      * @param UploaderHelper $uhs
+     * @param string         $krd
      */
-    public function __construct(UploaderHelper $uhs)
+    public function __construct(UploaderHelper $uhs, $krd)
     {
         $this->uhs = $uhs;
+        $this->krd = $krd;
     }
 
     /**
@@ -36,8 +43,41 @@ class FileService
      */
     public function getMimeType($entity, $attribute)
     {
-        $path = $this->uhs->asset($entity, $attribute);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $path = $this->krd.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.$this->uhs->asset($entity, $attribute);
+        $mimeType = finfo_file($finfo, $path);
+        finfo_close($finfo);
 
-        return $path;
+        return $mimeType;
+    }
+
+    /**
+     * @param mixed  $entity
+     * @param string $attribute
+     *
+     * @return bool
+     */
+    public function isImage($entity, $attribute)
+    {
+        if ($this->getMimeType($entity, $attribute) == 'image/jpg' || $this->getMimeType($entity, $attribute) == 'image/jpeg' || $this->getMimeType($entity, $attribute) == 'image/png' || $this->getMimeType($entity, $attribute) == 'image/gif') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param mixed  $entity
+     * @param string $attribute
+     *
+     * @return bool
+     */
+    public function isPdf($entity, $attribute)
+    {
+        if ($this->getMimeType($entity, $attribute) == 'application/pdf' || $this->getMimeType($entity, $attribute) == 'application/x-pdf') {
+            return true;
+        }
+
+        return false;
     }
 }

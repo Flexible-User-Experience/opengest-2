@@ -127,7 +127,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $deedOfIncorporationFile;
 
@@ -146,7 +145,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $taxIdentificationNumberCardFile;
 
@@ -165,7 +163,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $tc1ReceiptFile;
 
@@ -184,7 +181,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $tc2ReceiptFile;
 
@@ -203,7 +199,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $ssRegistrationFile;
 
@@ -222,7 +217,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $ssPaymentCertificateFile;
 
@@ -241,7 +235,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $rc1InsuranceFile;
 
@@ -260,7 +253,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $rc2InsuranceFile;
 
@@ -279,7 +271,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $rcReceiptFile;
 
@@ -298,7 +289,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $preventionServiceContractFile;
 
@@ -317,7 +307,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $preventionServiceInvoiceFile;
 
@@ -336,7 +325,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $preventionServiceReceiptFile;
 
@@ -355,7 +343,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $occupationalAccidentsInsuranceFile;
 
@@ -374,7 +361,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $occupationalReceiptFile;
 
@@ -393,7 +379,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $laborRiskAssessmentFile;
 
@@ -412,7 +397,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $securityPlanFile;
 
@@ -431,7 +415,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $reaCertificateFile;
 
@@ -450,7 +433,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $oilCertificateFile;
 
@@ -469,7 +451,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $gencatPaymentCertificateFile;
 
@@ -488,7 +469,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $deedsOfPowersFile;
 
@@ -507,7 +487,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $iaeRegistrationFile;
 
@@ -526,7 +505,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $iaeReceiptFile;
 
@@ -545,7 +523,6 @@ class Enterprise extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
      * )
-     * @Assert\Image(minWidth=1200)
      */
     private $mutualPartnershipFile;
 
