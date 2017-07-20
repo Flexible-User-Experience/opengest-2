@@ -138,7 +138,7 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                 ->end()
             ->end()
             ->tab('Recursos')
-                ->with('TC\'s', $this->getFormMdSuccessBoxArray(4))
+                ->with('TC\'s', $this->getFormMdSuccessBoxArray(3))
                     ->add(
                         'tc1ReceiptFile',
                         FileType::class,
@@ -158,8 +158,189 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                         )
                     )
                 ->end()
-//                ->with('Documents', $this->getFormMdSuccessBoxArray(6))
-//                ->end()
+                ->with('Seguretat Social', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'ssRegistrationFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut SS registre',
+                            'help' => $this->getSmartHelper('getSsRegistration', 'ssRegistrationFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'ssPaymentCertificateFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut pagament certificat',
+                            'help' => $this->getSmartHelper('getSsPaymentCertificate', 'ssPaymentCertificateFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Responsabilitat Civil', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'rc1InsuranceFile',
+                        FileType::class,
+                        array(
+                            'label' => 'RC 1',
+                            'help' => $this->getSmartHelper('getRc1Insurance', 'rc1InsuranceFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'rc2InsuranceFile',
+                        FileType::class,
+                        array(
+                            'label' => 'RC 2',
+                            'help' => $this->getSmartHelper('getRc2Insurance', 'rc2InsuranceFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'rcReceiptFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut RC',
+                            'help' => $this->getSmartHelper('getRcReceipt', 'rcReceiptFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Riscos Laborals', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'preventionServiceContractFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Contracte',
+                            'help' => $this->getSmartHelper('getPreventionServiceContract', 'preventionServiceContractFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'preventionServiceInvoiceFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Factura',
+                            'help' => $this->getSmartHelper('getPreventionServiceInvoice', 'preventionServiceInvoiceFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'preventionServiceReceiptFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut',
+                            'help' => $this->getSmartHelper('getPreventionServiceReceipt', 'preventionServiceReceiptFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Assegurances', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'occupationalAccidentsInsuranceFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Assegurança d\'accident de treball',
+                            'help' => $this->getSmartHelper('getOccupationalAccidentsInsurance', 'occupationalAccidentsInsuranceFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'occupationalReceiptFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut',
+                            'help' => $this->getSmartHelper('getOccupationalReceipt', 'occupationalReceiptFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'laborRiskAssessmentFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Avaluació riscos',
+                            'help' => $this->getSmartHelper('getLaborRiskAssessment', 'laborRiskAssessmentFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'securityPlanFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Pla seguretat',
+                            'help' => $this->getSmartHelper('getSecurityPlan', 'securityPlanFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Impost d\'Activitats Econòmiques', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'iaeRegistrationFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Alta IAE',
+                            'help' => $this->getSmartHelper('getIaeRegistration', 'iaeRegistrationFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'iaeReceiptFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Rebut IAE',
+                            'help' => $this->getSmartHelper('getIaeReceipt', 'iaeReceiptFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->end()
+                ->with('Altres Documents', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'reaCertificateFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Certificat REA',
+                            'help' => $this->getSmartHelper('getReaCertificate', 'reaCertificateFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'oilCertificateFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Certificat recullida d\'oli',
+                            'help' => $this->getSmartHelper('getOilCertificate', 'oilCertificateFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'gencatPaymentCertificateFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Certificat pagament Generalitat',
+                            'help' => $this->getSmartHelper('getGencatPaymentCertificate', 'gencatPaymentCertificateFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'deedsOfPowersFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Escriptura de poder',
+                            'help' => $this->getSmartHelper('getDeedsOfPowers', 'deedsOfPowersFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'mutualPartnershipFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Document associació a mutua',
+                            'help' => $this->getSmartHelper('getMutualPartnership', 'mutualPartnershipFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
             ->end()
         ;
     }
