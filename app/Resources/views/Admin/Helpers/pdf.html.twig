@@ -1,5 +1,6 @@
-<canvas class="pdf-canvas" id="pdf-{{ attribute }}" style="width:100%;border:solid 1px #777"></canvas>
-<a class="btn btn-warning btn-xs" href="{{ vich_uploader_asset(subject, uploaderMapping) }}" download="{{ attribute }}.pdf"><i class="fa fa-cloud-download"></i> Descargar PDF</a>
+<canvas id="pdf-{{ attribute }}" class="pdf-canvas"></canvas>
+<span class="span-helper">màxim 10MB amb PDF</span>
+<a class="btn btn-warning btn-xs" href="{{ vich_uploader_asset(subject, uploaderMapping) }}" download="{{ attribute }}"><i class="fa fa-cloud-download"></i> Descargar</a>
 
 <script type="text/javascript">
     PDFJS.getDocument('{{ vich_uploader_asset(subject, uploaderMapping) }}').then(function(pdf) {
