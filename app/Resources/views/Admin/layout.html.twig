@@ -28,10 +28,18 @@
     </div>
 {% endblock %}
 
+{# override css includes #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/backend.less') }}"/>
+    {#{% stylesheets filter="cssrewrite,less" '@mybackendjs' %}#}
+        {#<link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>#}
+    {#{% endstylesheets %}#}
+{% endblock %}
+
 {# override javascript includes #}
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@mybackendjs' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/pdf.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/pdf.worker.js') }}"></script>
 {% endblock %}
