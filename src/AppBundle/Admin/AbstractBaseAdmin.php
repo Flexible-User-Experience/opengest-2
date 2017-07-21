@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
 /**
  * Class BaseAdmin.
@@ -39,20 +40,27 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $fs;
 
     /**
+     * @var TwigEngine
+     */
+    private $tws;
+
+    /**
      * @param string              $code
      * @param string              $class
      * @param string              $baseControllerName
      * @param CacheManager        $lis
      * @param RepositoriesManager $rm
      * @param FileService         $fs
+     * @param TwigEngine          $tws
      */
-    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs)
+    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs, TwigEngine $tws)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->vus = $fs->getUhs();
         $this->lis = $lis;
         $this->rm = $rm;
         $this->fs = $fs;
+        $this->tws = $tws;
     }
 
     /**
@@ -179,10 +187,13 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected function getSmartHelper($attribute, $uploaderMapping)
     {
         if ($this->getSubject() && $this->getSubject()->$attribute()) {
-            $attributeFile = $attribute.'File';
             if ($this->fs->isPdf($this->getSubject(), $uploaderMapping)) {
                 // PDF case
-                return '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), $uploaderMapping).'" download="'.$this->getSubject()->$attribute().'.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>';
+                return $this->tws->render(':Admin/Helpers:pdf.html.twig', [
+                    'attribute' => $this->getSubject()->$attribute(),
+                    'subject' => $this->getSubject(),
+                    'uploaderMapping' => $uploaderMapping,
+                ]);
             } else {
                 // Image case
                 return ($this->getSubject() ? $this->getSubject()->$attribute() ? '<img src="'.$this->lis->getBrowserPath(
@@ -226,7 +237,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected function getDownloadPdfButton()
     {
         if ($this->getSubject() && !is_null($this->getSubject()->getAttatchmentPDF())) {
-            $result = '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), 'attatchmentPDFFile').'" download="'.$this->getSubject()->getName().'.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>';
+            $result = '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), 'attatchmentPDFFile').'" download="'.$this->getSubject()->getName().'.pdf"><i class="fa fa-file-pdf-o"></i> Document PDF</a>';
 
             return $result;
         }

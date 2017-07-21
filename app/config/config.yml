@@ -59,6 +59,10 @@ assetic:
             inputs:
                 - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
                 - "%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js"
+        mybackendjs:
+            inputs:
+                - "@AppBundle/Resources/public/js/pdf.js"
+                - "@AppBundle/Resources/public/js/pdf.worker.js"
 
 # Doctrine
 doctrine:

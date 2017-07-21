@@ -2,52 +2,52 @@ services:
 # Sonata Admin
     app.admin.service:
         class: AppBundle\Admin\ServiceAdmin
-        arguments: [ ~ , AppBundle\Entity\Service, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~ , AppBundle\Entity\Service, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Web" }
     app.admin.work:
         class: AppBundle\Admin\WorkAdmin
-        arguments: [ ~ , AppBundle\Entity\Work, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~ , AppBundle\Entity\Work, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Treball", group: "Web" }
     app.admin.work_image:
         class: AppBundle\Admin\WorkImageAdmin
-        arguments: [ ~ , AppBundle\Entity\WorkImage, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~ , AppBundle\Entity\WorkImage, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Imatge Treball", group: "Web", show_in_dashboard: false }
     app.admin.vehicle_category:
         class: AppBundle\Admin\VehicleCategoryAdmin
-        arguments: [ ~ , AppBundle\Entity\VehicleCategory, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~ , AppBundle\Entity\VehicleCategory, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Categoria Vehicle", group: "Web" }
     app.admin.vehicle:
         class: AppBundle\Admin\VehicleAdmin
-        arguments: [ ~ , AppBundle\Entity\Vehicle, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~ , AppBundle\Entity\Vehicle, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Vehicle", group: "Web" }
     app.admin.complement:
         class: AppBundle\Admin\ComplementAdmin
-        arguments: [ ~ , AppBundle\Entity\Complement, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~ , AppBundle\Entity\Complement, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Accesori", group: "Web" }
     app.admin.contact_message:
         class: AppBundle\Admin\ContactMessageAdmin
-        arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Contactes" }
     app.admin.province:
         class: AppBundle\Admin\ProvinceAdmin
-        arguments: [ ~, AppBundle\Entity\Province, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\Province, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administracio" }
     app.admin.city:
         class: AppBundle\Admin\CityAdmin
-        arguments: [ ~, AppBundle\Entity\City, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\City, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administracio" }
     app.admin.enterprise:
         class: AppBundle\Admin\EnterpriseAdmin
-        arguments: [ ~, AppBundle\Entity\Enterprise, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\Enterprise, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Empresa", group: "Administracio" }
     app.admin.user:
