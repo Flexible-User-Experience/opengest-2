@@ -142,6 +142,49 @@ AppBundle\Entity\Enterprise:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# Operator
+AppBundle\Entity\Operator:
+  operator{1..10}:
+    taxIdentificationNumber: <bothify('######?')>
+    bancAccountNumber: <creditCardNumber()>
+    socialSecurityNumber: <creditCardNumber()>
+    hourCost: <numberBetween(1,4)>
+    name: <name()>
+    surname1: <firstName()>
+    surname2: <firstName()>
+    address: <address()>
+    city: @city*
+    enterprise: @enterprise*
+    enterpriseMobile: <phoneNumber()>
+    ownPhone: <phoneNumber()>
+    ownMobile: <phoneNumber()>
+    brithDate: <dateTimeBetween()>
+    registrationDate: <dateTimeBetween()>
+    profilePhotoImage: <numberBetween(1,2)>.jpg
+    taxIdentificationNumberImage: <numberBetween(1,2)>.jpg
+    drivingLicenseImage: <numberBetween(1,2)>.jpg
+    cranesOperatorLicenseImage: <numberBetween(1,2)>.jpg
+    medicalCheckImage: <numberBetween(1,2)>.jpg
+    episImage: <numberBetween(1,2)>.jpg
+    trainingDocumentImage: <numberBetween(1,2)>.jpg
+    informationImage: <numberBetween(1,2)>.jpg
+    useOfMachineryAuthorizationImage: <numberBetween(1,2)>.jpg
+    dischargeSocialSecurityImage: <numberBetween(1,2)>.jpg
+    employmentContractImage: <numberBetween(1,2)>.jpg
+    hasCarDrivingLicense: true
+    hasLorryDrivingLicense: true
+    hasTowingDrivingLicense: false
+    hasCraneDrivingLicense: false
+    shoeSize: <numberBetween(1,4)>
+    jerseytSize: <numberBetween(1,4)>
+    jacketSize: <numberBetween(1,4)>
+    tShirtSize: <numberBetween(1,4)>
+    pantSize: <numberBetween(1,4)>
+    workingDressSize: <numberBetween(1,4)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Users
 AppBundle\Entity\User:
     admin:
