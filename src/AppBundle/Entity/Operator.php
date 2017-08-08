@@ -5,13 +5,17 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\NameTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Operator.
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorRepository")
  * @ORM\Table(name="operator")
+ * @Vich\Uploadable()
  * @UniqueEntity({"enterprise", "taxIdentificationNumber"})
  */
 class Operator extends AbstractBase
@@ -117,11 +121,33 @@ class Operator extends AbstractBase
     private $registrationDate;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="profilePhotoImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $profilePhotoImageFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
     private $profilePhotoImage;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="taxIdentificationNumberImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $taxIdentificationNumberImageFile;
 
     /**
      * @var string
@@ -131,11 +157,33 @@ class Operator extends AbstractBase
     private $taxIdentificationNumberImage;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="drivingLicenseImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $drivingLicenseImageFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
     private $drivingLicenseImage;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="cranesOperatorLicenseImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $cranesOperatorLicenseImageFile;
 
     /**
      * @var string
@@ -145,11 +193,33 @@ class Operator extends AbstractBase
     private $cranesOperatorLicenseImage;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="medicalCheckImageFile")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $medicalCheckImageFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
     private $medicalCheckImage;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="episImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $episImageFile;
 
     /**
      * @var string
@@ -159,11 +229,33 @@ class Operator extends AbstractBase
     private $episImage;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="trainingDocumentImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $trainingDocumentImageFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
     private $trainingDocumentImage;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="informationImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $informationImageFile;
 
     /**
      * @var string
@@ -173,6 +265,17 @@ class Operator extends AbstractBase
     private $informationImage;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="useOfMachineryAuthorizationImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $useOfMachineryAuthorizationImageFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -180,11 +283,33 @@ class Operator extends AbstractBase
     private $useOfMachineryAuthorizationImage;
 
     /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="dischargeSocialSecurityImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $dischargeSocialSecurityImageFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
     private $dischargeSocialSecurityImage;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="employmentContractImage")
+     * @Assert\File(
+     *     maxSize="10M",
+     *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
+     * )
+     */
+    private $employmentContractImageFile;
 
     /**
      * @var string
@@ -262,6 +387,10 @@ class Operator extends AbstractBase
      * @ORM\Column(type="integer")
      */
     private $workingDressSize;
+
+    /**
+     * Methods.
+     */
 
     /**
      * @return string
@@ -516,7 +645,7 @@ class Operator extends AbstractBase
      *
      * @return Operator
      */
-    public function setBrithDate($brithDate)
+    public function setBrithDate(\DateTime $brithDate)
     {
         $this->brithDate = $brithDate;
 
@@ -536,9 +665,34 @@ class Operator extends AbstractBase
      *
      * @return Operator
      */
-    public function setRegistrationDate($registrationDate)
+    public function setRegistrationDate(\DateTime $registrationDate)
     {
         $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getProfilePhotoImageFile()
+    {
+        return $this->profilePhotoImageFile;
+    }
+
+    /**
+     * @param File|null $profilePhotoImageFile
+     *
+     * @return Operator
+     */
+    public function setProfilePhotoImageFile(File $profilePhotoImageFile = null)
+    {
+        $this->profilePhotoImageFile = $profilePhotoImageFile;
+        if ($profilePhotoImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -564,6 +718,31 @@ class Operator extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getTaxIdentificationNumberImageFile()
+    {
+        return $this->taxIdentificationNumberImageFile;
+    }
+
+    /**
+     * @param File|null $taxIdentificationNumberImageFile
+     *
+     * @return Operator
+     */
+    public function setTaxIdentificationNumberImageFile(File $taxIdentificationNumberImageFile = null)
+    {
+        $this->taxIdentificationNumberImageFile = $taxIdentificationNumberImageFile;
+        if ($taxIdentificationNumberImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getTaxIdentificationNumberImage()
@@ -579,6 +758,31 @@ class Operator extends AbstractBase
     public function setTaxIdentificationNumberImage($taxIdentificationNumberImage)
     {
         $this->taxIdentificationNumberImage = $taxIdentificationNumberImage;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getDrivingLicenseImageFile()
+    {
+        return $this->drivingLicenseImageFile;
+    }
+
+    /**
+     * @param File|null $drivingLicenseImageFile
+     *
+     * @return Operator
+     */
+    public function setDrivingLicenseImageFile(File $drivingLicenseImageFile = null)
+    {
+        $this->drivingLicenseImageFile = $drivingLicenseImageFile;
+        if ($drivingLicenseImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -604,6 +808,31 @@ class Operator extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getCranesOperatorLicenseImageFile()
+    {
+        return $this->cranesOperatorLicenseImageFile;
+    }
+
+    /**
+     * @param File|null $cranesOperatorLicenseImageFile
+     *
+     * @return Operator
+     */
+    public function setCranesOperatorLicenseImageFile(File $cranesOperatorLicenseImageFile = null)
+    {
+        $this->cranesOperatorLicenseImageFile = $cranesOperatorLicenseImageFile;
+        if ($cranesOperatorLicenseImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getCranesOperatorLicenseImage()
@@ -619,6 +848,31 @@ class Operator extends AbstractBase
     public function setCranesOperatorLicenseImage($cranesOperatorLicenseImage)
     {
         $this->cranesOperatorLicenseImage = $cranesOperatorLicenseImage;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getMedicalCheckImageFile()
+    {
+        return $this->medicalCheckImageFile;
+    }
+
+    /**
+     * @param File|null $medicalCheckImageFile
+     *
+     * @return Operator
+     */
+    public function setMedicalCheckImageFile(File $medicalCheckImageFile = null)
+    {
+        $this->medicalCheckImageFile = $medicalCheckImageFile;
+        if ($medicalCheckImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -644,6 +898,31 @@ class Operator extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getEpisImageFile()
+    {
+        return $this->episImageFile;
+    }
+
+    /**
+     * @param File|null $episImageFile
+     *
+     * @return Operator
+     */
+    public function setEpisImageFile(File $episImageFile = null)
+    {
+        $this->episImageFile = $episImageFile;
+        if ($episImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getEpisImage()
@@ -659,6 +938,31 @@ class Operator extends AbstractBase
     public function setEpisImage($episImage)
     {
         $this->episImage = $episImage;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getTrainingDocumentImageFile()
+    {
+        return $this->trainingDocumentImageFile;
+    }
+
+    /**
+     * @param File|null $trainingDocumentImageFile
+     *
+     * @return Operator
+     */
+    public function setTrainingDocumentImageFile(File $trainingDocumentImageFile = null)
+    {
+        $this->trainingDocumentImageFile = $trainingDocumentImageFile;
+        if ($trainingDocumentImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -684,6 +988,31 @@ class Operator extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getInformationImageFile()
+    {
+        return $this->informationImageFile;
+    }
+
+    /**
+     * @param File|null $informationImageFile
+     *
+     * @return Operator
+     */
+    public function setInformationImageFile(File $informationImageFile = null)
+    {
+        $this->informationImageFile = $informationImageFile;
+        if ($informationImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getInformationImage()
@@ -699,6 +1028,31 @@ class Operator extends AbstractBase
     public function setInformationImage($informationImage)
     {
         $this->informationImage = $informationImage;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getUseOfMachineryAuthorizationImageFile()
+    {
+        return $this->useOfMachineryAuthorizationImageFile;
+    }
+
+    /**
+     * @param File|null $useOfMachineryAuthorizationImageFile
+     *
+     * @return Operator
+     */
+    public function setUseOfMachineryAuthorizationImageFile(File $useOfMachineryAuthorizationImageFile = null)
+    {
+        $this->useOfMachineryAuthorizationImageFile = $useOfMachineryAuthorizationImageFile;
+        if ($useOfMachineryAuthorizationImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
@@ -724,6 +1078,31 @@ class Operator extends AbstractBase
     }
 
     /**
+     * @return File
+     */
+    public function getDischargeSocialSecurityImageFile()
+    {
+        return $this->dischargeSocialSecurityImageFile;
+    }
+
+    /**
+     * @param File|null $dischargeSocialSecurityImageFile
+     *
+     * @return Operator
+     */
+    public function setDischargeSocialSecurityImageFile(File $dischargeSocialSecurityImageFile = null)
+    {
+        $this->dischargeSocialSecurityImageFile = $dischargeSocialSecurityImageFile;
+        if ($dischargeSocialSecurityImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getDischargeSocialSecurityImage()
@@ -739,6 +1118,31 @@ class Operator extends AbstractBase
     public function setDischargeSocialSecurityImage($dischargeSocialSecurityImage)
     {
         $this->dischargeSocialSecurityImage = $dischargeSocialSecurityImage;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getEmploymentContractImageFile()
+    {
+        return $this->employmentContractImageFile;
+    }
+
+    /**
+     * @param File|null $employmentContractImageFile
+     *
+     * @return Operator
+     */
+    public function setEmploymentContractImageFile(File $employmentContractImageFile = null)
+    {
+        $this->employmentContractImageFile = $employmentContractImageFile;
+        if ($employmentContractImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
 
         return $this;
     }
