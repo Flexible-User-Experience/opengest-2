@@ -144,6 +144,10 @@ class CityAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Província',
                     'editable' => true,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'province')),
                 )
             )
             ->add(
