@@ -42,3 +42,12 @@ cypress_git_elephant:
     repositories:
         "Opengest": "%kernel.root_dir%/../"
 
+# Vich
+vich_uploader:
+    db_driver: orm
+    mappings:
+        enterprise:
+            uri_prefix:         /uploads/images/enterprise
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/enterprise"
+            namer:              vich_uploader.namer_uniqid
+            delete_on_update:   false

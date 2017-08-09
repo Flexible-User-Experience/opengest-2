@@ -37,7 +37,7 @@ twig:
         google_analytics_enabled: "%google_analytics_enabled%"
         google_analytics_account: "%google_analytics_account%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.21"
+        admin_tag_version:        "v1.0.22"
 
 # Assetic
 assetic:
@@ -55,10 +55,17 @@ assetic:
         mycss:
             inputs:
                 - "@AppBundle/Resources/public/css/frontend.less"
+        mybackendcss:
+            inputs:
+                - "@AppBundle/Resources/public/css/backend.less"
         myjs:
             inputs:
                 - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
                 - "%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js"
+        mybackendjs:
+            inputs:
+                - "@AppBundle/Resources/public/js/pdf.js"
+                - "@AppBundle/Resources/public/js/pdf.worker.js"
 
 # Doctrine
 doctrine:

@@ -3,10 +3,12 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Manager\RepositoriesManager;
+use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
 /**
  * Class BaseAdmin.
@@ -33,19 +35,32 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $rm;
 
     /**
+     * @var FileService
+     */
+    protected $fs;
+
+    /**
+     * @var TwigEngine
+     */
+    private $tws;
+
+    /**
      * @param string              $code
      * @param string              $class
      * @param string              $baseControllerName
-     * @param UploaderHelper      $vus
      * @param CacheManager        $lis
      * @param RepositoriesManager $rm
+     * @param FileService         $fs
+     * @param TwigEngine          $tws
      */
-    public function __construct($code, $class, $baseControllerName, UploaderHelper $vus, CacheManager $lis, RepositoriesManager $rm)
+    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs, TwigEngine $tws)
     {
         parent::__construct($code, $class, $baseControllerName);
-        $this->vus = $vus;
+        $this->vus = $fs->getUhs();
         $this->lis = $lis;
         $this->rm = $rm;
+        $this->fs = $fs;
+        $this->tws = $tws;
     }
 
     /**
@@ -67,6 +82,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     {
         $collection
             ->remove('show')
+//            ->remove('delete')
             ->remove('batch');
     }
 
@@ -148,6 +164,64 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
+     * Get image helper form mapper with thumbnail.
+     *
+     * @return string
+     */
+    protected function getLogoHelperFormMapperWithThumbnail()
+    {
+        return ($this->getSubject() ? $this->getSubject()->getLogo() ? '<img src="'.$this->lis->getBrowserPath(
+                $this->vus->asset($this->getSubject(), 'logoFile'),
+                '480xY'
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 300px (màx. 10MB amb JPG o PNG)</span>';
+    }
+
+    /**
+     * Get image helper form mapper with thumbnail.
+     *
+     * @return string
+     */
+    protected function getProfileHelperFormMapperWithThumbnail()
+    {
+        return ($this->getSubject() ? $this->getSubject()->getProfilePhotoImage() ? '<img src="'.$this->lis->getBrowserPath(
+                $this->vus->asset($this->getSubject(), 'profilePhotoImageFile'),
+                '480xY'
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 300px (màx. 10MB amb JPG o PNG)</span>';
+    }
+
+    /**
+     * Get image helper form mapper with thumbnail.
+     *
+     * @param string $attribute
+     * @param string $uploaderMapping
+     *
+     * @return string
+     */
+    protected function getSmartHelper($attribute, $uploaderMapping)
+    {
+        if ($this->getSubject() && $this->getSubject()->$attribute()) {
+            if ($this->fs->isPdf($this->getSubject(), $uploaderMapping)) {
+                // PDF case
+                return $this->tws->render(':Admin/Helpers:pdf.html.twig', [
+                    'attribute' => $this->getSubject()->$attribute(),
+                    'subject' => $this->getSubject(),
+                    'uploaderMapping' => $uploaderMapping,
+                ]);
+            } else {
+                // Image case
+                return $this->tws->render(':Admin/Helpers:image.html.twig', [
+                    'attribute' => $this->getSubject()->$attribute(),
+                    'subject' => $this->getSubject(),
+                    'uploaderMapping' => $uploaderMapping,
+                ]);
+            }
+        } else {
+            // Undefined case
+            return '<span style="width:100%;display:block;">Pots adjuntar un PDF o una imatge d\'una amplada mínima de 1200px. Pes màxim 10MB.</span>';
+        }
+    }
+
+    /**
      * Get image helper form mapper with thumbnail for black&white.
      *
      * @return string
@@ -177,7 +251,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected function getDownloadPdfButton()
     {
         if ($this->getSubject() && !is_null($this->getSubject()->getAttatchmentPDF())) {
-            $result = '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), 'attatchmentPDFFile').'" download="'.$this->getSubject()->getName().'.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Document PDF</a>';
+            $result = '<a class="btn btn-warning btn-xs" href="'.$this->vus->asset($this->getSubject(), 'attatchmentPDFFile').'" download="'.$this->getSubject()->getName().'.pdf"><i class="fa fa-file-pdf-o"></i> Document PDF</a>';
 
             return $result;
         }

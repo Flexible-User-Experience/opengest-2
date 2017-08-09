@@ -2,25 +2,25 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class VehicleCategoryAdmin.
+ * Class CityAdmin.
  *
  * @category Admin
  *
- * @author Wils Iglesias <wiglesias83@gmail.com>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class VehicleCategoryAdmin extends AbstractBaseAdmin
+class CityAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Categoria Vehicles';
-    protected $baseRoutePattern = 'web/categoria-vehicle';
+    protected $classnameLabel = 'Ciutat';
+    protected $baseRoutePattern = 'administracio/ciutat';
     protected $datagridValues = array(
-        '_sort_by' => 'position',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -43,21 +43,29 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
+                'postalCode',
+                null,
+                array(
+                    'label' => 'Codi postal',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'position',
+                'province',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'Província',
+                    'required' => true,
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -66,7 +74,8 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -76,33 +85,34 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'postalCode',
+                null,
+                array(
+                    'label' => 'Codi postal',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
                 )
             )
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label' => 'Posició',
-//                )
-//            )
-//            ->add(
-//                'vehicles',
-//                null,
-//                array(
-//                    'label' => 'Vehicles',
-//                )
-//            )
+            ->add(
+                'province',
+                null,
+                array(
+                    'label' => 'Província',
+                )
+            )
             ->add(
                 'enabled',
                 null,
                 array(
                     'label' => 'Actiu',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -113,6 +123,14 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'postalCode',
+                null,
+                array(
+                    'label' => 'Codi Postal',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -121,21 +139,17 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'position',
+                'province',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'Província',
                     'editable' => true,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'province')),
                 )
             )
-//            ->add(
-//                'vehicles',
-//                null,
-//                array(
-//                    'label' => 'Vehicles',
-//                    'editable' => true,
-//                )
-//            )
             ->add(
                 'enabled',
                 null,
@@ -155,6 +169,7 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }

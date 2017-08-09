@@ -2,25 +2,26 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class VehicleCategoryAdmin.
+ * Class ProvinceAdmin.
  *
  * @category Admin
  *
- * @author Wils Iglesias <wiglesias83@gmail.com>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class VehicleCategoryAdmin extends AbstractBaseAdmin
+class ProvinceAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Categoria Vehicles';
-    protected $baseRoutePattern = 'web/categoria-vehicle';
+    protected $classnameLabel = 'Província';
+    protected $baseRoutePattern = 'administracio/provincia';
     protected $datagridValues = array(
-        '_sort_by' => 'position',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -43,21 +44,29 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'position',
-                null,
+                'country',
+                CountryType::class,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'Pais',
+                    'preferred_choices' => array('ES'),
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -66,7 +75,8 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -76,6 +86,13 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -83,17 +100,10 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                 )
             )
 //            ->add(
-//                'position',
+//                'country',
 //                null,
 //                array(
-//                    'label' => 'Posició',
-//                )
-//            )
-//            ->add(
-//                'vehicles',
-//                null,
-//                array(
-//                    'label' => 'Vehicles',
+//                    'label' => 'Pais',
 //                )
 //            )
             ->add(
@@ -102,7 +112,8 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Actiu',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -113,6 +124,14 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -121,21 +140,13 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'position',
+                'country',
                 null,
                 array(
-                    'label' => 'Posició',
-                    'editable' => true,
+                    'label' => 'Pais',
+                    'editable' => false,
                 )
             )
-//            ->add(
-//                'vehicles',
-//                null,
-//                array(
-//                    'label' => 'Vehicles',
-//                    'editable' => true,
-//                )
-//            )
             ->add(
                 'enabled',
                 null,
@@ -155,6 +166,7 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }

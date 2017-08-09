@@ -126,6 +126,111 @@ AppBundle\Entity\Complement:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# Province
+AppBundle\Entity\Province:
+  province{1..2}:
+    code: <postcode()>
+    name: <city()>
+    country: <country()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# City
+AppBundle\Entity\City:
+  city{1..2}:
+    name: <city()>
+    postalCode: <postcode()>
+    province: @province*
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Enterprise
+AppBundle\Entity\Enterprise:
+  enterprise{1..2}:
+    name: <company()>
+    taxIdentificationNumber: <bothify('######?')>
+    businessName: <company()>
+    address: <streetAddress()>
+    city: @city*
+    phone1: <phoneNumber()>
+    phone2: <phoneNumber()>
+    phone3: <phoneNumber()>
+    fax: <phoneNumber()>
+    email: <safeEmail()>
+    www: <safeEmailDomain()>
+    logo: <numberBetween(1,2)>.jpg
+    deedOfIncorporation: <numberBetween(1,2)>.jpg
+    taxIdentificationNumberCard: <numberBetween(1,2)>.jpg
+    tc1Receipt: <numberBetween(1,2)>.jpg
+    tc2Receipt: <numberBetween(1,2)>.jpg
+    ssRegistration: <numberBetween(1,2)>.jpg
+    ssPaymentCertificate: <numberBetween(1,2)>.jpg
+    rc1Insurance: <numberBetween(1,2)>.jpg
+    rc2Insurance: <numberBetween(1,2)>.jpg
+    rcReceipt: <numberBetween(1,2)>.jpg
+    preventionServiceContract: <numberBetween(1,2)>.jpg
+    preventionServiceInvoice: <numberBetween(1,2)>.jpg
+    preventionServiceReceipt: <numberBetween(1,2)>.jpg
+    occupationalAccidentsInsurance: <numberBetween(1,2)>.jpg
+    occupationalReceipt: <numberBetween(1,2)>.jpg
+    laborRiskAssessment: <numberBetween(1,2)>.jpg
+    securityPlan: <numberBetween(1,2)>.jpg
+    reaCertificate: <numberBetween(1,2)>.jpg
+    oilCertificate: <numberBetween(1,2)>.jpg
+    gencatPaymentCertificate: <numberBetween(1,2)>.jpg
+    deedsOfPowers: <numberBetween(1,2)>.jpg
+    iaeRegistration: <numberBetween(1,2)>.jpg
+    iaeReceipt: <numberBetween(1,2)>.jpg
+    mutualPartnership: <numberBetween(1,2)>.jpg
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Operator
+AppBundle\Entity\Operator:
+  operator{1..2}:
+    taxIdentificationNumber: <bothify('######?')>
+    bancAccountNumber: <creditCardNumber()>
+    socialSecurityNumber: <creditCardNumber()>
+    hourCost: <numberBetween(1,4)>
+    name: <name()>
+    surname1: <firstName()>
+    surname2: <firstName()>
+    address: <address()>
+    city: @city*
+    enterprise: @enterprise*
+    enterpriseMobile: <phoneNumber()>
+    ownPhone: <phoneNumber()>
+    ownMobile: <phoneNumber()>
+    brithDate: <dateTimeBetween()>
+    registrationDate: <dateTimeBetween()>
+    profilePhotoImage: <numberBetween(1,2)>.jpg
+    taxIdentificationNumberImage: <numberBetween(1,2)>.jpg
+    drivingLicenseImage: <numberBetween(1,2)>.jpg
+    cranesOperatorLicenseImage: <numberBetween(1,2)>.jpg
+    medicalCheckImage: <numberBetween(1,2)>.jpg
+    episImage: <numberBetween(1,2)>.jpg
+    trainingDocumentImage: <numberBetween(1,2)>.jpg
+    informationImage: <numberBetween(1,2)>.jpg
+    useOfMachineryAuthorizationImage: <numberBetween(1,2)>.jpg
+    dischargeSocialSecurityImage: <numberBetween(1,2)>.jpg
+    employmentContractImage: <numberBetween(1,2)>.jpg
+    hasCarDrivingLicense: true
+    hasLorryDrivingLicense: true
+    hasTowingDrivingLicense: false
+    hasCraneDrivingLicense: false
+    shoeSize: <numberBetween(1,4)>
+    jerseytSize: <numberBetween(1,4)>
+    jacketSize: <numberBetween(1,4)>
+    tShirtSize: <numberBetween(1,4)>
+    pantSize: <numberBetween(1,4)>
+    workingDressSize: <numberBetween(1,4)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Users
 AppBundle\Entity\User:
     admin:

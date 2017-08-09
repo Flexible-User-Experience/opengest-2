@@ -28,10 +28,17 @@
     </div>
 {% endblock %}
 
+{# override css includes #}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter="cssrewrite,less" '@mybackendcss' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
 {# override javascript includes #}
-{#{% block javascripts %}#}
-    {#{{ parent() }}#}
-    {#<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>#}
-    {#<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>#}
-    {#<script src="{{ asset('js/fos_js_routes.js') }}"></script>#}
-{#{% endblock %}#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/pdf.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/pdf.worker.js') }}"></script>
+{% endblock %}
