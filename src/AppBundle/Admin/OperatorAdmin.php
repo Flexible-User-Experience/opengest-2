@@ -38,6 +38,14 @@ class OperatorAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'profilePhotoImage',
+                null,
+                array(
+                    'label' => 'Imatge',
+                    'template' => '::Admin/Cells/list__cell_profile_image_field.html.twig',
+                )
+            )
+            ->add(
                 'taxIdentificationNumber',
                 null,
                 array(
@@ -58,6 +66,14 @@ class OperatorAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Primer cognom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'enterprise',
+                null,
+                array(
+                    'label' => 'Empresa',
                     'editable' => true,
                 )
             )
