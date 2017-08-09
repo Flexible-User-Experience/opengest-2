@@ -179,6 +179,19 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     /**
      * Get image helper form mapper with thumbnail.
      *
+     * @return string
+     */
+    protected function getProfileHelperFormMapperWithThumbnail()
+    {
+        return ($this->getSubject() ? $this->getSubject()->getProfilePhotoImage() ? '<img src="'.$this->lis->getBrowserPath(
+                $this->vus->asset($this->getSubject(), 'profilePhotoImageFile'),
+                '480xY'
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 300px (màx. 10MB amb JPG o PNG)</span>';
+    }
+
+    /**
+     * Get image helper form mapper with thumbnail.
+     *
      * @param string $attribute
      * @param string $uploaderMapping
      *

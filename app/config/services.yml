@@ -54,7 +54,7 @@ services:
         class: AppBundle\Admin\OperatorAdmin
         arguments: [ ~, AppBundle\Entity\Operator, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Operadors", group: "Administracio" }
+            - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Administracio" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
