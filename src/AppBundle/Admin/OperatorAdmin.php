@@ -291,7 +291,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         )
                     )
                     ->end()
-                ->with('Informe medic', $this->getFormMdSuccessBoxArray(3))
+                ->with('Informe mèdic', $this->getFormMdSuccessBoxArray(3))
                 ->add(
                     'medicalCheckImageFile',
                     FileType::class,
