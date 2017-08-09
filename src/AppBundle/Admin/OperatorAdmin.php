@@ -79,24 +79,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                             'label' => 'Segon cognom',
                         )
                     )
-                    ->add(
-                        'brithDate',
-                        'sonata_type_date_picker',
-                        array(
-                            'label' => 'Data de naixement',
-                            'format' => 'd/M/y',
-                            'required' => true,
-                        )
-                    )
-                    ->add(
-                        'registrationDate',
-                        'sonata_type_date_picker',
-                        array(
-                            'label' => 'Data de registre',
-                            'format' => 'd/M/y',
-                            'required' => true,
-                        )
-                    )
                 ->end()
                 ->with('Contacte', $this->getFormMdSuccessBoxArray(4))
                     ->add(
@@ -177,6 +159,80 @@ class OperatorAdmin extends AbstractBaseAdmin
                 ->end()
                 ->with('Controls', $this->getFormMdSuccessBoxArray(4))
                     ->add(
+                        'brithDate',
+                        'sonata_type_date_picker',
+                        array(
+                            'label' => 'Data de naixement',
+                            'format' => 'd/M/y',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'registrationDate',
+                        'sonata_type_date_picker',
+                        array(
+                            'label' => 'Data de registre',
+                            'format' => 'd/M/y',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'bancAccountNumber',
+                        null,
+                        array(
+                            'label' => 'No. de compte bancari',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'socialSecurityNumber',
+                        null,
+                        array(
+                            'label' => 'No. de Seguretat Social',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'hourCost',
+                        null,
+                        array(
+                            'label' => 'Cost hora',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'hasCarDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de cotxe',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'hasLorryDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de camions',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'hasTowingDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de remolc',
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'hasCraneDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de grua',
+                            'required' => false,
+                        )
+                    )
+                    ->add(
                         'enabled',
                         CheckboxType::class,
                         array(
@@ -185,48 +241,80 @@ class OperatorAdmin extends AbstractBaseAdmin
                         )
                     )
             ->end()
-//                ->end()
-//            ->tab('Recursos')
-//                ->with('TC\'s', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'tc1ReceiptFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut TC1',
-//                        'help' => $this->getSmartHelper('getTc1Receipt', 'tc1ReceiptFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'tc2ReceiptFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut TC2',
-//                        'help' => $this->getSmartHelper('getTc2Receipt', 'tc2ReceiptFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
-//                ->with('Seguretat Social', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'ssRegistrationFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut SS registre',
-//                        'help' => $this->getSmartHelper('getSsRegistration', 'ssRegistrationFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'ssPaymentCertificateFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut pagament certificat',
-//                        'help' => $this->getSmartHelper('getSsPaymentCertificate', 'ssPaymentCertificateFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
+                ->with('EPI\'s', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'shoeSize',
+                    null,
+                    array(
+                        'label' => 'Mida de sabata',
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'jerseytSize',
+                    null,
+                    array(
+                        'label' => 'Mida de jersei',
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'jacketSize',
+                    null,
+                    array(
+                        'label' => 'Mida de jaqueta',
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'tShirtSize',
+                    null,
+                    array(
+                        'label' => 'Mida de camisa',
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'pantSize',
+                    null,
+                    array(
+                        'label' => 'Mida de pantaló',
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'workingDressSize',
+                    null,
+                    array(
+                        'label' => 'Mida de roba de treball',
+                        'required' => false,
+                    )
+                )
+                ->end()
+            ->end()
+            ->tab('Recursos')
+                ->with('No. d\'identificació fiscal', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'taxIdentificationNumberImageFile',
+                    FileType::class,
+                    array(
+                        'label' => 'DNI/NIE',
+                        'help' => $this->getSmartHelper('getTaxIdentificationNumberImage', 'taxIdentificationNumberImageFile'),
+                        'required' => false,
+                    )
+                )
+                ->end()
+                ->with('Seguretat Social', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'dischargeSocialSecurityImageFile',
+                    FileType::class,
+                    array(
+                        'label' => 'Baixa Seguretat Social',
+                        'help' => $this->getSmartHelper('getDischargeSocialSecurityImage', 'dischargeSocialSecurityImageFile'),
+                        'required' => false,
+                    )
+                )
+                ->end()
 //                ->with('Responsabilitat Civil', $this->getFormMdSuccessBoxArray(3))
 //                ->add(
 //                    'rc1InsuranceFile',
@@ -474,6 +562,14 @@ class OperatorAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Primer cognom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'surname2',
+                null,
+                array(
+                    'label' => 'Segon cognom',
                     'editable' => true,
                 )
             )

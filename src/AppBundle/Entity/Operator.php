@@ -516,6 +516,14 @@ class Operator extends AbstractBase
     /**
      * @return string
      */
+    public function getFullName()
+    {
+        return $this->surname1.' '.$this->surname2.' '.$this->name;
+    }
+
+    /**
+     * @return string
+     */
     public function getAddress()
     {
         return $this->address;
@@ -1373,6 +1381,6 @@ class Operator extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getEnterprise().' · '.$this->getTaxIdentificationNumber() : '---';
+        return $this->id ? $this->getFullName() : '---';
     }
 }
