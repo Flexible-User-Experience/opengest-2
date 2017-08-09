@@ -121,41 +121,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                             'required' => true,
                         )
                     )
-//                    ->add(
-//                        'email',
-//                        null,
-//                        array(
-//                            'label' => 'Email',
-//                        )
-//                    )
-//                    ->add(
-//                        'www',
-//                        null,
-//                        array(
-//                            'label' => 'Web corporativa',
-//                        )
-//                    )
-//                    ->add(
-//                        'phone1',
-//                        null,
-//                        array(
-//                            'label' => 'Telèfon 1',
-//                        )
-//                    )
-//                    ->add(
-//                        'phone2',
-//                        null,
-//                        array(
-//                            'label' => 'Telèfon 2',
-//                        )
-//                    )
-//                    ->add(
-//                        'phone3',
-//                        null,
-//                        array(
-//                            'label' => 'Telèfon 3',
-//                        )
-//                    )
                 ->end()
                 ->with('Controls', $this->getFormMdSuccessBoxArray(4))
                     ->add(
@@ -240,244 +205,165 @@ class OperatorAdmin extends AbstractBaseAdmin
                             'required' => false,
                         )
                     )
-            ->end()
+                ->end()
                 ->with('EPI\'s', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'shoeSize',
-                    null,
-                    array(
-                        'label' => 'Mida de sabata',
-                        'required' => false,
+                    ->add(
+                        'shoeSize',
+                        null,
+                        array(
+                            'label' => 'Mida de sabata',
+                            'required' => false,
+                        )
                     )
-                )
-                ->add(
-                    'jerseytSize',
-                    null,
-                    array(
-                        'label' => 'Mida de jersei',
-                        'required' => false,
+                    ->add(
+                        'jerseytSize',
+                        null,
+                        array(
+                            'label' => 'Mida de jersei',
+                            'required' => false,
+                        )
                     )
-                )
-                ->add(
-                    'jacketSize',
-                    null,
-                    array(
-                        'label' => 'Mida de jaqueta',
-                        'required' => false,
+                    ->add(
+                        'jacketSize',
+                        null,
+                        array(
+                            'label' => 'Mida de jaqueta',
+                            'required' => false,
+                        )
                     )
-                )
-                ->add(
-                    'tShirtSize',
-                    null,
-                    array(
-                        'label' => 'Mida de camisa',
-                        'required' => false,
+                    ->add(
+                        'tShirtSize',
+                        null,
+                        array(
+                            'label' => 'Mida de camisa',
+                            'required' => false,
+                        )
                     )
-                )
-                ->add(
-                    'pantSize',
-                    null,
-                    array(
-                        'label' => 'Mida de pantaló',
-                        'required' => false,
+                    ->add(
+                        'pantSize',
+                        null,
+                        array(
+                            'label' => 'Mida de pantaló',
+                            'required' => false,
+                        )
                     )
-                )
-                ->add(
-                    'workingDressSize',
-                    null,
-                    array(
-                        'label' => 'Mida de roba de treball',
-                        'required' => false,
+                    ->add(
+                        'workingDressSize',
+                        null,
+                        array(
+                            'label' => 'Mida de roba de treball',
+                            'required' => false,
+                        )
                     )
-                )
                 ->end()
             ->end()
             ->tab('Recursos')
                 ->with('No. d\'identificació fiscal', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'taxIdentificationNumberImageFile',
-                    FileType::class,
-                    array(
-                        'label' => 'DNI/NIE',
-                        'help' => $this->getSmartHelper('getTaxIdentificationNumberImage', 'taxIdentificationNumberImageFile'),
-                        'required' => false,
+                    ->add(
+                        'taxIdentificationNumberImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'DNI/NIE',
+                            'help' => $this->getSmartHelper('getTaxIdentificationNumberImage', 'taxIdentificationNumberImageFile'),
+                            'required' => false,
+                        )
                     )
-                )
-                ->end()
+                    ->end()
                 ->with('Seguretat Social', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'dischargeSocialSecurityImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Baixa Seguretat Social',
+                            'help' => $this->getSmartHelper('getDischargeSocialSecurityImage', 'dischargeSocialSecurityImageFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Contracte de treball', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'employmentContractImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Contracte',
+                            'help' => $this->getSmartHelper('getEmploymentContractImage', 'employmentContractImageFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->end()
+                ->with('Informe medic', $this->getFormMdSuccessBoxArray(3))
                 ->add(
-                    'dischargeSocialSecurityImageFile',
+                    'medicalCheckImageFile',
                     FileType::class,
                     array(
-                        'label' => 'Baixa Seguretat Social',
-                        'help' => $this->getSmartHelper('getDischargeSocialSecurityImage', 'dischargeSocialSecurityImageFile'),
+                        'label' => 'Revisió mèdica',
+                        'help' => $this->getSmartHelper('getMedicalCheckImage', 'medicalCheckImageFile'),
                         'required' => false,
                     )
                 )
                 ->end()
-//                ->with('Responsabilitat Civil', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'rc1InsuranceFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'RC 1',
-//                        'help' => $this->getSmartHelper('getRc1Insurance', 'rc1InsuranceFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'rc2InsuranceFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'RC 2',
-//                        'help' => $this->getSmartHelper('getRc2Insurance', 'rc2InsuranceFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'rcReceiptFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut RC',
-//                        'help' => $this->getSmartHelper('getRcReceipt', 'rcReceiptFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
-//                ->with('Riscos Laborals', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'preventionServiceContractFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Contracte',
-//                        'help' => $this->getSmartHelper('getPreventionServiceContract', 'preventionServiceContractFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'preventionServiceInvoiceFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Factura',
-//                        'help' => $this->getSmartHelper('getPreventionServiceInvoice', 'preventionServiceInvoiceFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'preventionServiceReceiptFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut',
-//                        'help' => $this->getSmartHelper('getPreventionServiceReceipt', 'preventionServiceReceiptFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
-//                ->with('Assegurances', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'occupationalAccidentsInsuranceFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Assegurança d\'accident de treball',
-//                        'help' => $this->getSmartHelper('getOccupationalAccidentsInsurance', 'occupationalAccidentsInsuranceFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'occupationalReceiptFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut',
-//                        'help' => $this->getSmartHelper('getOccupationalReceipt', 'occupationalReceiptFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'laborRiskAssessmentFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Avaluació riscos',
-//                        'help' => $this->getSmartHelper('getLaborRiskAssessment', 'laborRiskAssessmentFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'securityPlanFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Pla seguretat',
-//                        'help' => $this->getSmartHelper('getSecurityPlan', 'securityPlanFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
-//                ->with('Impost d\'Activitats Econòmiques', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'iaeRegistrationFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Alta IAE',
-//                        'help' => $this->getSmartHelper('getIaeRegistration', 'iaeRegistrationFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'iaeReceiptFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Rebut IAE',
-//                        'help' => $this->getSmartHelper('getIaeReceipt', 'iaeReceiptFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
-//                ->with('Altres Documents', $this->getFormMdSuccessBoxArray(3))
-//                ->add(
-//                    'reaCertificateFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Certificat REA',
-//                        'help' => $this->getSmartHelper('getReaCertificate', 'reaCertificateFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'oilCertificateFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Certificat recullida d\'oli',
-//                        'help' => $this->getSmartHelper('getOilCertificate', 'oilCertificateFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'gencatPaymentCertificateFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Certificat pagament Generalitat',
-//                        'help' => $this->getSmartHelper('getGencatPaymentCertificate', 'gencatPaymentCertificateFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'deedsOfPowersFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Escriptura de poder',
-//                        'help' => $this->getSmartHelper('getDeedsOfPowers', 'deedsOfPowersFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->add(
-//                    'mutualPartnershipFile',
-//                    FileType::class,
-//                    array(
-//                        'label' => 'Document associació a mutua',
-//                        'help' => $this->getSmartHelper('getMutualPartnership', 'mutualPartnershipFile'),
-//                        'required' => false,
-//                    )
-//                )
-//                ->end()
+                ->with('EPI\'s', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'episImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'EPI',
+                            'help' => $this->getSmartHelper('getEpisImage', 'episImageFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Formació', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'trainingDocumentImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Títol de formació',
+                            'help' => $this->getSmartHelper('getTrainingDocumentImage', 'trainingDocumentImageFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Altres Documents', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'informationImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Altra informació',
+                            'help' => $this->getSmartHelper('getInformationImage', 'informationImageFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Llicències', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'drivingLicenseImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Carnet de conduir',
+                            'help' => $this->getSmartHelper('getDrivingLicenseImage', 'drivingLicenseImageFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'useOfMachineryAuthorizationImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Autorització de maquinària',
+                            'help' => $this->getSmartHelper('getUseOfMachineryAuthorizationImage', 'useOfMachineryAuthorizationImageFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'cranesOperatorLicenseImageFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Llicència d\'operador',
+                            'help' => $this->getSmartHelper('getCranesOperatorLicenseImage', 'cranesOperatorLicenseImageFile'),
+                            'required' => false,
+                        )
+                    )
+                ->end()
             ->end()
         ;
     }

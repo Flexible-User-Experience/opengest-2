@@ -196,7 +196,7 @@ class Operator extends AbstractBase
     /**
      * @var File
      *
-     * @Vich\UploadableField(mapping="operator", fileNameProperty="medicalCheckImageFile")
+     * @Vich\UploadableField(mapping="operator", fileNameProperty="medicalCheckImage")
      * @Assert\File(
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif", "application/pdf", "application/x-pdf"}
@@ -518,7 +518,7 @@ class Operator extends AbstractBase
      */
     public function getFullName()
     {
-        return $this->surname1.' '.$this->surname2.' '.$this->name;
+        return $this->surname1.' '.$this->surname2.', '.$this->name;
     }
 
     /**
