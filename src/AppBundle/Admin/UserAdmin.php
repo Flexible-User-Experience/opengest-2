@@ -119,6 +119,14 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'defaultEnterprise',
+                null,
+                array(
+                    'label' => 'Enpresa principal',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'roles',
                 'choice',
                 array(
