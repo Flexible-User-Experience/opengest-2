@@ -187,6 +187,7 @@ AppBundle\Entity\Enterprise:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+    users: [ @admin ]
 
 # Operator
 AppBundle\Entity\Operator:

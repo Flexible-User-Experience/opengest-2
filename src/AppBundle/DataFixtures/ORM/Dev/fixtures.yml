@@ -102,7 +102,7 @@ AppBundle\Entity\City:
 
 # Enterprise
 AppBundle\Entity\Enterprise:
-  enterprise{1..10}:
+  enterprise{1..5}:
     name: <company()>
     taxIdentificationNumber: <bothify('######?')>
     businessName: <company()>
@@ -141,6 +141,47 @@ AppBundle\Entity\Enterprise:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+    users: [ @admin ]
+  enterprise{6..10}:
+    name: <company()>
+    taxIdentificationNumber: <bothify('######?')>
+    businessName: <company()>
+    address: <streetAddress()>
+    city: @city*
+    phone1: <phoneNumber()>
+    phone2: <phoneNumber()>
+    phone3: <phoneNumber()>
+    fax: <phoneNumber()>
+    email: <safeEmail()>
+    www: <safeEmailDomain()>
+    logo: <numberBetween(1,2)>.jpg
+    deedOfIncorporation: <numberBetween(1,2)>.jpg
+    taxIdentificationNumberCard: <numberBetween(1,2)>.jpg
+    tc1Receipt: <numberBetween(1,2)>.jpg
+    tc2Receipt: <numberBetween(1,2)>.jpg
+    ssRegistration: <numberBetween(1,2)>.jpg
+    ssPaymentCertificate: <numberBetween(1,2)>.jpg
+    rc1Insurance: <numberBetween(1,2)>.jpg
+    rc2Insurance: <numberBetween(1,2)>.jpg
+    rcReceipt: <numberBetween(1,2)>.jpg
+    preventionServiceContract: <numberBetween(1,2)>.jpg
+    preventionServiceInvoice: <numberBetween(1,2)>.jpg
+    preventionServiceReceipt: <numberBetween(1,2)>.jpg
+    occupationalAccidentsInsurance: <numberBetween(1,2)>.jpg
+    occupationalReceipt: <numberBetween(1,2)>.jpg
+    laborRiskAssessment: <numberBetween(1,2)>.jpg
+    securityPlan: <numberBetween(1,2)>.jpg
+    reaCertificate: <numberBetween(1,2)>.jpg
+    oilCertificate: <numberBetween(1,2)>.jpg
+    gencatPaymentCertificate: <numberBetween(1,2)>.jpg
+    deedsOfPowers: <numberBetween(1,2)>.jpg
+    iaeRegistration: <numberBetween(1,2)>.jpg
+    iaeReceipt: <numberBetween(1,2)>.jpg
+    mutualPartnership: <numberBetween(1,2)>.jpg
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+    users: [ @manager1 ]
 
 # Operator
 AppBundle\Entity\Operator:
