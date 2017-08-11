@@ -41,7 +41,7 @@ class OperatorAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->tab('Informació')
-                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                ->with('General', $this->getFormMdSuccessBoxArray(3))
                     ->add(
                         'profilePhotoImageFile',
                         FileType::class,
@@ -80,7 +80,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         )
                     )
                 ->end()
-                ->with('Contacte', $this->getFormMdSuccessBoxArray(4))
+                ->with('Contacte', $this->getFormMdSuccessBoxArray(3))
                     ->add(
                         'address',
                         null,
@@ -122,7 +122,41 @@ class OperatorAdmin extends AbstractBaseAdmin
                         )
                     )
                 ->end()
-                ->with('Controls', $this->getFormMdSuccessBoxArray(4))
+                ->with('Llicència', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'hasCarDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de cotxe',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'hasLorryDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de camions',
+                            'required' => true,
+                        )
+                    )
+                    ->add(
+                        'hasTowingDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de remolc',
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'hasCraneDrivingLicense',
+                        CheckboxType::class,
+                        array(
+                            'label' => 'Llicència conducció de grua',
+                            'required' => false,
+                        )
+                    )
+                ->end()
+                ->with('Controls', $this->getFormMdSuccessBoxArray(3))
                     ->add(
                         'brithDate',
                         'sonata_type_date_picker',
@@ -166,38 +200,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                         )
                     )
                     ->add(
-                        'hasCarDrivingLicense',
-                        CheckboxType::class,
-                        array(
-                            'label' => 'Llicència conducció de cotxe',
-                            'required' => true,
-                        )
-                    )
-                    ->add(
-                        'hasLorryDrivingLicense',
-                        CheckboxType::class,
-                        array(
-                            'label' => 'Llicència conducció de camions',
-                            'required' => true,
-                        )
-                    )
-                    ->add(
-                        'hasTowingDrivingLicense',
-                        CheckboxType::class,
-                        array(
-                            'label' => 'Llicència conducció de remolc',
-                            'required' => false,
-                        )
-                    )
-                    ->add(
-                        'hasCraneDrivingLicense',
-                        CheckboxType::class,
-                        array(
-                            'label' => 'Llicència conducció de grua',
-                            'required' => false,
-                        )
-                    )
-                    ->add(
                         'enabled',
                         CheckboxType::class,
                         array(
@@ -206,7 +208,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         )
                     )
                 ->end()
-                ->with('EPI\'s', $this->getFormMdSuccessBoxArray(4))
+                ->with('EPI\'s', $this->getFormMdSuccessBoxArray(3))
                     ->add(
                         'shoeSize',
                         null,

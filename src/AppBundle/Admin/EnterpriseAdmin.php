@@ -128,6 +128,14 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                 ->end()
                 ->with('Controls', $this->getFormMdSuccessBoxArray(4))
                     ->add(
+                        'users',
+                        null,
+                        array(
+                            'label' => 'Usuaris',
+                            'required' => false,
+                        )
+                    )
+                    ->add(
                         'enabled',
                         CheckboxType::class,
                         array(
