@@ -27,6 +27,13 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var Enterprise
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     */
+    private $defaultEnterprise;
+
+    /**
      * Methods.
      */
 
@@ -38,5 +45,25 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Enterprise
+     */
+    public function getDefaultEnterprise()
+    {
+        return $this->defaultEnterprise;
+    }
+
+    /**
+     * @param Enterprise $defaultEnterprise
+     *
+     * @return User
+     */
+    public function setDefaultEnterprise($defaultEnterprise)
+    {
+        $this->defaultEnterprise = $defaultEnterprise;
+
+        return $this;
     }
 }
