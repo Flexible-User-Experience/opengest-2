@@ -203,6 +203,14 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'defaultEnterprise',
+                null,
+                array(
+                    'label' => 'Empresa principal',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'roles',
                 null,
                 array(
