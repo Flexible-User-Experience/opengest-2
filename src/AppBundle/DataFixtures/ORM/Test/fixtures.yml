@@ -240,6 +240,7 @@ AppBundle\Entity\User:
         email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
+        defaultEnterprise: @enterprise1
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
