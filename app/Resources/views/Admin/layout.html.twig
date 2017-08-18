@@ -7,7 +7,11 @@
 {% block logo %}
     {% spaceless %}
         <a href="{{ path('sonata_admin_dashboard') }}" class="logo">
-            <img style="max-width:125px;" src="{{ vich_uploader_asset(app.user.defaultEnterprise, 'logoFile') | imagine_filter('125x32') }}" alt="{{ app.user.defaultEnterprise.name }}">
+            {% if app.user.defaultEnterprise is not null %}
+                <img style="max-width:125px;" src="{{ vich_uploader_asset(app.user.defaultEnterprise, 'logoFile') | imagine_filter('125x32') }}" alt="{{ app.user.defaultEnterprise.name }}">
+            {% else %}
+                <img style="max-width:125px;" src="http://via.placeholder.com/125x32?text={{ admin_brand_title }}" alt="logo">
+            {% endif %}
         </a>
     {% endspaceless %}
 {% endblock %}
