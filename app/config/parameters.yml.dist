@@ -34,7 +34,8 @@ parameters:
     private_admin_prod_firstname: firstname
     private_admin_prod_lastname: lastname
 
-    project_web_title: "Opengest"
+    project_web_title: "Project web"
+    project_admin_title: "Project admin"
 
     recaptcha_site_key: MY KEY
     recaptcha_secret: MY SECRET
