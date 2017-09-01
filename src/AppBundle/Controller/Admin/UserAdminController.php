@@ -37,6 +37,15 @@ class UserAdminController extends BaseAdminController
 
         $form = $this->createForm(UserDefaultEnterpriseForm::class, $object);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // update database
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            // build flash message
+            $this->addFlash('success', 'El teu perfil s\'ha actualizat correctament.');
+
+            return $this->redirectToRoute('sonata_admin_dashboard');
+        }
 
         return $this->render(
             '::Admin/User/profile.html.twig',

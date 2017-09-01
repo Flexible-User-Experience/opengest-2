@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,6 +23,17 @@ class UserDefaultEnterpriseForm extends AbstractType
                     'label' => 'Empresa',
                     'class' => 'AppBundle:Enterprise',
                     'choice_label' => 'name',
+                )
+            )
+            ->add(
+                'send',
+                SubmitType::class,
+                array(
+                    'label' => 'Enviar',
+                    'attr' => array(
+                        'class' => 'btn btn-primary no-m-bottom',
+                        'style' => 'margin-bottom: -15px',
+                    ),
                 )
             );
     }
