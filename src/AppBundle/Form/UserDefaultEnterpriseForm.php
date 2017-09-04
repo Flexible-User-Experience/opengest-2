@@ -56,13 +56,21 @@ class UserDefaultEnterpriseForm extends AbstractType
                 )
             )
             ->add(
-                'plainPassword',
-                PasswordType::class,
+                'email',
+                EmailType::class,
                 array(
-                    'label' => 'Contrasenya',
-                    'required' => false,
+                    'label' => 'Email',
+                    'disabled' => true,
                 )
             )
+//            ->add(
+//                'plainPassword',
+//                PasswordType::class,
+//                array(
+//                    'label' => 'Contrasenya',
+//                    'required' => false,
+//                )
+//            )
             ->add(
                 'firstname',
                 TextType::class,
@@ -77,14 +85,6 @@ class UserDefaultEnterpriseForm extends AbstractType
                 array(
                     'label' => 'Cognoms',
                     'required' => true,
-                )
-            )
-            ->add(
-                'email',
-                EmailType::class,
-                array(
-                    'label' => 'Cognoms',
-                    'disabled' => true,
                 )
             )
             ->add(
