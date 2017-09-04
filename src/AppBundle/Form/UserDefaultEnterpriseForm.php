@@ -93,7 +93,7 @@ class UserDefaultEnterpriseForm extends AbstractType
                 array(
                     'label' => 'Empresa',
                     'class' => 'AppBundle:Enterprise',
-                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise')->getUserEnterpriseQB($this->ts->getToken()->getUser()),
+                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise')->getEnterprisesByUserQB($this->ts->getToken()->getUser()),
                     'choice_label' => 'name',
                 )
             )
@@ -101,9 +101,9 @@ class UserDefaultEnterpriseForm extends AbstractType
                 'send',
                 SubmitType::class,
                 array(
-                    'label' => 'Enviar',
+                    'label' => 'Actualitzar',
                     'attr' => array(
-                        'class' => 'btn btn-primary no-m-bottom',
+                        'class' => 'btn btn-success no-m-bottom',
                         'style' => 'margin-bottom: -15px',
                     ),
                 )
