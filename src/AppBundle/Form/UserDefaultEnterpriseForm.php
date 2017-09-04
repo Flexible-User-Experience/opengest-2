@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -10,12 +11,39 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class UserDefaultEnterpriseForm.
  */
 class UserDefaultEnterpriseForm extends AbstractType
 {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * @var TokenStorage
+     */
+    private $ts;
+
+    /**
+     * UserDefaultEnterpriseForm constructor.
+     *
+     * @param EntityManager $em
+     * @param TokenStorage  $ts
+     */
+    public function __construct(EntityManager $em, TokenStorage $ts)
+    {
+        $this->em = $em;
+        $this->ts = $ts;
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -65,6 +93,7 @@ class UserDefaultEnterpriseForm extends AbstractType
                 array(
                     'label' => 'Empresa',
                     'class' => 'AppBundle:Enterprise',
+                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise')->getUserEnterpriseQB($this->ts->getToken()->getUser()),
                     'choice_label' => 'name',
                 )
             )

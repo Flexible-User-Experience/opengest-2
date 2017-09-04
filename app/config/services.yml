@@ -122,3 +122,9 @@ services:
     app.file_service:
         class: AppBundle\Service\FileService
         arguments: [ "@vich_uploader.templating.helper.uploader_helper", "%kernel.root_dir%" ]
+# Form
+    app.form_user_default_enterprise:
+        class: AppBundle\Form\UserDefaultEnterpriseForm
+        arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage" ]
+        tags:
+            - { name: form.type }
