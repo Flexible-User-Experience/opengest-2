@@ -112,7 +112,6 @@ class UserDefaultEnterpriseForm extends AbstractType
                     'label' => 'Actualitzar',
                     'attr' => array(
                         'class' => 'btn btn-success no-m-bottom',
-                        'style' => 'margin-bottom: -15px',
                     ),
                 )
             )
