@@ -1,7 +1,8 @@
 {% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
 
 {% block sonata_admin_content %}
-    <div class="sonata-ba-show">
+    <div class="sonata-ba-form">
+        {{ form_start(profileForm) }}
         <div class="sonata-ba-view row">
             <div class="col-md-6">
                 <div class="box box-success">
@@ -9,10 +10,35 @@
                         <h4 class="box-title">Perfil d'usuari</h4>
                     </div>
                     <div class="box-body">
-                        {{ form(profileForm) }}
+                        <div class="sonata-ba-collapsed-fields">
+                            {{ form_row(profileForm.username) }}
+                            {{ form_row(profileForm.email) }}
+                            {{ form_row(profileForm.defaultEnterprise) }}
+                            {{ form_row(profileForm.firstname) }}
+                            {{ form_row(profileForm.lastname) }}
+                            {#{{ form(profileForm) }}#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <div class="box-title">Image</div>
+                    </div>
+                    <div class="box-body">
+                        <div class="sonata-ba-collapsed-fields">
+                            <img  class="img-responsive" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('342x342') }}" alt="">
+                            {{ form_row(profileForm.mainImageFile) }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="sonata-ba-form-actions well well-small form-actions">
+            {{ form_widget(profileForm.send) }}
+            {{ form_rest(profileForm) }}
+        </div>
+        {{ form_end(profileForm) }}
     </div>
 {% endblock %}
