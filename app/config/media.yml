@@ -182,3 +182,7 @@ vich_uploader:
             uri_prefix:         /uploads/images/operator
             upload_destination: "%kernel.root_dir%/../web/uploads/images/operator"
             namer:              vich_uploader.namer_uniqid
+        user:
+            uri_prefix:         /uploads/images/user
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/user"
+            namer:              vich_uploader.namer_uniqid
