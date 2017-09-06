@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="sonata-ba-collapsed-fields">
-                                        {% if app.user.mainImage is not null %}
+                                        {% if app.user.mainImage %}
                                             <img  class="img-responsive" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('342x342') }}" alt="profile">
                                         {% endif %}
                                         {{ form_row(profileForm.mainImageFile) }}

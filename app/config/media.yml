@@ -153,6 +153,10 @@ liip_imagine:
             quality: 95
             filters:
                 thumbnail: { size: [ 30, 30 ], mode: outbound }
+        19x19:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 19, 19 ], mode: outbound }
 
 # Vich
 vich_uploader:
