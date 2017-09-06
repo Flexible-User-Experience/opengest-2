@@ -26,7 +26,7 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
             <li><a href="{{ path('front_homepage') }}"><i class="fa fa-globe"></i></a></li>
-            <li><a>{{ app.user.fullname }}</a></li>
+            <li><a href="{{ path('admin_app_user_profile') }}">{% if app.user.mainImage %}<img src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('19x19') }}" alt="profile image"> {% endif %}{{ app.user.fullname }}</a></li>
             <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
         </ul>
     </div>

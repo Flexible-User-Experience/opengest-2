@@ -57,7 +57,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Administracio" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
+        arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administracio" }
 # Messaging
@@ -122,3 +122,9 @@ services:
     app.file_service:
         class: AppBundle\Service\FileService
         arguments: [ "@vich_uploader.templating.helper.uploader_helper", "%kernel.root_dir%" ]
+# Form
+    app.form_user_default_enterprise:
+        class: AppBundle\Form\UserDefaultEnterpriseForm
+        arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage" ]
+        tags:
+            - { name: form.type }
