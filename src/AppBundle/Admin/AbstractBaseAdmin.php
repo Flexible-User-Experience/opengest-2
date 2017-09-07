@@ -7,6 +7,7 @@ use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
@@ -45,6 +46,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     private $tws;
 
     /**
+     * @var TokenStorage
+     */
+    protected $ts;
+
+    /**
      * @param string              $code
      * @param string              $class
      * @param string              $baseControllerName
@@ -52,8 +58,9 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param RepositoriesManager $rm
      * @param FileService         $fs
      * @param TwigEngine          $tws
+     * @param TokenStorage        $ts
      */
-    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs, TwigEngine $tws)
+    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs, TwigEngine $tws, TokenStorage $ts)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->vus = $fs->getUhs();
@@ -61,6 +68,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->rm = $rm;
         $this->fs = $fs;
         $this->tws = $tws;
+        $this->ts = $ts;
     }
 
     /**
