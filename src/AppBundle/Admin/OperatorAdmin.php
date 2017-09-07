@@ -399,13 +399,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'enabled',
                 null,
                 array(
@@ -474,14 +467,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Segon cognom',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
                     'editable' => true,
                 )
             )
