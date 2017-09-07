@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
  * Class UserRepository.
@@ -13,4 +15,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedByNameQB()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('u.lastname', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getEnabledSortedByNameQ()
+    {
+        return $this->getEnabledSortedByNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledSortedByName()
+    {
+        return $this->getEnabledSortedByNameQ()->getResult();
+    }
 }

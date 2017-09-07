@@ -3,6 +3,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Repository\ServiceRepository;
+use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
 
 /**
@@ -25,6 +26,11 @@ class RepositoriesManager
     private $vehicleCategoryRepository;
 
     /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
      * Methods.
      */
 
@@ -33,11 +39,13 @@ class RepositoriesManager
      *
      * @param ServiceRepository         $serviceRepository
      * @param VehicleCategoryRepository $vehicleCategoryRepository
+     * @param UserRepository            $userRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -54,5 +62,13 @@ class RepositoriesManager
     public function getVehicleCategoryRepository()
     {
         return $this->vehicleCategoryRepository;
+    }
+
+    /**
+     * @return UserRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->userRepository;
     }
 }

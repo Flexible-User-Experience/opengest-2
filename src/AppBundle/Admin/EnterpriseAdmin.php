@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -129,10 +130,13 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                 ->with('Controls', $this->getFormMdSuccessBoxArray(4))
                     ->add(
                         'users',
-                        null,
+                        EntityType::class,
                         array(
                             'label' => 'Usuaris',
                             'required' => false,
+                            'class' => 'AppBundle:User',
+                            'choice_label' => 'lastname',
+                            'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
                         )
                     )
                     ->add(

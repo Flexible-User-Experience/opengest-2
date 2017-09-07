@@ -57,7 +57,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager" ]
+        arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager", "@app.repositories_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 # Messaging
