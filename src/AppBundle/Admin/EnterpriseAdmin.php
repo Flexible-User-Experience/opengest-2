@@ -135,7 +135,8 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                             'label' => 'Usuaris',
                             'required' => false,
                             'class' => 'AppBundle:User',
-                            'choice_label' => 'lastname',
+                            'choice_label' => 'fullname',
+                            'multiple' => true,
                             'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
                         )
                     )
