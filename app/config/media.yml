@@ -75,6 +75,10 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [ 470, 310 ], mode: outbound }
+        342x342:
+            quality: 90
+            filters:
+                thumbnail: { size: [ 342, 342 ], mode: outbound }
         360x185:
             quality: 80
             filters:
@@ -141,10 +145,18 @@ liip_imagine:
             quality: 95
             filters:
                 thumbnail: { size: [ 60, 60 ], mode: outbound }
+        32x32:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 32, 32 ], mode: outbound }
         30x30:
             quality: 95
             filters:
                 thumbnail: { size: [ 30, 30 ], mode: outbound }
+        19x19:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 19, 19 ], mode: outbound }
 
 # Vich
 vich_uploader:
@@ -181,4 +193,8 @@ vich_uploader:
         operator:
             uri_prefix:         /uploads/images/operator
             upload_destination: "%kernel.root_dir%/../web/uploads/images/operator"
+            namer:              vich_uploader.namer_uniqid
+        user:
+            uri_prefix:         /uploads/images/user
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/user"
             namer:              vich_uploader.namer_uniqid

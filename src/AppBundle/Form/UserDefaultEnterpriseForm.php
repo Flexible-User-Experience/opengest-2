@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,13 +56,21 @@ class UserDefaultEnterpriseForm extends AbstractType
                 )
             )
             ->add(
-                'plainPassword',
-                PasswordType::class,
+                'email',
+                EmailType::class,
                 array(
-                    'label' => 'Contrasenya',
-                    'required' => false,
+                    'label' => 'Email',
+                    'disabled' => true,
                 )
             )
+//            ->add(
+//                'plainPassword',
+//                PasswordType::class,
+//                array(
+//                    'label' => 'Contrasenya',
+//                    'required' => false,
+//                )
+//            )
             ->add(
                 'firstname',
                 TextType::class,
@@ -80,34 +88,34 @@ class UserDefaultEnterpriseForm extends AbstractType
                 )
             )
             ->add(
-                'email',
-                EmailType::class,
-                array(
-                    'label' => 'Cognoms',
-                    'disabled' => true,
-                )
-            )
-            ->add(
                 'defaultEnterprise',
                 EntityType::class,
                 array(
                     'label' => 'Empresa',
                     'class' => 'AppBundle:Enterprise',
-                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise')->getUserEnterpriseQB($this->ts->getToken()->getUser()),
+                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise')->getEnterprisesByUserQB($this->ts->getToken()->getUser()),
                     'choice_label' => 'name',
+                )
+            )
+            ->add(
+                'mainImageFile',
+                FileType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
                 )
             )
             ->add(
                 'send',
                 SubmitType::class,
                 array(
-                    'label' => 'Enviar',
+                    'label' => 'Actualitzar',
                     'attr' => array(
-                        'class' => 'btn btn-primary no-m-bottom',
-                        'style' => 'margin-bottom: -15px',
+                        'class' => 'btn btn-success no-m-bottom',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**

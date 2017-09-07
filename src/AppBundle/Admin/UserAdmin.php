@@ -72,7 +72,10 @@ class UserAdmin extends ParentUserAdmin
     {
         /* @var object $formMapper */
         $formMapper
-            ->with('General', array('class' => 'col-md-6'))
+            ->with('General', array(
+                'class' => 'col-md-6',
+                'box_class' => 'box box-success',
+            ))
             ->add(
                 'firstname',
                 null,
@@ -112,7 +115,10 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->end()
-            ->with('Controls', array('class' => 'col-md-6'))
+            ->with('Controls', array(
+                'class' => 'col-md-6',
+                'box_class' => 'box box-success',
+            ))
             ->add(
                 'enabled',
                 'checkbox',
