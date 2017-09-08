@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 class OperatorCheckingAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Revisions';
-    protected $baseRoutePattern = 'administracio/revisio';
+    protected $baseRoutePattern = 'administracio/operador/revisio';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
