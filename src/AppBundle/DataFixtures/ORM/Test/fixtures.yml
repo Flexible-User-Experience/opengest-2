@@ -232,6 +232,15 @@ AppBundle\Entity\Operator:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# OperatorChekingType
+AppBundle\Entity\OperatorChekingType:
+  operator_checking_type{1..2}:
+    name: <name()>
+    description: <paragraph()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Users
 AppBundle\Entity\User:
     admin:
