@@ -248,6 +248,9 @@ AppBundle\Entity\OperatorChecking:
     type: @checkingType*
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
 
 # Users
 AppBundle\Entity\User:
