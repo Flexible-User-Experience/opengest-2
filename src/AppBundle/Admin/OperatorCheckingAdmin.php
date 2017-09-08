@@ -2,8 +2,11 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class OperatorCheckingAdmin.
@@ -33,6 +36,89 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'operator',
+                null,
+                array(
+                    'label' => 'Operador',
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'Tipus revisió',
+                )
+            )
+            ->add(
+                'begin',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data d\'expedició',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'end',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data de caducitat',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'Actiu',
+                    'required' => false,
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'operator',
+                null,
+                array(
+                    'label' => 'Operador',
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'tipus revisó',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
+            )
+        ;
+    }
+
+    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -40,10 +126,10 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
+                'operator',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Operador',
                     'editable' => true,
                 )
             )
