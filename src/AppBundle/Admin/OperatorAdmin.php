@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -398,13 +399,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'enabled',
                 null,
                 array(
@@ -412,6 +406,21 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+        ;
+
+        return $queryBuilder;
     }
 
     /**
@@ -458,14 +467,6 @@ class OperatorAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Segon cognom',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
                     'editable' => true,
                 )
             )

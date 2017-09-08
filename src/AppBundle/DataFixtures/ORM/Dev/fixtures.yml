@@ -226,6 +226,26 @@ AppBundle\Entity\Operator:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# OperatorChekingType
+AppBundle\Entity\OperatorCheckingType:
+  checkingType{1..5}:
+    name: <name()>
+    description: <paragraph()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# OperatorChecking
+AppBundle\Entity\OperatorChecking:
+  operatorChecking{1..5}:
+    operator: @operator*
+    type: @checkingType*
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Users
 AppBundle\Entity\User:
     admin:
@@ -234,6 +254,7 @@ AppBundle\Entity\User:
         email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
+        defaultEnterprise: @enterprise1
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
