@@ -233,13 +233,21 @@ AppBundle\Entity\Operator:
     enabled: true
 
 # OperatorChekingType
-AppBundle\Entity\OperatorChekingType:
-  operator_checking_type{1..2}:
+AppBundle\Entity\OperatorCheckingType:
+  checkingType{1..2}:
     name: <name()>
     description: <paragraph()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+
+# OperatorChecking
+AppBundle\Entity\OperatorChecking:
+  operatorChecking{1..2}:
+    operator: @operator*
+    type: @checkingType*
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
 
 # Users
 AppBundle\Entity\User:
