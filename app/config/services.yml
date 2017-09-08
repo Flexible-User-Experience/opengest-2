@@ -55,6 +55,11 @@ services:
         arguments: [ ~, AppBundle\Entity\Operator, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator_checking_type:
+        class: AppBundle\Admin\OperatorCheckingTypeAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipu", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager", "@app.repositories_manager" ]

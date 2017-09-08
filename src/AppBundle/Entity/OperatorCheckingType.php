@@ -19,4 +19,16 @@ class OperatorCheckingType extends AbstractBase
 {
     use NameTrait;
     use DescriptionTrait;
+
+    /**
+     * Method.
+     */
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getName() : '---';
+    }
 }
