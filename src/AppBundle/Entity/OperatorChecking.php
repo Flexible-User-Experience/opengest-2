@@ -143,4 +143,12 @@ class OperatorChecking extends AbstractBase
                 ->addViolation();
         }
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getBegin()->format('d/m/Y').' · '.$this->getType().' · '.$this->getOperator() : '---';
+    }
 }

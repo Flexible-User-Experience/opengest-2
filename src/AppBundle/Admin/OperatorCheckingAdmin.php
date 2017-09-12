@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class OperatorCheckingAdmin.
@@ -77,16 +76,6 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-//            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
-//            ->add(
-//                'enabled',
-//                CheckboxType::class,
-//                array(
-//                    'label' => 'Actiu',
-//                    'required' => false,
-//                )
-//            )
-//            ->end()
         ;
     }
 
@@ -110,13 +99,6 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'label' => 'Tipus revisó',
                 )
             )
-//            ->add(
-//                'enabled',
-//                null,
-//                array(
-//                    'label' => 'Actiu',
-//                )
-//            )
         ;
     }
 
@@ -147,14 +129,6 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'sort_parent_association_mappings' => array(array('fieldName' => 'type')),
                 )
             )
-//            ->add(
-//                'enabled',
-//                null,
-//                array(
-//                    'label' => 'Actiu',
-//                    'editable' => true,
-//                )
-//            )
             ->add(
                 '_action',
                 'actions',
