@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class OperatorChecking.
@@ -125,5 +127,20 @@ class OperatorChecking extends AbstractBase
         $this->end = $end;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if ($this->getEnd() < $this->getBegin()) {
+            $context
+                ->buildViolation('La data ha de més gran que la data d\'expedició')
+                ->atPath('end')
+                ->addViolation();
+        }
     }
 }

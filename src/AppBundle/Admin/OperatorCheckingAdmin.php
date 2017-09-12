@@ -47,6 +47,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Operador',
+                    'required' => true,
                 )
             )
             ->add(
@@ -54,6 +55,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Tipus revisió',
+                    'required' => true,
                 )
             )
             ->add(
@@ -75,16 +77,16 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'Actiu',
-                    'required' => false,
-                )
-            )
-            ->end()
+//            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
+//            ->add(
+//                'enabled',
+//                CheckboxType::class,
+//                array(
+//                    'label' => 'Actiu',
+//                    'required' => false,
+//                )
+//            )
+//            ->end()
         ;
     }
 
@@ -105,16 +107,16 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'tipus revisó',
+                    'label' => 'Tipus revisó',
                 )
             )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
-                )
-            )
+//            ->add(
+//                'enabled',
+//                null,
+//                array(
+//                    'label' => 'Actiu',
+//                )
+//            )
         ;
     }
 
@@ -145,14 +147,14 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'sort_parent_association_mappings' => array(array('fieldName' => 'type')),
                 )
             )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'enabled',
+//                null,
+//                array(
+//                    'label' => 'Actiu',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 '_action',
                 'actions',
