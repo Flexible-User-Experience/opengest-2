@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -21,7 +22,9 @@ class OperatorRepository extends EntityRepository
         return $this->createQueryBuilder('o')
             ->where('o.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('o.name', 'ASC')
+            ->orderBy('o.surname1', 'ASC')
+            ->addOrderBy('o.surname2', 'ASC')
+            ->addOrderBy('o.name', 'ASC')
         ;
     }
 
@@ -39,5 +42,38 @@ class OperatorRepository extends EntityRepository
     public function getEnabledSortedByName()
     {
         return $this->getEnabledSortedByNameB()->getResult();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     */
+    public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
+    {
+        return $this->getEnabledSortedByNameBQ()
+            ->andWhere('o.enterprise = :enterprise')
+            ->setParameter('enterprise', $enterprise)
+        ;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     */
+    public function getFilteredByEnterpriseEnabledSortedByNameQ(Enterprise $enterprise)
+    {
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return array
+     */
+    public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterprise)
+    {
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterprise)->getResult();
     }
 }

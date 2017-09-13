@@ -50,7 +50,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'required' => true,
                     'class' => 'AppBundle:Operator',
                     'choice_label' => 'fullName',
-                    'query_builder' => $this->rm->getOperatorRepository()->getEnabledSortedByNameBQ(),
+                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->ts->getToken()->getUser()->getDefaultEnterprise()),
                 )
             )
             ->add(
