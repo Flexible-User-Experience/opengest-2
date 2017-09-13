@@ -24,9 +24,15 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:User
+    app.operator_repository:
+        class: AppBundle\Repository\OperatorRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Operator
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
             - "@app.service_repository"
             - "@app.vehicle_category_repository"
             - "@app.user_repository"
+            - "@app.operator_repository"

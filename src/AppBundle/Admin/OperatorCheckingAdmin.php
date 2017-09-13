@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class OperatorCheckingAdmin.
@@ -43,10 +44,13 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'operator',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'Operador',
                     'required' => true,
+                    'class' => 'AppBundle:Operator',
+                    'choice_label' => 'fullName',
+                    'query_builder' => $this->rm->getOperatorRepository()->getEnabledSortedByNameBQ(),
                 )
             )
             ->add(
