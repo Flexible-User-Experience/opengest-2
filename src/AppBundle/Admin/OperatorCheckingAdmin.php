@@ -6,7 +6,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class OperatorCheckingAdmin.
@@ -44,9 +44,13 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'operator',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'Operador',
+                    'required' => true,
+                    'class' => 'AppBundle:Operator',
+                    'choice_label' => 'fullName',
+                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->ts->getToken()->getUser()->getDefaultEnterprise()),
                 )
             )
             ->add(
@@ -54,6 +58,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Tipus revisió',
+                    'required' => true,
                 )
             )
             ->add(
@@ -72,16 +77,6 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'label' => 'Data de caducitat',
                     'format' => 'd/M/y',
                     'required' => true,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'Actiu',
-                    'required' => false,
                 )
             )
             ->end()
@@ -105,14 +100,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'tipus revisó',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
+                    'label' => 'Tipus revisó',
                 )
             )
         ;
@@ -146,10 +134,20 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enabled',
-                null,
+                'begin',
+                'date',
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'Data d\'expedició',
+                    'format' => 'd/m/Y',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'end',
+                'date',
+                array(
+                    'label' => 'Data caducitat',
+                    'format' => 'd/m/Y',
                     'editable' => true,
                 )
             )

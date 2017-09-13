@@ -31,6 +31,14 @@ class UserAdmin extends ParentUserAdmin
         '_sort_order' => 'asc',
     );
 
+    /**
+     * UserAdmin constructor.
+     *
+     * @param string $code
+     * @param string $class
+     * @param string $baseControllerName
+     * @param $userManager
+     */
     public function __construct($code, $class, $baseControllerName, $userManager)
     {
         parent::__construct($code, $class, $baseControllerName);

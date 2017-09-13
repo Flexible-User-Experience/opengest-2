@@ -255,6 +255,7 @@ AppBundle\Entity\User:
         firstname: <name()>
         lastname: <lastname()>
         defaultEnterprise: @enterprise1
+        mainImage: <numberBetween(1,2)>.jpg
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
@@ -273,6 +274,8 @@ AppBundle\Entity\User:
         email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
+        defaultEnterprise: @enterprise1
+        mainImage: <numberBetween(1,2)>.jpg
         enabled: true
         roles:
             - ROLE_CMS
@@ -282,6 +285,8 @@ AppBundle\Entity\User:
         email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
+        defaultEnterprise: @enterprise1
+        mainImage: <numberBetween(1,2)>.jpg
         enabled: true
         roles:
             - ROLE_ADMIN

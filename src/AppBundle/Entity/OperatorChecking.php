@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class OperatorChecking.
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category Entity
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorCheckingRepository")
  * @ORM\Table(name="operator_cheking")
  */
 class OperatorChecking extends AbstractBase
@@ -125,5 +127,28 @@ class OperatorChecking extends AbstractBase
         $this->end = $end;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if ($this->getEnd() < $this->getBegin()) {
+            $context
+                ->buildViolation('La data ha de més gran que la data d\'expedició')
+                ->atPath('end')
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getBegin()->format('d/m/Y').' · '.$this->getType().' · '.$this->getOperator() : '---';
     }
 }
