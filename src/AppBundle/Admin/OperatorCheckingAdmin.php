@@ -134,6 +134,24 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'begin',
+                'date',
+                array(
+                    'label' => 'Data d\'expedició',
+                    'format' => 'd/m/Y',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'end',
+                'date',
+                array(
+                    'label' => 'Data caducitat',
+                    'format' => 'd/m/Y',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
