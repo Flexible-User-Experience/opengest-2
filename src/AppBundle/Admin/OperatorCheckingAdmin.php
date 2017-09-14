@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -20,7 +21,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Revisions';
     protected $baseRoutePattern = 'administracio/operador/revisio';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'end',
         '_sort_order' => 'asc',
     );
 
@@ -50,7 +51,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'required' => true,
                     'class' => 'AppBundle:Operator',
                     'choice_label' => 'fullName',
-                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->ts->getToken()->getUser()->getDefaultEnterprise()),
+                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -104,6 +105,24 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+        ;
+
+        return $queryBuilder;
     }
 
     /**

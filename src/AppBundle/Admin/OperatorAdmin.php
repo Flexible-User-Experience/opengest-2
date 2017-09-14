@@ -409,7 +409,9 @@ class OperatorAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $context
+     *
+     * @return QueryBuilder
      */
     public function createQuery($context = 'list')
     {
@@ -417,7 +419,7 @@ class OperatorAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
         ;
 
         return $queryBuilder;
