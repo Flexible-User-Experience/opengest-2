@@ -104,6 +104,22 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'label' => 'Tipus revisó',
                 )
             )
+            ->add(
+                'begin',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'data d\'expedició',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
+                'end',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'data caducitat',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
         ;
     }
 
@@ -138,6 +154,10 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Operador',
                     'editable' => true,
+                    'associated_property' => 'surname1',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'surname1'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'operator')),
                 )
             )
             ->add(
@@ -145,7 +165,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Tipus revisió',
-                    'editable' => false,
+                    'editable' => true,
                     'associated_property' => 'name',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
