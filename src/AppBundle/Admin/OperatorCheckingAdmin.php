@@ -153,8 +153,8 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Operador',
-                    'editable' => true,
-                    'associated_property' => 'surname1',
+                    'editable' => false,
+                    'associated_property' => 'fullName',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'surname1'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'operator')),
