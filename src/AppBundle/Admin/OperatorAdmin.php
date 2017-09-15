@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Operator;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -57,6 +58,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         null,
                         array(
                             'label' => 'DNI/NIE',
+                            'required' => true,
                         )
                     )
                     ->add(
@@ -87,7 +89,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         null,
                         array(
                             'label' => 'Adreça',
-                            'required' => false,
+                            'required' => true,
                         )
                     )
                     ->add(
@@ -493,5 +495,13 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param Operator $object
+     */
+    public function prePersist($object)
+    {
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
