@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Operator;
+use AppBundle\Entity\OperatorChecking;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
@@ -28,13 +29,35 @@ class GuardService
     }
 
     /**
+     * @return int
+     */
+    private function getDefaultEnterpriseId()
+    {
+        return $this->tss->getToken()->getUser()->getDefaultEnterprise()->getId();
+    }
+
+    /**
      * @param Operator $operator
      *
      * @return bool
      */
     public function isOwnOperator(Operator $operator)
     {
-        if ($operator->getEnterprise()->getId() == $this->tss->getToken()->getUser()->getDefaultEnterprise()->getId()) {
+        if ($operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param OperatorChecking $oc
+     *
+     * @return bool
+     */
+    public function isOwnOperatorCheking(OperatorChecking $oc)
+    {
+        if ($oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
             return true;
         }
 
