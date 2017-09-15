@@ -132,6 +132,10 @@ services:
     app.file_service:
         class: AppBundle\Service\FileService
         arguments: [ "@vich_uploader.templating.helper.uploader_helper", "%kernel.root_dir%" ]
+# Guard
+    app.guard_service:
+        class: AppBundle\Service\GuardService
+        arguments: [ "@security.token_storage" ]
 # Form
     app.form_user_default_enterprise:
         class: AppBundle\Form\UserDefaultEnterpriseForm
