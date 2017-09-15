@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Operator;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -57,6 +58,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         null,
                         array(
                             'label' => 'DNI/NIE',
+                            'required' => true,
                         )
                     )
                     ->add(
@@ -87,7 +89,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         null,
                         array(
                             'label' => 'Adreça',
-                            'required' => false,
+                            'required' => true,
                         )
                     )
                     ->add(
@@ -409,7 +411,9 @@ class OperatorAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $context
+     *
+     * @return QueryBuilder
      */
     public function createQuery($context = 'list')
     {
@@ -417,7 +421,7 @@ class OperatorAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
         ;
 
         return $queryBuilder;
@@ -491,5 +495,13 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param Operator $object
+     */
+    public function prePersist($object)
+    {
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }

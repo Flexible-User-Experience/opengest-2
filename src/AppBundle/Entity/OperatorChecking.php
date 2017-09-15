@@ -138,7 +138,7 @@ class OperatorChecking extends AbstractBase
     {
         if ($this->getEnd() < $this->getBegin()) {
             $context
-                ->buildViolation('La data ha de més gran que la data d\'expedició')
+                ->buildViolation('La data ha de ser més gran que la data d\'expedició')
                 ->atPath('end')
                 ->addViolation();
         }

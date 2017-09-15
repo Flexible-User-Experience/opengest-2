@@ -47,7 +47,7 @@ class Operator extends AbstractBase
     /**
      * @var float
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $hourCost;
 
@@ -68,7 +68,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $address;
 
@@ -89,21 +89,21 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $enterpriseMobile;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ownPhone;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ownMobile;
 
@@ -135,7 +135,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $profilePhotoImage;
 
@@ -153,7 +153,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $taxIdentificationNumberImage;
 
@@ -171,7 +171,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $drivingLicenseImage;
 
@@ -189,7 +189,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $cranesOperatorLicenseImage;
 
@@ -207,7 +207,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $medicalCheckImage;
 
@@ -225,7 +225,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $episImage;
 
@@ -243,7 +243,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $trainingDocumentImage;
 
@@ -261,7 +261,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $informationImage;
 
@@ -279,7 +279,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $useOfMachineryAuthorizationImage;
 
@@ -297,7 +297,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $dischargeSocialSecurityImage;
 
@@ -315,7 +315,7 @@ class Operator extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $employmentContractImage;
 
@@ -350,42 +350,42 @@ class Operator extends AbstractBase
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $shoeSize;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $jerseytSize;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $jacketSize;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $tShirtSize;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $pantSize;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $workingDressSize;
 

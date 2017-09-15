@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -400,6 +401,24 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.users', 'u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $this->ts->getToken()->getUser()->getId())
+        ;
+
+        return $queryBuilder;
     }
 
     /**
