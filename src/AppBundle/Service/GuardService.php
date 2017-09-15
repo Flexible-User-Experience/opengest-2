@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -58,6 +59,20 @@ class GuardService
     public function isOwnOperatorCheking(OperatorChecking $oc)
     {
         if ($oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return bool
+     */
+    public function isOwnEnterprise(Enterprise $enterprise)
+    {
+        if ($enterprise->getId() == $this->getDefaultEnterpriseId()) {
             return true;
         }
 
