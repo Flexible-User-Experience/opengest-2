@@ -149,6 +149,24 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'begin',
+                'date',
+                array(
+                    'label' => 'Data d\'expedició',
+                    'format' => 'd/m/Y',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'end',
+                'date',
+                array(
+                    'label' => 'Data caducitat',
+                    'format' => 'd/m/Y',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'operator',
                 null,
                 array(
@@ -170,24 +188,6 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'type')),
-                )
-            )
-            ->add(
-                'begin',
-                'date',
-                array(
-                    'label' => 'Data d\'expedició',
-                    'format' => 'd/m/Y',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'end',
-                'date',
-                array(
-                    'label' => 'Data caducitat',
-                    'format' => 'd/m/Y',
-                    'editable' => true,
                 )
             )
             ->add(
