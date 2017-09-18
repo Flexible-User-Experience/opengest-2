@@ -537,7 +537,7 @@ class Enterprise extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="enterprises")
      * @ORM\JoinTable(name="enterprises_users")
      */
     private $users;
