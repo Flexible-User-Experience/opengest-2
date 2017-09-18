@@ -116,7 +116,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $logo;
 
@@ -134,7 +134,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $deedOfIncorporation;
 
@@ -152,7 +152,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $taxIdentificationNumberCard;
 
@@ -170,7 +170,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tc1Receipt;
 
@@ -188,7 +188,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tc2Receipt;
 
@@ -206,7 +206,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ssRegistration;
 
@@ -224,7 +224,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ssPaymentCertificate;
 
@@ -242,7 +242,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $rc1Insurance;
 
@@ -260,7 +260,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $rc2Insurance;
 
@@ -278,7 +278,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $rcReceipt;
 
@@ -296,7 +296,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $preventionServiceContract;
 
@@ -314,7 +314,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $preventionServiceInvoice;
 
@@ -332,7 +332,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $preventionServiceReceipt;
 
@@ -350,7 +350,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $occupationalAccidentsInsurance;
 
@@ -368,7 +368,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $occupationalReceipt;
 
@@ -386,7 +386,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $laborRiskAssessment;
 
@@ -404,7 +404,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $securityPlan;
 
@@ -422,7 +422,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $reaCertificate;
 
@@ -440,7 +440,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $oilCertificate;
 
@@ -458,7 +458,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $gencatPaymentCertificate;
 
@@ -476,7 +476,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $deedsOfPowers;
 
@@ -494,7 +494,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $iaeRegistration;
 
@@ -512,7 +512,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $iaeReceipt;
 
@@ -530,7 +530,7 @@ class Enterprise extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $mutualPartnership;
 
