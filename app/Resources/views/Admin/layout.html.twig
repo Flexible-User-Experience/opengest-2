@@ -13,6 +13,18 @@
                 <img style="max-width:125px;" src="http://via.placeholder.com/125x32?text={{ admin_brand_title }}" alt="logo">
             {% endif %}
         </a>
+        {# TODO #}
+        {#<div class="dropdown">#}
+            {#<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">#}
+                {#<img style="max-width:125px;" src="{{ vich_uploader_asset(app.user.defaultEnterprise, 'logoFile') | imagine_filter('125x32') }}" alt="{{ app.user.defaultEnterprise.name }}">#}
+                {#<span class="caret"></span>#}
+            {#</button>#}
+            {#<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">#}
+                {#{% for enterprise in app.user.enterprises %}#}
+                    {#<li><a href="{{ enterprise.id }}"><img style="max-width:125px;" src="{{ vich_uploader_asset(enterprise, 'logoFile') | imagine_filter('125x32') }}" alt="{{ enterprise.name }}"></a></li>#}
+                {#{% endfor %}#}
+            {#</ul>#}
+        {#</div>#}
     {% endspaceless %}
 {% endblock %}
 
@@ -26,7 +38,7 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
             <li><a href="{{ path('front_homepage') }}"><i class="fa fa-globe"></i></a></li>
-            <li><a href="{{ path('admin_app_user_profile') }}">{% if app.user.mainImage %}<img style="width: 32px;height: 32px;float:left;margin-right: 10px;margin-top: -6px" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('32x32') }}" alt="profile image"> {% endif %}{{ app.user.fullname }}</a></li>
+            <li><a href="{{ path('admin_app_user_profile') }}">{% if app.user.mainImage %}<img class="profile-img" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('32x32') }}" alt="profile image"> {% endif %}{{ app.user.fullname }}</a></li>
             <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
         </ul>
     </div>

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -58,8 +59,25 @@ class User extends BaseUser
     private $defaultEnterprise;
 
     /**
+     * @var array
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Enterprise", inversedBy="users")
+     * @ORM\JoinTable(name="enterprises_users")
+     */
+    private $enterprises;
+
+    /**
      * Methods.
      */
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->enterprises = new ArrayCollection();
+    }
 
     /**
      * Get id.
@@ -132,6 +150,50 @@ class User extends BaseUser
     public function setDefaultEnterprise($defaultEnterprise)
     {
         $this->defaultEnterprise = $defaultEnterprise;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnterprises()
+    {
+        return $this->enterprises;
+    }
+
+    /**
+     * @param array $enterprises
+     *
+     * @return User
+     */
+    public function setEnterprises($enterprises)
+    {
+        $this->enterprises = $enterprises;
+
+        return $this;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return $this
+     */
+    public function addEnterprise(Enterprise $enterprise)
+    {
+        $this->enterprises->add($enterprise);
+
+        return $this;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return $this
+     */
+    public function removeEnterprise(Enterprise $enterprise)
+    {
+        $this->enterprises->removeElement($enterprise);
 
         return $this;
     }

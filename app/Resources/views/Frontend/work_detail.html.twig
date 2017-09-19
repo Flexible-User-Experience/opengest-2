@@ -29,11 +29,11 @@
                 {% endif %}
                 {% if work.service is not null %}
                     <p>Conozca el proceso de actuación en un trabajo que requiere una <strong>{{ work.service.name }}</strong></p>
-                    <a class="btn btn-warning" href="{{ path('front_service_detail', {slug: work.service.slug}) }}">Sí, habladme de este servicio</a>
+                    <a class="btn btn-warning normal-m-bottom" href="{{ path('front_service_detail', {slug: work.service.slug}) }}">Sí, habladme de este servicio</a>
                 {% endif %}
                 {% for img in work.images %}
                     {% if img.image is not null %}
-                        <img src="{{ vich_uploader_asset(img, 'imageFile') | imagine_filter('470x310') }}" class="img-responsive" alt="{{ img.alt }}">
+                        <img src="{{ vich_uploader_asset(img, 'imageFile') | imagine_filter('470x310') }}" class="img-responsive normal-m-bottom" alt="{{ img.alt }}">
                     {% endif %}
                 {% endfor %}
             </div>

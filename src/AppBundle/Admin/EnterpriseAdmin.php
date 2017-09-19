@@ -139,6 +139,7 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                             'choice_label' => 'fullname',
                             'multiple' => true,
                             'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
+                            'by_reference' => false,
                         )
                     )
                     ->add(
