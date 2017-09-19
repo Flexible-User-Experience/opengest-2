@@ -149,6 +149,13 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'status',
+                null,
+                array(
+                    'label' => 'Estat',
+                )
+            )
+            ->add(
                 'begin',
                 'date',
                 array(
