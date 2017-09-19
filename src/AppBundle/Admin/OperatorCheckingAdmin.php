@@ -153,6 +153,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Estat',
+                    'template' => '::Admin/Cells/list__cell_operator_checking_status.html.twig',
                 )
             )
             ->add(
