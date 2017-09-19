@@ -175,6 +175,30 @@ class User extends BaseUser
     }
 
     /**
+     * @param Enterprise $enterprise
+     *
+     * @return $this
+     */
+    public function addEnterprise(Enterprise $enterprise)
+    {
+        $this->enterprises->add($enterprise);
+
+        return $this;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return $this
+     */
+    public function removeEnterprise(Enterprise $enterprise)
+    {
+        $this->enterprises->removeElement($enterprise);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getFullname()

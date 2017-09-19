@@ -1882,6 +1882,7 @@ class Enterprise extends AbstractBase
     public function addUser(User $user)
     {
         $this->users->add($user);
+        $user->addEnterprise($this);
 
         return $this;
     }
@@ -1893,6 +1894,7 @@ class Enterprise extends AbstractBase
      */
     public function removeUser(User $user)
     {
+        $user->removeEnterprise($this);
         $this->users->removeElement($user);
 
         return $this;
