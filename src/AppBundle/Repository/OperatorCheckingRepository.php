@@ -20,9 +20,12 @@ class OperatorCheckingRepository extends EntityRepository
      */
     public function getItemsBeforeToBeInvalidQB()
     {
+        $thresholdDay = new \DateTime();
+        $thresholdDay->add(new \DateInterval('P30D'));
+
         return $this->createQueryBuilder('oc')
-            ->where('oc.enabled = :enabled')
-            ->setParameter('enabled', true)
+            ->where('oc.end = :thresholdDay')
+            ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
         ;
     }
 
@@ -40,5 +43,34 @@ class OperatorCheckingRepository extends EntityRepository
     public function getItemsBeforeToBeInvalid()
     {
         return $this->getItemsBeforeToBeInvalidQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getItemsInvalidQB()
+    {
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('oc')
+            ->where('oc.end = :today')
+            ->setParameter('today', $today->format('Y-m-d'))
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getItemsInvalidQ()
+    {
+        return $this->getItemsInvalidQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsInvalid()
+    {
+        return $this->getItemsInvalidQ()->getResult();
     }
 }

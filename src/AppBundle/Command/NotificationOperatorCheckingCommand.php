@@ -27,7 +27,15 @@ class NotificationOperatorCheckingCommand extends AbstractBaseCommand
 
         // Get entities
         $ocr = $this->getContainer()->get('app.repositories_manager')->getOperatorCheckingRepository();
-        $entities = $ocr->findAll();
+        $entities = $ocr->getItemsInvalid();
+        $output->writeln('<comment>Invalid entities</comment>');
+        /** @var OperatorChecking $entity */
+        foreach ($entities as $entity) {
+            $output->writeln($entity->getId().' '.$entity->getOperator()->getFullName().' '.$entity->getEnd()->format('d-m-Y'));
+        }
+
+        $entities = $ocr->getItemsBeforeToBeInvalid();
+        $output->writeln('<comment>Before to be invalid entities</comment>');
         /** @var OperatorChecking $entity */
         foreach ($entities as $entity) {
             $output->writeln($entity->getId().' '.$entity->getOperator()->getFullName().' '.$entity->getEnd()->format('d-m-Y'));
