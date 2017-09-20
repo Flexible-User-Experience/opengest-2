@@ -2,6 +2,7 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\OperatorCheckingRepository;
 use AppBundle\Repository\OperatorRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
@@ -37,23 +38,30 @@ class RepositoriesManager
     private $operatorRepository;
 
     /**
+     * @var OperatorCheckingRepository
+     */
+    private $operatorCheckingRepository;
+
+    /**
      * Methods.
      */
 
     /**
      * RepositoriesManager constructor.
      *
-     * @param ServiceRepository         $serviceRepository
-     * @param VehicleCategoryRepository $vehicleCategoryRepository
-     * @param UserRepository            $userRepository
-     * @param OperatorRepository        $operatorRepository
+     * @param ServiceRepository          $serviceRepository
+     * @param VehicleCategoryRepository  $vehicleCategoryRepository
+     * @param UserRepository             $userRepository
+     * @param OperatorRepository         $operatorRepository
+     * @param OperatorCheckingRepository $operatorCheckingRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
         $this->userRepository = $userRepository;
         $this->operatorRepository = $operatorRepository;
+        $this->operatorCheckingRepository = $operatorCheckingRepository;
     }
 
     /**
@@ -86,5 +94,13 @@ class RepositoriesManager
     public function getOperatorRepository()
     {
         return $this->operatorRepository;
+    }
+
+    /**
+     * @return OperatorCheckingRepository
+     */
+    public function getOperatorCheckingRepository()
+    {
+        return $this->operatorCheckingRepository;
     }
 }
