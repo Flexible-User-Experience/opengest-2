@@ -104,7 +104,7 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
 
-        $entities = $this->get('app.repositories_manager')->getOperatorCheckingRepository()->getItemsInvalid();
+        $entities = $this->get('app.repositories_manager')->getOperatorCheckingRepository()->getItemsBeforeToBeInvalid();
 
         return $this->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array(
             'entities' => $entities,

@@ -140,5 +140,11 @@ class NotificationService
      */
     public function sendOperatorCheckingBeforeToBeInvalidNotification($entities)
     {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions d\'operaris pedent de caducar pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:operator_checking_before_to_be_invalid_notification.html.twig', array('entities' => $entities))
+        );
     }
 }
