@@ -108,6 +108,7 @@ class DefaultController extends Controller
 
         return $this->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array(
             'entities' => $entities,
+            'show_devel_top_bar' => true,
         ));
     }
 }
