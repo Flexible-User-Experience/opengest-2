@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\OperatorChecking;
 
 /**
  * Class NotificationService.
@@ -24,7 +25,7 @@ class NotificationService
     private $twig;
 
     /**
-     * @var string
+     * @var string Mailer Destination
      */
     private $amd;
 
@@ -119,5 +120,25 @@ class NotificationService
                 'contact' => $contactMessage,
             ))
         );
+    }
+
+    /**
+     * @param array|OperatorChecking[] $entities
+     */
+    public function sendOperatorCheckingInvalidNotification($entities)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions d\'operaris caducades avui pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array('entities' => $entities))
+        );
+    }
+
+    /**
+     * @param array|OperatorChecking[] $entities
+     */
+    public function sendOperatorCheckingBeforeToBeInvalidNotification($entities)
+    {
     }
 }

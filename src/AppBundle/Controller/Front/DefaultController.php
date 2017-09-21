@@ -104,15 +104,10 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
 
-        $contactMessage = new ContactMessage();
-        $contactMessage
-            ->setName('Manolito')
-            ->setMessage('Grúa hidráulica todo terreno con capacidad máxima de 300TM.')
-        ;
-//        $contactMessage = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
+        $entities = $this->get('app.repositories_manager')->getOperatorCheckingRepository()->getItemsInvalid();
 
-        return $this->render(':Mails:user_backend_answer_notification.html.twig', array(
-            'contact' => $contactMessage,
+        return $this->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array(
+            'entities' => $entities,
         ));
     }
 }
