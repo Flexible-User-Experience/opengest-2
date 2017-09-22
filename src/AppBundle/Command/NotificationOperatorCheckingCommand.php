@@ -42,7 +42,10 @@ class NotificationOperatorCheckingCommand extends AbstractBaseCommand
         foreach ($entities as $entity) {
             $output->writeln($entity->getId().' '.$entity->getOperator()->getFullName().' '.$entity->getEnd()->format('d-m-Y'));
         }
-        $this->getContainer()->get('app.notification')->sendOperatorCheckingInvalidNotification($entities);
+        // TODO
+        if (count($entities) > 0) {
+            $this->getContainer()->get('app.notification')->sendOperatorCheckingInvalidNotification($entities);
+        }
 
         // Get before to be invalid entities
         $entities = $ocr->getItemsBeforeToBeInvalid();
