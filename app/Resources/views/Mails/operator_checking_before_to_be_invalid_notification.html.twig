@@ -5,9 +5,6 @@
 {% block content %}
     <container>
         <row>
-            <img src="{{ absolute_url(asset('bundles/app/img/base-email-notification-gr.jpg')) }}">
-        </row>
-        <row>
             <columns>
                 <spacer size="40"></spacer>
                 <h4>Operaris amb documentació pendent per caducar</h4>
@@ -32,6 +29,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <spacer size="20"></spacer>
                 <p>Comprova-ho a la teva llista de tipus de revisió del CMS <a href="{{ url('admin_app_operatorchecking_list') }}">aquí</a></p>
             </columns>
         </row>

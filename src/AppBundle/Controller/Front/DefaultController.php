@@ -106,7 +106,7 @@ class DefaultController extends Controller
 
         $entities = $this->get('app.repositories_manager')->getOperatorCheckingRepository()->getItemsBeforeToBeInvalid();
 
-        return $this->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array(
+        return $this->render(':Mails:operator_checking_before_to_be_invalid_notification.html.twig', array(
             'entities' => $entities,
             'show_devel_top_bar' => true,
         ));

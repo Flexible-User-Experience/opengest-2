@@ -19,7 +19,6 @@
             <callout style="background-color:#0D2154;border-color:#0D2154">
                 <row>
                     <columns small="12" large="6">
-                        {# logo #}
                         <a href="{{ url('front_homepage') }}">
                             <img src="{{ absolute_url(asset('bundles/app/img/logo_romani_horizontal.png') | imagine_filter('180xY')) }}" class="email-logo">
                         </a>
@@ -28,6 +27,7 @@
                         <h2 class="text-right white-color">{% block subject %}{{ main_brand_title }}{% endblock %}</h2>
                     </columns>
                 </row>
+                <img src="{{ absolute_url(asset('bundles/app/img/base-email-notification-gr.jpg')) }}">
             </callout>
         </row>
         {% block content %}{% endblock %}
@@ -36,6 +36,7 @@
                 <callout style="background-color:#0D2154;border-color:#0D2154">
                     <row>
                         <columns small="12" large="10">
+                            <spacer size="20"></spacer>
                             <h6 class="yellow-color">Grúas Romaní, SA</h6>
                             <p class="white-color footer">
                                 Ctra. Santa Bárbara, Km. 1'5<br>
@@ -44,6 +45,7 @@
                             </p>
                         </columns>
                         <columns small="12" large="2">
+                            <spacer size="20"></spacer>
                             <p class="white-color text-right footer">
                                 &copy; {{ "now" | date("Y") }}
                             </p>
