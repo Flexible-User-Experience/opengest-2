@@ -413,6 +413,9 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        if ($this->ac->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.users', 'u')
             ->andWhere('u.id = :id')

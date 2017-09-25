@@ -433,6 +433,9 @@ class OperatorAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
         $queryBuilder
             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
             ->setParameter('enterprise', $this->getUserLogedEnterprise())
