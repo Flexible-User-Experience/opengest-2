@@ -41,6 +41,9 @@ class NotificationOperatorCheckingCommand extends AbstractBaseCommand
         /** @var OperatorChecking $entity */
         foreach ($entities as $entity) {
             $output->writeln($entity->getId().' '.$entity->getOperator()->getFullName().' '.$entity->getEnd()->format('d-m-Y'));
+            if ($entity->getOperator()->getEmail()) {
+                $this->getContainer()->get('app.notification')->sendToOperatorInvalidCheckingNotification($entity);
+            }
         }
 
         if (count($entities) > 0) {
@@ -53,6 +56,9 @@ class NotificationOperatorCheckingCommand extends AbstractBaseCommand
         /** @var OperatorChecking $entity */
         foreach ($entities as $entity) {
             $output->writeln($entity->getId().' '.$entity->getOperator()->getFullName().' '.$entity->getEnd()->format('d-m-Y'));
+            if ($entity->getOperator()->getEmail()) {
+                $this->getContainer()->get('app.notification')->sendToOperatorBeforeToBeInvalidCheckingNotification($entity);
+            }
         }
 
         if (count($entities) > 0) {
