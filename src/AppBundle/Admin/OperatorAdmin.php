@@ -85,6 +85,13 @@ class OperatorAdmin extends AbstractBaseAdmin
                 ->end()
                 ->with('Contacte', $this->getFormMdSuccessBoxArray(3))
                     ->add(
+                        'email',
+                        null,
+                        array(
+                            'label' => 'Email',
+                        )
+                    )
+                    ->add(
                         'address',
                         null,
                         array(
@@ -398,6 +405,13 @@ class OperatorAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Primer cognom',
+                )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'Email',
                 )
             )
             ->add(

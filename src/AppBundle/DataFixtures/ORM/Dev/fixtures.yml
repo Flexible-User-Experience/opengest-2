@@ -193,6 +193,7 @@ AppBundle\Entity\Operator:
     name: <name()>
     surname1: <firstName()>
     surname2: <firstName()>
+    email: <safeEmail()>
     address: <address()>
     city: @city*
     enterprise: @enterprise*
@@ -238,8 +239,8 @@ AppBundle\Entity\OperatorCheckingType:
 # OperatorChecking
 AppBundle\Entity\OperatorChecking:
   operatorChecking{1..5}:
-    operator: @operator*
-    type: @checkingType*
+    operator: @operator<numberBetween(1,10)>
+    type: @checkingType<numberBetween(1,5)>
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>

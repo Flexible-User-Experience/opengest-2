@@ -201,6 +201,7 @@ AppBundle\Entity\Operator:
     surname2: <firstName()>
     address: <address()>
     city: @city*
+    email: <safeEmail()>
     enterprise: @enterprise*
     enterpriseMobile: <phoneNumber()>
     ownPhone: <phoneNumber()>
@@ -244,7 +245,7 @@ AppBundle\Entity\OperatorCheckingType:
 # OperatorChecking
 AppBundle\Entity\OperatorChecking:
   operatorChecking{1..2}:
-    operator: @operator*
+    operator: @operator<numberBetween(1,2)>
     type: @checkingType*
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
