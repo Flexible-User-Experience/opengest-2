@@ -160,4 +160,17 @@ class NotificationService
             $this->twig->render(':Mails:operator_invalid_notification.html.twig', array('operatorChecking' => $entity))
         );
     }
+
+    /**
+     * @param OperatorChecking $entity
+     */
+    public function sendToOperatorBeforeToBeInvalidCheckingNotification(OperatorChecking $entity)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $entity->getOperator()->getEmail(),
+            'Avís de revisió a punt de caducar',
+            $this->twig->render(':Mails:operator_before_to_be_invalid_notification.html.twig', array('operatorChecking' => $entity))
+        );
+    }
 }
