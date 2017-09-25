@@ -7,6 +7,7 @@ use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
  * Class GuardService.
@@ -21,13 +22,24 @@ class GuardService
     private $tss;
 
     /**
+     * @var AuthorizationChecker
+     */
+    private $acs;
+
+    /**
+     * Methods.
+     */
+
+    /**
      * GuardService constructor.
      *
-     * @param TokenStorage $tss
+     * @param TokenStorage         $tss
+     * @param AuthorizationChecker $acs
      */
-    public function __construct(TokenStorage $tss)
+    public function __construct(TokenStorage $tss, AuthorizationChecker $acs)
     {
         $this->tss = $tss;
+        $this->acs = $acs;
     }
 
     /**
@@ -45,11 +57,13 @@ class GuardService
      */
     public function isOwnOperator(Operator $operator)
     {
-        if ($operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
-            return true;
-        }
+        return $this->acs->isGranted('ROLE_ADMIN') || $operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
 
-        return false;
+//        if ($this->acs->isGranted('ROLE_ADMIN') || $operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
+//            return true;
+//        }
+//
+//        return false;
     }
 
     /**
@@ -59,11 +73,13 @@ class GuardService
      */
     public function isOwnOperatorCheking(OperatorChecking $oc)
     {
-        if ($oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
-            return true;
-        }
+        return $this->acs->isGranted('ROLE_ADMIN') || $oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
 
-        return false;
+//        if ($oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
+//            return true;
+//        }
+
+//        return false;
     }
 
     /**
@@ -73,6 +89,10 @@ class GuardService
      */
     public function isOwnEnterprise(Enterprise $enterprise)
     {
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
         $result = false;
         $users = $enterprise->getUsers();
         /** @var User $user */
