@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\OperatorChecking;
 
 /**
  * Class NotificationService.
@@ -24,7 +25,7 @@ class NotificationService
     private $twig;
 
     /**
-     * @var string
+     * @var string Mailer Destination
      */
     private $amd;
 
@@ -118,6 +119,58 @@ class NotificationService
             $this->twig->render(':Mails:user_backend_answer_notification.html.twig', array(
                 'contact' => $contactMessage,
             ))
+        );
+    }
+
+    /**
+     * @param array|OperatorChecking[] $entities
+     */
+    public function sendOperatorCheckingInvalidNotification($entities)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions d\'operaris caducades avui pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array('entities' => $entities))
+        );
+    }
+
+    /**
+     * @param array|OperatorChecking[] $entities
+     */
+    public function sendOperatorCheckingBeforeToBeInvalidNotification($entities)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions d\'operaris pedent de caducar pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:operator_checking_before_to_be_invalid_notification.html.twig', array('entities' => $entities))
+        );
+    }
+
+    /**
+     * @param OperatorChecking $entity
+     */
+    public function sendToOperatorInvalidCheckingNotification(OperatorChecking $entity)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $entity->getOperator()->getEmail(),
+            'Avís de revisió caducada',
+            $this->twig->render(':Mails:operator_invalid_notification.html.twig', array('operatorChecking' => $entity))
+        );
+    }
+
+    /**
+     * @param OperatorChecking $entity
+     */
+    public function sendToOperatorBeforeToBeInvalidCheckingNotification(OperatorChecking $entity)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $entity->getOperator()->getEmail(),
+            'Avís de revisió a punt de caducar',
+            $this->twig->render(':Mails:operator_before_to_be_invalid_notification.html.twig', array('operatorChecking' => $entity))
         );
     }
 }

@@ -90,6 +90,14 @@ class Operator extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email(strict=true, checkMX=true, checkHost=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
      */
     private $enterpriseMobile;
 
@@ -577,6 +585,26 @@ class Operator extends AbstractBase
     public function setCity($city)
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return Operator
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
 
         return $this;
     }
