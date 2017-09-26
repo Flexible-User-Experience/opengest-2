@@ -104,10 +104,12 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
 
-        $entity = $this->get('app.repositories_manager')->getOperatorCheckingRepository()->find(13);
+//        $entity = $this->get('app.repositories_manager')->getOperatorCheckingRepository()->find(13);
 
-        return $this->render(':Mails:operator_invalid_notification.html.twig', array(
-            'operatorChecking' => $entity,
+        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
+
+        return $this->render(':Mails:user_backend_answer_notification.html.twig', array(
+            'contact' => $contact,
             'show_devel_top_bar' => true,
         ));
     }
