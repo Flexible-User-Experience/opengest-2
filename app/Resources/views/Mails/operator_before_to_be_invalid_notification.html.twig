@@ -3,29 +3,5 @@
 {% block subject %}Revisió a punt de caducar{% endblock %}
 
 {% block content %}
-    <container>
-        <row>
-            <columns>
-                <spacer size="20"></spacer>
-                <p>Hola {{ operatorChecking.operator.name }}! Recorda que queden 30 dies abans de caducar el teu {{ operatorChecking.type }}</p>
-                <spacer size="20"></spacer>
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="blue-color">Data d'expedició</th>
-                        <th class="blue-color">Data caducitat</th>
-                        <th class="blue-color">Tipus revisió</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ operatorChecking.begin | date('d/m/Y')  }}</td>
-                        <td>{{ operatorChecking.end | date('d/m/Y')  }}</td>
-                        <td>{{ operatorChecking.type }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </columns>
-        </row>
-    </container>
+    {% include ':includes:common_operator_checking_mail.html.twig' with { header_h4: 'Hola ' ~ operatorChecking.operator.name ~'! Recorda que queden 30 dies abans de caducar un dels teus documents. ', operatorChecking: operatorChecking } %}
 {% endblock %}
