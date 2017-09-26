@@ -413,7 +413,7 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if ($this->ac->isGranted('ROLE_ADMIN')) {
+        if ($this->isGranted('ROLE_ADMIN')) {
             return $queryBuilder;
         }
         $queryBuilder
