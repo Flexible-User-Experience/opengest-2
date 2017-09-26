@@ -2,30 +2,26 @@
     <row>
         <columns>
             <spacer size="20"></spacer>
-            <h4>{{ header_h4 }}</h4>
+            <p>{{ header_h4 }}</p>
             <spacer size="20"></spacer>
             <table>
                 <thead>
                 <tr>
                     <th class="blue-color">Data d'expedició</th>
                     <th class="blue-color">Data caducitat</th>
-                    <th class="blue-color">Operari</th>
                     <th class="blue-color">Tipus revisió</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for item in entities %}
-                    <tr>
-                        <td>{{ item.begin | date('d/m/Y')  }}</td>
-                        <td>{{ item.end | date('d/m/Y')  }}</td>
-                        <td>{{ item.operator }}</td>
-                        <td>{{ item.type }}</td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>{{ operatorChecking.begin | date('d/m/Y')  }}</td>
+                    <td>{{ operatorChecking.end | date('d/m/Y')  }}</td>
+                    <td>{{ operatorChecking.type }}</td>
+                </tr>
                 </tbody>
             </table>
-            <spacer size="30"></spacer>
-            <p>Comprova-ho a la teva llista de tipus de revisió del CMS <a href="{{ absolute_url(path('admin_app_operatorchecking_list')) }}">aquí</a></p>
+            <spacer size="20"></spacer>
+            <p>Recorda de portar el document renovat a l'oficina per a actualitzar les teves dades.</p>
         </columns>
     </row>
 </container>

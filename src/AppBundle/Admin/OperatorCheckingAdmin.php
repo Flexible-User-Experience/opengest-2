@@ -132,6 +132,9 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
             ->andWhere('op.enterprise = :enterprise')

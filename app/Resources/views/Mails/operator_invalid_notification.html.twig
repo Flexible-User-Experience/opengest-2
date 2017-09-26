@@ -3,31 +3,5 @@
 {% block subject %}Revisió caducada{% endblock %}
 
 {% block content %}
-    <container>
-        <row>
-            <columns>
-                <spacer size="20"></spacer>
-                <p>Hola {{ operatorChecking.operator.name }}! Recorda que avui ha caducat el teu {{ operatorChecking.type }}</p>
-                <spacer size="20"></spacer>
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="blue-color">Data d'expedició</th>
-                        <th class="blue-color">Data caducitat</th>
-                        <th class="blue-color">Tipus revisió</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ operatorChecking.begin | date('d/m/Y')  }}</td>
-                        <td>{{ operatorChecking.end | date('d/m/Y')  }}</td>
-                        <td>{{ operatorChecking.type }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <spacer size="20"></spacer>
-                <p>Recorda de portar el document renovat a l'oficina per a actualitzar les teves dades.</p>
-            </columns>
-        </row>
-    </container>
+    {% include ':includes:common_operator_checking_mail.html.twig' with {  header_h4: 'Hola ' ~ operatorChecking.operator.name ~'! Recorda que avui ha caducat un dels teus documents.', operatorChecking: operatorChecking } %}
 {% endblock %}
