@@ -108,7 +108,7 @@ class DefaultController extends Controller
 
         $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
 
-        return $this->render(':Mails:user_backend_answer_notification.html.twig', array(
+        return $this->render(':Mails:contact_form_admin_notification.html.twig', array(
             'contact' => $contact,
             'show_devel_top_bar' => true,
         ));
