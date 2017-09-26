@@ -1,7 +1,0 @@
-{% extends ":Mails:base.html.twig" %}
-
-{% block subject %}Revisions caducades{% endblock %}
-
-{% block content %}
-    {% include ':includes:common_operator_checking_mail.html.twig' with { header_h4: 'Revisions cadudades', entities: entities } %}
-{% endblock %}

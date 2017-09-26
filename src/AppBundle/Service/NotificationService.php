@@ -131,7 +131,7 @@ class NotificationService
             $this->amd,
             $this->amd,
             'Avís de revisions d\'operaris caducades avui pàgina web '.$this->urlBase,
-            $this->twig->render(':Mails:operator_checking_invalid_admin_notification.html.twig', array('entities' => $entities))
+            $this->twig->render(':Mails:operators_checking_invalid_admin_notification.html.twig', array('entities' => $entities))
         );
     }
 
@@ -144,7 +144,7 @@ class NotificationService
             $this->amd,
             $this->amd,
             'Avís de revisions d\'operaris pedent de caducar pàgina web '.$this->urlBase,
-            $this->twig->render(':Mails:operator_checking_before_to_be_invalid_notification.html.twig', array('entities' => $entities))
+            $this->twig->render(':Mails:operators_checking_before_to_be_invalid_notification.html.twig', array('entities' => $entities))
         );
     }
 
