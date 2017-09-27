@@ -21,7 +21,9 @@
                 </tbody>
             </table>
             <spacer size="20"></spacer>
-            <p>Recorda de portar el document renovat a l'oficina per a actualitzar les teves dades.</p>
+            {% if show_footer %}
+                <p>Recorda de portar el document renovat a l'oficina per a actualitzar les teves dades.</p>
+            {% endif %}
         </columns>
     </row>
 </container>
