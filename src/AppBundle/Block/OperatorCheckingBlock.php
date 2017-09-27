@@ -58,12 +58,23 @@ class OperatorCheckingBlock extends AbstractBlockService
         $settings = $blockContext->getSettings();
 
         $backgroundColor = 'bg-green';
-        $content = '<p>Tots els operaris tenen les revisions al dia</p>';
+        $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els operaris tenen les revisions al dia</p>';
 
-        $opertaorsInvailids = $this->ocr->getItemsInvalid();
+        $operatorsBeforeInvalids = $this->ocr->getItemsBeforeToBeInvalidSinceToday();
+        if (count($operatorsBeforeInvalids) > 0) {
+            $backgroundColor = 'bg-yellow';
+            $content = '<h3>'.count($operatorsBeforeInvalids).'</h3><p>Operaris tenen revisions a punt de caducar</p>';
+        }
+
+        $opertaorsInvailids = $this->ocr->getItemsInvalidSinceToday();
         if (count($opertaorsInvailids) > 0) {
             $backgroundColor = 'bg-red';
-            $content = '<p>'.count($opertaorsInvailids).' operaris tenen revisions caducades</p>';
+            $content = '<h3>'.count($opertaorsInvailids).'</h3><p>Operaris tenen revisions caducades</p>';
+        }
+
+        if (count($operatorsBeforeInvalids) > 0 && count($opertaorsInvailids) > 0) {
+            $backgroundColor = 'bg-red';
+            $content = '<h3><i class="fa fa-times-circle" aria-hidden="true"></i></h3><p>'.count($operatorsBeforeInvalids).' operaris tenen revisions a punt de caducar</p><p>'.count($opertaorsInvailids).' operaris tenen revisions caducades</p>';
         }
 
         return $this->renderResponse(
