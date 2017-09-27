@@ -70,6 +70,11 @@ services:
         arguments: [ ~, AppBundle\Entity\OperatorAbsenceType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus absència", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator_absencia:
+        class: AppBundle\Admin\OperatorAbsenceAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorChecking, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager", "@app.repositories_manager" ]
