@@ -48,6 +48,39 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
+    public function getItemsBeforeToBeInvalidSinceTodayQB()
+    {
+        $thresholdDay = new \DateTime();
+        $thresholdDay->add(new \DateInterval('P30D'));
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('oc')
+            ->where('oc.end <= :thresholdDay')
+            ->andWhere('oc.end >= :today')
+            ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
+            ->setParameter('today', $today->format('Y-m-d'))
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getItemsBeforeToBeInvalidSinceTodayQ()
+    {
+        return $this->getItemsBeforeToBeInvalidSinceTodayQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsBeforeToBeInvalidSinceToday()
+    {
+        return $this->getItemsBeforeToBeInvalidSinceTodayQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
     public function getItemsInvalidQB()
     {
         $today = new \DateTime();
@@ -72,5 +105,34 @@ class OperatorCheckingRepository extends EntityRepository
     public function getItemsInvalid()
     {
         return $this->getItemsInvalidQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getItemsInvalidSinceTodayQB()
+    {
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('oc')
+            ->where('oc.end <= :today')
+            ->setParameter('today', $today->format('Y-m-d'))
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getItemsInvalidSinceTodayQ()
+    {
+        return $this->getItemsInvalidSinceTodayQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsInvalidSinceToday()
+    {
+        return $this->getItemsInvalidSinceTodayQ()->getResult();
     }
 }

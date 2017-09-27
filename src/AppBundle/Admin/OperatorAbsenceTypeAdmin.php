@@ -10,16 +10,16 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class OperatorCheckingTypeAdmin.
+ * Class OperatorAbsenceTypeAdmin.
  *
  * @category Admin
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  */
-class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
+class OperatorAbsenceTypeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tipus revisió';
-    protected $baseRoutePattern = 'operaris/tipus-revisio';
+    protected $classnameLabel = 'Tipus absència';
+    protected $baseRoutePattern = 'operaris/tipus-absencia';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

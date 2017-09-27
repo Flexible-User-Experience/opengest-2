@@ -47,6 +47,7 @@ class BackendControllerTest extends AbstractBaseTest
     public function provideSuccessfulUrls()
     {
         return array(
+            // Web
             array('/admin/dashboard'),
             array('/admin/web/servei/list'),
             array('/admin/web/servei/create'),
@@ -67,6 +68,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/accesori/list'),
             array('/admin/web/accesori/create'),
             array('/admin/web/accesori/1/edit'),
+            // Administration
             array('/admin/administracio/provincia/list'),
             array('/admin/administracio/provincia/create'),
             array('/admin/administracio/provincia/1/edit'),
@@ -76,22 +78,30 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/empresa/list'),
             array('/admin/administracio/empresa/create'),
             array('/admin/administracio/empresa/1/edit'),
-            array('/admin/administracio/operador/list'),
-            array('/admin/administracio/operador/create'),
-            array('/admin/administracio/operador/1/edit'),
-            array('/admin/administracio/operador/tipus-revisio/list'),
-            array('/admin/administracio/operador/tipus-revisio/create'),
-            array('/admin/administracio/operador/tipus-revisio/1/edit'),
-            array('/admin/administracio/operador/revisio/list'),
-            array('/admin/administracio/operador/revisio/create'),
-            array('/admin/administracio/operador/revisio/1/edit'),
-            array('/admin/contactes/missatge-contacte/list'),
-            array('/admin/contactes/missatge-contacte/1/show'),
-            array('/admin/contactes/missatge-contacte/1/answer'),
             array('/admin/administracio/usuari/list'),
             array('/admin/administracio/usuari/create'),
             array('/admin/administracio/usuari/1/edit'),
             array('/admin/administracio/usuari/1/delete'),
+            // Operators
+            array('/admin/operaris/operador/list'),
+            array('/admin/operaris/operador/create'),
+            array('/admin/operaris/operador/1/edit'),
+            array('/admin/operaris/tipus-revisio/list'),
+            array('/admin/operaris/tipus-revisio/create'),
+            array('/admin/operaris/tipus-revisio/1/edit'),
+            array('/admin/operaris/revisio/list'),
+            array('/admin/operaris/revisio/create'),
+            array('/admin/operaris/revisio/1/edit'),
+            array('/admin/operaris/tipus-absencia/list'),
+            array('/admin/operaris/tipus-absencia/create'),
+            array('/admin/operaris/tipus-absencia/1/edit'),
+            array('/admin/operaris/absencia/list'),
+            array('/admin/operaris/absencia/create'),
+            array('/admin/operaris/absencia/1/edit'),
+            // Contacts
+            array('/admin/contactes/missatge-contacte/list'),
+            array('/admin/contactes/missatge-contacte/1/show'),
+            array('/admin/contactes/missatge-contacte/1/answer'),
         );
     }
 
@@ -118,6 +128,7 @@ class BackendControllerTest extends AbstractBaseTest
     public function provideNotFoundUrls()
     {
         return array(
+            // Web
             array('/admin/web/servei/1/show'),
             array('/admin/web/servei/batch'),
             array('/admin/web/servei/1/delete'),
@@ -133,6 +144,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/accesori/1/show'),
             array('/admin/web/accesori/batch'),
             array('/admin/web/accesori/1/delete'),
+            // Administrator
             array('/admin/administracio/provincia/1/show'),
             array('/admin/administracio/provincia/batch'),
             array('/admin/administracio/provincia/1/delete'),
@@ -142,8 +154,28 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/empresa/1/show'),
             array('/admin/administracio/empresa/batch'),
             array('/admin/administracio/empresa/1/delete'),
-            array('/admin/users/show'),
-            array('/admin/users/batch'),
+            array('/admin/administracio/usuari/1/show'),
+            array('/admin/administracio/usuari/batch'),
+            // Operators
+            array('/admin/operaris/operador/1/delete'),
+            array('/admin/operaris/operador/1/show'),
+            array('/admin/operaris/operador/batch'),
+            array('/admin/operaris/tipus-revisio/1/delete'),
+            array('/admin/operaris/tipus-revisio/1/show'),
+            array('/admin/operaris/tipus-revisio/batch'),
+            array('/admin/operaris/revisio/1/delete'),
+            array('/admin/operaris/revisio/1/show'),
+            array('/admin/operaris/revisio/batch'),
+            array('/admin/operaris/tipus-absencia/1/delete'),
+            array('/admin/operaris/tipus-absencia/1/show'),
+            array('/admin/operaris/tipus-absencia/batch'),
+            array('/admin/operaris/absencia/1/delete'),
+            array('/admin/operaris/absencia/1/show'),
+            array('/admin/operaris/absencia/batch'),
+            // Contacts
+            array('/admin/contactes/missatge-contacte/create'),
+            array('/admin/contactes/missatge-contacte/1/edit'),
+            array('/admin/contactes/missatge-contacte/1/delete'),
         );
     }
 

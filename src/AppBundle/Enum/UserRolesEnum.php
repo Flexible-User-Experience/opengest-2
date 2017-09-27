@@ -13,6 +13,7 @@ class UserRolesEnum
 {
     const ROLE_USER = 'ROLE_USER';
     const ROLE_CMS = 'ROLE_CMS';
+    const ROLE_MANAGER = 'ROLE_MANAGER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
@@ -24,6 +25,7 @@ class UserRolesEnum
         return array(
             self::ROLE_USER => 'Usuari',
             self::ROLE_CMS => 'Editor',
+            self::ROLE_MANAGER => 'Gestor',
             self::ROLE_ADMIN => 'Administrador',
             self::ROLE_SUPER_ADMIN => 'Superadministrador',
         );

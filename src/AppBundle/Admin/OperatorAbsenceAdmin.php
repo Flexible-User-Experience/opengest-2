@@ -10,16 +10,16 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Class OperatorCheckingAdmin.
+ * Class OperatorAbsenceAdmin.
  *
  * @category Admin
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class OperatorCheckingAdmin extends AbstractBaseAdmin
+class OperatorAbsenceAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Revisions';
-    protected $baseRoutePattern = 'operaris/revisio';
+    protected $classnameLabel = 'Absències';
+    protected $baseRoutePattern = 'operaris/absencia';
     protected $datagridValues = array(
         '_sort_by' => 'end',
         '_sort_order' => 'asc',
@@ -58,7 +58,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'Tipus revisió',
+                    'label' => 'Tipus absència',
                     'required' => true,
                 )
             )
@@ -101,7 +101,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'Tipus revisó',
+                    'label' => 'Tipus absència',
                 )
             )
             ->add(
@@ -151,14 +151,14 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'status',
-                null,
-                array(
-                    'label' => 'Estat',
-                    'template' => '::Admin/Cells/list__cell_operator_checking_status.html.twig',
-                )
-            )
+//            ->add(
+//                'status',
+//                null,
+//                array(
+//                    'label' => 'Estat',
+//                    'template' => '::Admin/Cells/list__cell_operator_checking_status.html.twig',
+//                )
+//            )
             ->add(
                 'begin',
                 'date',
@@ -193,7 +193,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'Tipus revisió',
+                    'label' => 'Tipus absència',
                     'editable' => true,
                     'associated_property' => 'name',
                     'sortable' => true,

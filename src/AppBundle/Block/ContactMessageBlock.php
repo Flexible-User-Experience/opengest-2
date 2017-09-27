@@ -24,6 +24,10 @@ class ContactMessageBlock extends AbstractBlockService
     private $em;
 
     /**
+     * Methods.
+     */
+
+    /**
      * Constructor.
      *
      * @param $name

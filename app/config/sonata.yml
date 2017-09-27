@@ -6,6 +6,7 @@ sonata_block:
         sonata.user.block.menu:         ~
         sonata.block.service.text:      ~
         app.block.contact_message:      ~
+        app.block.operator_checking:    ~
 
 # Sonata User
 sonata_user:
@@ -48,11 +49,20 @@ sonata_admin:
             Administracio:
                 label: "Administració"
                 icon: "<i class='fa fa-briefcase'></i>"
+            Operaris:
+                icon: "<i class='fa fa-users'></i>"
         blocks:
             -
                 position: top
                 type: sonata.block.service.text
                 class: col-md-12
+                settings:
+                    content: >
+                        <h1 style="margin:0 0 25px 0">Opengest 2</h1>
+            -
+                position: top
+                type: app.block.operator_checking
+                class: col-md-3
                 settings:
                     content: >
                         <h1 style="margin:0 0 25px 0">Opengest 2</h1>
@@ -78,6 +88,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Administracio ]
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Operaris ]
             -
                 position: bottom
                 type: sonata.block.service.text

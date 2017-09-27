@@ -58,12 +58,6 @@ class GuardService
     public function isOwnOperator(Operator $operator)
     {
         return $this->acs->isGranted('ROLE_ADMIN') || $operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
-
-//        if ($this->acs->isGranted('ROLE_ADMIN') || $operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
-//            return true;
-//        }
-//
-//        return false;
     }
 
     /**
@@ -74,12 +68,6 @@ class GuardService
     public function isOwnOperatorCheking(OperatorChecking $oc)
     {
         return $this->acs->isGranted('ROLE_ADMIN') || $oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
-
-//        if ($oc->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId()) {
-//            return true;
-//        }
-
-//        return false;
     }
 
     /**
