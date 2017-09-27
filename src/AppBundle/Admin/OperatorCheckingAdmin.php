@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class OperatorCheckingAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Revisions';
-    protected $baseRoutePattern = 'administracio/operador/revisio';
+    protected $baseRoutePattern = 'operaris/operador/revisio';
     protected $datagridValues = array(
         '_sort_by' => 'end',
         '_sort_order' => 'asc',

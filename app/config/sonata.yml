@@ -48,6 +48,8 @@ sonata_admin:
             Administracio:
                 label: "Administració"
                 icon: "<i class='fa fa-briefcase'></i>"
+            Operaris:
+                icon: "<i class='fa fa-users'></i>"
         blocks:
             -
                 position: top
@@ -78,6 +80,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Administracio ]
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Operaris ]
             -
                 position: bottom
                 type: sonata.block.service.text

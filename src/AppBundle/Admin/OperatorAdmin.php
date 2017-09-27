@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class OperatorAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Operadors';
-    protected $baseRoutePattern = 'administracio/operador';
+    protected $baseRoutePattern = 'operaris/operador';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
