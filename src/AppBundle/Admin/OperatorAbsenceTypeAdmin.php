@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 class OperatorAbsenceTypeAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Tipus absència';
-    protected $baseRoutePattern = 'administracio/operador/tipus-absencia';
+    protected $baseRoutePattern = 'operaris/tipus-absencia';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

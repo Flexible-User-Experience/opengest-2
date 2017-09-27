@@ -59,7 +59,7 @@ services:
         class: AppBundle\Admin\OperatorCheckingTypeAdmin
         arguments: [ ~, AppBundle\Entity\OperatorCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+            - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.operator_checking:
         class: AppBundle\Admin\OperatorCheckingAdmin
         arguments: [ ~, AppBundle\Entity\OperatorChecking, AppBundle:Admin\OperatorCheckingAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
@@ -69,7 +69,7 @@ services:
         class: AppBundle\Admin\OperatorAbsenceTypeAdmin
         arguments: [ ~, AppBundle\Entity\OperatorAbsenceType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus absència", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+            - { name: sonata.admin, manager_type: orm, label: "Tipus absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.operator_absence:
         class: AppBundle\Admin\OperatorAbsenceAdmin
         arguments: [ ~, AppBundle\Entity\OperatorAbsence, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage" ]

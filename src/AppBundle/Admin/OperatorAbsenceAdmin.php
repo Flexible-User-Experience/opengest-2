@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class OperatorAbsenceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Absències';
-    protected $baseRoutePattern = 'operaris/operador/absencia';
+    protected $baseRoutePattern = 'operaris/absencia';
     protected $datagridValues = array(
         '_sort_by' => 'end',
         '_sort_order' => 'asc',
