@@ -52,12 +52,13 @@ class OperatorCheckingRepository extends EntityRepository
     {
         $thresholdDay = new \DateTime();
         $thresholdDay->add(new \DateInterval('P30D'));
+        $today = new \DateTime();
 
         return $this->createQueryBuilder('oc')
             ->where('oc.end <= :thresholdDay')
             ->andWhere('oc.end >= :today')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
-            ->setParameter('today', new \DateTime('now'))
+            ->setParameter('today', $today->format('Y-m-d'))
         ;
     }
 
