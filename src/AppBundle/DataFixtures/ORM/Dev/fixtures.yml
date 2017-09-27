@@ -247,6 +247,26 @@ AppBundle\Entity\OperatorChecking:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# OperatorAbsenceType
+AppBundle\Entity\OperatorAbsenceType:
+  absenceType{1..5}:
+    name: <name()>
+    description: <paragraph()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# OperatorAbsenceType
+AppBundle\Entity\OperatorAbsence:
+  operatorAbsence{1..5}:
+    operator: @operator<numberBetween(1,2)>
+    type: @absenceType<numberBetween(1,5)>
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Users
 AppBundle\Entity\User:
     admin:
