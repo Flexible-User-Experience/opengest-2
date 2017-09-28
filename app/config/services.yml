@@ -65,6 +65,11 @@ services:
         arguments: [ "app.block.operator_checking", "@templating", "@app.operator_checking_repository", "@security.token_storage" ]
         tags:
             - { name: sonata.block }
+    app.block.operator_absence:
+        class: AppBundle\Block\OperatorAbsenceBlock
+        arguments: [ "app.block.operator_absence", "@templating", "@app.operator_absence_repository", "@security.token_storage" ]
+        tags:
+            - { name: sonata.block }
 # File
     app.file_service:
         class: AppBundle\Service\FileService

@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
  * Class OperatorCheckingBlock.
  *
  * @category Block
+ *
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class OperatorCheckingBlock extends AbstractBlockService
 {

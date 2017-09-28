@@ -2,6 +2,7 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\OperatorAbsenceRepository;
 use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
 use AppBundle\Repository\OperatorCheckingTypeRepository;
@@ -55,6 +56,11 @@ class RepositoriesManager
     private $operatorAbsenceTypeRepository;
 
     /**
+     * @var OperatorAbsenceRepository
+     */
+    private $operatorAbsenceRepository;
+
+    /**
      * Methods.
      */
 
@@ -68,8 +74,9 @@ class RepositoriesManager
      * @param OperatorCheckingRepository     $operatorCheckingRepository
      * @param OperatorCheckingTypeRepository $operatorCheckingTypeRepository
      * @param OperatorAbsenceTypeRepository  $operatorAbsenceTypeRepository
+     * @param OperatorAbsenceRepository      $operatorAbsenceRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -78,6 +85,7 @@ class RepositoriesManager
         $this->operatorCheckingRepository = $operatorCheckingRepository;
         $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
         $this->operatorAbsenceTypeRepository = $operatorAbsenceTypeRepository;
+        $this->operatorAbsenceRepository = $operatorAbsenceRepository;
     }
 
     /**
@@ -126,6 +134,14 @@ class RepositoriesManager
     public function getOperatorCheckingTypeRepository()
     {
         return $this->operatorCheckingTypeRepository;
+    }
+
+    /**
+     * @return OperatorAbsenceRepository
+     */
+    public function getOperatorAbsenceRepository()
+    {
+        return $this->getOperatorAbsenceRepository();
     }
 
     /**
