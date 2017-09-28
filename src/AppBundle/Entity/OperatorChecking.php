@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @category Entity
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
+ *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorCheckingRepository")
  * @ORM\Table(name="operator_cheking")
  */
