@@ -48,13 +48,14 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
-    public function getItemsBeforeToBeInvalidSinceTodayQB()
+    public function getItemsBeforeToBeInvalidSinceTodayAmountQB()
     {
         $thresholdDay = new \DateTime();
         $thresholdDay->add(new \DateInterval('P30D'));
         $today = new \DateTime();
 
         return $this->createQueryBuilder('oc')
+            ->select('COUNT(oc.id)')
             ->where('oc.end <= :thresholdDay')
             ->andWhere('oc.end >= :today')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
@@ -65,17 +66,17 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return Query
      */
-    public function getItemsBeforeToBeInvalidSinceTodayQ()
+    public function getItemsBeforeToBeInvalidSinceTodayAmountQ()
     {
-        return $this->getItemsBeforeToBeInvalidSinceTodayQB()->getQuery();
+        return $this->getItemsBeforeToBeInvalidSinceTodayAmountQB()->getQuery();
     }
 
     /**
-     * @return array
+     * @return int
      */
-    public function getItemsBeforeToBeInvalidSinceToday()
+    public function getItemsBeforeToBeInvalidSinceTodayAmount()
     {
-        return $this->getItemsBeforeToBeInvalidSinceTodayQ()->getResult();
+        return $this->getItemsBeforeToBeInvalidSinceTodayAmountQ()->getSingleScalarResult();
     }
 
     /**
@@ -110,11 +111,12 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
-    public function getItemsInvalidSinceTodayQB()
+    public function getItemsInvalidSinceTodayAmountQB()
     {
         $today = new \DateTime();
 
         return $this->createQueryBuilder('oc')
+            ->select('COUNT(oc.id)')
             ->where('oc.end <= :today')
             ->setParameter('today', $today->format('Y-m-d'))
         ;
@@ -123,16 +125,16 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return Query
      */
-    public function getItemsInvalidSinceTodayQ()
+    public function getItemsInvalidSinceTodayAmountQ()
     {
-        return $this->getItemsInvalidSinceTodayQB()->getQuery();
+        return $this->getItemsInvalidSinceTodayAmountQB()->getQuery();
     }
 
     /**
-     * @return array
+     * @return int
      */
-    public function getItemsInvalidSinceToday()
+    public function getItemsInvalidSinceTodayAmount()
     {
-        return $this->getItemsInvalidSinceTodayQ()->getResult();
+        return $this->getItemsInvalidSinceTodayAmountQ()->getSingleScalarResult();
     }
 }

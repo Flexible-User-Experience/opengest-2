@@ -57,20 +57,20 @@ class OperatorCheckingBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
-        $operatorsInvalid = $this->ocr->getItemsInvalidSinceToday();
-        $operatorsBeforeInvalid = $this->ocr->getItemsBeforeToBeInvalidSinceToday();
+        $operatorsInvalidAmount = $this->ocr->getItemsInvalidSinceTodayAmount();
+        $operatorsBeforeInvalidAmount = $this->ocr->getItemsBeforeToBeInvalidSinceTodayAmount();
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els operaris tenen les revisions al dia</p>';
 
-        if (count($operatorsBeforeInvalid) > 0 && count($operatorsInvalid) > 0) {
+        if ($operatorsBeforeInvalidAmount > 0 && $operatorsInvalidAmount > 0) {
             $backgroundColor = 'bg-red';
-            $content = '<h3>'.count($operatorsInvalid).'</h3><p>Operaris tenen revisions caducades</p><p>'.count($operatorsBeforeInvalid).' operaris tenen revisions a punt de caducar</p>';
-        } elseif (count($operatorsInvalid) > 0) {
+            $content = '<h3>'.$operatorsInvalidAmount.'</h3><p>Operaris tenen revisions caducades</p><p>'.$operatorsBeforeInvalidAmount.' operaris tenen revisions a punt de caducar</p>';
+        } elseif ($operatorsInvalidAmount > 0) {
             $backgroundColor = 'bg-red';
-            $content = '<h3>'.count($operatorsInvalid).'</h3><p>Operaris tenen revisions caducades</p>';
-        } elseif (count($operatorsBeforeInvalid) > 0) {
+            $content = '<h3>'.$operatorsInvalidAmount.'</h3><p>Operaris tenen revisions caducades</p>';
+        } elseif ($operatorsBeforeInvalidAmount > 0) {
             $backgroundColor = 'bg-yellow';
-            $content = '<h3>'.count($operatorsBeforeInvalid).'</h3><p>Operaris tenen revisions a punt de caducar</p>';
+            $content = '<h3>'.$operatorsBeforeInvalidAmount.'</h3><p>Operaris tenen revisions a punt de caducar</p>';
         }
 
         return $this->renderResponse(
