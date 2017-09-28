@@ -20,10 +20,10 @@ class OperatorCheckingTypeRepository extends EntityRepository
      */
     public function getEnabledSortedByNameQB()
     {
-        return $this->createQueryBuilder('oc')
-            ->where('oc.enabled = :enabled')
+        return $this->createQueryBuilder('oct')
+            ->where('oct.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('oc.name', 'ASC')
+            ->orderBy('oct.name', 'ASC')
         ;
     }
 

@@ -60,6 +60,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Tipus absència',
                     'required' => true,
+                    'query_builder' => $this->rm->getOperatorAbsenceTypeRepository()->getEnabledSortedByNameQB(),
                 )
             )
             ->add(

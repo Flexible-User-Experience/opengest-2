@@ -39,6 +39,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:OperatorCheckingType
+    app.operator_absence_type_repository:
+        class: AppBundle\Repository\OperatorAbsenceTypeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:OperatorAbsenceType
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -48,3 +53,4 @@ services:
             - "@app.operator_repository"
             - "@app.operator_checking_repository"
             - "@app.operator_checking_type_repository"
+            - "@app.operator_absence_type_repository"
