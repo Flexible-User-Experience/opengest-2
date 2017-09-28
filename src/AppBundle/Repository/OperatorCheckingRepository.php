@@ -63,9 +63,11 @@ class OperatorCheckingRepository extends EntityRepository
             ->where('oc.end <= :thresholdDay')
             ->andWhere('oc.end >= :today')
             ->andWhere('o.enterprise = :enterprise')
+            ->andWhere('oc.enabled = :enabled')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
             ->setParameter('today', $today->format('Y-m-d'))
             ->setParameter('enterprise', $enterprise)
+            ->setParameter('enabled', true)
         ;
     }
 
@@ -132,8 +134,10 @@ class OperatorCheckingRepository extends EntityRepository
             ->select('COUNT(oc.id)')
             ->where('oc.end <= :today')
             ->andWhere('o.enterprise = :enterprise')
+            ->andWhere('oc.enabled = :enabled')
             ->setParameter('today', $today->format('Y-m-d'))
             ->setParameter('enterprise', $enterprise)
+            ->setParameter('enabled', true)
         ;
     }
 
