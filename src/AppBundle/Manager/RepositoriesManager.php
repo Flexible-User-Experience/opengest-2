@@ -3,6 +3,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Repository\OperatorCheckingRepository;
+use AppBundle\Repository\OperatorCheckingTypeRepository;
 use AppBundle\Repository\OperatorRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
@@ -43,25 +44,32 @@ class RepositoriesManager
     private $operatorCheckingRepository;
 
     /**
+     * @var OperatorCheckingTypeRepository
+     */
+    private $operatorCheckingTypeRepository;
+
+    /**
      * Methods.
      */
 
     /**
      * RepositoriesManager constructor.
      *
-     * @param ServiceRepository          $serviceRepository
-     * @param VehicleCategoryRepository  $vehicleCategoryRepository
-     * @param UserRepository             $userRepository
-     * @param OperatorRepository         $operatorRepository
-     * @param OperatorCheckingRepository $operatorCheckingRepository
+     * @param ServiceRepository              $serviceRepository
+     * @param VehicleCategoryRepository      $vehicleCategoryRepository
+     * @param UserRepository                 $userRepository
+     * @param OperatorRepository             $operatorRepository
+     * @param OperatorCheckingRepository     $operatorCheckingRepository
+     * @param OperatorCheckingTypeRepository $operatorCheckingTypeRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
         $this->userRepository = $userRepository;
         $this->operatorRepository = $operatorRepository;
         $this->operatorCheckingRepository = $operatorCheckingRepository;
+        $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
     }
 
     /**
@@ -102,5 +110,13 @@ class RepositoriesManager
     public function getOperatorCheckingRepository()
     {
         return $this->operatorCheckingRepository;
+    }
+
+    /**
+     * @return OperatorCheckingTypeRepository
+     */
+    public function getOperatorCheckingTypeRepository()
+    {
+        return $this->operatorCheckingTypeRepository;
     }
 }

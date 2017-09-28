@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
  * Class OperatorCheckingTypeRepository.
@@ -13,4 +15,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class OperatorCheckingTypeRepository extends EntityRepository
 {
+    /**
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedByNameQB()
+    {
+        return $this->createQueryBuilder('oc')
+            ->where('oc.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('oc.name', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getEnabledSortedByNameQ()
+    {
+        return $this->getEnabledSortedByNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledSortedByName()
+    {
+        return $this->getEnabledSortedByNameQ()->getResult();
+    }
 }

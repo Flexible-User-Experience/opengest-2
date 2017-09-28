@@ -60,6 +60,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Tipus revisió',
                     'required' => true,
+                    'query_builder' => $this->rm->getOperatorCheckingTypeRepository()->getEnabledSortedByNameQB(),
                 )
             )
             ->add(

@@ -34,6 +34,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:OperatorChecking
+    app.operator_checking_type_repository:
+        class: AppBundle\Repository\OperatorCheckingTypeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:OperatorCheckingType
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -42,3 +47,4 @@ services:
             - "@app.user_repository"
             - "@app.operator_repository"
             - "@app.operator_checking_repository"
+            - "@app.operator_checking_type_repository"
