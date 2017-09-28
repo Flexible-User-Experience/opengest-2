@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
  * Class OperatorCheckingBlock.
  *
  * @category Block
+ *
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class OperatorCheckingBlock extends AbstractBlockService
 {
@@ -57,24 +59,20 @@ class OperatorCheckingBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
+        $operatorsInvalidAmount = $this->ocr->getItemsInvalidSinceTodayByEnterpriseAmount($this->tss->getToken()->getUser()->getDefaultEnterprise());
+        $operatorsBeforeInvalidAmount = $this->ocr->getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmount($this->tss->getToken()->getUser()->getDefaultEnterprise());
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els operaris tenen les revisions al dia</p>';
 
-        $operatorsBeforeInvalids = $this->ocr->getItemsBeforeToBeInvalidSinceToday();
-        if (count($operatorsBeforeInvalids) > 0) {
+        if ($operatorsBeforeInvalidAmount > 0 && $operatorsInvalidAmount > 0) {
+            $backgroundColor = 'bg-red';
+            $content = '<h3>'.$operatorsInvalidAmount.'</h3><p>Operaris tenen revisions caducades</p><p>'.$operatorsBeforeInvalidAmount.' operaris tenen revisions a punt de caducar</p>';
+        } elseif ($operatorsInvalidAmount > 0) {
+            $backgroundColor = 'bg-red';
+            $content = '<h3>'.$operatorsInvalidAmount.'</h3><p>Operaris tenen revisions caducades</p>';
+        } elseif ($operatorsBeforeInvalidAmount > 0) {
             $backgroundColor = 'bg-yellow';
-            $content = '<h3>'.count($operatorsBeforeInvalids).'</h3><p>Operaris tenen revisions a punt de caducar</p>';
-        }
-
-        $opertaorsInvailids = $this->ocr->getItemsInvalidSinceToday();
-        if (count($opertaorsInvailids) > 0) {
-            $backgroundColor = 'bg-red';
-            $content = '<h3>'.count($opertaorsInvailids).'</h3><p>Operaris tenen revisions caducades</p>';
-        }
-
-        if (count($operatorsBeforeInvalids) > 0 && count($opertaorsInvailids) > 0) {
-            $backgroundColor = 'bg-red';
-            $content = '<h3><i class="fa fa-times-circle" aria-hidden="true"></i></h3><p>'.count($operatorsBeforeInvalids).' operaris tenen revisions a punt de caducar</p><p>'.count($opertaorsInvailids).' operaris tenen revisions caducades</p>';
+            $content = '<h3>'.$operatorsBeforeInvalidAmount.'</h3><p>Operaris tenen revisions a punt de caducar</p>';
         }
 
         return $this->renderResponse(

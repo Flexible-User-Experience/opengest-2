@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -46,36 +47,48 @@ class OperatorCheckingRepository extends EntityRepository
     }
 
     /**
+     * @param Enterprise $enterprise
+     *
      * @return QueryBuilder
      */
-    public function getItemsBeforeToBeInvalidSinceTodayQB()
+    public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQB(Enterprise $enterprise)
     {
         $thresholdDay = new \DateTime();
         $thresholdDay->add(new \DateInterval('P30D'));
         $today = new \DateTime();
 
         return $this->createQueryBuilder('oc')
+            ->join('oc.operator', 'o')
+            ->select('COUNT(oc.id)')
             ->where('oc.end <= :thresholdDay')
             ->andWhere('oc.end >= :today')
+            ->andWhere('o.enterprise = :enterprise')
+            ->andWhere('o.enabled = :enabled')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
             ->setParameter('today', $today->format('Y-m-d'))
+            ->setParameter('enterprise', $enterprise)
+            ->setParameter('enabled', true)
         ;
     }
 
     /**
+     * @param Enterprise $enterprise
+     *
      * @return Query
      */
-    public function getItemsBeforeToBeInvalidSinceTodayQ()
+    public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQ(Enterprise $enterprise)
     {
-        return $this->getItemsBeforeToBeInvalidSinceTodayQB()->getQuery();
+        return $this->getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQB($enterprise)->getQuery();
     }
 
     /**
-     * @return array
+     * @param Enterprise $enterprise
+     *
+     * @return int
      */
-    public function getItemsBeforeToBeInvalidSinceToday()
+    public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmount(Enterprise $enterprise)
     {
-        return $this->getItemsBeforeToBeInvalidSinceTodayQ()->getResult();
+        return $this->getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQ($enterprise)->getSingleScalarResult();
     }
 
     /**
@@ -108,31 +121,43 @@ class OperatorCheckingRepository extends EntityRepository
     }
 
     /**
+     * @param Enterprise $enterprise
+     *
      * @return QueryBuilder
      */
-    public function getItemsInvalidSinceTodayQB()
+    public function getItemsInvalidSinceTodayByEnterpriseAmountQB(Enterprise $enterprise)
     {
         $today = new \DateTime();
 
         return $this->createQueryBuilder('oc')
+            ->join('oc.operator', 'o')
+            ->select('COUNT(oc.id)')
             ->where('oc.end <= :today')
+            ->andWhere('o.enterprise = :enterprise')
+            ->andWhere('o.enabled = :enabled')
             ->setParameter('today', $today->format('Y-m-d'))
+            ->setParameter('enterprise', $enterprise)
+            ->setParameter('enabled', true)
         ;
     }
 
     /**
+     * @param Enterprise $enterprise
+     *
      * @return Query
      */
-    public function getItemsInvalidSinceTodayQ()
+    public function getItemsInvalidSinceTodayByEnterpriseAmountQ(Enterprise $enterprise)
     {
-        return $this->getItemsInvalidSinceTodayQB()->getQuery();
+        return $this->getItemsInvalidSinceTodayByEnterpriseAmountQB($enterprise)->getQuery();
     }
 
     /**
-     * @return array
+     * @param Enterprise $enterprise
+     *
+     * @return int
      */
-    public function getItemsInvalidSinceToday()
+    public function getItemsInvalidSinceTodayByEnterpriseAmount(Enterprise $enterprise)
     {
-        return $this->getItemsInvalidSinceTodayQ()->getResult();
+        return $this->getItemsInvalidSinceTodayByEnterpriseAmountQ($enterprise)->getSingleScalarResult();
     }
 }

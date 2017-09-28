@@ -5,11 +5,13 @@
     <div class="small-box {{ background }}">
         <div class="inner">
             {{ content | raw }}
+            {#<h3>4</h3>#}
+            {#<p>Absències</p>#}
         </div>
         <div class="icon">
-            <i class="fa fa-users"></i>
+            <i class="fa fa-comments"></i>
         </div>
-        <a href="{{ path('admin_app_operatorchecking_list') }}" class="small-box-footer">
+        <a href="{{ path('admin_app_operatorabsence_list') }}" class="small-box-footer">
             Anar al llistat <i class="fa fa-arrow-circle-right"></i>
         </a>
     </div>

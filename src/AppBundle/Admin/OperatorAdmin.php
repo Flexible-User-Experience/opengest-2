@@ -433,7 +433,7 @@ class OperatorAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if ($this->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
             return $queryBuilder;
         }
         $queryBuilder

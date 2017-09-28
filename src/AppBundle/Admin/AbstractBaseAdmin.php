@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
@@ -52,16 +53,22 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $ts;
 
     /**
-     * @param string              $code
-     * @param string              $class
-     * @param string              $baseControllerName
-     * @param CacheManager        $lis
-     * @param RepositoriesManager $rm
-     * @param FileService         $fs
-     * @param TwigEngine          $tws
-     * @param TokenStorage        $ts
+     * @var AuthorizationChecker
      */
-    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs, TwigEngine $tws, TokenStorage $ts)
+    protected $acs;
+
+    /**
+     * @param string               $code
+     * @param string               $class
+     * @param string               $baseControllerName
+     * @param CacheManager         $lis
+     * @param RepositoriesManager  $rm
+     * @param FileService          $fs
+     * @param TwigEngine           $tws
+     * @param TokenStorage         $ts
+     * @param AuthorizationChecker $acs
+     */
+    public function __construct($code, $class, $baseControllerName, CacheManager $lis, RepositoriesManager $rm, FileService $fs, TwigEngine $tws, TokenStorage $ts, AuthorizationChecker $acs)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->vus = $fs->getUhs();
@@ -70,6 +77,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->fs = $fs;
         $this->tws = $tws;
         $this->ts = $ts;
+        $this->acs = $acs;
     }
 
     /**

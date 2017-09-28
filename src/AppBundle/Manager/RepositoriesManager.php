@@ -2,7 +2,10 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\OperatorAbsenceRepository;
+use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
+use AppBundle\Repository\OperatorCheckingTypeRepository;
 use AppBundle\Repository\OperatorRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
@@ -43,25 +46,46 @@ class RepositoriesManager
     private $operatorCheckingRepository;
 
     /**
+     * @var OperatorCheckingTypeRepository
+     */
+    private $operatorCheckingTypeRepository;
+
+    /**
+     * @var OperatorAbsenceTypeRepository
+     */
+    private $operatorAbsenceTypeRepository;
+
+    /**
+     * @var OperatorAbsenceRepository
+     */
+    private $operatorAbsenceRepository;
+
+    /**
      * Methods.
      */
 
     /**
      * RepositoriesManager constructor.
      *
-     * @param ServiceRepository          $serviceRepository
-     * @param VehicleCategoryRepository  $vehicleCategoryRepository
-     * @param UserRepository             $userRepository
-     * @param OperatorRepository         $operatorRepository
-     * @param OperatorCheckingRepository $operatorCheckingRepository
+     * @param ServiceRepository              $serviceRepository
+     * @param VehicleCategoryRepository      $vehicleCategoryRepository
+     * @param UserRepository                 $userRepository
+     * @param OperatorRepository             $operatorRepository
+     * @param OperatorCheckingRepository     $operatorCheckingRepository
+     * @param OperatorCheckingTypeRepository $operatorCheckingTypeRepository
+     * @param OperatorAbsenceTypeRepository  $operatorAbsenceTypeRepository
+     * @param OperatorAbsenceRepository      $operatorAbsenceRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
         $this->userRepository = $userRepository;
         $this->operatorRepository = $operatorRepository;
         $this->operatorCheckingRepository = $operatorCheckingRepository;
+        $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
+        $this->operatorAbsenceTypeRepository = $operatorAbsenceTypeRepository;
+        $this->operatorAbsenceRepository = $operatorAbsenceRepository;
     }
 
     /**
@@ -102,5 +126,29 @@ class RepositoriesManager
     public function getOperatorCheckingRepository()
     {
         return $this->operatorCheckingRepository;
+    }
+
+    /**
+     * @return OperatorCheckingTypeRepository
+     */
+    public function getOperatorCheckingTypeRepository()
+    {
+        return $this->operatorCheckingTypeRepository;
+    }
+
+    /**
+     * @return OperatorAbsenceRepository
+     */
+    public function getOperatorAbsenceRepository()
+    {
+        return $this->getOperatorAbsenceRepository();
+    }
+
+    /**
+     * @return OperatorAbsenceTypeRepository
+     */
+    public function getOperatorAbsenceTypeRepository()
+    {
+        return $this->operatorAbsenceTypeRepository;
     }
 }
