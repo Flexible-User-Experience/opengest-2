@@ -59,7 +59,8 @@ class OperatorAbsenceBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
-//        $backgroundColor = 'bg-green'
+        $backgroundColor = 'bg-green';
+        $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Avui tots els operaris estan disponibles</p>';
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
@@ -67,8 +68,8 @@ class OperatorAbsenceBlock extends AbstractBlockService
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
                 'title' => 'Notificacions',
-//                'background' => $backgroundColor,
-//                'content' => $content,
+                'background' => $backgroundColor,
+                'content' => $content,
             ),
             $response
         );

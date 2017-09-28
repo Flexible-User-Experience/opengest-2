@@ -2,11 +2,11 @@
 
 {% block block %}
     {#<!-- small box -->#}
-    <div class="small-box bg-green">
+    <div class="small-box {{ background }}">
         <div class="inner">
-            {#{{ content | raw }}#}
-            <h3>4</h3>
-            <p>Absències</p>
+            {{ content | raw }}
+            {#<h3>4</h3>#}
+            {#<p>Absències</p>#}
         </div>
         <div class="icon">
             <i class="fa fa-comments"></i>
