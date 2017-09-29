@@ -65,7 +65,7 @@ class OperatorAbsenceBlock extends AbstractBlockService
 
         if ($operatorsAbsentAmount > 0) {
             $backgroundColor = 'bg-red';
-            $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>operaris avui no estan disponibles</p>';
+            $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>Operaris avui no estan disponibles</p>';
         }
 
         return $this->renderResponse(
