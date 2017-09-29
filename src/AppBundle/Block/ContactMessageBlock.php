@@ -53,13 +53,28 @@ class ContactMessageBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
+        $pendingMessagesAmount = $this->em->getRepository('AppBundle:ContactMessage')->getPendingMessagesAmount();
+
+        $backgroundColor = 'bg-green';
+        $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els missatges de contacte estan contestats</p>';
+
+        if ($pendingMessagesAmount > 0) {
+            $backgroundColor = 'bg-red';
+            if ($pendingMessagesAmount == 1) {
+                $content = '<h3>'.$pendingMessagesAmount.'</h3><p>Missatge de contacte pendent de contestar</p>';
+            } else {
+                $content = '<h3>'.$pendingMessagesAmount.'</h3><p>Missatges de contacte pendents de contestar</p>';
+            }
+        }
+
         return $this->renderResponse(
             $blockContext->getTemplate(),
             array(
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
                 'title' => 'Notificacions',
-                'pendingMessages' => $this->em->getRepository('AppBundle:ContactMessage')->getPendingMessagesAmount(),
+                'background' => $backgroundColor,
+                'content' => $content,
             ),
             $response
         );
