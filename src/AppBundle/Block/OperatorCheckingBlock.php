@@ -61,6 +61,7 @@ class OperatorCheckingBlock extends AbstractBlockService
 
         $operatorsInvalidAmount = $this->ocr->getItemsInvalidSinceTodayByEnterpriseAmount($this->tss->getToken()->getUser()->getDefaultEnterprise());
         $operatorsBeforeInvalidAmount = $this->ocr->getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmount($this->tss->getToken()->getUser()->getDefaultEnterprise());
+
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els operaris tenen les revisions al dia</p>';
 
