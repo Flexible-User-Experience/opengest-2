@@ -67,7 +67,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'begin',
                 'sonata_type_date_picker',
                 array(
-                    'label' => 'Data d\'expedició',
+                    'label' => 'Data inici',
                     'format' => 'd/M/y',
                     'required' => true,
                 )
@@ -76,7 +76,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'end',
                 'sonata_type_date_picker',
                 array(
-                    'label' => 'Data de caducitat',
+                    'label' => 'Data fi',
                     'format' => 'd/M/y',
                     'required' => true,
                 )
@@ -109,7 +109,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'begin',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'data d\'expedició',
+                    'label' => 'Data inici',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -117,7 +117,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'end',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'data caducitat',
+                    'label' => 'Data fi',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -164,7 +164,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'begin',
                 'date',
                 array(
-                    'label' => 'Data d\'expedició',
+                    'label' => 'Data inici',
                     'format' => 'd/m/Y',
                     'editable' => true,
                 )
@@ -173,7 +173,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'end',
                 'date',
                 array(
-                    'label' => 'Data caducitat',
+                    'label' => 'Data fi',
                     'format' => 'd/m/Y',
                     'editable' => true,
                 )

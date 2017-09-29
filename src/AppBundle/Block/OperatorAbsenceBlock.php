@@ -59,8 +59,14 @@ class OperatorAbsenceBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
+        $operatorsAbsentAmount = $this->oar->getItemsAbsenceTodayAmount($this->tss->getToken()->getUser()->getDefaultEnterprise());
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Avui tots els operaris estan disponibles</p>';
+
+        if ($operatorsAbsentAmount > 0) {
+            $backgroundColor = 'bg-red';
+            $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>operaris avui no estan disponibles</p>';
+        }
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
