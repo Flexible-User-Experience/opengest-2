@@ -21,7 +21,7 @@ class OperatorAbsenceRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getItemsAbsenceTodayAmountQB(Enterprise $enterprise)
+    public function getItemsAbsenceTodayByEnterpriseAmountQB(Enterprise $enterprise)
     {
         $today = new \DateTime();
 
@@ -43,9 +43,9 @@ class OperatorAbsenceRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getItemsAbsenceTodayAmountQ(Enterprise $enterprise)
+    public function getItemsAbsenceTodayByEnterpriseAmountQ(Enterprise $enterprise)
     {
-        return $this->getItemsAbsenceTodayAmountQB($enterprise)->getQuery();
+        return $this->getItemsAbsenceTodayByEnterpriseAmountQB($enterprise)->getQuery();
     }
 
     /**
@@ -53,8 +53,50 @@ class OperatorAbsenceRepository extends EntityRepository
      *
      * @return int
      */
-    public function getItemsAbsenceTodayAmount(Enterprise $enterprise)
+    public function getItemsAbsenceTodayByEnterpriseAmount(Enterprise $enterprise)
     {
-        return $this->getItemsAbsenceTodayAmountQ($enterprise)->getSingleScalarResult();
+        return $this->getItemsAbsenceTodayByEnterpriseAmountQ($enterprise)->getSingleScalarResult();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     */
+    public function getItemsToBeAbsenceTomorrowByEnterpriseAmountQB(Enterprise $enterprise)
+    {
+        $tomorrow = new \DateTime();
+        $tomorrow->add(new \DateInterval('P1D'));
+
+        return $this->createQueryBuilder('oa')
+            ->join('oa.operator', 'o')
+            ->select('COUNT(oa.id)')
+            ->where('oa.begin = :tomorrow')
+            ->andWhere('o.enterprise = :enterprise')
+            ->andWhere('o.enabled = :enabled')
+            ->setParameter('tomorrow', $tomorrow->format('Y-m-d'))
+            ->setParameter('enterprise', $enterprise)
+            ->setParameter('enabled', true)
+        ;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     */
+    public function getItemsToBeAbsenceTomorrowByEnterpriseAmountQ(Enterprise $enterprise)
+    {
+        return $this->getItemsToBeAbsenceTomorrowByEnterpriseAmountQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return int
+     */
+    public function getItemsToBeAbsenceTomorrowByEnterpriseAmount(Enterprise $enterprise)
+    {
+        return $this->getItemsToBeAbsenceTomorrowByEnterpriseAmountQ($enterprise)->getSingleScalarResult();
     }
 }
