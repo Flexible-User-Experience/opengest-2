@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
  * Class ContactMessageRepository.
@@ -14,15 +16,30 @@ use Doctrine\ORM\EntityRepository;
 class ContactMessageRepository extends EntityRepository
 {
     /**
+     * @return QueryBuilder
+     */
+    public function getPendingMessagesAmountQB()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->where('c.answered = :answered')
+            ->setParameter('answered', false)
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getPendingMessagesAmountQ()
+    {
+        return $this->getPendingMessagesAmountQB()->getQuery();
+    }
+
+    /**
      * @return int
      */
     public function getPendingMessagesAmount()
     {
-        $query = $this->createQueryBuilder('c')
-            ->where('c.checked = :checked')
-            ->setParameter('checked', false)
-            ->getQuery();
-
-        return count($query->getResult());
+        return $this->getPendingMessagesAmountQ()->getSingleScalarResult();
     }
 }

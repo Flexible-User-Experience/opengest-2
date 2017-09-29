@@ -109,7 +109,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'begin',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'data d\'expedició',
+                    'label' => 'Data d\'expedició',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -117,7 +117,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'end',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'data caducitat',
+                    'label' => 'Data caducitat',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )

@@ -75,15 +75,22 @@ sonata_admin:
                     content: >
                         <h1 style="margin:0 0 25px 0">Opengest 2</h1>
             -
+                position: top
+                type: app.block.contact_message
+                class: col-md-3
+                settings:
+                    content: >
+                        <h1 style="margin:0 0 25px 0">Opengest 2</h1>
+            -
                 position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
                     groups: [ Web ]
-            -
-                position: right
-                type: app.block.contact_message
-                class: col-md-6
+#            -
+#                position: right
+#                type: app.block.contact_message
+#                class: col-md-6
             -
                 position: right
                 type: sonata.admin.block.admin_list

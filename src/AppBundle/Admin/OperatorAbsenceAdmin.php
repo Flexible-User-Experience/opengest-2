@@ -67,7 +67,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'begin',
                 'sonata_type_date_picker',
                 array(
-                    'label' => 'Data d\'expedició',
+                    'label' => 'Data inici',
                     'format' => 'd/M/y',
                     'required' => true,
                 )
@@ -76,7 +76,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'end',
                 'sonata_type_date_picker',
                 array(
-                    'label' => 'Data de caducitat',
+                    'label' => 'Data fi',
                     'format' => 'd/M/y',
                     'required' => true,
                 )
@@ -109,7 +109,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'begin',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'data d\'expedició',
+                    'label' => 'Data inici',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -117,7 +117,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'end',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'data caducitat',
+                    'label' => 'Data fi',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -152,19 +152,19 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-//            ->add(
-//                'status',
-//                null,
-//                array(
-//                    'label' => 'Estat',
-//                    'template' => '::Admin/Cells/list__cell_operator_checking_status.html.twig',
-//                )
-//            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label' => 'Estat',
+                    'template' => '::Admin/Cells/list__cell_operator_absence_status.html.twig',
+                )
+            )
             ->add(
                 'begin',
                 'date',
                 array(
-                    'label' => 'Data d\'expedició',
+                    'label' => 'Data inici',
                     'format' => 'd/m/Y',
                     'editable' => true,
                 )
@@ -173,7 +173,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'end',
                 'date',
                 array(
-                    'label' => 'Data caducitat',
+                    'label' => 'Data fi',
                     'format' => 'd/m/Y',
                     'editable' => true,
                 )
