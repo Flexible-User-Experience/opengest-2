@@ -35,7 +35,7 @@ class City extends AbstractBase
     /**
      * @var Province
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Province")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Province", cascade={"persist"})
      */
     private $province;
 
