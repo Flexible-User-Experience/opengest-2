@@ -1881,8 +1881,10 @@ class Enterprise extends AbstractBase
      */
     public function addUser(User $user)
     {
-        $this->users->add($user);
-        $user->addEnterprise($this);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addEnterprise($this);
+        }
 
         return $this;
     }
