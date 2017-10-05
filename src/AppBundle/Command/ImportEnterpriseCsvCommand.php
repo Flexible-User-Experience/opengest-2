@@ -61,6 +61,7 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
                 ->setCode(strtoupper(substr($this->readColumn(5, $row), 0, 1)))
                 ->setCountry('ES')
             ;
+            $this->em->persist($province);
 
             $city = $this->em->getRepository('AppBundle:City')->findOneBy(['postalCode' => $this->readColumn(7, $row)]);
             if (!$city) {
@@ -70,7 +71,9 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
             $city
                 ->setName($this->readColumn(4, $row))
                 ->setProvince($province)
+                ->setPostalCode($this->readColumn(7, $row))
             ;
+            $this->em->persist($city);
 
             $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(8, $row)]);
             if (!$enterprise) {
@@ -95,9 +98,10 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
 
             $this->em->persist($enterprise);
             ++$rowsRead;
+
+            $this->em->flush();
         }
 
-        $this->em->flush();
         $endTimestamp = new \DateTime();
         // Print totals
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);

@@ -54,7 +54,7 @@ class Enterprise extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
      */
     private $city;
 
