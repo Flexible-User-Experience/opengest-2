@@ -40,15 +40,18 @@ class LinkUserEnterpriseCommand extends AbstractBaseCommand
         $this->init();
 
         $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => 'A43030287']);
+        if (!$enterprise) {
+            $output->writeln('<error>No enterprise found</error>');
+        } else {
+            $users = $this->em->getRepository('AppBundle:User')->getEnabledSortedByName();
+            /** @var User $user */
+            foreach ($users as $user) {
+                $output->writeln($user->getId().' · '.$user->getFullname());
+                $user->setDefaultEnterprise($enterprise);
+                $enterprise->addUser($user);
+            }
 
-        $users = $this->em->getRepository('AppBundle:User')->getEnabledSortedByName();
-        /** @var User $user */
-        foreach ($users as $user) {
-            $output->writeln($user->getId().' · '.$user->getFullname());
-            $user->setDefaultEnterprise($enterprise);
-            $enterprise->addUser($user);
+            $this->em->flush();
         }
-
-        $this->em->flush();
     }
 }
