@@ -19,31 +19,34 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
-    public function getItemsBeforeToBeInvalidQB()
+    public function getItemsBeforeToBeInvalidByEnabledOperatorQB()
     {
         $thresholdDay = new \DateTime();
         $thresholdDay->add(new \DateInterval('P30D'));
 
         return $this->createQueryBuilder('oc')
+            ->join('oc.operator', 'o')
             ->where('oc.end = :thresholdDay')
+            ->andWhere('o.enabled = :enabled')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
+            ->setParameter('enabled', true)
         ;
     }
 
     /**
      * @return Query
      */
-    public function getItemsBeforeToBeInvalidQ()
+    public function getItemsBeforeToBeInvalidByEnabledOperatorQ()
     {
-        return $this->getItemsBeforeToBeInvalidQB()->getQuery();
+        return $this->getItemsBeforeToBeInvalidByEnabledOperatorQB()->getQuery();
     }
 
     /**
      * @return array
      */
-    public function getItemsBeforeToBeInvalid()
+    public function getItemsBeforeToBeInvalidByEnabledOperator()
     {
-        return $this->getItemsBeforeToBeInvalidQ()->getResult();
+        return $this->getItemsBeforeToBeInvalidByEnabledOperatorQ()->getResult();
     }
 
     /**
@@ -94,30 +97,33 @@ class OperatorCheckingRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
-    public function getItemsInvalidQB()
+    public function getItemsInvalidByEnabledOperatorQB()
     {
         $today = new \DateTime();
 
         return $this->createQueryBuilder('oc')
+            ->join('oc.operator', 'o')
             ->where('oc.end = :today')
+            ->andWhere('o.enabled = :enabled')
             ->setParameter('today', $today->format('Y-m-d'))
+            ->setParameter('enabled', true)
         ;
     }
 
     /**
      * @return Query
      */
-    public function getItemsInvalidQ()
+    public function getItemsInvalidByEnabledOperatorQ()
     {
-        return $this->getItemsInvalidQB()->getQuery();
+        return $this->getItemsInvalidByEnabledOperatorQB()->getQuery();
     }
 
     /**
      * @return array
      */
-    public function getItemsInvalid()
+    public function getItemsInvalidByEnabledOperator()
     {
-        return $this->getItemsInvalidQ()->getResult();
+        return $this->getItemsInvalidByEnabledOperatorQ()->getResult();
     }
 
     /**
