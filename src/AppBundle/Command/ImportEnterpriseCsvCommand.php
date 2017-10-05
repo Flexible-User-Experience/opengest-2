@@ -49,13 +49,26 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
         while (($row = $this->readRow($fr)) != false) {
             $output->writeln($this->readColumn(8, $row).' · '.$this->readColumn(2, $row));
 
-//            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['name' => $this->readColumn(3, $row)]);
-            // new enterprise
-//            if (!$enterprise) {
-//                $enterprise = new Enterprise();
-//                ++$newRecords;
-//            }
-            // update enterprise
+            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(8, $row)]);
+
+            if (!$enterprise) {
+                // new record
+                $enterprise = new Enterprise();
+                $enterprise
+                    ->setTaxIdentificationNumber($this->readColumn(8, $row))
+                    ->setBusinessName($this->readColumn(2, $row))
+                    ->setName($this->readColumn(1, $row))
+                    ->setAddress($this->readColumn(3, $row))
+                    ->setCity($this->readColumn(4, $row))
+                    ->setPhone1($this->readColumn(9, $row))
+                    ->setPhone2($this->readColumn(10, $row))
+                    ->setPhone3($this->readColumn(11, $row))
+                    ->setFax($this->readColumn(12, $row))
+                    ->setEmail($this->readColumn(13, $row))
+                    ->setWww($this->readColumn(14, $row))
+                    ->setLogo($this->readColumn(16, $row))
+                ;
+            }
 
 //            $this->em->persist($enterprise);
             ++$rowsRead;
