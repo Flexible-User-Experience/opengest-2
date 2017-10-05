@@ -47,7 +47,7 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (($row = $this->readRow($fr)) != false) {
-            $output->writeln($row[8].' · '.$row[2]);
+            $output->writeln($this->readColumn(8, $row).' · '.$this->readColumn(2, $row));
 
 //            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['name' => $this->readColumn(3, $row)]);
             // new enterprise
