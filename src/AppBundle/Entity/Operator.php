@@ -118,14 +118,14 @@ class Operator extends AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $brithDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $registrationDate;
 
