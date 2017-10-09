@@ -49,16 +49,16 @@ class ImportOperatorCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (($row = $this->readRow($fr)) != false) {
-            $output->writeln($this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
+            $output->writeln($this->readColumn(4, $row).' · '.$this->readColumn(5, $row).' · '.$this->readColumn(52, $row).'-'.$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row).' · '.$this->readColumn(16, $row).' · '.$this->readColumn(17, $row));
 
-            $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(5, $row)]);
+            $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
             if (!$province) {
                 // new record
                 $province = new Province();
             }
             $province
-                ->setName($this->readColumn(5, $row))
-                ->setCode(strtoupper(substr($this->readColumn(5, $row), 0, 1)))
+                ->setName($this->readColumn(12, $row))
+                ->setCode(strtoupper(substr($this->readColumn(12, $row), 0, 1)))
                 ->setCountry('ES')
             ;
             $this->em->persist($province);
@@ -69,14 +69,18 @@ class ImportOperatorCommand extends AbstractBaseCommand
                 $city = new City();
             }
             $city
-                ->setName($this->readColumn(4, $row))
+                ->setName($this->readColumn(11, $row))
                 ->setProvince($province)
-                ->setPostalCode($this->readColumn(7, $row))
+                ->setPostalCode($this->readColumn(10, $row))
             ;
             $this->em->persist($city);
 
+            $birthDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(16, $row));
+            $registrationDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(17, $row));
+
             $operator = $this->em->getRepository('AppBundle:Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
             if (!$operator) {
+                // new record
                 $operator = new Operator();
             }
             $operator
@@ -86,9 +90,39 @@ class ImportOperatorCommand extends AbstractBaseCommand
                 ->setSurname1($this->readColumn(6, $row))
                 ->setSurname2($this->readColumn(7, $row))
                 ->setAddress($this->readColumn(9, $row))
+                ->setCity($city)
+                ->setOwnPhone($this->readColumn(13, $row))
+                ->setOwnMobile($this->readColumn(14, $row))
+                ->setEnterpriseMobile($this->readColumn(15, $row))
+//                ->setBrithDate($birthDate)
+//                ->setRegistrationDate($registrationDate)
+                ->setHasCarDrivingLicense($this->readColumn(22, $row))
+                ->setHasLorryDrivingLicense($this->readColumn(23, $row))
+                ->setHasCraneDrivingLicense($this->readColumn(24, $row))
+                ->setHasTowingDrivingLicense($this->readColumn(25, $row))
+                ->setShoeSize($this->readColumn(26, $row))
+                ->setJerseytSize($this->readColumn(27, $row))
+                ->setJacketSize($this->readColumn(28, $row))
+                ->setTShirtSize($this->readColumn(29, $row))
+                ->setPantSize($this->readColumn(30, $row))
+                ->setWorkingDressSize($this->readColumn(31, $row))
+                ->setBancAccountNumber($this->readColumn(52, $row).''.$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row))
+                ->setSocialSecurityNumber($this->readColumn(37, $row))
+                ->setHourCost($this->readColumn(38, $row))
             ;
+
+            if ($birthDate) {
+                $operator->setBrithDate($birthDate);
+            }
+            if ($registrationDate) {
+                $operator->setRegistrationDate($registrationDate);
+            }
+
+            $this->em->persist($operator);
+            ++$rowsRead;
+
+            $this->em->flush();
         }
-        ++$rowsRead;
 
         $endTimestamp = new \DateTime();
         // Print totals
