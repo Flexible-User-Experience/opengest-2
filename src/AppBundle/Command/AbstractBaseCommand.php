@@ -136,7 +136,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         // Print totals
         $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
         $output->writeln('<comment>'.$newRecords.' new records.</comment>');
-        $output->writeln('<comment>'.($rowsRead - $newRecords).' updated records.</comment>');
+        $output->writeln('<comment>'.($rowsRead - $newRecords - $errors).' updated records.</comment>');
         if ($errors > 0) {
             $output->writeln('<comment>'.$errors.' errors found</comment>');
         }
