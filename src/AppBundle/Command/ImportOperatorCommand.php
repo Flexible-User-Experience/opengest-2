@@ -109,10 +109,14 @@ class ImportOperatorCommand extends AbstractBaseCommand
                     ->setTShirtSize($this->readColumn(29, $row))
                     ->setPantSize($this->readColumn(30, $row))
                     ->setWorkingDressSize($this->readColumn(31, $row))
-                    ->setBancAccountNumber($this->readColumn(52, $row).''.$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row))
+                    ->setBancAccountNumber(($this->readColumn(52, $row) != '\\N' ? $this->readColumn(52, $row).'-' : '').$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row))
                     ->setSocialSecurityNumber($this->readColumn(37, $row))
-                    ->setHourCost($this->readColumn(38, $row))
                 ;
+
+                if ($this->readColumn(38, $row) != '\\N') {
+                    $operator->setHourCost($this->readColumn(38, $row));
+                }
+
                 $this->em->persist($operator);
 
                 $output->writeln($this->readColumn(4, $row).' · '.$this->readColumn(5, $row).' · '.$this->readColumn(52, $row).'-'.$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row).' · '.$this->readColumn(16, $row).' · '.$this->readColumn(17, $row));
