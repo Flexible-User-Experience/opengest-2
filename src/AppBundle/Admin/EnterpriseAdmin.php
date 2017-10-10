@@ -34,7 +34,10 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->remove('delete')
+            ->add('change', $this->getRouterIdParameter().'/change-user-default-enterprise')
+        ;
     }
 
     /**
