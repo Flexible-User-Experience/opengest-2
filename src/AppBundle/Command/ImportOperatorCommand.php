@@ -53,7 +53,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
             $birthDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(16, $row));
             $registrationDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(17, $row));
 
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(2, $row)]);
+            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(54, $row)]);
             if ($enterprise && $birthDate && $registrationDate) {
                 $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
                 if (!$province) {

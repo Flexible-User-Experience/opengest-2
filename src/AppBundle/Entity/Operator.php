@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\NameTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -21,7 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Operator extends AbstractBase
 {
-    use NameTrait;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     /**
      * @var string
@@ -400,6 +404,26 @@ class Operator extends AbstractBase
     /**
      * Methods.
      */
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Operator
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * @return string
