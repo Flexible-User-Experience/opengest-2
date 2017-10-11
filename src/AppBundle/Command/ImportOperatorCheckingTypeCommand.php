@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use AppBundle\Entity\OperatorCheckingType;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,6 +27,16 @@ class ImportOperatorCheckingTypeCommand extends AbstractBaseCommand
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
 
+    /**
+     * Execute.
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     *
+     * @throws InvalidArgumentException
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Welcome & Initialization & File validations
