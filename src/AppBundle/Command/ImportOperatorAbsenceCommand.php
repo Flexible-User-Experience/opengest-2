@@ -1,0 +1,91 @@
+<?php
+
+namespace AppBundle\Command;
+
+use AppBundle\Entity\OperatorAbsence;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * Class ImportOperatorAbsenceCommand.
+ *
+ * @category Command
+ *
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
+ */
+class ImportOperatorAbsenceCommand extends AbstractBaseCommand
+{
+    /**
+     * Configure.
+     */
+    protected function configure()
+    {
+        $this->setName('app:import:operator:absence');
+        $this->setDescription('Import operator absence from CSV file');
+        $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+    }
+
+    /**
+     * Execute.
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        // Welcome & Initialization & File validations
+        $fr = $this->initialValidation($input, $output);
+
+        // Import CSV rows
+        $beginTimestamp = new \DateTime();
+        $rowsRead = 0;
+        $newRecords = 0;
+        $errors = 0;
+        while (($row = $this->readRow($fr)) != false) {
+            $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
+            $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
+            $type = $this->em->getRepository('AppBundle:OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(5, $row)]);
+            $operator = $this->em->getRepository('AppBundle:Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
+
+            if ($operator && $type && $begin && $end) {
+                $output->writeln($this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
+
+                $operatorAbsence = $this->em->getRepository('AppBundle:OperatorAbsence')->findOneBy([
+                    'begin' => $begin,
+                    'end' => $end,
+                    'type' => $type,
+                    'operator' => $operator,
+                ]);
+                if (!$operatorAbsence) {
+                    // new record
+                    $operatorAbsence = new OperatorAbsence();
+                    ++$newRecords;
+                }
+                $operatorAbsence
+                    ->setOperator($operator)
+                    ->setBegin($begin)
+                    ->setEnd($end)
+                    ->setType($type)
+                ;
+                $this->em->persist($operatorAbsence);
+                if ($rowsRead % self::CSV_BATCH_WINDOW == 0) {
+                    $this->em->flush();
+                }
+            } else {
+                ++$errors;
+                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+            }
+            ++$rowsRead;
+            $this->em->flush();
+        }
+        $endTimestamp = new \DateTime();
+        // Print totals
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+    }
+}

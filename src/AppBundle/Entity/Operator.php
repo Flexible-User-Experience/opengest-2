@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\NameTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -21,7 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Operator extends AbstractBase
 {
-    use NameTrait;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     /**
      * @var string
@@ -47,7 +51,7 @@ class Operator extends AbstractBase
     /**
      * @var float
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $hourCost;
 
@@ -118,14 +122,14 @@ class Operator extends AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $brithDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $registrationDate;
 
@@ -356,50 +360,70 @@ class Operator extends AbstractBase
     private $hasCraneDrivingLicense = false;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $shoeSize;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $jerseytSize;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $jacketSize;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tShirtSize;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $pantSize;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $workingDressSize;
 
     /**
      * Methods.
      */
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Operator
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -1285,7 +1309,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getShoeSize()
     {
@@ -1293,7 +1317,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @param int $shoeSize
+     * @param string $shoeSize
      *
      * @return Operator
      */
@@ -1305,7 +1329,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getJerseytSize()
     {
@@ -1313,7 +1337,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @param int $jerseytSize
+     * @param string $jerseytSize
      *
      * @return Operator
      */
@@ -1325,7 +1349,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getJacketSize()
     {
@@ -1333,7 +1357,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @param int $jacketSize
+     * @param string $jacketSize
      *
      * @return Operator
      */
@@ -1345,7 +1369,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getTShirtSize()
     {
@@ -1353,7 +1377,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @param int $tShirtSize
+     * @param string $tShirtSize
      *
      * @return Operator
      */
@@ -1365,7 +1389,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getPantSize()
     {
@@ -1373,7 +1397,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @param int $pantSize
+     * @param string $pantSize
      *
      * @return Operator
      */
@@ -1385,7 +1409,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getWorkingDressSize()
     {
@@ -1393,7 +1417,7 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @param int $workingDressSize
+     * @param string $workingDressSize
      *
      * @return Operator
      */

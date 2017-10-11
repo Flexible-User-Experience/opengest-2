@@ -129,13 +129,17 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      * @param int             $newRecords
      * @param \DateTime       $beginTimestamp
      * @param \DateTime       $endTimestamp
+     * @param int             $errors
      */
-    protected function printTotals(OutputInterface $output, $rowsRead, $newRecords, \DateTime $beginTimestamp, \DateTime $endTimestamp)
+    protected function printTotals(OutputInterface $output, $rowsRead, $newRecords, \DateTime $beginTimestamp, \DateTime $endTimestamp, $errors = 0)
     {
         // Print totals
         $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
         $output->writeln('<comment>'.$newRecords.' new records.</comment>');
-        $output->writeln('<comment>'.($rowsRead - $newRecords).' updated records.</comment>');
+        $output->writeln('<comment>'.($rowsRead - $newRecords - $errors).' updated records.</comment>');
+        if ($errors > 0) {
+            $output->writeln('<comment>'.$errors.' errors found</comment>');
+        }
         $output->writeln('<info>Total ellapsed time: '.$beginTimestamp->diff($endTimestamp)->format('%H:%I:%S').'</info>');
     }
 }

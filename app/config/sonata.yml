@@ -1,4 +1,4 @@
-# Sonata Block
+ # Sonata Block
 sonata_block:
     default_contexts: [ cms ]
     blocks:
@@ -53,13 +53,13 @@ sonata_admin:
             Operaris:
                 icon: "<i class='fa fa-users'></i>"
         blocks:
-            -
-                position: top
-                type: sonata.block.service.text
-                class: col-md-12
-                settings:
-                    content: >
-                        <h1 style="margin:0 0 25px 0">Opengest 2</h1>
+#            -
+#                position: top
+#                type: sonata.block.service.text
+#                class: col-md-12
+#                settings:
+#                    content: >
+#                        <h1 style="margin:0 0 25px 0">Opengest 2</h1>
             -
                 position: top
                 type: app.block.operator_checking

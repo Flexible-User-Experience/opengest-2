@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class EnterpriseAdminController extends BaseAdminController
 {
     /**
-     * @param null $id
+     * @param int|null $id
      *
      * @return RedirectResponse|Response
      */
@@ -33,5 +34,30 @@ class EnterpriseAdminController extends BaseAdminController
         }
 
         return parent::editAction($id);
+    }
+
+    /**
+     * @param int|null $id
+     *
+     * @return RedirectResponse
+     */
+    public function changeAction($id = null)
+    {
+        $request = $this->getRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Enterprise $enterprise */
+        $enterprise = $this->admin->getObject($id);
+        if (!$enterprise) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $user->setDefaultEnterprise($enterprise);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('sonata_admin_dashboard');
     }
 }
