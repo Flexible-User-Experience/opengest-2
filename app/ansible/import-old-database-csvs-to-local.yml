@@ -1,0 +1,36 @@
+---
+- hosts: s6
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/config.yml"
+  tasks:
+    - name: execute enterprise CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise app/csv/enterprises.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator app/csv/operators.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator checking type CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator:checking:type app/csv/operators_checking_type.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator checking CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator:checking app/csv/operators_checking.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator absence type CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator:absence:type app/csv/operators_absence_type.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator absence CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator:absence app/csv/operators_absence.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
