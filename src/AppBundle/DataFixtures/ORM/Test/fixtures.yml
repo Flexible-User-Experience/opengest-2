@@ -84,6 +84,7 @@ AppBundle\Entity\VehicleCategory:
 AppBundle\Entity\Vehicle:
   vehicle1:
     category: @vehicleCategory1
+    enterprise: @enterprise<numberBetween(1,2)>
     name: my title
     position: 1
     shortDescription: <sentence()>
@@ -96,6 +97,7 @@ AppBundle\Entity\Vehicle:
     enabled: true
   vehicle2:
     category: @vehicleCategory<numberBetween(1,2)>
+    enterprise: @enterprise<numberBetween(1,2)>
     name: <name()>
     position: 2
     shortDescription: <sentence()>

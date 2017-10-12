@@ -60,6 +60,7 @@ AppBundle\Entity\VehicleCategory:
 AppBundle\Entity\Vehicle:
   vehicle{1..10}:
     category: @vehicleCategory<numberBetween(1,10)>
+    enterprise: @enterprise<numberBetween(1,10)>
     name: <name()>
     shortDescription: <sentence()>
     description: <paragraph()>
