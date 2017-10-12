@@ -19,8 +19,8 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class VehicleAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Vehicle';
-    protected $baseRoutePattern = 'web/vehicle';
+    protected $classnameLabel = 'Vehicles';
+    protected $baseRoutePattern = 'vehicles/vehicle';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

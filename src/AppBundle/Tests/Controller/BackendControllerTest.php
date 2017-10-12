@@ -62,9 +62,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/categoria-vehicle/list'),
             array('/admin/web/categoria-vehicle/create'),
             array('/admin/web/categoria-vehicle/1/edit'),
-            array('/admin/web/vehicle/list'),
-            array('/admin/web/vehicle/create'),
-            array('/admin/web/vehicle/1/edit'),
             array('/admin/web/accesori/list'),
             array('/admin/web/accesori/create'),
             array('/admin/web/accesori/1/edit'),
@@ -98,6 +95,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/absencia/list'),
             array('/admin/operaris/absencia/create'),
             array('/admin/operaris/absencia/1/edit'),
+            // Vehicles
+            array('/admin/vehicles/vehicle/list'),
+            array('/admin/vehicles/vehicle/create'),
+            array('/admin/vehicles/vehicle/1/edit'),
             // Contacts
             array('/admin/contactes/missatge-contacte/list'),
             array('/admin/contactes/missatge-contacte/1/show'),
