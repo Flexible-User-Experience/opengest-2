@@ -101,6 +101,13 @@ class Vehicle extends AbstractBase
     private $mainImage;
 
     /**
+     * @var Enterprise
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     */
+    private $enterprise;
+
+    /**
      * Methods.
      */
 
@@ -250,6 +257,26 @@ class Vehicle extends AbstractBase
     public function setMainImage($mainImage)
     {
         $this->mainImage = $mainImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Enterprise
+     */
+    public function getEnterprise()
+    {
+        return $this->enterprise;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Vehicle
+     */
+    public function setEnterprise($enterprise)
+    {
+        $this->enterprise = $enterprise;
 
         return $this;
     }
