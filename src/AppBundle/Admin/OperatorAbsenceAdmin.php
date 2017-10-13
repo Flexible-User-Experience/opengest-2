@@ -21,8 +21,8 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Absències';
     protected $baseRoutePattern = 'operaris/absencia';
     protected $datagridValues = array(
-        '_sort_by' => 'end',
-        '_sort_order' => 'asc',
+        '_sort_by' => 'begin',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -133,11 +133,18 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enabled = :enabled')
+            ->setParameter('enabled', true)
+        ;
+
         if ($this->acs->isGranted('ROLE_ADMIN')) {
             return $queryBuilder;
         }
+
         $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
             ->andWhere('op.enterprise = :enterprise')
             ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
         ;

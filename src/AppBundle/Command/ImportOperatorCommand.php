@@ -67,7 +67,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
                 ;
                 $this->em->persist($province);
 
-                $city = $this->em->getRepository('AppBundle:City')->findOneBy(['postalCode' => $this->readColumn(7, $row)]);
+                $city = $this->em->getRepository('AppBundle:City')->findOneBy(['postalCode' => $this->readColumn(10, $row)]);
                 if (!$city) {
                     // new record
                     $city = new City();

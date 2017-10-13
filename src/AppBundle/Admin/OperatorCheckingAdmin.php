@@ -133,11 +133,18 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enabled = :enabled')
+            ->setParameter('enabled', true)
+        ;
+
         if ($this->acs->isGranted('ROLE_ADMIN')) {
             return $queryBuilder;
         }
+
         $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
             ->andWhere('op.enterprise = :enterprise')
             ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
         ;
