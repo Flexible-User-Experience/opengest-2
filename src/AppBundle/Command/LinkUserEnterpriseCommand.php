@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,7 +40,7 @@ class LinkUserEnterpriseCommand extends AbstractBaseCommand
         // Initializations
         $this->init();
 
-        $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => 'A43030287']);
+        $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => Enterprise::GRUAS_ROMANI_TIN]);
         if (!$enterprise) {
             $output->writeln('<error>No enterprise found</error>');
         } else {
