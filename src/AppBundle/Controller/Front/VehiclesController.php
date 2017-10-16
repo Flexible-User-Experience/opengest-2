@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleCategory;
 use Doctrine\ORM\EntityNotFoundException;
@@ -53,7 +54,7 @@ class VehiclesController extends AbstractBaseController
             throw new EntityNotFoundException();
         }
 
-        if ($vehicle->getEnterprise()->getTaxIdentificationNumber() != 'A43030287') {
+        if ($vehicle->getEnterprise()->getTaxIdentificationNumber() != Enterprise::GRUAS_ROMANI_TIN) {
             throw new EntityNotFoundException();
         }
 

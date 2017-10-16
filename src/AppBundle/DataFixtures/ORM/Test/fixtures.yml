@@ -85,7 +85,7 @@ AppBundle\Entity\Vehicle:
   vehicle1:
     vehicleRegistrationNumber: <bothify('######?')>
     category: @vehicleCategory1
-    enterprise: @enterprise<numberBetween(1,2)>
+    enterprise: @enterprise1
     name: my title
     position: 1
     shortDescription: <sentence()>
@@ -98,7 +98,7 @@ AppBundle\Entity\Vehicle:
     enabled: true
   vehicle2:
     vehicleRegistrationNumber: <bothify('######?')>
-    category: @vehicleCategory<numberBetween(1,2)>
+    category: @vehicleCategory2
     enterprise: @enterprise<numberBetween(1,2)>
     name: <name()>
     position: 2

@@ -53,6 +53,14 @@ class VehicleAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'vehicleRegistrationNumber',
+                null,
+                array(
+                    'label' => 'Matrícula',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'shortDescription',
                 null,
                 array(
@@ -133,6 +141,13 @@ class VehicleAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'vehicleRegistrationNumber',
+                null,
+                array(
+                    'label' => 'Matrícula',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -209,6 +224,14 @@ class VehicleAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Imatge',
                     'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
+                )
+            )
+            ->add(
+                'vehicleRegistrationNumber',
+                null,
+                array(
+                    'label' => 'Matrícula',
+                    'editable' => true,
                 )
             )
             ->add(
