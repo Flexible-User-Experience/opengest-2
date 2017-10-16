@@ -317,6 +317,25 @@ AppBundle\Entity\OperatorAbsence:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# VehicleCheckingType
+AppBundle\Entity\VehicleCheckingType:
+  vehicleCheckingType{1..2}:
+    name: <name()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# VehicleChecking
+AppBundle\Entity\VehicleChecking:
+  vehicleChecking{1..2}:
+    vehicle: @vehicle1
+    type: @vehicleCheckingType<numberBetween(1,2)>
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Users
 AppBundle\Entity\User:
     admin:
