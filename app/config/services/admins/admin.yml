@@ -75,6 +75,11 @@ services:
         arguments: [ ~, AppBundle\Entity\OperatorAbsence, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.vehicle_checking_type:
+        class: AppBundle\Admin\VehicleCheckingTypeAdmin
+        arguments: [ ~, AppBundle\Entity\VehicleCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager", "@app.repositories_manager" ]
