@@ -16,6 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class LinkVehicleEnterpriseCommand extends AbstractBaseCommand
 {
+    /**
+     * Configure.
+     */
     protected function configure()
     {
         $this->setName('app:link:vehicle:enterprise');
