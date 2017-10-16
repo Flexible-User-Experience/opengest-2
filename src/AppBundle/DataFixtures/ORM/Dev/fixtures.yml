@@ -59,6 +59,7 @@ AppBundle\Entity\VehicleCategory:
 # Vehicle
 AppBundle\Entity\Vehicle:
   vehicle{1..10}:
+    vehicleRegistrationNumber: <bothify('######?')>
     category: @vehicleCategory<numberBetween(1,10)>
     enterprise: @enterprise<numberBetween(1,10)>
     name: <name()>

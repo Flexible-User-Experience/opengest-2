@@ -83,6 +83,7 @@ AppBundle\Entity\VehicleCategory:
 # Vehicle
 AppBundle\Entity\Vehicle:
   vehicle1:
+    vehicleRegistrationNumber: <bothify('######?')>
     category: @vehicleCategory1
     enterprise: @enterprise<numberBetween(1,2)>
     name: my title
@@ -96,6 +97,7 @@ AppBundle\Entity\Vehicle:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
   vehicle2:
+    vehicleRegistrationNumber: <bothify('######?')>
     category: @vehicleCategory<numberBetween(1,2)>
     enterprise: @enterprise<numberBetween(1,2)>
     name: <name()>
