@@ -54,8 +54,15 @@ class VehicleCheckingBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
+        $vehiclesInvalidAmount = $this->vcr->getItemsInvalidSinceTodayByEnterpriseAmount($this->tss->getToken()->getUser()->getDefaultEnterprise());
+
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els vehicles tenen les revisions al dia</p>';
+
+        if ($vehiclesInvalidAmount > 0) {
+            $backgroundColor = 'bg-red';
+            $content = '<h3>'.$vehiclesInvalidAmount.'</h3><p>Vehicles tenen revisions caducades</p>';
+        }
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [
