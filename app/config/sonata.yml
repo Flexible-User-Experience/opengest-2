@@ -8,6 +8,7 @@ sonata_block:
         app.block.contact_message:      ~
         app.block.operator_checking:    ~
         app.block.operator_absence:     ~
+        app.block.vehicle_checking:     ~
 
 # Sonata User
 sonata_user:
@@ -47,13 +48,13 @@ sonata_admin:
                 icon: "<i class='fa fa-chrome'></i>"
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
-            Administracio:
-                label: "Administració"
-                icon: "<i class='fa fa-briefcase'></i>"
             Operaris:
                 icon: "<i class='fa fa-users'></i>"
             Vehicles:
                 icon: "<i class='fa fa-truck'></i>"
+            Administracio:
+                label: "Administració"
+                icon: "<i class='fa fa-briefcase'></i>"
         blocks:
             -
                 position: top
@@ -62,6 +63,10 @@ sonata_admin:
             -
                 position: top
                 type: app.block.operator_absence
+                class: col-md-3
+            -
+                position: top
+                type: app.block.vehicle_checking
                 class: col-md-3
             -
                 position: top
@@ -78,13 +83,13 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Vehicles ]
+                    groups: [ Contactes ]
             -
                 position: right
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Contactes ]
+                    groups: [ Vehicles ]
             -
                 position: right
                 type: sonata.admin.block.admin_list
