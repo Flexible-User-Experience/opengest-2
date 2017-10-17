@@ -4,7 +4,9 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class VehicleCheckingAdmin
@@ -32,7 +34,54 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
         $collection->remove('delete');
     }
 
-
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'vehicle',
+                EntityType::class,
+                array(
+                    'label' => 'Vehicle',
+                    'required' => true,
+                    'class' => 'AppBundle:Vehicle',
+                    'choice_label' => 'name',
+                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'Tipus revisió',
+                    'required' => true,
+                    'query_builder' => $this->rm->getVehicleCheckingTypeRepository()->getEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'begin',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data d\'expedició',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'end',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data de caducitat',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->end()
+        ;
+    }
 
     /**
      * @param DatagridMapper $datagridMapper

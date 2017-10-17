@@ -49,6 +49,16 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:OperatorAbsenceType
+    app.vehicle_repository:
+        class: AppBundle\Repository\VehicleRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Vehicle
+    app.vehicle_checking_type_repository:
+        class: AppBundle\Repository\VehicleCheckingTypeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:VehicleCheckingType
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -60,3 +70,5 @@ services:
             - "@app.operator_checking_type_repository"
             - "@app.operator_absence_type_repository"
             - "@app.operator_absence_repository"
+            - "@app.vehicle_repository"
+            - "@app.vehicle_checking_type_repository"
