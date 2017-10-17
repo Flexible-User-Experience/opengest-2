@@ -158,14 +158,14 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-//            ->add(
-//                'status',
-//                null,
-//                array(
-//                    'label' => 'Estat',
-//                    'template' => '::Admin/Cells/list__cell_vehicle_checking_status.html.twig',
-//                )
-//            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label' => 'Estat',
+                    'template' => '::Admin/Cells/list__cell_vehicle_checking_status.html.twig',
+                )
+            )
             ->add(
                 'begin',
                 'date',
