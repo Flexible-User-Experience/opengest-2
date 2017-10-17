@@ -205,4 +205,12 @@ class User extends BaseUser
     {
         return $this->getLastname().', '.$this->getFirstname();
     }
+
+    /**
+     * @return string
+     */
+    public function getNaturalName()
+    {
+        return $this->getFirstname().' '.$this->getLastname();
+    }
 }
