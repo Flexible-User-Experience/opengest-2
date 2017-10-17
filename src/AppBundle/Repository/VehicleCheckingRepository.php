@@ -71,7 +71,7 @@ class VehicleCheckingRepository extends EntityRepository
             ->join('vc.vehicle', 'v')
             ->select('COUNT(vc.id)')
             ->where('vc.end <= :thresholdDay')
-            ->andWhere('vc.end >= :today')
+            ->andWhere('vc.end > :today')
             ->andWhere('v.enterprise = :enterprise')
             ->andWhere('v.enabled = :enabled')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
