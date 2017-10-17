@@ -82,7 +82,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.vehicle_checking:
         class: AppBundle\Admin\VehicleCheckingAdmin
-        arguments: [ ~, AppBundle\Entity\VehicleChecking, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ ~, AppBundle\Entity\VehicleChecking, AppBundle:Admin\VehicleCheckingAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Revisió", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.user:

@@ -64,7 +64,7 @@ class OperatorCheckingRepository extends EntityRepository
             ->join('oc.operator', 'o')
             ->select('COUNT(oc.id)')
             ->where('oc.end <= :thresholdDay')
-            ->andWhere('oc.end >= :today')
+            ->andWhere('oc.end > :today')
             ->andWhere('o.enterprise = :enterprise')
             ->andWhere('o.enabled = :enabled')
             ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))

@@ -151,4 +151,37 @@ class VehicleRepository extends EntityRepository
     {
         return $this->findEnabledSortedByPositionAndNameForWebQ($category)->getResult();
     }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     */
+    public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
+    {
+        return $this->findEnabledSortedByNameQB()
+            ->andWhere('v.enterprise = :enterprise')
+            ->setParameter('enterprise', $enterprise)
+        ;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     */
+    public function getFilteredByEnterpriseEnabledSortedByNameQ(Enterprise $enterprise)
+    {
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return array
+     */
+    public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterprise)
+    {
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterprise)->getResult();
+    }
 }

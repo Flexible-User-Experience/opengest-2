@@ -2,9 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class VehicleCheckingAdmin
@@ -32,7 +35,54 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
         $collection->remove('delete');
     }
 
-
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'vehicle',
+                EntityType::class,
+                array(
+                    'label' => 'Vehicle',
+                    'required' => true,
+                    'class' => 'AppBundle:Vehicle',
+                    'choice_label' => 'name',
+                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'Tipus revisió',
+                    'required' => true,
+                    'query_builder' => $this->rm->getVehicleCheckingTypeRepository()->getEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'begin',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data d\'expedició',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'end',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Data de caducitat',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->end()
+        ;
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -74,20 +124,48 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.vehicle', 'v')
+            ->andWhere('v.enabled = :enabled')
+            ->setParameter('enabled', true)
+        ;
+
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
+
+        $queryBuilder
+            ->andWhere('v.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
         $listMapper
-//            ->add(
-//                'status',
-//                null,
-//                array(
-//                    'label' => 'Estat',
-//                    'template' => '::Admin/Cells/list__cell_vehicle_checking_status.html.twig',
-//                )
-//            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label' => 'Estat',
+                    'template' => '::Admin/Cells/list__cell_vehicle_checking_status.html.twig',
+                )
+            )
             ->add(
                 'begin',
                 'date',
