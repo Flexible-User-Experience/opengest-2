@@ -55,3 +55,23 @@ JOIN opengest.Tipos_ausencias OAT
 ON OAT.id = OA.tipo_ausencia_id
 JOIN opengest.Operarios O
 ON O.id = OA.operario_id;
+
+SELECT *
+INTO OUTFILE '/tmp/vehicles_checking_type.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Tipos_revision;
+
+SELECT VC.*, VCT.nombre, V.matricula
+INTO OUTFILE '/tmp/vehicles_checking.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Revisiones VC
+JOIN opengest.Tipos_revision VCT
+ON VCT.id = VC.tIpo_revision_id
+JOIN opengest.Vehiculos V
+ON V.id = VC.vehiculo_id;
