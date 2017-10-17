@@ -10,6 +10,7 @@ use AppBundle\Repository\OperatorRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
+use AppBundle\Repository\VehicleCheckingRepository;
 use AppBundle\Repository\VehicleCheckingTypeRepository;
 use AppBundle\Repository\VehicleRepository;
 
@@ -73,6 +74,11 @@ class RepositoriesManager
     private $vehicleCheckingTypeRepository;
 
     /**
+     * @var VehicleCheckingRepository
+     */
+    private $vehicleCheckingRepository;
+
+    /**
      * Methods.
      */
 
@@ -89,8 +95,9 @@ class RepositoriesManager
      * @param OperatorAbsenceRepository $operatorAbsenceRepository
      * @param VehicleRepository $vehicleRepository
      * @param VehicleCheckingTypeRepository $vehicleCheckingTypeRepository
+     * @param VehicleCheckingRepository $vehicleCheckingRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -102,6 +109,7 @@ class RepositoriesManager
         $this->operatorAbsenceRepository = $operatorAbsenceRepository;
         $this->vehicleRepository = $vehicleRepository;
         $this->vehicleCheckingTypeRepository = $vehicleCheckingTypeRepository;
+        $this->vehicleCheckingRepository = $vehicleCheckingRepository;
     }
 
     /**
@@ -182,5 +190,13 @@ class RepositoriesManager
     public function getVehicleCheckingTypeRepository()
     {
         return $this->vehicleCheckingTypeRepository;
+    }
+
+    /**
+     * @return VehicleCheckingRepository
+     */
+    public function getVehicleCheckingRepository()
+    {
+        return $this->vehicleCheckingRepository;
     }
 }

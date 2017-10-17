@@ -59,6 +59,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:VehicleCheckingType
+    app.vehicle_checking_repository:
+        class: AppBundle\Repository\VehicleCheckingRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:VehicleChecking
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -72,3 +77,4 @@ services:
             - "@app.operator_absence_repository"
             - "@app.vehicle_repository"
             - "@app.vehicle_checking_type_repository"
+            - "@app.vehicle_checking_repository"
