@@ -16,6 +16,38 @@ use Doctrine\ORM\Query;
 class VehicleCheckingRepository extends EntityRepository
 {
     /**
+     * @return QueryBuilder
+     */
+    public function getItemsInvalidByEnabledVehicleQB()
+    {
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('vc')
+            ->join('vc.vehicle', 'v')
+            ->where('vc.end = :today')
+            ->andWhere('v.enabled :enabled')
+            ->setParameter('today', $today->format('Y-m-d'))
+            ->setParameter('enabled', true)
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getItemsInvalidByEnabledVehicleQ()
+    {
+        return $this->getItemsInvalidByEnabledVehicleQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsInvalidByEnabledVehicle()
+    {
+        return $this->getItemsInvalidByEnabledVehicleQ()->getResult();
+    }
+
+    /**
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
