@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleCategory;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,7 +24,7 @@ class VehiclesController extends AbstractBaseController
      */
     public function vehiclesAction()
     {
-        $categories = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findEnabledSortedByName();
+        $categories = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findEnabledSortedByNameForWeb();
         if (count($categories) == 0) {
             throw new EntityNotFoundException();
         }
@@ -45,9 +47,14 @@ class VehiclesController extends AbstractBaseController
      */
     public function vehicleDetailAction($slug)
     {
+        /** @var Vehicle|null $vehicle */
         $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findOneBy(['slug' => $slug]);
 
         if (!$vehicle) {
+            throw new EntityNotFoundException();
+        }
+
+        if ($vehicle->getEnterprise()->getTaxIdentificationNumber() != Enterprise::GRUAS_ROMANI_TIN) {
             throw new EntityNotFoundException();
         }
 
@@ -74,7 +81,7 @@ class VehiclesController extends AbstractBaseController
             throw new EntityNotFoundException();
         }
 
-        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndName($category);
+        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
 

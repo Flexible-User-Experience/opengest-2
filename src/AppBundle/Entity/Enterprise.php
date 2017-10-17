@@ -23,6 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Enterprise extends AbstractBase
 {
+    const GRUAS_ROMANI_TIN = 'A43030287';
+
     /**
      * @var string
      *

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -42,5 +43,33 @@ class VehicleCategoryRepository extends EntityRepository
     public function findEnabledSortedByName()
     {
         return $this->findEnabledSortedByNameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByNameForWebQB()
+    {
+        return $this->findEnabledSortedByNameQB()
+            ->join('v.enterprise', 'e')
+            ->andWhere('e.taxIdentificationNumber = :tin')
+            ->setParameter('tin', Enterprise::GRUAS_ROMANI_TIN)
+            ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function findEnabledSortedByNameForWebQ()
+    {
+        return $this->findEnabledSortedByNameForWebQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findEnabledSortedByNameForWeb()
+    {
+        return $this->findEnabledSortedByNameForWebQ()->getResult();
     }
 }

@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleRepository")
  * @ORM\Table(name="vehicle")
  * @Vich\Uploadable()
- * @UniqueEntity({"name"})
+ * @UniqueEntity({"name", "vehicleRegistrationNumber"})
  */
 class Vehicle extends AbstractBase
 {
@@ -39,6 +39,13 @@ class Vehicle extends AbstractBase
      * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $vehicleRegistrationNumber;
 
     /**
      * @var VehicleCategory
@@ -101,8 +108,33 @@ class Vehicle extends AbstractBase
     private $mainImage;
 
     /**
+     * @var Enterprise
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     */
+    private $enterprise;
+
+    /**
      * Methods.
      */
+
+    /**
+     * @return string
+     */
+    public function getVehicleRegistrationNumber()
+    {
+        return $this->vehicleRegistrationNumber;
+    }
+
+    /**
+     * @param string $vehicleRegistrationNumber
+     * @return Vehicle
+     */
+    public function setVehicleRegistrationNumber($vehicleRegistrationNumber)
+    {
+        $this->vehicleRegistrationNumber = $vehicleRegistrationNumber;
+        return $this;
+    }
 
     /**
      * @return VehicleCategory
@@ -250,6 +282,26 @@ class Vehicle extends AbstractBase
     public function setMainImage($mainImage)
     {
         $this->mainImage = $mainImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Enterprise
+     */
+    public function getEnterprise()
+    {
+        return $this->enterprise;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Vehicle
+     */
+    public function setEnterprise($enterprise)
+    {
+        $this->enterprise = $enterprise;
 
         return $this;
     }

@@ -2,24 +2,20 @@
 
 namespace AppBundle\Admin;
 
-use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Class OperatorCheckingAdmin.
+ * Class VehicleCheckingAdmin
  *
  * @category Admin
- *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class OperatorCheckingAdmin extends AbstractBaseAdmin
+class VehicleCheckingAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Revisions';
-    protected $baseRoutePattern = 'operaris/revisio';
+    protected $baseRoutePattern = 'vehicles/revisio';
     protected $datagridValues = array(
         '_sort_by' => 'end',
         '_sort_order' => 'asc',
@@ -36,54 +32,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
         $collection->remove('delete');
     }
 
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'operator',
-                EntityType::class,
-                array(
-                    'label' => 'Operador',
-                    'required' => true,
-                    'class' => 'AppBundle:Operator',
-                    'choice_label' => 'fullName',
-                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'Tipus revisió',
-                    'required' => true,
-                    'query_builder' => $this->rm->getOperatorCheckingTypeRepository()->getEnabledSortedByNameQB(),
-                )
-            )
-            ->add(
-                'begin',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Data d\'expedició',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'end',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Data de caducitat',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
-            ->end()
-        ;
-    }
+
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -92,10 +41,10 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'operator',
+                'vehicle',
                 null,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Vehicle',
                 )
             )
             ->add(
@@ -125,48 +74,20 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param string $context
-     *
-     * @return QueryBuilder
-     */
-    public function createQuery($context = 'list')
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = parent::createQuery($context);
-
-        $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
-            ->andWhere('op.enabled = :enabled')
-            ->setParameter('enabled', true)
-        ;
-
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
-            return $queryBuilder;
-        }
-
-        $queryBuilder
-            ->andWhere('op.enterprise = :enterprise')
-            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
-        ;
-
-        return $queryBuilder;
-    }
-
-    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'status',
-                null,
-                array(
-                    'label' => 'Estat',
-                    'template' => '::Admin/Cells/list__cell_operator_checking_status.html.twig',
-                )
-            )
+//            ->add(
+//                'status',
+//                null,
+//                array(
+//                    'label' => 'Estat',
+//                    'template' => '::Admin/Cells/list__cell_vehicle_checking_status.html.twig',
+//                )
+//            )
             ->add(
                 'begin',
                 'date',
@@ -186,15 +107,15 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'operator',
+                'vehicle',
                 null,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Vehicle',
                     'editable' => false,
-                    'associated_property' => 'fullName',
+                    'associated_property' => 'name',
                     'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'surname1'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'operator')),
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'vehicle')),
                 )
             )
             ->add(

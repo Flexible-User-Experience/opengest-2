@@ -3,23 +3,26 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Vehicle;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class LinkUserEnterpriseCommand.
+ * Class LinkVehicleEnterpriseCommand
+ *
+ * @category Command
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class LinkUserEnterpriseCommand extends AbstractBaseCommand
+class LinkVehicleEnterpriseCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:link:user:enterprise');
-        $this->setDescription('Link user and enterprise');
+        $this->setName('app:link:vehicle:enterprise');
+        $this->setDescription('Link vehicle and enterprise');
     }
 
     /**
@@ -44,12 +47,11 @@ class LinkUserEnterpriseCommand extends AbstractBaseCommand
         if (!$enterprise) {
             $output->writeln('<error>No enterprise found</error>');
         } else {
-            $users = $this->em->getRepository('AppBundle:User')->getEnabledSortedByName();
-            /** @var User $user */
-            foreach ($users as $user) {
-                $output->writeln($user->getId().' · '.$user->getFullname());
-                $user->setDefaultEnterprise($enterprise);
-                $enterprise->addUser($user);
+            $vehicles = $this->em->getRepository('AppBundle:Vehicle')->findEnabledSortedByName();
+            /** @var Vehicle $vehicle */
+            foreach ($vehicles as $vehicle) {
+                $output->writeln($vehicle->getId().' · '.$vehicle->getName());
+                $vehicle->setEnterprise($enterprise);
             }
 
             $this->em->flush();

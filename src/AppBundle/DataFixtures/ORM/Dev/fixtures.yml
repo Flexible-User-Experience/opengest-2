@@ -59,7 +59,9 @@ AppBundle\Entity\VehicleCategory:
 # Vehicle
 AppBundle\Entity\Vehicle:
   vehicle{1..10}:
+    vehicleRegistrationNumber: <bothify('######?')>
     category: @vehicleCategory<numberBetween(1,10)>
+    enterprise: @enterprise<numberBetween(1,10)>
     name: <name()>
     shortDescription: <sentence()>
     description: <paragraph()>
@@ -261,6 +263,25 @@ AppBundle\Entity\OperatorAbsence:
   operatorAbsence{1..5}:
     operator: @operator<numberBetween(1,2)>
     type: @absenceType<numberBetween(1,5)>
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# VehicleCheckingType
+AppBundle\Entity\VehicleCheckingType:
+  vehicleCheckingType{1..5}:
+    name: <name()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# VehicleChecking
+AppBundle\Entity\VehicleChecking:
+  vehicleChecking{1..2}:
+    vehicle: @vehicle<numberBetween(1,10)>
+    type: @vehicleCheckingType<numberBetween(1,5)>
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>

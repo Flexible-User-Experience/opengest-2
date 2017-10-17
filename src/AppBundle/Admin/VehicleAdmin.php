@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -19,8 +20,8 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class VehicleAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Vehicle';
-    protected $baseRoutePattern = 'web/vehicle';
+    protected $classnameLabel = 'Vehicles';
+    protected $baseRoutePattern = 'vehicles/vehicle';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
@@ -49,6 +50,14 @@ class VehicleAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nom',
+                )
+            )
+            ->add(
+                'vehicleRegistrationNumber',
+                null,
+                array(
+                    'label' => 'Matrícula',
+                    'required' => true,
                 )
             )
             ->add(
@@ -132,6 +141,13 @@ class VehicleAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'vehicleRegistrationNumber',
+                null,
+                array(
+                    'label' => 'Matrícula',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -176,6 +192,26 @@ class VehicleAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
+        $queryBuilder
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -188,6 +224,14 @@ class VehicleAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Imatge',
                     'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
+                )
+            )
+            ->add(
+                'vehicleRegistrationNumber',
+                null,
+                array(
+                    'label' => 'Matrícula',
+                    'editable' => true,
                 )
             )
             ->add(

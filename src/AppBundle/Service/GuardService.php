@@ -6,6 +6,7 @@ use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Vehicle;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
@@ -92,5 +93,15 @@ class GuardService
         }
 
         return $result;
+    }
+
+    /**
+     * @param Vehicle $vehicle
+     *
+     * @return bool
+     */
+    public function isOwnVehicle(Vehicle $vehicle)
+    {
+        return $this->acs->isGranted('ROLE_ADMIN') || $vehicle->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
     }
 }
