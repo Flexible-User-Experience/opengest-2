@@ -104,11 +104,11 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
 
-        $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsBeforeToBeInvalidByEnabledVehicle();
+        $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
 
 //        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
 
-        return $this->render(':Mails:vehicles_checking_before_to_be_invalid_notification.html.twig', array(
+        return $this->render(':Mails:vehicles_checking_invalid_admin_notification.html.twig', array(
             'entities' => $entities,
             'show_devel_top_bar' => true,
         ));
