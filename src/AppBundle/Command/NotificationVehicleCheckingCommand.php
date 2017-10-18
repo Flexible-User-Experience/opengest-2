@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\VehicleChecking;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -40,5 +41,13 @@ class NotificationVehicleCheckingCommand extends AbstractBaseCommand
         $vcr = $this->getContainer()->get('app.repositories_manager')->getVehicleCheckingRepository();
         $entities = $vcr->getItemsInvalidByEnabledVehicle();
         $output->writeln('<comment>Invalid entities</comment>');
+        /** @var VehicleChecking $entity */
+        foreach ($entities as $entity) {
+            $output->writeln($entity->getId().' '.$entity->getVehicle()->getName().' '.$entity->getEnd()->format('d-m-Y'));
+        }
+
+        if (count($entities) > 0) {
+            $this->getContainer()->get('app.notification')->sendVehicleCheckingInvalidNotification($entities);
+        }
     }
 }
