@@ -25,7 +25,7 @@ class VehicleCheckingRepository extends EntityRepository
         return $this->createQueryBuilder('vc')
             ->join('vc.vehicle', 'v')
             ->where('vc.end = :today')
-            ->andWhere('v.enabled :enabled')
+            ->andWhere('v.enabled = :enabled')
             ->setParameter('today', $today->format('Y-m-d'))
             ->setParameter('enabled', true)
         ;
@@ -45,6 +45,39 @@ class VehicleCheckingRepository extends EntityRepository
     public function getItemsInvalidByEnabledVehicle()
     {
         return $this->getItemsInvalidByEnabledVehicleQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getItemsBeforeToBeInvalidByEnabledVehicleQB()
+    {
+        $thresholdDay = new \DateTime();
+        $thresholdDay->add(new \DateInterval('P30D'));
+
+        return $this->createQueryBuilder('vc')
+            ->join('vc.vehicle', 'v')
+            ->where('vc.end = :thresholdDay')
+            ->andWhere('v.enabled = :enabled')
+            ->setParameter('thresholdDay', $thresholdDay->format('Y-m-d'))
+            ->setParameter('enabled', true)
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getItemsBeforeToBeInvalidByEnabledVehicleQ()
+    {
+        return $this->getItemsBeforeToBeInvalidByEnabledVehicleQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsBeforeToBeInvalidByEnabledVehicle()
+    {
+        return $this->getItemsBeforeToBeInvalidByEnabledVehicleQ()->getResult();
     }
 
     /**

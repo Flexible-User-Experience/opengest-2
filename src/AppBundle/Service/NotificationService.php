@@ -187,4 +187,17 @@ class NotificationService
             $this->twig->render(':Mails:vehicles_checking_invalid_admin_notification.html.twig', array('entities' => $entities))
         );
     }
+
+    /**
+     * @param array|VehicleChecking[] $entities
+     */
+    public function sendVehicleCheckingBeforeToBeInvalidNotification($entities)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions de vehicles pedent de caducar pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:vehicles_checking_before_to_be_invalid_notification.html.twig', array('entities' => $entities))
+        );
+    }
 }

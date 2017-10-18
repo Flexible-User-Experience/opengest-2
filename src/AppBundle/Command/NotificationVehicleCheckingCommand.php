@@ -45,9 +45,19 @@ class NotificationVehicleCheckingCommand extends AbstractBaseCommand
         foreach ($entities as $entity) {
             $output->writeln($entity->getId().' '.$entity->getVehicle()->getName().' '.$entity->getEnd()->format('d-m-Y'));
         }
-
         if (count($entities) > 0) {
             $this->getContainer()->get('app.notification')->sendVehicleCheckingInvalidNotification($entities);
+        }
+
+        // Get before to be invalid entities
+        $entities = $vcr->getItemsBeforeToBeInvalidByEnabledVehicle();
+        $output->writeln('<comment>Before to be invalid entities</comment>');
+        /** @var VehicleChecking $entity */
+        foreach ($entities as $entity) {
+            $output->writeln($entity->getId().' '.$entity->getVehicle()->getName().' '.$entity->getEnd()->format('d-m-Y'));
+        }
+        if (count($entities) > 0) {
+            $this->getContainer()->get('app.notification')->sendVehicleCheckingBeforeToBeInvalidNotification($entities);
         }
     }
 }
