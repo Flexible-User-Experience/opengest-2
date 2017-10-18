@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\ContactMessage;
 use AppBundle\Entity\OperatorChecking;
+use AppBundle\Entity\VehicleChecking;
 
 /**
  * Class NotificationService.
@@ -171,6 +172,32 @@ class NotificationService
             $entity->getOperator()->getEmail(),
             'Avís de revisió a punt de caducar',
             $this->twig->render(':Mails:operator_before_to_be_invalid_notification.html.twig', array('operatorChecking' => $entity))
+        );
+    }
+
+    /**
+     * @param array|VehicleChecking[] $entities
+     */
+    public function sendVehicleCheckingInvalidNotification($entities)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions de vehicles caducades avui pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:vehicles_checking_invalid_admin_notification.html.twig', array('entities' => $entities))
+        );
+    }
+
+    /**
+     * @param array|VehicleChecking[] $entities
+     */
+    public function sendVehicleCheckingBeforeToBeInvalidNotification($entities)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Avís de revisions de vehicles pedent de caducar pàgina web '.$this->urlBase,
+            $this->twig->render(':Mails:vehicles_checking_before_to_be_invalid_notification.html.twig', array('entities' => $entities))
         );
     }
 }
