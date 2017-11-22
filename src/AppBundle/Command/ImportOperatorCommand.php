@@ -53,6 +53,61 @@ class ImportOperatorCommand extends AbstractBaseCommand
             $birthDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(16, $row));
             $registrationDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(17, $row));
 
+            $profilePhotoImage = $this->readColumn(8, $row);
+            if (!is_null($profilePhotoImage)) {
+                $profilePhotoImage = explode('/', $profilePhotoImage);
+            }
+
+            $taxIdentityNumberImage = $this->readColumn(18, $row);
+            if (!is_null($taxIdentityNumberImage)) {
+                $taxIdentityNumberImage = explode('/', $taxIdentityNumberImage);
+            }
+
+            $drivingLicenseImg = $this->readColumn(19, $row);
+            if (!is_null($drivingLicenseImg)) {
+                $drivingLicenseImg = explode('/', $drivingLicenseImg);
+            }
+
+            $cranesOperatorLicenseImg = $this->readColumn(20, $row);
+            if (!is_null($cranesOperatorLicenseImg)) {
+                $drivingLicenseImg = explode('/', $cranesOperatorLicenseImg);
+            }
+
+            $medicalCheckImg = $this->readColumn(21, $row);
+            if (!is_null($medicalCheckImg)) {
+                $medicalCheckImg = explode('/', $medicalCheckImg);
+            }
+
+            $episImg = $this->readColumn(41, $row);
+            if (!is_null($episImg)) {
+                $episImg = explode('/', $episImg);
+            }
+
+            $trainingDocImg = $this->readColumn(43, $row);
+            if (!is_null($trainingDocImg)) {
+                $trainingDocImg = explode('/', $trainingDocImg);
+            }
+
+            $informationImg = $this->readColumn(44, $row);
+            if (!is_null($informationImg)) {
+                $informationImg = explode('/', $informationImg);
+            }
+
+            $useOfMachineryAuthorizationImg = $this->readColumn(45, $row);
+            if (!is_null($useOfMachineryAuthorizationImg)) {
+                $useOfMachineryAuthorizationImg = explode('/', $useOfMachineryAuthorizationImg);
+            }
+
+            $dischargeSocialSecurityImg = $this->readColumn(46, $row);
+            if (!is_null($dischargeSocialSecurityImg)) {
+                $dischargeSocialSecurityImg = explode('/', $dischargeSocialSecurityImg);
+            }
+
+            $employmentContractImg = $this->readColumn(47, $row);
+            if (!is_null($employmentContractImg)) {
+                $employmentContractImg = explode('/', $employmentContractImg);
+            }
+
             $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(54, $row)]);
             if ($enterprise && $birthDate && $registrationDate) {
                 $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
@@ -92,6 +147,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
                     ->setName($this->readColumn(5, $row))
                     ->setSurname1($this->readColumn(6, $row))
                     ->setSurname2($this->readColumn(7, $row))
+                    ->setProfilePhotoImage(is_array($profilePhotoImage) ? $profilePhotoImage[1] : null)
                     ->setAddress($this->readColumn(9, $row))
                     ->setCity($city)
                     ->setOwnPhone($this->readColumn(13, $row))
@@ -99,6 +155,10 @@ class ImportOperatorCommand extends AbstractBaseCommand
                     ->setEnterpriseMobile($this->readColumn(15, $row))
                     ->setBrithDate($birthDate)
                     ->setRegistrationDate($registrationDate)
+                    ->setTaxIdentificationNumberImage(is_array($taxIdentityNumberImage) ? $taxIdentityNumberImage[1] : null)
+                    ->setDrivingLicenseImage(is_array($drivingLicenseImg) ? $drivingLicenseImg[1] : null)
+                    ->setCranesOperatorLicenseImage(is_array($cranesOperatorLicenseImg) ? $cranesOperatorLicenseImg[1] : null)
+                    ->setMedicalCheckImage(is_array($medicalCheckImg) ? $medicalCheckImg[1] : null)
                     ->setHasCarDrivingLicense($this->readColumn(22, $row))
                     ->setHasLorryDrivingLicense($this->readColumn(23, $row))
                     ->setHasCraneDrivingLicense($this->readColumn(24, $row))
@@ -109,11 +169,17 @@ class ImportOperatorCommand extends AbstractBaseCommand
                     ->setTShirtSize($this->readColumn(29, $row))
                     ->setPantSize($this->readColumn(30, $row))
                     ->setWorkingDressSize($this->readColumn(31, $row))
-                    ->setBancAccountNumber(($this->readColumn(52, $row) != '\\N' ? $this->readColumn(52, $row).'-' : '').$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row))
+                    ->setBancAccountNumber(!is_null(($this->readColumn(52, $row)) ? $this->readColumn(52, $row).'-' : '').$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row))
                     ->setSocialSecurityNumber($this->readColumn(37, $row))
+                    ->setEpisImage(is_array($episImg) ? $episImg[1] : null)
+                    ->setTrainingDocumentImage(is_array($trainingDocImg) ? $trainingDocImg[1] : null)
+                    ->setInformationImage(is_array($informationImg) ? $trainingDocImg[1] : null)
+                    ->setUseOfMachineryAuthorizationImage(is_array($useOfMachineryAuthorizationImg) ? $useOfMachineryAuthorizationImg[1] : null)
+                    ->setDischargeSocialSecurityImage(is_array($dischargeSocialSecurityImg) ? $dischargeSocialSecurityImg[1] : null)
+                    ->setEmploymentContractImage(is_array($employmentContractImg) ? $employmentContractImg[1] : null)
                 ;
 
-                if ($this->readColumn(38, $row) != '\\N') {
+                if (!is_null($this->readColumn(38, $row))) {
                     $operator->setHourCost($this->readColumn(38, $row));
                 }
 

@@ -314,6 +314,24 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                     ->end()
                 ->with('Altres Documents', $this->getFormMdSuccessBoxArray(3))
                     ->add(
+                        'deedOfIncorporationFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Escritura constitució',
+                            'help' => $this->getSmartHelper('getDeedOfIncorporation', 'deedOfIncorporationFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'taxIdentificationNumberCardFile',
+                        FileType::class,
+                        array(
+                            'label' => 'Carta CIF',
+                            'help' => $this->getSmartHelper('getTaxIdentificationNumberCard', 'taxIdentificationNumberCardFile'),
+                            'required' => false,
+                        )
+                    )
+                    ->add(
                         'reaCertificateFile',
                         FileType::class,
                         array(
@@ -490,7 +508,6 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-//                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )

@@ -32,16 +32,18 @@
 /web/bundles/
 
 !/web/uploads/.gitkeep
-/web/uploads/documents/
-/web/uploads/images/complement/
-/web/uploads/images/operator/
+/web/uploads/documents
+/web/uploads/images/complement
+/web/uploads/images/operator
 /web/uploads/images/enterprise/*
 !/web/uploads/images/enterprise/1.jpg
 !/web/uploads/images/enterprise/2.jpg
-/web/uploads/images/service/
-/web/uploads/images/vehicle/
-/web/uploads/images/work/
-/web/uploads/images/work_image/
+/web/uploads/images/service
+/web/uploads/images/vehicle
+/web/uploads/images/enterprise
+/web/uploads/images/main-upsloads
+/web/uploads/images/work
+/web/uploads/images/work_image
 /web/uploads/images/user/
 /web/media/
 !/web/media/.gitkeep
