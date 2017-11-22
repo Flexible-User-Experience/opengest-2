@@ -59,53 +59,54 @@ sonata_admin:
             -
                 position: top
                 type: app.block.operator_checking
-                class: col-md-3
+                class: "col-md-3"
             -
                 position: top
                 type: app.block.operator_absence
-                class: col-md-3
+                class: "col-md-3"
             -
                 position: top
                 type: app.block.vehicle_checking
-                class: col-md-3
+                class: "col-md-3"
             -
                 position: top
                 type: app.block.contact_message
-                class: col-md-3
+                class: "col-md-3"
             -
-                position: left
+                position: top
+                type: sonata.block.service.text
+                class: "col-md-12"
+                settings:
+                    content: >
+                        <hr style="margin-bottom:0">
+            -
+                position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-md-3"
                 settings:
                     groups: [ Web ]
             -
-                position: right
+                position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-md-3"
                 settings:
-                    groups: [ Contactes ]
+                    groups: [ Contactes, Vehicles ]
             -
-                position: right
+                position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Vehicles ]
-            -
-                position: right
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Administracio ]
-            -
-                position: left
-                type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-md-3"
                 settings:
                     groups: [ Operaris ]
             -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: "col-md-3"
+                settings:
+                    groups: [ Administracio ]
+            -
                 position: bottom
                 type: sonata.block.service.text
-                class: col-md-12
+                class: "col-md-12"
                 settings:
                     content: >
                         <hr style="margin-top:40px;border-top:solid 1px #d2d6de">
