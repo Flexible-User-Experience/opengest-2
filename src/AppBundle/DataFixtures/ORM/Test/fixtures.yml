@@ -164,30 +164,6 @@ AppBundle\Entity\Enterprise:
     fax: <phoneNumber()>
     email: <safeEmail()>
     www: <safeEmailDomain()>
-    logo: <numberBetween(1,2)>.jpg
-    deedOfIncorporation: <numberBetween(1,2)>.jpg
-    taxIdentificationNumberCard: <numberBetween(1,2)>.jpg
-    tc1Receipt: <numberBetween(1,2)>.jpg
-    tc2Receipt: <numberBetween(1,2)>.jpg
-    ssRegistration: <numberBetween(1,2)>.jpg
-    ssPaymentCertificate: <numberBetween(1,2)>.jpg
-    rc1Insurance: <numberBetween(1,2)>.jpg
-    rc2Insurance: <numberBetween(1,2)>.jpg
-    rcReceipt: <numberBetween(1,2)>.jpg
-    preventionServiceContract: <numberBetween(1,2)>.jpg
-    preventionServiceInvoice: <numberBetween(1,2)>.jpg
-    preventionServiceReceipt: <numberBetween(1,2)>.jpg
-    occupationalAccidentsInsurance: <numberBetween(1,2)>.jpg
-    occupationalReceipt: <numberBetween(1,2)>.jpg
-    laborRiskAssessment: <numberBetween(1,2)>.jpg
-    securityPlan: <numberBetween(1,2)>.jpg
-    reaCertificate: <numberBetween(1,2)>.jpg
-    oilCertificate: <numberBetween(1,2)>.jpg
-    gencatPaymentCertificate: <numberBetween(1,2)>.jpg
-    deedsOfPowers: <numberBetween(1,2)>.jpg
-    iaeRegistration: <numberBetween(1,2)>.jpg
-    iaeReceipt: <numberBetween(1,2)>.jpg
-    mutualPartnership: <numberBetween(1,2)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -204,30 +180,6 @@ AppBundle\Entity\Enterprise:
     fax: <phoneNumber()>
     email: <safeEmail()>
     www: <safeEmailDomain()>
-    logo: <numberBetween(1,2)>.jpg
-    deedOfIncorporation: <numberBetween(1,2)>.jpg
-    taxIdentificationNumberCard: <numberBetween(1,2)>.jpg
-    tc1Receipt: <numberBetween(1,2)>.jpg
-    tc2Receipt: <numberBetween(1,2)>.jpg
-    ssRegistration: <numberBetween(1,2)>.jpg
-    ssPaymentCertificate: <numberBetween(1,2)>.jpg
-    rc1Insurance: <numberBetween(1,2)>.jpg
-    rc2Insurance: <numberBetween(1,2)>.jpg
-    rcReceipt: <numberBetween(1,2)>.jpg
-    preventionServiceContract: <numberBetween(1,2)>.jpg
-    preventionServiceInvoice: <numberBetween(1,2)>.jpg
-    preventionServiceReceipt: <numberBetween(1,2)>.jpg
-    occupationalAccidentsInsurance: <numberBetween(1,2)>.jpg
-    occupationalReceipt: <numberBetween(1,2)>.jpg
-    laborRiskAssessment: <numberBetween(1,2)>.jpg
-    securityPlan: <numberBetween(1,2)>.jpg
-    reaCertificate: <numberBetween(1,2)>.jpg
-    oilCertificate: <numberBetween(1,2)>.jpg
-    gencatPaymentCertificate: <numberBetween(1,2)>.jpg
-    deedsOfPowers: <numberBetween(1,2)>.jpg
-    iaeRegistration: <numberBetween(1,2)>.jpg
-    iaeReceipt: <numberBetween(1,2)>.jpg
-    mutualPartnership: <numberBetween(1,2)>.jpg
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -252,17 +204,6 @@ AppBundle\Entity\Operator:
     ownMobile: <phoneNumber()>
     brithDate: <dateTimeBetween()>
     registrationDate: <dateTimeBetween()>
-    profilePhotoImage: <numberBetween(1,2)>.jpg
-    taxIdentificationNumberImage: <numberBetween(1,2)>.jpg
-    drivingLicenseImage: <numberBetween(1,2)>.jpg
-    cranesOperatorLicenseImage: <numberBetween(1,2)>.jpg
-    medicalCheckImage: <numberBetween(1,2)>.jpg
-    episImage: <numberBetween(1,2)>.jpg
-    trainingDocumentImage: <numberBetween(1,2)>.jpg
-    informationImage: <numberBetween(1,2)>.jpg
-    useOfMachineryAuthorizationImage: <numberBetween(1,2)>.jpg
-    dischargeSocialSecurityImage: <numberBetween(1,2)>.jpg
-    employmentContractImage: <numberBetween(1,2)>.jpg
     hasCarDrivingLicense: true
     hasLorryDrivingLicense: true
     hasTowingDrivingLicense: false
