@@ -124,11 +124,11 @@ liip_imagine:
         231x54:
             quality: 80
             filters:
-                thumbnail: { size: [ 231, 54 ], mode: outbound }
+                thumbnail: { size: [ 231, 54 ], mode: inset }
         220x54:
             quality: 80
             filters:
-                thumbnail: { size: [ 220, 54 ], mode: outbound }
+                thumbnail: { size: [ 220, 54 ], mode: inset }
         180xY:
             quality: 80
             filters:
