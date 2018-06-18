@@ -68,6 +68,11 @@ class ContactMessage extends AbstractBase
     private $answered = false;
 
     /**
+     * @var bool
+     */
+    private $privacy;
+
+    /**
      * Methods.
      */
 
@@ -227,6 +232,26 @@ class ContactMessage extends AbstractBase
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrivacy()
+    {
+        return $this->privacy;
+    }
+
+    /**
+     * @param bool $privacy
+     *
+     * @return $this
+     */
+    public function setPrivacy($privacy)
+    {
+        $this->privacy = $privacy;
 
         return $this;
     }
