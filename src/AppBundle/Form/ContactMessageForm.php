@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Beelab\Recaptcha2Bundle\Form\Type\RecaptchaType;
 use Beelab\Recaptcha2Bundle\Validator\Constraints\Recaptcha2;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -78,6 +79,15 @@ class ContactMessageForm extends AbstractType
                     'constraints' => array(
                         new Assert\NotBlank(),
                     ),
+                )
+            )
+
+            ->add(
+                'privacy',
+                CheckboxType::class,
+                array(
+                    'required' => true,
+                    'mapped' => false,
                 )
             )
             ->add(
