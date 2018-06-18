@@ -1,5 +1,16 @@
 {% extends ':Frontend:base.html.twig' %}
 
+{% form_theme contactForm _self %}
+
+{% block _app_bundle_contact_message_type_privacy_widget %}
+    <div class="checkbox">
+        <input type="checkbox" id="checkbox-privacy-homepage" {{ block('widget_attributes') }} />
+        <label for="checkbox-privacy-homepage" class="control-label my-privacy-label-homepage">
+            Acepto la <a href="{{ path('front_privacy')}}">política de privacidad</a>
+        </label>
+    </div>
+{% endblock %}
+
 {% block title %}Empresa · {{ parent() }}{% endblock %}
 
 {% block main %}
