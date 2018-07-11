@@ -50,16 +50,16 @@ class DigitalTachograph extends AbstractBase
     private $uploadedFileName;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return Operator
      */
     public function getOperator()
     {
         return $this->operator;
     }
-
-    /**
-     * Methods.
-     */
 
     /**
      * @param Operator $operator
