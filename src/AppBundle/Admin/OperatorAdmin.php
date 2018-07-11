@@ -21,7 +21,7 @@ class OperatorAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Operadors';
     protected $baseRoutePattern = 'operaris/operador';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'surname1',
         '_sort_order' => 'asc',
     );
 
