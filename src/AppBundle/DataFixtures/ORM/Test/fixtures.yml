@@ -290,3 +290,10 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
+
+# DigitalTachograph
+AppBundle\Entity\DigitalTachograph:
+    digitalTachograph{1..2}:
+        operator: @operator<numberBetween(1,2)>
+        uploadedDate: <dateTimeThisMonth()>
+        uploadedFileName: <word()>

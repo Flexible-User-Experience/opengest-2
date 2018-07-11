@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @author Rubèn Hierro <info@rubenhierro.com>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DigitalTachographRepository")
- * @ORM\Table(name="DigitalTachograph")
+ * @ORM\Table(name="digital_tachograph")
  * @Vich\Uploadable()
  */
 class DigitalTachograph extends AbstractBase

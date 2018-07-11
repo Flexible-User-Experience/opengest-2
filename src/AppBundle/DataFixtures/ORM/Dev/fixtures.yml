@@ -332,3 +332,12 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_ADMIN
+
+# DigitalTachograph
+AppBundle\Entity\DigitalTachograph:
+    digitalTachograph{1..5}:
+        operator: @operator<numberBetween(1,10)>
+        uploadedDate: <dateTimeThisMonth()>
+        uploadedFileName: <word()>
+
+

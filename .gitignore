@@ -45,6 +45,7 @@
 /web/uploads/images/work
 /web/uploads/images/work_image
 /web/uploads/images/user/
+/web/uploads/digital_tachograph/
 /web/media/
 !/web/media/.gitkeep
 /web/js/
