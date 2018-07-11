@@ -402,6 +402,13 @@ class Operator extends AbstractBase
     private $workingDressSize;
 
     /**
+     * @var DigitalTachograph
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $digitalTachographs;
+
+    /**
      * Methods.
      */
 
@@ -1424,6 +1431,26 @@ class Operator extends AbstractBase
     public function setWorkingDressSize($workingDressSize)
     {
         $this->workingDressSize = $workingDressSize;
+
+        return $this;
+    }
+
+    /**
+     * @return DigitalTachograph
+     */
+    public function getDigitalTachographs()
+    {
+        return $this->digitalTachographs;
+    }
+
+    /**
+     * @param DigitalTachograph $digitalTachographs
+     *
+     * @return $this
+     */
+    public function setDigitalTachographs($digitalTachographs)
+    {
+        $this->digitalTachographs = $digitalTachographs;
 
         return $this;
     }
