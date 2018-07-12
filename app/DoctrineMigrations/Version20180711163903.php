@@ -33,4 +33,3 @@ class Version20180711163903 extends AbstractMigration
         $this->addSql('DROP TABLE digital_tachograph');
     }
 }
-d
