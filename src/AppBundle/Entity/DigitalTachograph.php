@@ -28,13 +28,6 @@ class DigitalTachograph extends AbstractBase
     private $operator;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $uploadedDate;
-
-    /**
      * @var File
      *
      * @Vich\UploadableField(mapping="digital_tachograph_operator", fileNameProperty="uploadedFileName")
@@ -69,26 +62,6 @@ class DigitalTachograph extends AbstractBase
     public function setOperator($operator)
     {
         $this->operator = $operator;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUploadedDate()
-    {
-        return $this->uploadedDate;
-    }
-
-    /**
-     * @param \DateTime $uploadedDate
-     *
-     * @return $this
-     */
-    public function setUploadedDate($uploadedDate)
-    {
-        $this->uploadedDate = $uploadedDate;
 
         return $this;
     }
@@ -138,6 +111,6 @@ class DigitalTachograph extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getUploadedDate()->format('d/m/Y').' · '.$this->getOperator() : '---';
+        return $this->id ? $this->getCreatedAt()->format('d/m/Y').' · '.$this->getOperator() : '---';
     }
 }
