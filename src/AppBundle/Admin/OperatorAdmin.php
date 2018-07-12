@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -169,7 +170,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                 ->with('Controls', $this->getFormMdSuccessBoxArray(3))
                     ->add(
                         'brithDate',
-                        'sonata_type_date_picker',
+                        DatePickerType::class,
                         array(
                             'label' => 'Data de naixement',
                             'format' => 'd/M/y',
@@ -178,7 +179,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                     )
                     ->add(
                         'registrationDate',
-                        'sonata_type_date_picker',
+                        DatePickerType::class,
                         array(
                             'label' => 'Data de registre',
                             'format' => 'd/M/y',

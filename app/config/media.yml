@@ -193,7 +193,6 @@ vich_uploader:
         digital_tachograph_operator:
             uri_prefix:         /uploads/digital_tachograph/operator
             upload_destination: '%kernel.root_dir%/../web/uploads/digital_tachograph/operator'
-            namer:              vich_uploader.namer_uniqid
         complement:
             uri_prefix:         /uploads/images/complement
             upload_destination: "%kernel.root_dir%/../web/uploads/images/complement"

@@ -5,8 +5,10 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * Class DigitalTachographAdmin.
@@ -18,7 +20,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class DigitalTachographAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Operadors';
-    protected $baseRoutePattern = 'operaris/tacògraf';
+    protected $baseRoutePattern = 'operaris/tacograf';
     protected $datagridValues = array(
         '_sort_by' => 'date',
         '_sort_order' => 'desc',
@@ -54,10 +56,23 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'uploadedDate',
-                null,
+                'uploadedFile',
+                FileType::class,
                 array(
-                    'label' => 'Data',
+                    'label' => 'Arxiu tacògraf',
+//                    'help' => $this->getProfileHelperFormMapperWithThumbnail(),
+                    'required' => true,
+                )
+            )
+
+            ->add(
+                'uploadedDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'Data de pujada d\'arxiu',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                    'data' => new \dateTime(),
                 )
             )
             //TODO uploadedFile
