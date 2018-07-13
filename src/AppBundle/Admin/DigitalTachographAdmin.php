@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -34,7 +33,10 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->remove('delete')
+            ->add('download', $this->getRouterIdParameter().'/download', array(), array())
+        ;
     }
 
     /**
@@ -43,7 +45,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('Arxiu', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'operator',
                 EntityType::class,
@@ -64,18 +66,6 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-
-            ->add(
-                'uploadedDate',
-                DatePickerType::class,
-                array(
-                    'label' => 'Data de pujada d\'arxiu',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                    'data' => new \dateTime(),
-                )
-            )
-            //TODO uploadedFile
         ;
     }
 
@@ -90,14 +80,6 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Operador',
-                )
-            )
-            ->add(
-                'uploadedDate',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'Data',
-                    'field_type' => 'sonata_type_date_picker',
                 )
             )
         ;
@@ -122,7 +104,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'uploadedDate',
+                'createdAt',
                 'date',
                 array(
                     'label' => 'Data',
@@ -130,6 +112,18 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                     'editable' => false,
                 )
             )
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'download' => array('template' => '::Admin/Buttons/list__action_download_button.html.twig'),
+                    ),
+                    'label' => 'Accions',
+                )
+            )
+
         ;
     }
 }
