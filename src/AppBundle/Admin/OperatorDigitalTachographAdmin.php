@@ -64,7 +64,7 @@ class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
                     'label' => 'Arxiu tacògraf',
                     'help' => $this->getDownloadDigitalTachographButton(),
                     'required' => true,
-                    'disabled' => $this->getSubject() ? true : false,
+                    'disabled' => $this->id($this->getSubject()) ? true : false,
                 )
             )
         ;

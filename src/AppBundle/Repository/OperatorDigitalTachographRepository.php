@@ -11,6 +11,6 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  */
-class DigitalTachographRepository extends EntityRepository
+class OperatorDigitalTachographRepository extends EntityRepository
 {
 }
