@@ -35,7 +35,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->remove('delete')
-            ->add('download', $this->getRouterIdParameter().'/download', array(), array())
+            ->add('download', $this->getRouterIdParameter().'/download')
         ;
     }
 
@@ -62,7 +62,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                 FileType::class,
                 array(
                     'label' => 'Arxiu tacògraf',
-//                    'help' => $this->getProfileHelperFormMapperWithThumbnail(),
+                    'help' => '<a class="btn btn-warning" role="button" href="#"><i class="fa fa-download"></i> Descarregar arxiu</a>',
                     'required' => true,
                 )
             )
