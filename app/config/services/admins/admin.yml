@@ -44,6 +44,11 @@ services:
         arguments: [ ~, AppBundle\Entity\VehicleChecking, AppBundle:Admin\VehicleCheckingAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Revisió", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.vehicle.digital_tachograph:
+        class: AppBundle\Admin\VehicleDigitalTachographAdmin
+        arguments: [ ~, AppBundle\Entity\VehicleDigitalTachograph, AppBundle:Admin\VehicleDigitalTachographAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
 # contactes group
@@ -101,7 +106,7 @@ services:
         arguments: [ ~, AppBundle\Entity\OperatorAbsence, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.digital_tachograph:
+    app.admin.operator.digital_tachograph:
         class: AppBundle\Admin\OperatorDigitalTachographAdmin
         arguments: [ ~, AppBundle\Entity\OperatorDigitalTachograph, AppBundle:Admin\OperatorDigitalTachographAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
         tags:

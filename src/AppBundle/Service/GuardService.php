@@ -2,13 +2,14 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\DigitalTachograph;
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
+use AppBundle\Entity\OperatorDigitalTachograph;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
+use AppBundle\Entity\VehicleDigitalTachograph;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
@@ -118,12 +119,22 @@ class GuardService
     }
 
     /**
-     * @param DigitalTachograph $tachograph
+     * @param OperatorDigitalTachograph $tachograph
      *
      * @return bool
      */
-    public function isOwnTachograph(DigitalTachograph $tachograph)
+    public function isOwnOperatorTachograph(OperatorDigitalTachograph $tachograph)
     {
         return $this->acs->isGranted('ROLE_ADMIN') || $tachograph->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+    }
+
+    /**
+     * @param VehicleDigitalTachograph $tachograph
+     *
+     * @return bool
+     */
+    public function isOwnVehicleTachograph(VehicleDigitalTachograph $tachograph)
+    {
+        return $this->acs->isGranted('ROLE_ADMIN') || $tachograph->getVehicle()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
     }
 }

@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin;
 
 /**
- * Class OperatorDigitalTachographAdminController.
+ * Class VehicleDigitalTachographAdminController.
  */
-class OperatorDigitalTachographAdminController extends BaseAdminController
+class VehicleDigitalTachographAdminController extends BaseAdminController
 {
     /**
      * @param null $id
@@ -23,7 +23,7 @@ class OperatorDigitalTachographAdminController extends BaseAdminController
         }
 
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnOperatorTachograph($tachograph)) {
+        if (!$guardService->isOwnVehicleTachograph($tachograph)) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 
