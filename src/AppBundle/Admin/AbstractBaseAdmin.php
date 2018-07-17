@@ -282,7 +282,8 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected function getDownloadDigitalTachographButton()
     {
         if ($this->getSubject() && !is_null($this->getSubject()->getUploadedFileName())) {
-            $result = '<a class="btn btn-warning" role="button" href="#"><i class="fa fa-download"></i> Descarregar arxiu</a>';
+            $url = $this->routeGenerator->generateUrl($this, 'download', array('id' => $this->getSubject()->getId()));
+            $result = '<a class="btn btn-warning" role="button" href="'.$url.'"><i class="fa fa-download"></i> Descarregar arxiu</a>';
 
             return $result;
         }
