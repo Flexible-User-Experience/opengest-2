@@ -21,7 +21,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Tacògrafs';
     protected $baseRoutePattern = 'operaris/tacograf';
     protected $datagridValues = array(
-        '_sort_by' => 'date',
+        '_sort_by' => 'createdAt',
         '_sort_order' => 'desc',
     );
 
@@ -92,6 +92,23 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
     {
         $listMapper
             ->add(
+                'createdAt',
+                'date',
+                array(
+                    'label' => 'Data',
+                    'format' => 'd/m/Y',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'profilePhotoImage',
+                null,
+                array(
+                    'label' => 'Imatge',
+                    'template' => '::Admin/Cells/list__cell_tachograph_operator_profile_image_field.html.twig',
+                )
+            )
+            ->add(
                 'operator',
                 null,
                 array(
@@ -101,15 +118,6 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'surname1'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'operator')),
-                )
-            )
-            ->add(
-                'createdAt',
-                'date',
-                array(
-                    'label' => 'Data',
-                    'format' => 'd/m/Y',
-                    'editable' => false,
                 )
             )
             ->add(
