@@ -50,7 +50,7 @@ class Vehicle extends AbstractBase
     /**
      * @var VehicleCategory
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="vehicles")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="vehicle")
      * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
      */
     private $category;
@@ -115,6 +115,13 @@ class Vehicle extends AbstractBase
     private $enterprise;
 
     /**
+     * @var VehicleDigitalTachograph
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\VehicleDigitalTachograph", mappedBy="vehicle", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $vehicleDigitalTachographs;
+
+    /**
      * Methods.
      */
 
@@ -128,11 +135,13 @@ class Vehicle extends AbstractBase
 
     /**
      * @param string $vehicleRegistrationNumber
+     *
      * @return Vehicle
      */
     public function setVehicleRegistrationNumber($vehicleRegistrationNumber)
     {
         $this->vehicleRegistrationNumber = $vehicleRegistrationNumber;
+
         return $this;
     }
 
@@ -302,6 +311,26 @@ class Vehicle extends AbstractBase
     public function setEnterprise($enterprise)
     {
         $this->enterprise = $enterprise;
+
+        return $this;
+    }
+
+    /**
+     * @return VehicleDigitalTachograph
+     */
+    public function getVehicleDigitalTachographs()
+    {
+        return $this->vehicleDigitalTachographs;
+    }
+
+    /**
+     * @param VehicleDigitalTachograph $vehicleDigitalTachographs
+     *
+     * @return $this
+     */
+    public function setVehicleDigitalTachographs($vehicleDigitalTachographs)
+    {
+        $this->vehicleDigitalTachographs = $vehicleDigitalTachographs;
 
         return $this;
     }
