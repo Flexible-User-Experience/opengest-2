@@ -404,9 +404,9 @@ class Operator extends AbstractBase
     /**
      * @var DigitalTachograph
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OperatorDigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $digitalTachographs;
+    private $operatorDigitalTachographs;
 
     /**
      * Methods.
@@ -1438,7 +1438,7 @@ class Operator extends AbstractBase
     /**
      * @return DigitalTachograph
      */
-    public function getDigitalTachographs()
+    public function getOperatorDigitalTachographs()
     {
         return $this->digitalTachographs;
     }
@@ -1448,7 +1448,7 @@ class Operator extends AbstractBase
      *
      * @return $this
      */
-    public function setDigitalTachographs($digitalTachographs)
+    public function setOperatorDigitalTachographs($digitalTachographs)
     {
         $this->digitalTachographs = $digitalTachographs;
 

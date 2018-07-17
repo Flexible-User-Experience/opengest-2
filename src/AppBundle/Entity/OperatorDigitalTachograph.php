@@ -8,22 +8,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * Class DigitalTachograph.
+ * Class OperatorDigitalTachograph.
  *
  * @category
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DigitalTachographRepository")
- * @ORM\Table(name="digital_tachograph")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorDigitalTachographRepository")
+ * @ORM\Table(name="operator_digital_tachograph")
  * @Vich\Uploadable()
  */
-class DigitalTachograph extends AbstractBase
+class OperatorDigitalTachograph extends AbstractBase
 {
     /**
      * @var Operator
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator", inversedBy="digitalTachographs")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator", inversedBy="operatorDigitalTachographs")
      */
     private $operator;
 

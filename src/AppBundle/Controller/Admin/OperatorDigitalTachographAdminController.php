@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin;
 
 /**
- * Class DigitalTachographAdminController.
+ * Class OperatorDigitalTachographAdminController.
  */
-class DigitalTachographAdminController extends BaseAdminController
+class OperatorDigitalTachographAdminController extends BaseAdminController
 {
     /**
      * @param null $id

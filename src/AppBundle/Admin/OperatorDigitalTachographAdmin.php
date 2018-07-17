@@ -10,13 +10,13 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
- * Class DigitalTachographAdmin.
+ * Class OperatorDigitalTachographAdmin.
  *
  * @category Admin
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class DigitalTachographAdmin extends AbstractBaseAdmin
+class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Tacògrafs';
     protected $baseRoutePattern = 'operaris/tacograf';
@@ -64,6 +64,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                     'label' => 'Arxiu tacògraf',
                     'help' => $this->getDownloadDigitalTachographButton(),
                     'required' => true,
+                    'disabled' => $this->getSubject() ? true : false,
                 )
             )
         ;
