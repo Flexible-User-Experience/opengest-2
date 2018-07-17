@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\DigitalTachograph;
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
@@ -114,5 +115,15 @@ class GuardService
     public function isOwnVehicleChecking(VehicleChecking $vc)
     {
         return $this->acs->isGranted('ROLE_ADMIN') || $vc->getVehicle()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+    }
+
+    /**
+     * @param DigitalTachograph $tachograph
+     *
+     * @return bool
+     */
+    public function isOwnTachograph(DigitalTachograph $tachograph)
+    {
+        return $this->acs->isGranted('ROLE_ADMIN') || $tachograph->getOperator()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
     }
 }
