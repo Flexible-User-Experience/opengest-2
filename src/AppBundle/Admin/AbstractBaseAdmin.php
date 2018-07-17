@@ -277,6 +277,20 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
+     * @return string
+     */
+    protected function getDownloadDigitalTachographButton()
+    {
+        if ($this->getSubject() && !is_null($this->getSubject()->getUploadedFileName())) {
+            $result = '<a class="btn btn-warning" role="button" href="#"><i class="fa fa-download"></i> Descarregar arxiu</a>';
+
+            return $result;
+        }
+
+        return '';
+    }
+
+    /**
      * @return Enterprise
      */
     protected function getUserLogedEnterprise()

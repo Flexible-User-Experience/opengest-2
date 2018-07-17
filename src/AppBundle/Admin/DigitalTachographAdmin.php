@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  */
 class DigitalTachographAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Operadors';
+    protected $classnameLabel = 'Tacògrafs';
     protected $baseRoutePattern = 'operaris/tacograf';
     protected $datagridValues = array(
         '_sort_by' => 'date',
@@ -62,7 +62,7 @@ class DigitalTachographAdmin extends AbstractBaseAdmin
                 FileType::class,
                 array(
                     'label' => 'Arxiu tacògraf',
-                    'help' => '<a class="btn btn-warning" role="button" href="#"><i class="fa fa-download"></i> Descarregar arxiu</a>',
+                    'help' => $this->getDownloadDigitalTachographButton(),
                     'required' => true,
                 )
             )
