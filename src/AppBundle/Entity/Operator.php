@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -402,7 +403,7 @@ class Operator extends AbstractBase
     private $workingDressSize;
 
     /**
-     * @var OperatorDigitalTachograph
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\OperatorDigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -411,6 +412,14 @@ class Operator extends AbstractBase
     /**
      * Methods.
      */
+
+    /**
+     * Operator constructor.
+     */
+    public function __construct()
+    {
+        $this->operatorDigitalTachographs = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -1436,21 +1445,50 @@ class Operator extends AbstractBase
     }
 
     /**
-     * @return DigitalTachograph
+     * @return ArrayCollection
      */
     public function getOperatorDigitalTachographs()
     {
-        return $this->digitalTachographs;
+        return $this->operatorDigitalTachographs;
     }
 
     /**
-     * @param DigitalTachograph $digitalTachographs
+     * @param $digitalTachographs
      *
      * @return $this
      */
     public function setOperatorDigitalTachographs($digitalTachographs)
     {
-        $this->digitalTachographs = $digitalTachographs;
+        $this->operatorDigitalTachographs = $digitalTachographs;
+
+        return $this;
+    }
+
+    /**
+     * @param OperatorDigitalTachograph $digitalTachograph
+     *
+     * @return $this
+     */
+    public function addOperatorDigitalTachograph(OperatorDigitalTachograph $digitalTachograph)
+    {
+        if (!$this->operatorDigitalTachographs->contains($digitalTachograph)) {
+            $this->operatorDigitalTachographs->add($digitalTachograph);
+            $digitalTachograph->setOperator($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param OperatorDigitalTachograph $digitalTachograph
+     *
+     * @return $this
+     */
+    public function removeOperatorDigitalTachograph(OperatorDigitalTachograph $digitalTachograph)
+    {
+        if ($this->operatorDigitalTachographs->contains($digitalTachograph)) {
+            $this->operatorDigitalTachographs->removeElement($digitalTachograph);
+        }
 
         return $this;
     }

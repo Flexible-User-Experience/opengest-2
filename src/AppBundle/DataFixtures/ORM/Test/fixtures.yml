@@ -306,7 +306,7 @@ AppBundle\Entity\VehicleDigitalTachograph:
 # EnterpriseGroupBounty
 AppBundle\Entity\EnterpriseGroupBounty:
     enterpriseGroupBounty{1,,5}:
-        enterprise : @enterprise<numberBetween(1,10)>
+        enterprise : @enterprise<numberBetween(1,2)>
         group : <word()>
         normalHour : <numberBetween(10,30)>
         extraNormalHour : <numberBetween(10,30)>

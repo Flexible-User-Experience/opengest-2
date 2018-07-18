@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class VehicleDigitalTachograph extends AbstractBase
 {
     /**
-     * @var Operator
+     * @var Vehicle
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle", inversedBy="vehicleDigitalTachographs")
      */

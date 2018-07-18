@@ -6,6 +6,7 @@ use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -115,7 +116,7 @@ class Vehicle extends AbstractBase
     private $enterprise;
 
     /**
-     * @var VehicleDigitalTachograph
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\VehicleDigitalTachograph", mappedBy="vehicle", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -124,6 +125,10 @@ class Vehicle extends AbstractBase
     /**
      * Methods.
      */
+    public function __construct()
+    {
+        $this->vehicleDigitalTachographs = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -316,7 +321,7 @@ class Vehicle extends AbstractBase
     }
 
     /**
-     * @return VehicleDigitalTachograph
+     * @return ArrayCollection
      */
     public function getVehicleDigitalTachographs()
     {
@@ -331,6 +336,35 @@ class Vehicle extends AbstractBase
     public function setVehicleDigitalTachographs($vehicleDigitalTachographs)
     {
         $this->vehicleDigitalTachographs = $vehicleDigitalTachographs;
+
+        return $this;
+    }
+
+    /**
+     * @param VehicleDigitalTachograph $digitalTachograph
+     *
+     * @return $this
+     */
+    public function addVehicleDigitalTachograph(VehicleDigitalTachograph $digitalTachograph)
+    {
+        if (!$this->vehicleDigitalTachographs->contains($digitalTachograph)) {
+            $this->vehicleDigitalTachographs->add($digitalTachograph);
+            $digitalTachograph->setVehicle($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param VehicleDigitalTachograph $digitalTachograph
+     *
+     * @return $this
+     */
+    public function removeVehicleDigitalTachograph(VehicleDigitalTachograph $digitalTachograph)
+    {
+        if ($this->vehicleDigitalTachographs->contains($digitalTachograph)) {
+            $this->vehicleDigitalTachographs->removeElement($digitalTachograph);
+        }
 
         return $this;
     }
