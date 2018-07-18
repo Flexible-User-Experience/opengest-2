@@ -402,7 +402,7 @@ class Operator extends AbstractBase
     private $workingDressSize;
 
     /**
-     * @var DigitalTachograph
+     * @var OperatorDigitalTachograph
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\OperatorDigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
      */

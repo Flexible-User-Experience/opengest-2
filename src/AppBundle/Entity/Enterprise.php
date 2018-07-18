@@ -545,6 +545,13 @@ class Enterprise extends AbstractBase
     private $users;
 
     /**
+     * @var EnterpriseGroupBounty
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseGroupBounty", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $enterpriseGroupBounties;
+
+    /**
      * Methods.
      */
 
@@ -1900,6 +1907,26 @@ class Enterprise extends AbstractBase
     {
         $user->removeEnterprise($this);
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return EnterpriseGroupBounty
+     */
+    public function getEnterpriseGroupBounties()
+    {
+        return $this->enterpriseGroupBounties;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounties
+     *
+     * @return $this
+     */
+    public function setEnterpriseGroupBounties($enterpriseGroupBounties)
+    {
+        $this->enterpriseGroupBounties = $enterpriseGroupBounties;
 
         return $this;
     }
