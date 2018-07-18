@@ -19,7 +19,7 @@ class EnterpriseGroupBounty extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="EnterpriseGroupBounties")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseGroupBounties")
      */
     private $enterprise;
 
@@ -33,119 +33,119 @@ class EnterpriseGroupBounty extends AbstractBase
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $normalHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $extraNormalHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $extraExtraHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $roadNormalHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $roadExtraHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $awaitingHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $negativeHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $transferHour;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $lunch;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $dinner;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $overNight;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $extaNight;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $diet;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $internationalLunch;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $internationalDinner;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $truckOutput;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=true, options={"default"=1})
+     * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
     private $carOutput;
 

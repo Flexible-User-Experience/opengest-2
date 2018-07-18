@@ -545,7 +545,7 @@ class Enterprise extends AbstractBase
     private $users;
 
     /**
-     * @var EnterpriseGroupBounty
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseGroupBounty", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -561,6 +561,7 @@ class Enterprise extends AbstractBase
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->enterpriseGroupBounties = new ArrayCollection();
     }
 
     /**
@@ -1912,7 +1913,7 @@ class Enterprise extends AbstractBase
     }
 
     /**
-     * @return EnterpriseGroupBounty
+     * @return ArrayCollection
      */
     public function getEnterpriseGroupBounties()
     {
@@ -1927,6 +1928,35 @@ class Enterprise extends AbstractBase
     public function setEnterpriseGroupBounties($enterpriseGroupBounties)
     {
         $this->enterpriseGroupBounties = $enterpriseGroupBounties;
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounty
+     *
+     * @return $this
+     */
+    public function addEnterpriseGroupBounty(EnterpriseGroupBounty $enterpriseGroupBounty)
+    {
+        if (!$this->enterpriseGroupBounties->contains($enterpriseGroupBounty)) {
+            $this->enterpriseGroupBounties->add($enterpriseGroupBounty);
+            $enterpriseGroupBounty->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounty
+     *
+     * @return $this
+     */
+    public function removeEnterpriseGroupBounty(EnterpriseGroupBounty $enterpriseGroupBounty)
+    {
+        if ($this->enterpriseGroupBounties->contains($enterpriseGroupBounty)) {
+            $this->enterpriseGroupBounties->removeElement($enterpriseGroupBounty);
+        }
 
         return $this;
     }
