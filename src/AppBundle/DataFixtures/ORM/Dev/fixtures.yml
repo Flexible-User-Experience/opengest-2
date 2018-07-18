@@ -333,10 +333,16 @@ AppBundle\Entity\User:
         roles:
             - ROLE_ADMIN
 
-# DigitalTachograph
-AppBundle\Entity\DigitalTachograph:
-    digitalTachograph{1..5}:
+# OperatorDigitalTachograph
+AppBundle\Entity\OperatorDigitalTachograph:
+    operatorDigitalTachograph{1..5}:
         operator: @operator<numberBetween(1,10)>
+        uploadedFileName: <word()>
+
+# VehicleDigitalTachograph
+AppBundle\Entity\VehicleDigitalTachograph:
+    vehicleDigitalTachograph{1..5}:
+        vehicle: @vehicle<numberBetween(1,10)>
         uploadedFileName: <word()>
 
 

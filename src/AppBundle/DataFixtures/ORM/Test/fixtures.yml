@@ -291,8 +291,14 @@ AppBundle\Entity\User:
         roles:
             - ROLE_SUPER_ADMIN
 
-# DigitalTachograph
-AppBundle\Entity\DigitalTachograph:
-    digitalTachograph{1..2}:
+# OperatorDigitalTachograph
+AppBundle\Entity\OperatorDigitalTachograph:
+    operatorDigitalTachograph{1..2}:
         operator: @operator<numberBetween(1,2)>
+        uploadedFileName: <word()>
+
+# VehicleDigitalTachograph
+AppBundle\Entity\VehicleDigitalTachograph:
+    vehicleDigitalTachograph{1..2}:
+        vehicle: @vehicle<numberBetween(1,2)>
         uploadedFileName: <word()>
