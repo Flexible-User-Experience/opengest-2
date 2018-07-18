@@ -52,9 +52,12 @@ sonata_admin:
                 icon: "<i class='fa fa-users'></i>"
             Vehicles:
                 icon: "<i class='fa fa-truck'></i>"
+            Empreses:
+                icon: "<i class='fa fa-building'></i>"
             Administracio:
                 label: "Administració"
                 icon: "<i class='fa fa-briefcase'></i>"
+
         blocks:
             -
                 position: top
@@ -102,7 +105,7 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Administracio ]
+                    groups: [ Empreses, Administracio ]
             -
                 position: bottom
                 type: sonata.block.service.text

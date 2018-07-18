@@ -72,9 +72,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/list'),
             array('/admin/administracio/ciutat/create'),
             array('/admin/administracio/ciutat/1/edit'),
-            array('/admin/administracio/empresa/list'),
-            array('/admin/administracio/empresa/create'),
-            array('/admin/administracio/empresa/1/edit'),
             array('/admin/administracio/usuari/list'),
             array('/admin/administracio/usuari/create'),
             array('/admin/administracio/usuari/1/edit'),
@@ -109,6 +106,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/contactes/missatge-contacte/list'),
             array('/admin/contactes/missatge-contacte/1/show'),
             array('/admin/contactes/missatge-contacte/1/answer'),
+            // Enterprises
+            array('/admin/empreses/empresa/list'),
+            array('/admin/empreses/empresa/create'),
+            array('/admin/empreses/empresa/1/edit'),
         );
     }
 
@@ -158,9 +159,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/1/show'),
             array('/admin/administracio/ciutat/batch'),
             array('/admin/administracio/ciutat/1/delete'),
-            array('/admin/administracio/empresa/1/show'),
-            array('/admin/administracio/empresa/batch'),
-            array('/admin/administracio/empresa/1/delete'),
+
             array('/admin/administracio/usuari/1/show'),
             array('/admin/administracio/usuari/batch'),
             // Operators
@@ -186,11 +185,14 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vehicles/tacograf/delete'),
             array('/admin/vehicles/tacograf/show'),
             array('/admin/vehicles/tacograf/1/batch'),
-
             // Contacts
             array('/admin/contactes/missatge-contacte/create'),
             array('/admin/contactes/missatge-contacte/1/edit'),
             array('/admin/contactes/missatge-contacte/1/delete'),
+            // Enterprises
+            array('/admin/empreses/empresa/1/show'),
+            array('/admin/empreses/empresa/batch'),
+            array('/admin/empreses/empresa/1/delete'),
         );
     }
 

@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class EnterpriseAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Empresa';
-    protected $baseRoutePattern = 'administracio/empresa';
+    protected $baseRoutePattern = 'empreses/empresa';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

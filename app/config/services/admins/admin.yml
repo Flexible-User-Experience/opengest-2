@@ -69,11 +69,6 @@ services:
         arguments: [ ~, AppBundle\Entity\City, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.enterprise:
-        class: AppBundle\Admin\EnterpriseAdmin
-        arguments: [ ~, AppBundle\Entity\Enterprise, AppBundle:Admin\EnterpriseAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Empresa", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager", "@app.repositories_manager" ]
@@ -113,3 +108,9 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
+# Enterprise group
+    app.admin.enterprise:
+        class: AppBundle\Admin\EnterpriseAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise, AppBundle:Admin\EnterpriseAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Empresa", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
