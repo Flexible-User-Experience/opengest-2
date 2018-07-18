@@ -112,7 +112,7 @@ class EnterpriseGroupBounty extends AbstractBase
      *
      * @ORM\Column(type="float", nullable=true, options={"default"=0})
      */
-    private $extaNight;
+    private $extraNight;
 
     /**
      * @var float
@@ -412,19 +412,19 @@ class EnterpriseGroupBounty extends AbstractBase
     /**
      * @return float
      */
-    public function getExtaNight()
+    public function getExtraNight()
     {
-        return $this->extaNight;
+        return $this->extraNight;
     }
 
     /**
-     * @param float $extaNight
+     * @param float $extraNight
      *
      * @return $this
      */
-    public function setExtaNight($extaNight)
+    public function setExtraNight($extraNight)
     {
-        $this->extaNight = $extaNight;
+        $this->extraNight = $extraNight;
 
         return $this;
     }
