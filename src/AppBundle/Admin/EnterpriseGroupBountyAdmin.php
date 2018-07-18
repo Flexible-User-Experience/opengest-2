@@ -161,14 +161,14 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-//            ->add(
-//                'extraNight',
-//                null,
-//                array(
-//                    'label' => 'Nit extra',
-//                    'required' => true,
-//                )
-//            )
+            ->add(
+                'extraNight',
+                null,
+                array(
+                    'label' => 'Nit extra',
+                    'required' => true,
+                )
+            )
             ->add(
                 'diet',
                 null,
