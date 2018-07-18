@@ -319,7 +319,7 @@ AppBundle\Entity\EnterpriseGroupBounty:
         lunch: <numberBetween(10,30)>
         dinner: <numberBetween(10,30)>
         overNight: <numberBetween(10,30)>
-        extraNight  <numberBetween(10,30)>
+        extraNight:  <numberBetween(10,30)>
         diet: <numberBetween(10,30)>
         internationalLunch: <numberBetween(10,30)>
         internationalDinner: <numberBetween(10,30)>

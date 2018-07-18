@@ -29,27 +29,6 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-//enterprise* : Enterprise
-//group* : string
-
-//normalHour : float
-//extraNormalHour : float
-//extraExtraHour : float
-//roadNormalHour : float
-//roadExtraHour : float
-//awaitingHour : float
-//negativeHour : float
-//transferHour : float
-
-//lunch : float
-//dinner : float
-//overnight : float
-//extraNight : float
-//diet : float
-//internationalLunch : float
-//internationalDinner : float
-//truckOutput : float
-//carOutput : float
         ->with('Grup', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'enterprise',
@@ -76,7 +55,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Normal',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -84,7 +63,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Extra normal',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -92,7 +71,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Extra extra',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -100,7 +79,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Ctra. normal',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -108,7 +87,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Ctra. extra',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -116,7 +95,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Espera',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -124,7 +103,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Negativa',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -132,7 +111,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Transbordament',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->end()
@@ -142,7 +121,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Dinar',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -150,7 +129,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Sopar',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -158,7 +137,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Pernocta',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -166,7 +145,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nit extra',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -174,7 +153,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Dieta',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -182,7 +161,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Dinar int.',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -190,7 +169,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Sopar int.',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -198,7 +177,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Sortida camió',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -206,7 +185,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Sortida cotxe',
-                    'required' => true,
+                    'required' => false,
                 )
             )
         ->end()
@@ -224,6 +203,13 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Empresa',
+                )
+            )
+            ->add(
+                'group',
+                null,
+                array(
+                    'label' => 'Grup primes',
                 )
             )
         ;
@@ -244,6 +230,14 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                     'editable' => false,
                 )
             )
+            ->add(
+                'group',
+                null,
+                array(
+                    'label' => 'Grup primes',
+                    'editable' => true,
+                )
+            )
 
             ->add(
                 '_action',
@@ -252,6 +246,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
