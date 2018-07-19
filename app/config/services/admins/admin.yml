@@ -116,6 +116,6 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Empresa", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.enterprise_group_bounty:
         class: AppBundle\Admin\EnterpriseGroupBountyAdmin
-        arguments: [ ~, AppBundle\Entity\EnterpriseGroupBounty, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ ~, AppBundle\Entity\EnterpriseGroupBounty, AppBundle:Admin\EnterpriseGroupBountyAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Grup primes", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
