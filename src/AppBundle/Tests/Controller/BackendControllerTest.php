@@ -110,6 +110,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/empresa/list'),
             array('/admin/empreses/empresa/create'),
             array('/admin/empreses/empresa/1/edit'),
+            array('/admin/empreses/grup-primes/list'),
+            array('/admin/empreses/grup-primes/create'),
+            array('/admin/empreses/grup-primes/1/edit'),
+            array('/admin/empreses/grup-primes/1/delete'),
         );
     }
 
@@ -193,6 +197,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/empresa/1/show'),
             array('/admin/empreses/empresa/batch'),
             array('/admin/empreses/empresa/1/delete'),
+            array('/admin/empreses/grup-primes/1/show'),
+            array('/admin/empreses/grup-primes/batch'),
         );
     }
 
