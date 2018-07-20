@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -216,12 +217,32 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
+        $queryBuilder
+            ->andWhere($queryBuilder->getRootAliases()[0].'enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
         $listMapper
-
             ->add(
                 'enterprise',
                 null,
