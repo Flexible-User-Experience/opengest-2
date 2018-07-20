@@ -51,7 +51,7 @@ class Vehicle extends AbstractBase
     /**
      * @var VehicleCategory
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="vehicle")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="vehicles")
      * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
      */
     private $category;

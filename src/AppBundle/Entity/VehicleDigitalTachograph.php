@@ -47,7 +47,7 @@ class VehicleDigitalTachograph extends AbstractBase
      */
 
     /**
-     * @return Operator
+     * @return Vehicle
      */
     public function getVehicle()
     {
@@ -55,7 +55,7 @@ class VehicleDigitalTachograph extends AbstractBase
     }
 
     /**
-     * @param Operator $vehicle
+     * @param Vehicle $vehicle
      *
      * @return $this
      */
