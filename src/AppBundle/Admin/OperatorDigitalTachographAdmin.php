@@ -84,6 +84,14 @@ class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
                     'label' => 'Operador',
                 )
             )
+            ->add(
+                'createdAt',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'Data creació',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
         ;
     }
 
