@@ -255,7 +255,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 'group',
                 null,
                 array(
-                    'label' => 'Grup primes',
+                    'label' => 'Grup prima',
                     'editable' => true,
                 )
             )
