@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -16,8 +17,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Primes';
-    protected $baseRoutePattern = 'empreses/grup-primes';
+    protected $classnameLabel = 'Prima';
+    protected $baseRoutePattern = 'empreses/grup-prima';
     protected $datagridValues = array(
         '_sort_by' => 'group',
         '_sort_order' => 'asc',
@@ -37,7 +38,12 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Empresa',
                     'required' => true,
-                    'class' => 'AppBundle:Enterprise',
+                    'class' => Enterprise::class,
+                    'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
+                    //TODO Hide this field
+                    'attr' => array(
+                        'hidden' => true,
+                    ),
                 )
             )
 
@@ -210,7 +216,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 'group',
                 null,
                 array(
-                    'label' => 'Grup primes',
+                    'label' => 'Grup prima',
                 )
             )
         ;
@@ -243,14 +249,6 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                    'editable' => false,
-                )
-            )
             ->add(
                 'group',
                 null,

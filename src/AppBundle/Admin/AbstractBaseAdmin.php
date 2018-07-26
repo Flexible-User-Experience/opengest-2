@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\User;
 use AppBundle\Manager\RepositoriesManager;
 use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -297,5 +298,13 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected function getUserLogedEnterprise()
     {
         return $this->ts->getToken()->getUser()->getDefaultEnterprise();
+    }
+
+    /**
+     * @return User
+     */
+    protected function getUser()
+    {
+        return $this->ts->getToken()->getUser();
     }
 }
