@@ -228,6 +228,7 @@ AppBundle\Entity\Operator:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+    enterpriseGroupBounty: <numberBetween(1,5)>
 
 # OperatorChekingType
 AppBundle\Entity\OperatorCheckingType:
@@ -350,6 +351,7 @@ AppBundle\Entity\EnterpriseGroupBounty:
     enterpriseGroupBounty{1,,5}:
         enterprise: @enterprise<numberBetween(1,10)>
         group: <word()>
+        operators: <numberBetween(1,10)>
         normalHour: <numberBetween(10,30)>
         extraNormalHour: <numberBetween(10,30)>
         extraExtraHour: <numberBetween(10,30)>
