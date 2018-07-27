@@ -110,7 +110,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/empresa/list'),
             array('/admin/empreses/empresa/create'),
             array('/admin/empreses/empresa/1/edit'),
-            array('/admin/empreses/grup-primes/list'),
+            array('/admin/empreses/grup-prima/list'),
             array('/admin/empreses/grup-prima/create'),
             array('/admin/empreses/grup-prima/1/edit'),
             array('/admin/empreses/grup-prima/1/delete'),
