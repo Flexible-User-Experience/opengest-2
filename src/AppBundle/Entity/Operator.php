@@ -410,6 +410,13 @@ class Operator extends AbstractBase
     private $operatorDigitalTachographs;
 
     /**
+     * @var EnterpriseGroupBounty
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseGroupBounty", inversedBy="operators")
+     */
+    private $enterpriseGroupBounty;
+
+    /**
      * Methods.
      */
 
@@ -1489,6 +1496,26 @@ class Operator extends AbstractBase
         if ($this->operatorDigitalTachographs->contains($digitalTachograph)) {
             $this->operatorDigitalTachographs->removeElement($digitalTachograph);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return EnterpriseGroupBounty
+     */
+    public function getEnterpriseGroupBounty()
+    {
+        return $this->enterpriseGroupBounty;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounty
+     *
+     * @return $this
+     */
+    public function setEnterpriseGroupBounty($enterpriseGroupBounty)
+    {
+        $this->enterpriseGroupBounty = $enterpriseGroupBounty;
 
         return $this;
     }

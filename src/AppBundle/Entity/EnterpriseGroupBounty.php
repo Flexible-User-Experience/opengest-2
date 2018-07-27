@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,6 +30,13 @@ class EnterpriseGroupBounty extends AbstractBase
      * @ORM\Column(type="string", name="group_name")
      */
     private $group;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Operator", mappedBy="enterpriseGroupBounty")
+     */
+    private $operators;
 
     /**
      * @var float
@@ -150,6 +158,14 @@ class EnterpriseGroupBounty extends AbstractBase
     private $carOutput = 0.0;
 
     /**
+     * Methods.
+     */
+    public function __construct()
+    {
+        $this->operators = new ArrayCollection();
+    }
+
+    /**
      * @return Enterprise
      */
     public function getEnterprise()
@@ -185,6 +201,55 @@ class EnterpriseGroupBounty extends AbstractBase
     public function setGroup($group)
     {
         $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOperators()
+    {
+        return $this->operators;
+    }
+
+    /**
+     * @param ArrayCollection $operators
+     *
+     * @return $this
+     */
+    public function setOperators($operators)
+    {
+        $this->operators = $operators;
+
+        return $this;
+    }
+
+    /**
+     * @param $operator
+     *
+     * @return $this
+     */
+    public function addOperator($operator)
+    {
+        if (!$this->operators->contains($operator)) {
+            $this->operators->add($operator);
+            $operator->setEnterpriseGourpBounty($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $operator
+     *
+     * @return $this
+     */
+    public function removeOperator($operator)
+    {
+        if ($this->operators->contains($operator)) {
+            $this->operators->remove($operator);
+        }
 
         return $this;
     }
