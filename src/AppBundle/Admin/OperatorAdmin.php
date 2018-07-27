@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\EnterpriseGroupBounty;
 use AppBundle\Entity\Operator;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -9,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -168,6 +170,16 @@ class OperatorAdmin extends AbstractBaseAdmin
                     )
                 ->end()
                 ->with('Controls', $this->getFormMdSuccessBoxArray(3))
+                    ->add(
+                        'enterpriseGroupBounty',
+                        EntityType::class,
+                        array(
+                            'class' => EnterpriseGroupBounty::class,
+                            'label' => 'Grup prima',
+                            'required' => true,
+                            'query_builder' => $this->rm->getOperatorRepository()->
+                        )
+                    )
                     ->add(
                         'brithDate',
                         DatePickerType::class,
