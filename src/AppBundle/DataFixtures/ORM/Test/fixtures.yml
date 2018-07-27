@@ -34,7 +34,7 @@ AppBundle\Entity\Service:
 # Work
 AppBundle\Entity\Work:
   work1:
-    service: @service*
+    service: '@service*'
     name: my title
     date: <dateTimeThisMonth()>
     shortDescription: <sentence()>
@@ -44,7 +44,7 @@ AppBundle\Entity\Work:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
   work2:
-    service: @service*
+    service: '@service*'
     name: <name()>
     date: <dateTimeThisMonth()>
     shortDescription: <sentence()>
@@ -63,7 +63,7 @@ AppBundle\Entity\WorkImage:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    work: @work<numberBetween(1,2)>
+    work: '@work<numberBetween(1,2)>'
 
 # VehicleCategory
 AppBundle\Entity\VehicleCategory:
@@ -84,8 +84,8 @@ AppBundle\Entity\VehicleCategory:
 AppBundle\Entity\Vehicle:
   vehicle1:
     vehicleRegistrationNumber: <bothify('######?')>
-    category: @vehicleCategory1
-    enterprise: @enterprise1
+    category: '@vehicleCategory1'
+    enterprise: '@enterprise1'
     name: my title
     position: 1
     shortDescription: <sentence()>
@@ -98,8 +98,8 @@ AppBundle\Entity\Vehicle:
     enabled: true
   vehicle2:
     vehicleRegistrationNumber: <bothify('######?')>
-    category: @vehicleCategory2
-    enterprise: @enterprise<numberBetween(1,2)>
+    category: '@vehicleCategory2'
+    enterprise: '@enterprise<numberBetween(1,2)>'
     name: <name()>
     position: 2
     shortDescription: <sentence()>
@@ -145,7 +145,7 @@ AppBundle\Entity\City:
   city{1..2}:
     name: <city()>
     postalCode: <postcode()>
-    province: @province*
+    province: '@province*'
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -157,7 +157,7 @@ AppBundle\Entity\Enterprise:
     taxIdentificationNumber: A43030287
     businessName: <company()>
     address: <streetAddress()>
-    city: @city*
+    city: '@city*'
     phone1: <phoneNumber()>
     phone2: <phoneNumber()>
     phone3: <phoneNumber()>
@@ -167,13 +167,13 @@ AppBundle\Entity\Enterprise:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    users: [ @admin ]
+    users: [ '@admin' ]
   enterprise2:
     name: <company()>
     taxIdentificationNumber: <bothify('######?')>
     businessName: <company()>
     address: <streetAddress()>
-    city: @city*
+    city: '@city*'
     phone1: <phoneNumber()>
     phone2: <phoneNumber()>
     phone3: <phoneNumber()>
@@ -183,7 +183,7 @@ AppBundle\Entity\Enterprise:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    users: [ @admin ]
+    users: [ '@admin' ]
 
 # Operator
 AppBundle\Entity\Operator:
@@ -196,9 +196,9 @@ AppBundle\Entity\Operator:
     surname1: <firstName()>
     surname2: <firstName()>
     address: <address()>
-    city: @city*
+    city: '@city*'
     email: <safeEmail()>
-    enterprise: @enterprise*
+    enterprise: '@enterprise<numberBetween(1,2)>'
     enterpriseMobile: <phoneNumber()>
     ownPhone: <phoneNumber()>
     ownMobile: <phoneNumber()>
@@ -217,7 +217,7 @@ AppBundle\Entity\Operator:
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
-    enterpriseGroupBounty: <numberBetween(1,2)>
+    enterpriseGroupBounty: '@enterpriseGroupBounty<numberBetween(1,2)>'
 
 
 # OperatorChekingType
@@ -232,8 +232,8 @@ AppBundle\Entity\OperatorCheckingType:
 # OperatorChecking
 AppBundle\Entity\OperatorChecking:
   operatorChecking{1..2}:
-    operator: @operator<numberBetween(1,2)>
-    type: @checkingType*
+    operator: '@operator<numberBetween(1,2)>'
+    type: '@checkingType*'
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -252,8 +252,8 @@ AppBundle\Entity\OperatorAbsenceType:
 # OperatorAbsenceType
 AppBundle\Entity\OperatorAbsence:
   operatorAbsence{1..2}:
-    operator: @operator<numberBetween(1,2)>
-    type: @absenceType<numberBetween(1,2)>
+    operator: '@operator<numberBetween(1,2)>'
+    type: '@absenceType<numberBetween(1,2)>'
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -271,8 +271,8 @@ AppBundle\Entity\VehicleCheckingType:
 # VehicleChecking
 AppBundle\Entity\VehicleChecking:
   vehicleChecking{1..2}:
-    vehicle: @vehicle1
-    type: @vehicleCheckingType<numberBetween(1,2)>
+    vehicle: '@vehicle1'
+    type: '@vehicleCheckingType<numberBetween(1,2)>'
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -287,7 +287,7 @@ AppBundle\Entity\User:
         email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
-        defaultEnterprise: @enterprise1
+        defaultEnterprise: '@enterprise1'
         mainImage: <numberBetween(1,2)>.jpg
         enabled: true
         roles:
@@ -296,21 +296,20 @@ AppBundle\Entity\User:
 # OperatorDigitalTachograph
 AppBundle\Entity\OperatorDigitalTachograph:
     operatorDigitalTachograph{1..2}:
-        operator: @operator<numberBetween(1,2)>
+        operator: '@operator<numberBetween(1,2)>'
         uploadedFileName: <word()>
 
 # VehicleDigitalTachograph
 AppBundle\Entity\VehicleDigitalTachograph:
     vehicleDigitalTachograph{1..2}:
-        vehicle: @vehicle<numberBetween(1,2)>
+        vehicle: '@vehicle<numberBetween(1,2)>'
         uploadedFileName: <word()>
 
 # EnterpriseGroupBounty
 AppBundle\Entity\EnterpriseGroupBounty:
     enterpriseGroupBounty{1,,2}:
-        enterprise: @enterprise<numberBetween(1,2)>
+        enterprise: '@enterprise<numberBetween(1,2)>'
         group: <word()>
-        operators: <numberBetween(1,2)>
         normalHour: <numberBetween(10,30)>
         extraNormalHour: <numberBetween(10,30)>
         extraExtraHour: <numberBetween(10,30)>
