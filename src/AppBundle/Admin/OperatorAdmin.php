@@ -512,6 +512,14 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enterprise_mobile',
+                null,
+                array(
+                    'label' => 'Mòbil empresa',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
