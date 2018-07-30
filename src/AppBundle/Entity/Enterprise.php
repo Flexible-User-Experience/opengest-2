@@ -552,6 +552,13 @@ class Enterprise extends AbstractBase
     private $enterpriseGroupBounties;
 
     /**
+     * @var EnterpriseTransferAccount
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount")
+     */
+    private $transferAccount;
+
+    /**
      * Methods.
      */
 
@@ -1957,6 +1964,26 @@ class Enterprise extends AbstractBase
         if ($this->enterpriseGroupBounties->contains($enterpriseGroupBounty)) {
             $this->enterpriseGroupBounties->removeElement($enterpriseGroupBounty);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return EnterpriseTransferAccount
+     */
+    public function getTransferAccount()
+    {
+        return $this->transferAccount;
+    }
+
+    /**
+     * @param EnterpriseTransferAccount $transferAccount
+     *
+     * @return $this
+     */
+    public function setTransferAccount($transferAccount)
+    {
+        $this->transferAccount = $transferAccount;
 
         return $this;
     }
