@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
@@ -13,12 +12,12 @@ use Sonata\AdminBundle\Route\RouteCollection;
  *
  * @category Admin
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author   Rubèn Hierro <info@rubenhierro.com>
  */
-class CityAdmin extends AbstractBaseAdmin
+class PartnerClassAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Ciutat';
-    protected $baseRoutePattern = 'administracio/ciutat';
+    protected $classnameLabel = 'Tercers';
+    protected $baseRoutePattern = 'tercers/classe';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
@@ -41,39 +40,14 @@ class CityAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'postalCode',
-                null,
-                array(
-                    'label' => 'Codi postal',
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'name',
+                    null,
+                    array(
+                        'label' => 'Nom',
+                    )
                 )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
-                'province',
-                null,
-                array(
-                    'label' => 'Província',
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'Actiu',
-                    'required' => false,
-                )
-            )
             ->end()
         ;
     }
@@ -85,31 +59,10 @@ class CityAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'postalCode',
-                null,
-                array(
-                    'label' => 'Codi postal',
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
-                )
-            )
-            ->add(
-                'province',
-                null,
-                array(
-                    'label' => 'Província',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
                 )
             )
         ;
@@ -123,38 +76,10 @@ class CityAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'postalCode',
-                null,
-                array(
-                    'label' => 'Codi Postal',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'province',
-                null,
-                array(
-                    'label' => 'Província',
-                    'editable' => true,
-                    'associated_property' => 'name',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'province')),
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
                     'editable' => true,
                 )
             )
@@ -165,7 +90,6 @@ class CityAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-//                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )

@@ -52,6 +52,8 @@ sonata_admin:
                 icon: "<i class='fa fa-users'></i>"
             Vehicles:
                 icon: "<i class='fa fa-truck'></i>"
+            Tercers:
+                icon: "<i class='fa fa-user'></i>"
             Empreses:
                 icon: "<i class='fa fa-building'></i>"
             Administracio:

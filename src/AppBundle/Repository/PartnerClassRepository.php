@@ -5,10 +5,10 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class EnterpriseTransferAccountRepository.
+ * Class PartnerClassRepository.
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseTransferAccountRepository extends EntityRepository
+class PartnerClassRepository extends EntityRepository
 {
 }
