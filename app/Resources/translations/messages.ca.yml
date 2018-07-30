@@ -47,4 +47,6 @@ Tacògrafs_create: Crear
 Tacògrafs_delete: Esborrar
 Prima_list: Grup prima
 Prima_create: Crear
-Prima_delete: Esborrar
+Compte Bancari_list: Compte Bancari
+Compte Bancari_create: Crear
+Compte Bancari_delete: Esborrar
