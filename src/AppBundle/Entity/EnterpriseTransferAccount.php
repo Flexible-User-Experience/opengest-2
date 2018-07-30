@@ -238,6 +238,6 @@ class EnterpriseTransferAccount extends AbstractBase
 
     public function __toString()
     {
-        return $this->accountNumber ? $this->accountNumber : '---';
+        return $this->id ? $this->getName() : '---';
     }
 }
