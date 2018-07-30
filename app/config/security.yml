@@ -42,6 +42,7 @@ security:
             - ROLE_APP_ADMIN_CITY_CREATE
             - ROLE_APP_ADMIN_CITY_DELETE
             - ROLE_APP_ADMIN_USER_ALL
+            - ROLE_APP_ADMIN_PARTNER_CLASS_ALL
         ROLE_CMS:
             - ROLE_USER
             - ROLE_SONATA_CMS
