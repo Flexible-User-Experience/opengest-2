@@ -339,3 +339,8 @@ AppBundle\Entity\EnterpriseTransferAccount:
       officeNumber : <numerify('##')>
       controlDigit : <numerify('##')>
       accountNumber : <bankAccountNumber()>
+
+# PartnerClass
+AppBundle\Entity\PartnerClass:
+    partnerClass{1,2}:
+        name: <word()>
