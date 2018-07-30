@@ -177,7 +177,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                             'class' => EnterpriseGroupBounty::class,
                             'label' => 'Grup prima',
                             'required' => true,
-                            'query_builder' => $this->rm->getOperatorRepository()->
+                            'query_builder' => $this->rm,
                         )
                     )
                     ->add(
