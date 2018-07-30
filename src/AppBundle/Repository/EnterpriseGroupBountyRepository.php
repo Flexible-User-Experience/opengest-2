@@ -49,7 +49,7 @@ class EnterpriseGroupBountyRepository extends EntityRepository
      */
     public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
     {
-        return $this->getEnabledSortedByNameBQ()
+        return $this->getEnabledSortedByNameQB()
             ->andWhere('e.enterprise = :enterprise')
             ->setParameter('enterprise', $enterprise)
         ;

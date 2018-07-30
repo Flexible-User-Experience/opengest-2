@@ -118,7 +118,7 @@ class RepositoriesManager
         $this->userRepository = $userRepository;
         $this->operatorRepository = $operatorRepository;
         $this->enterpriseRepository = $enterpriseRepository;
-        $this->enterpriseGroupBountytRepository = $enterpriseGroupBountyRepository;
+        $this->enterpriseGroupBountyRepository = $enterpriseGroupBountyRepository;
         $this->operatorCheckingRepository = $operatorCheckingRepository;
         $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
         $this->operatorAbsenceTypeRepository = $operatorAbsenceTypeRepository;
@@ -173,7 +173,7 @@ class RepositoriesManager
      */
     public function getEnterpriseGroupBountyRepository()
     {
-        return $this->getEnterpriseGroupBountyRepository();
+        return $this->enterpriseGroupBountyRepository;
     }
 
     /**
