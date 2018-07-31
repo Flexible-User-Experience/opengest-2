@@ -113,6 +113,11 @@ services:
         arguments: [ ~, AppBundle\Entity\PartnerClass, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Classe", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.partner_type:
+        class: AppBundle\Admin\PartnerTypeAdmin
+        arguments: [ ~, AppBundle\Entity\PartnerType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
 # Enterprise group
