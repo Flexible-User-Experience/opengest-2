@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class PartnerClassAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tercers';
+    protected $classnameLabel = 'Tercers classe';
     protected $baseRoutePattern = 'tercers/classe';
     protected $datagridValues = array(
         '_sort_by' => 'name',

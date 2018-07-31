@@ -51,6 +51,6 @@ Prima_delete: Esborrar
 Compte Bancari_list: Compte Bancari
 Compte Bancari_create: Crear
 Compte Bancari_delete: Esborrar
-Tercers_list: Tercers
-Tercers_create: Crear
-Tercers_delete: Esborrar
+Tercers classe_list: Tercers
+Tercers classe_create: Crear
+Tercers classe_delete: Esborrar
