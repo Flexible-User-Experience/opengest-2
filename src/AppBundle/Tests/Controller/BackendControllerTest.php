@@ -118,9 +118,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/compte-bancari/1/edit'),
             array('/admin/empreses/compte-bancari/1/delete'),
             // Partners
-            array('/admin/empreses/tercers/classe/create'),
-            array('/admin/empreses/tercers/classe/1/edit'),
-            array('/admin/empreses/tercers/classe/1/delete'),
+            array('/admin/tercers/classe/create'),
+            array('/admin/tercers/classe/1/edit'),
+            array('/admin/tercers/classe/1/delete'),
         );
     }
 
@@ -209,8 +209,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/compte-bancari/1/show'),
             array('/admin/empreses/compte-bancari/batch'),
             // Partners
-            array('/admin/empreses/tercers/classe/1/show'),
-            array('/admin/empreses/tercers/classe/batch'),
+            array('/admin/tercers/classe/1/show'),
+            array('/admin/tercers/classe/batch'),
         );
     }
 
