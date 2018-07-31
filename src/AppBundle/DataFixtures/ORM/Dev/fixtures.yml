@@ -387,7 +387,7 @@ AppBundle\Entity\PartnerClass:
         name: <word()>
 
 # PartnerType
-AppBundle\Entity\PartnerClass:
+AppBundle\Entity\PartnerType:
     partnerClass{1,5}:
         name: <word()>
         description: <sentence()>
