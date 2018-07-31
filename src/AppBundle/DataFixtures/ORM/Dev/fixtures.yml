@@ -348,7 +348,7 @@ AppBundle\Entity\VehicleDigitalTachograph:
 
 # EnterpriseGroupBounty
 AppBundle\Entity\EnterpriseGroupBounty:
-    enterpriseGroupBounty{1,,5}:
+    enterpriseGroupBounty{1..5}:
         enterprise: '@enterprise<numberBetween(1,10)>'
         group: <word()>
         normalHour: <numberBetween(10,30)>
@@ -371,24 +371,24 @@ AppBundle\Entity\EnterpriseGroupBounty:
 
 # EnterpriseTransferAccount
 AppBundle\Entity\EnterpriseTransferAccount:
-    enterpriseTransferAccount{1,5}:
+    enterpriseTransferAccount{1..5}:
         enterprise : '@enterprise<numberBetween(1,10)>'
-        name : <word()>
-        iban : <iban('ES')>
-        swift : <swiftBicNumber()>
-        bankCode : <numerify('####')>
-        officeNumber : <numerify('##')>
-        controlDigit : <numerify('##')>
-        accountNumber : <bankAccountNumber()>
+        name: <word()>
+        iban: <iban('ES')>
+        swift: <swiftBicNumber()>
+        bankCode: <numerify('####')>
+        officeNumber: <numerify('##')>
+        controlDigit: <numerify('##')>
+        accountNumber: <bankAccountNumber()>
 
 # PartnerClass
 AppBundle\Entity\PartnerClass:
-    partnerClass{1,5}:
+    partnerClass{1..5}:
         name: <word()>
 
 # PartnerType
 AppBundle\Entity\PartnerType:
-    partnerClass{1,5}:
+    partnerType{1..5}:
         name: <word()>
-        description: <sentence()>
+        description: <sentence(6)>
         account: <word()>
