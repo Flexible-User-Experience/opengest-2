@@ -54,7 +54,7 @@ class Partner extends AbstractBase
     /**
      * @var EnterpriseTransferAccount
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount")
      */
     private $transferAccount;
 
@@ -68,7 +68,7 @@ class Partner extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $mainAddress;
 
@@ -82,7 +82,7 @@ class Partner extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $secondaryAddress;
 

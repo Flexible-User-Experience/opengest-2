@@ -108,6 +108,11 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Partner group
+    app.admin.partner:
+        class: AppBundle\Admin\PartnerAdmin
+        arguments: [ ~, AppBundle\Entity\Partner, AppBundle:Admin\PartnerAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tercer", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_class:
         class: AppBundle\Admin\PartnerClassAdmin
         arguments: [ ~, AppBundle\Entity\PartnerClass, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
