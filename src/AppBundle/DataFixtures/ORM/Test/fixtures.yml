@@ -344,3 +344,10 @@ AppBundle\Entity\EnterpriseTransferAccount:
 AppBundle\Entity\PartnerClass:
     partnerClass{1,2}:
         name: <word()>
+
+# PartnerType
+AppBundle\Entity\PartnerClass:
+    partnerClass{1,2}:
+        name: <word()>
+        description: <sentence()>
+        account: <word()>
