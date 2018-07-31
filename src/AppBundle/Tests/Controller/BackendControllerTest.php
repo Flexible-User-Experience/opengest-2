@@ -124,6 +124,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/tipus/create'),
             array('/admin/tercers/tipus/1/edit'),
             array('/admin/tercers/tipus/1/delete'),
+            array('/admin/tercers/tercer/create'),
+            array('/admin/tercers/tercer/1/edit'),
+            array('/admin/tercers/tercer/1/delete'),
         );
     }
 
@@ -216,6 +219,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/classe/batch'),
             array('/admin/tercers/tipus/1/show'),
             array('/admin/tercers/tipus/batch'),
+            array('/admin/tercers/tercer/1/show'),
+            array('/admin/tercers/tercer/batch'),
         );
     }
 
