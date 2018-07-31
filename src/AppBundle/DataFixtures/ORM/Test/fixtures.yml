@@ -351,3 +351,40 @@ AppBundle\Entity\PartnerType:
         name: <word()>
         description: <sentence(6)>
         account: <word()>
+
+# Partner
+AppBundle\Entity\Partner:
+    partner{1..2}:
+      cifNif: <randomNumber(8)>
+      name: <company()>
+      enterprise: '@enterprise<numberBetween(1,2)>'
+      class: '@partnerClass<numberBetween(1,2)>'
+      type: '@partnerType<numberBetween(1,2)>'
+      transferAccount: '@enterpriseTransferAccount<numberBetween(1,2)>'
+      notes: <text(200)>
+      mainAddress: <address()>
+      mainCity: '@city<numberBetween(1,2)>'
+      secondaryAddress: <address()>
+      secondaryCity: '@city<numberBetween(1,2)>'
+      phoneNumber1: <phoneNumber()>
+      phoneNumber2: <phoneNumber()>
+      phoneNumber3: <phoneNumber()>
+      phoneNumber4: <phoneNumber()>
+      phoneNumber5: <phoneNumber()>
+      faxNumber1: <phoneNumber()>
+      faxNumber2: <phoneNumber()>
+      email: <email()>
+      www: <domainName()>
+      discount: <numberBetween(1,100)>
+      code: <numerify('####')>
+      providerReference: <word()>
+      reference: <word()>
+      ivaTaxFree: <boolean()>
+      iban: <iban('ES')>
+      swift: <swiftBicNumber()>
+      bankCode: <numerify('####')>
+      officeNumber: <numerify('##')>
+      controlDigit: <numerify('##')>
+      accountNumber: <bankAccountNumber()>
+
+
