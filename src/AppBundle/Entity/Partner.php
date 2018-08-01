@@ -33,28 +33,28 @@ class Partner extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="partners")
      */
     private $enterprise;
 
     /**
      * @var PartnerClass
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerClass")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerClass", inversedBy="partners")
      */
     private $class;
 
     /**
      * @var PartnerType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerType", inversedBy="partners")
      */
     private $type;
 
     /**
      * @var EnterpriseTransferAccount
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", inversedBy="partners")
      */
     private $transferAccount;
 
@@ -75,7 +75,7 @@ class Partner extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", inversedBy="partners")
      */
     private $mainCity;
 
@@ -89,7 +89,7 @@ class Partner extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", inversedBy="partners")
      */
     private $secondaryCity;
 
