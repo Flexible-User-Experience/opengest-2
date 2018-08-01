@@ -75,7 +75,7 @@ class Partner extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
      */
     private $mainCity;
 
@@ -89,7 +89,7 @@ class Partner extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
      */
     private $secondaryCity;
 
