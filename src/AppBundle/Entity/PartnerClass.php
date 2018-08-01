@@ -24,6 +24,10 @@ class PartnerClass extends AbstractBase
     private $name;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return string
      */
     public function getName()
@@ -42,10 +46,6 @@ class PartnerClass extends AbstractBase
 
         return $this;
     }
-
-    /**
-     * Methods.
-     */
 
     /**
      * @return string

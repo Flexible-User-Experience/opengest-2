@@ -234,7 +234,7 @@ class EnterpriseGroupBounty extends AbstractBase
     {
         if (!$this->operators->contains($operator)) {
             $this->operators->add($operator);
-            $operator->setEnterpriseGourpBounty($this);
+            $operator->setEnterpriseGroupBounty($this);
         }
 
         return $this;

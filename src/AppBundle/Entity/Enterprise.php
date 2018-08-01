@@ -552,11 +552,11 @@ class Enterprise extends AbstractBase
     private $enterpriseGroupBounties;
 
     /**
-     * @var EnterpriseTransferAccount
+     * @var ArrayCollection
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $transferAccount;
+    private $enterpriseTransferAccounts;
 
     /**
      * Methods.
@@ -569,6 +569,7 @@ class Enterprise extends AbstractBase
     {
         $this->users = new ArrayCollection();
         $this->enterpriseGroupBounties = new ArrayCollection();
+        $this->enterpriseTransferAccounts = new ArrayCollection();
     }
 
     /**
@@ -1969,21 +1970,50 @@ class Enterprise extends AbstractBase
     }
 
     /**
-     * @return EnterpriseTransferAccount
+     * @return ArrayCollection
      */
-    public function getTransferAccount()
+    public function getEnterpriseTransferAccounts()
     {
-        return $this->transferAccount;
+        return $this->enterpriseTransferAccounts;
     }
 
     /**
-     * @param EnterpriseTransferAccount $transferAccount
+     * @param ArrayCollection $enterpriseTransferAccounts
      *
      * @return $this
      */
-    public function setTransferAccount($transferAccount)
+    public function setEnterpriseTransferAccounts($enterpriseTransferAccounts)
     {
-        $this->transferAccount = $transferAccount;
+        $this->enterpriseTransferAccounts = $enterpriseTransferAccounts;
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseTransferAccount $enterpriseTransferAccount
+     *
+     * @return $this
+     */
+    public function addEnterpriseTransferAccount($enterpriseTransferAccount)
+    {
+        if (!$this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
+            $this->enterpriseTransferAccounts->add($enterpriseTransferAccount);
+            $enterpriseTransferAccount->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseTransferAccount $enterpriseTransferAccount
+     *
+     * @return $this
+     */
+    public function removeEnterpriseTransferAccount($enterpriseTransferAccount)
+    {
+        if ($this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
+            $this->enterpriseTransferAccounts->remove($enterpriseTransferAccount);
+        }
 
         return $this;
     }

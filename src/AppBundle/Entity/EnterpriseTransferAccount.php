@@ -19,7 +19,7 @@ class EnterpriseTransferAccount extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseTransferAccounts")
      */
     private $enterprise;
 
