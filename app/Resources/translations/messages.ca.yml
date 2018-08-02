@@ -42,3 +42,21 @@ Absències_delete: Esborrar
 Vehicles_list: Vehicles
 Vehicles_create: Crear
 Vehicles_delete: Esborrar
+Tacògrafs_list: Tacògrafs
+Tacògrafs_create: Crear
+Tacògrafs_delete: Esborrar
+Prima_list: Grup prima
+Prima_create: Crear
+Prima_delete: Esborrar
+Compte Bancari_list: Compte Bancari
+Compte Bancari_create: Crear
+Compte Bancari_delete: Esborrar
+Tercers classe_list: Tercers classe
+Tercers classe_create: Crear
+Tercers classe_delete: Esborrar
+Tercers tipus_list: Tercers tipus
+Tercers tipus_create: Crear
+Tercers tipus_delete: Esborrar
+Tercers_list: Tercers
+Tercers_create: Crear
+Tercers_delete: Esborrar

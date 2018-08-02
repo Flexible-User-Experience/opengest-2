@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\User;
 use AppBundle\Manager\RepositoriesManager;
 use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -277,10 +278,33 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
+     * @return string
+     */
+    protected function getDownloadDigitalTachographButton()
+    {
+        if ($this->getSubject() && !is_null($this->getSubject()->getUploadedFileName())) {
+            $url = $this->routeGenerator->generateUrl($this, 'download', array('id' => $this->getSubject()->getId()));
+            $result = '<a class="btn btn-warning" role="button" href="'.$url.'"><i class="fa fa-download"></i> Descarregar arxiu</a>';
+
+            return $result;
+        }
+
+        return '';
+    }
+
+    /**
      * @return Enterprise
      */
     protected function getUserLogedEnterprise()
     {
         return $this->ts->getToken()->getUser()->getDefaultEnterprise();
+    }
+
+    /**
+     * @return User
+     */
+    protected function getUser()
+    {
+        return $this->ts->getToken()->getUser();
     }
 }

@@ -29,6 +29,16 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Operator
+    app.enterprise_repository:
+        class: AppBundle\Repository\EnterpriseRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Enterprise
+    app.enterprise_group_bounty_repository:
+        class: AppBundle\Repository\EnterpriseGroupBountyRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:EnterpriseGroupBounty
     app.operator_checking_repository:
         class: AppBundle\Repository\OperatorCheckingRepository
         factory: [ "@doctrine", getRepository ]
@@ -71,6 +81,8 @@ services:
             - "@app.vehicle_category_repository"
             - "@app.user_repository"
             - "@app.operator_repository"
+            - "@app.enterprise_repository"
+            - "@app.enterprise_group_bounty_repository"
             - "@app.operator_checking_repository"
             - "@app.operator_checking_type_repository"
             - "@app.operator_absence_type_repository"

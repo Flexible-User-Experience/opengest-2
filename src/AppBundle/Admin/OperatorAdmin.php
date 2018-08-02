@@ -2,12 +2,15 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\EnterpriseGroupBounty;
 use AppBundle\Entity\Operator;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -21,7 +24,7 @@ class OperatorAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Operadors';
     protected $baseRoutePattern = 'operaris/operador';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'surname1',
         '_sort_order' => 'asc',
     );
 
@@ -168,8 +171,18 @@ class OperatorAdmin extends AbstractBaseAdmin
                 ->end()
                 ->with('Controls', $this->getFormMdSuccessBoxArray(3))
                     ->add(
+                        'enterpriseGroupBounty',
+                        EntityType::class,
+                        array(
+                            'class' => EnterpriseGroupBounty::class,
+                            'label' => 'Grup prima',
+                            'required' => true,
+                            'query_builder' => $this->rm->getEnterpriseGroupBountyRepository()->getEnabledSortedByNameQB(),
+                        )
+                    )
+                    ->add(
                         'brithDate',
-                        'sonata_type_date_picker',
+                        DatePickerType::class,
                         array(
                             'label' => 'Data de naixement',
                             'format' => 'd/M/y',
@@ -178,7 +191,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                     )
                     ->add(
                         'registrationDate',
-                        'sonata_type_date_picker',
+                        DatePickerType::class,
                         array(
                             'label' => 'Data de registre',
                             'format' => 'd/M/y',
@@ -408,6 +421,13 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enterpriseGroupBounty',
+                null,
+                array(
+                    'label' => 'Grup prima',
+                )
+            )
+            ->add(
                 'email',
                 null,
                 array(
@@ -488,6 +508,14 @@ class OperatorAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Segon cognom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'enterprise_mobile',
+                null,
+                array(
+                    'label' => 'Mòbil empresa',
                     'editable' => true,
                 )
             )

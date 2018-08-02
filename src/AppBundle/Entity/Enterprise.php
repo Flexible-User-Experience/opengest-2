@@ -545,6 +545,20 @@ class Enterprise extends AbstractBase
     private $users;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseGroupBounty", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $enterpriseGroupBounties;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $enterpriseTransferAccounts;
+
+    /**
      * Methods.
      */
 
@@ -554,6 +568,8 @@ class Enterprise extends AbstractBase
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->enterpriseGroupBounties = new ArrayCollection();
+        $this->enterpriseTransferAccounts = new ArrayCollection();
     }
 
     /**
@@ -1900,6 +1916,104 @@ class Enterprise extends AbstractBase
     {
         $user->removeEnterprise($this);
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEnterpriseGroupBounties()
+    {
+        return $this->enterpriseGroupBounties;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounties
+     *
+     * @return $this
+     */
+    public function setEnterpriseGroupBounties($enterpriseGroupBounties)
+    {
+        $this->enterpriseGroupBounties = $enterpriseGroupBounties;
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounty
+     *
+     * @return $this
+     */
+    public function addEnterpriseGroupBounty(EnterpriseGroupBounty $enterpriseGroupBounty)
+    {
+        if (!$this->enterpriseGroupBounties->contains($enterpriseGroupBounty)) {
+            $this->enterpriseGroupBounties->add($enterpriseGroupBounty);
+            $enterpriseGroupBounty->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $enterpriseGroupBounty
+     *
+     * @return $this
+     */
+    public function removeEnterpriseGroupBounty(EnterpriseGroupBounty $enterpriseGroupBounty)
+    {
+        if ($this->enterpriseGroupBounties->contains($enterpriseGroupBounty)) {
+            $this->enterpriseGroupBounties->removeElement($enterpriseGroupBounty);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEnterpriseTransferAccounts()
+    {
+        return $this->enterpriseTransferAccounts;
+    }
+
+    /**
+     * @param ArrayCollection $enterpriseTransferAccounts
+     *
+     * @return $this
+     */
+    public function setEnterpriseTransferAccounts($enterpriseTransferAccounts)
+    {
+        $this->enterpriseTransferAccounts = $enterpriseTransferAccounts;
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseTransferAccount $enterpriseTransferAccount
+     *
+     * @return $this
+     */
+    public function addEnterpriseTransferAccount($enterpriseTransferAccount)
+    {
+        if (!$this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
+            $this->enterpriseTransferAccounts->add($enterpriseTransferAccount);
+            $enterpriseTransferAccount->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseTransferAccount $enterpriseTransferAccount
+     *
+     * @return $this
+     */
+    public function removeEnterpriseTransferAccount($enterpriseTransferAccount)
+    {
+        if ($this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
+            $this->enterpriseTransferAccounts->remove($enterpriseTransferAccount);
+        }
 
         return $this;
     }

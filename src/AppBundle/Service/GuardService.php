@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
+use AppBundle\Entity\Partner;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
@@ -114,5 +115,15 @@ class GuardService
     public function isOwnVehicleChecking(VehicleChecking $vc)
     {
         return $this->acs->isGranted('ROLE_ADMIN') || $vc->getVehicle()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+    }
+
+    /**
+     * @param Partner $partner
+     *
+     * @return bool
+     */
+    public function isOwnPartner(Partner $partner)
+    {
+        return $this->acs->isGranted('ROLE_ADMIN') || $partner->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
     }
 }

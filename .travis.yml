@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 7.1
+  - 7.2
 
 before_script:
   - mysql -e 'create database IF NOT EXISTS symfony;'
@@ -17,8 +17,8 @@ script:
 
 notifications:
   email:
-    - wiglesias83@gmail.com
     - david@flux.cat
+    - info@rubenhierro.com
 
 branches:
   only:

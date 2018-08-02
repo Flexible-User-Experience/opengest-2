@@ -7,23 +7,23 @@ imports:
     - { resource: services/repositories.yml }
 
 framework:
+    validation:      { enable_annotations: true }
     translator:      { fallbacks: [ "%locale%" ] }
+    default_locale:  "%locale%"
     secret:          "%secret%"
-    router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
-    templating:
-        engines: [ "twig" ]
-    default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
+    fragments:       ~
+    router:
+        resource:            "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    templating:
+        engines: [ "twig" ]
     session:
         name:        OG2SESSID
         handler_id:  ~
-    fragments:       ~
     http_method_override: true
 
 # Twig
@@ -38,7 +38,7 @@ twig:
         google_analytics_account: "%google_analytics_account%"
         main_brand_title:         "%project_web_title%"
         admin_brand_title:        "%project_admin_title%"
-        admin_tag_version:        "v1.0.48"
+        admin_tag_version:        "v1.1.01"
 
 # Assetic
 assetic:
@@ -124,4 +124,4 @@ knp_paginator:
 # Recaptcha
 beelab_recaptcha2:
     site_key: "%recaptcha_site_key%"
-    secret: "%recaptcha_secret%"
+    secret:   "%recaptcha_secret%"

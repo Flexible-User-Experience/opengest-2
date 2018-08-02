@@ -72,9 +72,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/list'),
             array('/admin/administracio/ciutat/create'),
             array('/admin/administracio/ciutat/1/edit'),
-            array('/admin/administracio/empresa/list'),
-            array('/admin/administracio/empresa/create'),
-            array('/admin/administracio/empresa/1/edit'),
             array('/admin/administracio/usuari/list'),
             array('/admin/administracio/usuari/create'),
             array('/admin/administracio/usuari/1/edit'),
@@ -95,14 +92,41 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/absencia/list'),
             array('/admin/operaris/absencia/create'),
             array('/admin/operaris/absencia/1/edit'),
+            array('/admin/operaris/tacograf/list'),
+            array('/admin/operaris/tacograf/create'),
+            array('/admin/operaris/tacograf/1/edit'),
             // Vehicles
             array('/admin/vehicles/vehicle/list'),
             array('/admin/vehicles/vehicle/create'),
             array('/admin/vehicles/vehicle/1/edit'),
+            array('/admin/vehicles/tacograf/list'),
+            array('/admin/vehicles/tacograf/create'),
+            array('/admin/vehicles/tacograf/1/edit'),
             // Contacts
             array('/admin/contactes/missatge-contacte/list'),
             array('/admin/contactes/missatge-contacte/1/show'),
             array('/admin/contactes/missatge-contacte/1/answer'),
+            // Enterprises
+            array('/admin/empreses/empresa/list'),
+            array('/admin/empreses/empresa/create'),
+            array('/admin/empreses/empresa/1/edit'),
+            array('/admin/empreses/grup-prima/list'),
+            array('/admin/empreses/grup-prima/create'),
+            array('/admin/empreses/grup-prima/1/edit'),
+            array('/admin/empreses/grup-prima/1/delete'),
+            array('/admin/empreses/compte-bancari/create'),
+            array('/admin/empreses/compte-bancari/1/edit'),
+            array('/admin/empreses/compte-bancari/1/delete'),
+            // Partners
+            array('/admin/tercers/classe/create'),
+            array('/admin/tercers/classe/1/edit'),
+            array('/admin/tercers/classe/1/delete'),
+            array('/admin/tercers/tipus/create'),
+            array('/admin/tercers/tipus/1/edit'),
+            array('/admin/tercers/tipus/1/delete'),
+            array('/admin/tercers/tercer/create'),
+            array('/admin/tercers/tercer/1/edit'),
+            array('/admin/tercers/tercer/1/delete'),
         );
     }
 
@@ -152,9 +176,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/1/show'),
             array('/admin/administracio/ciutat/batch'),
             array('/admin/administracio/ciutat/1/delete'),
-            array('/admin/administracio/empresa/1/show'),
-            array('/admin/administracio/empresa/batch'),
-            array('/admin/administracio/empresa/1/delete'),
+
             array('/admin/administracio/usuari/1/show'),
             array('/admin/administracio/usuari/batch'),
             // Operators
@@ -173,10 +195,32 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/absencia/1/delete'),
             array('/admin/operaris/absencia/1/show'),
             array('/admin/operaris/absencia/batch'),
+            array('/admin/operaris/tacograf/1/delete'),
+            array('/admin/operaris/tacograf/1/show'),
+            array('/admin/operaris/tacograf/batch'),
+            // Vehicles
+            array('/admin/vehicles/tacograf/delete'),
+            array('/admin/vehicles/tacograf/show'),
+            array('/admin/vehicles/tacograf/1/batch'),
             // Contacts
             array('/admin/contactes/missatge-contacte/create'),
             array('/admin/contactes/missatge-contacte/1/edit'),
             array('/admin/contactes/missatge-contacte/1/delete'),
+            // Enterprises
+            array('/admin/empreses/empresa/1/show'),
+            array('/admin/empreses/empresa/batch'),
+            array('/admin/empreses/empresa/1/delete'),
+            array('/admin/empreses/grup-prima/1/show'),
+            array('/admin/empreses/grup-prima/batch'),
+            array('/admin/empreses/compte-bancari/1/show'),
+            array('/admin/empreses/compte-bancari/batch'),
+            // Partners
+            array('/admin/tercers/classe/1/show'),
+            array('/admin/tercers/classe/batch'),
+            array('/admin/tercers/tipus/1/show'),
+            array('/admin/tercers/tipus/batch'),
+            array('/admin/tercers/tercer/1/show'),
+            array('/admin/tercers/tercer/batch'),
         );
     }
 
