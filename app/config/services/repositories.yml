@@ -74,6 +74,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:VehicleChecking
+    app.partner_repository:
+        class: AppBundle\Repository\PartnerRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Partner
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -90,3 +95,4 @@ services:
             - "@app.vehicle_repository"
             - "@app.vehicle_checking_type_repository"
             - "@app.vehicle_checking_repository"
+            - "@app.partner_repository"
