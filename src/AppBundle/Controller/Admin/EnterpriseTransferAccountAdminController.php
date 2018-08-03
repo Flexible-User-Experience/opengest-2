@@ -28,7 +28,7 @@ class EnterpriseTransferAccountAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
-        $guardService = $this->get('app.guard_service');
+        $guardService = $this->container->get('app.guard_service');
         if (!$guardService->isOwnEnterprise($enterpriseTransferAccount->getEnterprise())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
