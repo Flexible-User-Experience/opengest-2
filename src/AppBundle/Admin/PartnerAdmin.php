@@ -59,7 +59,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => Enterprise::class,
                         'required' => true,
                         'label' => 'Empresa',
-                        'querybuilder' => $this->rm->getPartnerRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                        'query_builder' => $this->rm->getPartnerRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                     )
                 )
                 ->add(
@@ -69,7 +69,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => PartnerClass::class,
                         'label' => 'Classe',
                         'required' => true,
-    //                    'querybuilder' => TODO
+                        'query_builder' => $this->rm->getPartnerClassRepository()->getEnabledSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -79,7 +79,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => PartnerType::class,
                         'label' => 'Tipus',
                         'required' => true,
-    //                    'querybuilder' => TODO
+                        'query_builder' => $this->rm->getPartnerTypeRepository()->getEnabledSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -88,7 +88,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => EnterpriseTransferAccount::class,
                         'label' => 'Compte bancari empresa',
-    //                    'querybuilder' => TODO
+                        'query_builder' => $this->rm->getEnterpriseTransferAccountRepository()->getEnabledSortedByNameQB(),
                     )
                 )
                 ->add(
