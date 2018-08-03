@@ -7,6 +7,7 @@ use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\EnterpriseTransferAccount;
 use AppBundle\Entity\PartnerClass;
 use AppBundle\Entity\PartnerType;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -328,6 +329,26 @@ class PartnerAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return $queryBuilder;
+        }
+        $queryBuilder
+            ->andWhere($queryBuilder->getRootAliases()[0].'enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+        ;
+
+        return $queryBuilder;
     }
 
     /**
