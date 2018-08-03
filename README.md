@@ -1,4 +1,4 @@
-opengest2
-=========
+Opengest 2
+==========
 
-A Symfony project created on March 5, 2017, 8:07 pm.
+A custom Symfony2 webapp ERP to manage [Grúas Romaní](https://www.gruasromani.com) business and website.
