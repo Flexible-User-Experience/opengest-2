@@ -9,7 +9,9 @@ use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
 use AppBundle\Repository\OperatorCheckingTypeRepository;
 use AppBundle\Repository\OperatorRepository;
+use AppBundle\Repository\PartnerClassRepository;
 use AppBundle\Repository\PartnerRepository;
+use AppBundle\Repository\PartnerTypeRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
@@ -97,6 +99,15 @@ class RepositoriesManager
     private $partnerRepository;
 
     /**
+     * @var PartnerClassRepository
+     */
+    private $parterClassRepository;
+    /**
+     * @var PartnerTypeRepository
+     */
+    private $parterTypeRepository;
+
+    /**
      * Methods.
      */
 
@@ -117,8 +128,10 @@ class RepositoriesManager
      * @param VehicleCheckingTypeRepository   $vehicleCheckingTypeRepository
      * @param VehicleCheckingRepository       $vehicleCheckingRepository
      * @param PartnerRepository               $partnerRepository
+     * @param PartnerClassRepository          $partnerClassRepository
+     * @param PartnerTypeRepository           $partnerTyperRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository, PartnerClassRepository $partnerClassRepository, PartnerTypeRepository $partnerTypeRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -246,5 +259,21 @@ class RepositoriesManager
     public function getPartnerRepository()
     {
         return $this->partnerRepository;
+    }
+
+    /**
+     * @return PartnerClassRepository
+     */
+    public function getParterClassRepository()
+    {
+        return $this->parterClassRepository;
+    }
+
+    /**
+     * @return PartnerTypeRepository
+     */
+    public function getParterTypeRepository()
+    {
+        return $this->parterTypeRepository;
     }
 }
