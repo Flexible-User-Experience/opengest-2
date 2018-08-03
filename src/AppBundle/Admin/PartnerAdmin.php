@@ -88,6 +88,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => EnterpriseTransferAccount::class,
                         'label' => 'Compte bancari empresa',
+                        'required' => true,
                         'query_builder' => $this->rm->getEnterpriseTransferAccountRepository()->getEnabledSortedByNameQB(),
                     )
                 )
@@ -115,6 +116,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => City::class,
                         'label' => 'Ciutat principal',
                         'required' => true,
+                        'query_builder' => $this->rm->getCityRepository()->getCitiesSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -132,6 +134,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => City::class,
                         'label' => 'Ciutat secundària',
                         'required' => true,
+                        'query_builder' => $this->rm->getCityRepository()->getCitiesSortedByNameQB(),
                     )
                 )
                 ->add(
