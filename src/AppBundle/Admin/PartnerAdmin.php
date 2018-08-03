@@ -97,6 +97,10 @@ class PartnerAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'Notes',
+                        'attr' => array(
+                            'style' => 'resize: vertical',
+                            'rows' => 7,
+                        ),
                     )
                 )
             ->end()

@@ -206,13 +206,6 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'group',
                 null,
                 array(

@@ -72,6 +72,13 @@ class PartnerTypeAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                )
+            )
+            ->add(
                 'account',
                 null,
                 array(
