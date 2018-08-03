@@ -94,6 +94,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:PartnerType
+    app.city_repository:
+        class: AppBundle\Repository\CityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:City
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -114,3 +119,4 @@ services:
             - "@app.partner_repository"
             - "@app.partner_class_repository"
             - "@app.partner_type_repository"
+            - "@app.city_repository"

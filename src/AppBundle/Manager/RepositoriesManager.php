@@ -2,6 +2,7 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\CityRepository;
 use AppBundle\Repository\EnterpriseGroupBountyRepository;
 use AppBundle\Repository\EnterpriseRepository;
 use AppBundle\Repository\EnterpriseTransferAccountRepository;
@@ -108,10 +109,16 @@ class RepositoriesManager
      * @var PartnerClassRepository
      */
     private $partnerClassRepository;
+
     /**
      * @var PartnerTypeRepository
      */
     private $partnerTypeRepository;
+
+    /**
+     * @var CityRepository
+     */
+    private $cityRepository;
 
     /**
      * Methods.
@@ -137,8 +144,9 @@ class RepositoriesManager
      * @param PartnerRepository                   $partnerRepository
      * @param PartnerClassRepository              $partnerClassRepository
      * @param PartnerTypeRepository               $partnerTypeRepository
+     * @param CityRepository                      $cityRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository, PartnerClassRepository $partnerClassRepository, PartnerTypeRepository $partnerTypeRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository, PartnerClassRepository $partnerClassRepository, PartnerTypeRepository $partnerTypeRepository, CityRepository $cityRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -157,6 +165,7 @@ class RepositoriesManager
         $this->partnerRepository = $partnerRepository;
         $this->partnerClassRepository = $partnerClassRepository;
         $this->partnerTypeRepository = $partnerTypeRepository;
+        $this->cityRepository = $cityRepository;
     }
 
     /**
@@ -285,6 +294,14 @@ class RepositoriesManager
     public function getPartnerClassRepository()
     {
         return $this->partnerClassRepository;
+    }
+
+    /**
+     * @return CityRepository
+     */
+    public function getCityRepository()
+    {
+        return $this->cityRepository;
     }
 
     /**
