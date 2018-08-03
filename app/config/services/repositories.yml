@@ -39,6 +39,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:EnterpriseGroupBounty
+    app.enterprise_transfer_account_repository:
+        class: AppBundle\Repository\EnterpriseTransferAccountRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:EnterpriseTransferAccount
     app.operator_checking_repository:
         class: AppBundle\Repository\OperatorCheckingRepository
         factory: [ "@doctrine", getRepository ]
@@ -98,6 +103,7 @@ services:
             - "@app.operator_repository"
             - "@app.enterprise_repository"
             - "@app.enterprise_group_bounty_repository"
+            - "@app.enterprise_transfer_account_repository"
             - "@app.operator_checking_repository"
             - "@app.operator_checking_type_repository"
             - "@app.operator_absence_type_repository"
