@@ -43,11 +43,13 @@ class VehicleDigitalTachographAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
+        /** @var VehicleDigitalTachograph $vehicleDigitalTachograph */
         $vehicleDigitalTachograph = $this->admin->getObject($id);
         if (!$vehicleDigitalTachograph) {
             throw $this->createNotFoundException(sprintf('unable to find the object wirh id %s', $id));
         }
 
+        /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
         if (!$guardService->isOwnVehicle($vehicleDigitalTachograph->getVehicle())) {
             throw $this->createNotFoundException('forbidden object wirh id %s', $id);
