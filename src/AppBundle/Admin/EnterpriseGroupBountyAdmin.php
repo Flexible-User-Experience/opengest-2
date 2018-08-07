@@ -36,17 +36,15 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 'enterprise',
                 EntityType::class,
                 array(
-                    'label' => 'Empresa',
-                    'required' => true,
                     'class' => Enterprise::class,
+                    'label' => false,
+                    'required' => true,
                     'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                    //TODO Hide this field
                     'attr' => array(
-                        'hidden' => true,
+                        'style' => 'display:none;',
                     ),
                 )
             )
-
             ->add(
                 'group',
                 null,
