@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
+use AppBundle\Security\AbstractVoter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,10 +29,7 @@ class EnterpriseAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
-        $guardService = $this->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($enterprise)) {
-            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
-        }
+        $this->denyAccessUnlessGranted(AbstractVoter::ATTRIBUTES, $enterprise);
 
         return parent::editAction($id);
     }
