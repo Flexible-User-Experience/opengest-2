@@ -82,7 +82,7 @@ services:
 # Guard
     app.guard_service:
         class: AppBundle\Service\GuardService
-        arguments: [ "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ "@security.token_storage", "@security.authorization_checker", "@app.voter_enterprise" ]
 # Form
     app.form_user_default_enterprise:
         class: AppBundle\Form\UserDefaultEnterpriseForm
@@ -92,4 +92,3 @@ services:
 # Voters
     app.voter_enterprise:
         class: AppBundle\Security\EnterpriseVoter
-        arguments: [ "@app.guard_service" ]

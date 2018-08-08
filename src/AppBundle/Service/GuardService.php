@@ -6,9 +6,9 @@ use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\OperatorChecking;
 use AppBundle\Entity\Partner;
-use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
+use AppBundle\Security\EnterpriseVoter;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
@@ -30,6 +30,11 @@ class GuardService
     private $acs;
 
     /**
+     * @var EnterpriseVoter
+     */
+    private $evs;
+
+    /**
      * Methods.
      */
 
@@ -38,11 +43,13 @@ class GuardService
      *
      * @param TokenStorage         $tss
      * @param AuthorizationChecker $acs
+     * @param EnterpriseVoter      $evs
      */
-    public function __construct(TokenStorage $tss, AuthorizationChecker $acs)
+    public function __construct(TokenStorage $tss, AuthorizationChecker $acs, EnterpriseVoter $evs)
     {
         $this->tss = $tss;
         $this->acs = $acs;
+        $this->evs = $evs;
     }
 
     /**
@@ -84,17 +91,7 @@ class GuardService
             return true;
         }
 
-        $result = false;
-        $users = $enterprise->getUsers();
-        /** @var User $user */
-        foreach ($users as $user) {
-            if ($user->getId() == $this->tss->getToken()->getUser()->getId()) {
-                $result = true;
-                break;
-            }
-        }
-
-        return $result;
+        return $this->evs->isGranted($this->tss->getToken(), $enterprise);
     }
 
     /**

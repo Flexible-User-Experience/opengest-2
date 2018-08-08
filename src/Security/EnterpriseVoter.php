@@ -4,8 +4,8 @@ namespace AppBundle\Security;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
-use AppBundle\Service\GuardService;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  * Class EnterpriseVoter.
@@ -13,18 +13,16 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class EnterpriseVoter extends AbstractVoter
 {
     /**
-     * @var GuardService
-     */
-    private $gs;
-
-    /**
-     * EnterpriseVoter constructor.
+     * @param TokenInterface $token
+     * @param Enterprise     $enterprise
      *
-     * @param GuardService $gs
+     * @return bool
      */
-    public function __construct(GuardService $gs)
+    public function isGranted(TokenInterface $token, Enterprise $enterprise)
     {
-        $this->gs = $gs;
+        $vote = $this->vote($token, $enterprise, self::ATTRIBUTES);
+
+        return VoterInterface::ACCESS_GRANTED == $vote;
     }
 
     /**
@@ -57,16 +55,26 @@ class EnterpriseVoter extends AbstractVoter
 
     /**
      * @param User|null|object $user
-     * @param Enterprise       $subject
+     * @param Enterprise       $enterprise
      *
      * @return bool
      */
-    private function isOwner(?User $user, Enterprise $subject)
+    private function isOwner(?User $user, Enterprise $enterprise)
     {
         if (!$user) {
             return false;
         }
 
-        return $this->gs->isOwnEnterprise($subject);
+        $result = false;
+        $users = $enterprise->getUsers();
+        /** @var User $user */
+        foreach ($users as $user) {
+            if ($user->getId() == $user->getId()) {
+                $result = true;
+                break;
+            }
+        }
+
+        return $result;
     }
 }
