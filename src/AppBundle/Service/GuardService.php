@@ -8,6 +8,7 @@ use AppBundle\Entity\OperatorChecking;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
+use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Security\AbstractVoter;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
@@ -44,7 +45,7 @@ class GuardService
      */
     public function isOwnOperator(Operator $operator)
     {
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             return true;
         }
 
@@ -58,7 +59,7 @@ class GuardService
      */
     public function isOwnOperatorCheking(OperatorChecking $oc)
     {
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             return true;
         }
 
@@ -72,7 +73,7 @@ class GuardService
      */
     public function isOwnEnterprise(Enterprise $enterprise)
     {
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             return true;
         }
 
@@ -86,7 +87,7 @@ class GuardService
      */
     public function isOwnVehicle(Vehicle $vehicle)
     {
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             return true;
         }
 
@@ -100,7 +101,7 @@ class GuardService
      */
     public function isOwnVehicleChecking(VehicleChecking $vc)
     {
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             return true;
         }
 
@@ -114,7 +115,7 @@ class GuardService
      */
     public function isOwnPartner(Partner $partner)
     {
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             return true;
         }
 
