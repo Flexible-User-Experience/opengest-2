@@ -5,26 +5,12 @@ namespace AppBundle\Security;
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  * Class EnterpriseVoter.
  */
 class EnterpriseVoter extends AbstractVoter
 {
-    /**
-     * @param TokenInterface $token
-     * @param Enterprise     $enterprise
-     *
-     * @return bool
-     */
-    public function isGranted(TokenInterface $token, Enterprise $enterprise)
-    {
-        $vote = $this->vote($token, $enterprise, self::ATTRIBUTES);
-
-        return VoterInterface::ACCESS_GRANTED == $vote;
-    }
-
     /**
      * @param string     $attribute
      * @param Enterprise $subject
@@ -67,7 +53,7 @@ class EnterpriseVoter extends AbstractVoter
 
         $result = false;
         $users = $enterprise->getUsers();
-        /* @var User $user */
+        /* @var User $enterpriseUser */
         foreach ($users as $enterpriseUser) {
             if ($user->getId() == $enterpriseUser->getId()) {
                 $result = true;
