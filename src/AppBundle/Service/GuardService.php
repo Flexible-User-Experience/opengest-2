@@ -8,7 +8,6 @@ use AppBundle\Entity\OperatorChecking;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
-use AppBundle\Security\AbstractVoter;
 use AppBundle\Security\EnterpriseVoter;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
@@ -44,13 +43,13 @@ class GuardService
      *
      * @param TokenStorage         $tss
      * @param AuthorizationChecker $acs
-//     * @param EnterpriseVoter      $evs
+     * @param EnterpriseVoter      $evs
      */
-    public function __construct(TokenStorage $tss, AuthorizationChecker $acs)
+    public function __construct(TokenStorage $tss, AuthorizationChecker $acs, EnterpriseVoter $evs)
     {
         $this->tss = $tss;
         $this->acs = $acs;
-//        $this->evs = $evs;
+        $this->evs = $evs;
     }
 
     /**
@@ -92,7 +91,7 @@ class GuardService
             return true;
         }
 
-        return $this->acs->isGranted(AbstractVoter::ATTRIBUTES, $enterprise);
+        return $this->evs->isGranted($this->tss->getToken(), $enterprise);
     }
 
     /**
