@@ -9,7 +9,6 @@ use AppBundle\Entity\Partner;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
 use AppBundle\Security\AbstractVoter;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
@@ -19,11 +18,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
  */
 class GuardService
 {
-    /**
-     * @var TokenStorage
-     */
-    private $tss;
-
     /**
      * @var AuthorizationChecker
      */
@@ -36,21 +30,11 @@ class GuardService
     /**
      * GuardService constructor.
      *
-     * @param TokenStorage         $tss
      * @param AuthorizationChecker $acs
      */
-    public function __construct(TokenStorage $tss, AuthorizationChecker $acs)
+    public function __construct(AuthorizationChecker $acs)
     {
-        $this->tss = $tss;
         $this->acs = $acs;
-    }
-
-    /**
-     * @return int
-     */
-    private function getDefaultEnterpriseId()
-    {
-        return $this->tss->getToken()->getUser()->getDefaultEnterprise()->getId();
     }
 
     /**
@@ -116,7 +100,6 @@ class GuardService
      */
     public function isOwnVehicleChecking(VehicleChecking $vc)
     {
-//        return $this->acs->isGranted('ROLE_ADMIN') || $vc->getVehicle()->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
         if ($this->acs->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -131,6 +114,10 @@ class GuardService
      */
     public function isOwnPartner(Partner $partner)
     {
-        return $this->acs->isGranted('ROLE_ADMIN') || $partner->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $this->acs->isGranted(AbstractVoter::ATTRIBUTES, $partner);
     }
 }
