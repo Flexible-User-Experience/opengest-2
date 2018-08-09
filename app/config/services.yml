@@ -106,7 +106,12 @@ services:
             - { name: security.voter }
         public: false
     app.voter_vehicle:
-        class: AppBundle\Security\OperatorCheckingVoter
+        class: AppBundle\Security\VehicleVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    app.voter_vehicle_checking:
+        class: AppBundle\Security\VehicleCheckingVoter
         tags:
             - { name: security.voter }
         public: false

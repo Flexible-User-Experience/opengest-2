@@ -2,7 +2,6 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\Operator;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Security\Traits\VoteOnAttributeTrait;
@@ -22,7 +21,7 @@ class VehicleVoter extends AbstractVoter
      */
     protected function supports($attribute, $subject)
     {
-        return $subject instanceof Operator && in_array($attribute, self::ATTRIBUTES);
+        return $subject instanceof Vehicle && in_array($attribute, self::ATTRIBUTES);
     }
 
     /**
