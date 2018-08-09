@@ -8,6 +8,7 @@ use AppBundle\Entity\OperatorChecking;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleChecking;
+use AppBundle\Security\AbstractVoter;
 use AppBundle\Security\EnterpriseVoter;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
@@ -91,7 +92,8 @@ class GuardService
             return true;
         }
 
-        return $this->evs->isGranted($this->tss->getToken(), $enterprise);
+//        return $this->evs->isGranted($this->tss->getToken(), $enterprise);
+        return $this->acs->isGranted(AbstractVoter::ATTRIBUTES, $enterprise);
     }
 
     /**
