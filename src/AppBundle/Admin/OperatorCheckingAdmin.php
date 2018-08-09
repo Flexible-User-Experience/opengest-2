@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -133,21 +134,17 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
             ->andWhere('op.enabled = :enabled')
             ->setParameter('enabled', true)
         ;
-
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
-            return $queryBuilder;
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere('op.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+            ;
         }
-
-        $queryBuilder
-            ->andWhere('op.enterprise = :enterprise')
-            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
-        ;
 
         return $queryBuilder;
     }

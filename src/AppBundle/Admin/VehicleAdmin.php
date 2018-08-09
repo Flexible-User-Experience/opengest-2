@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Vehicle;
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -201,13 +202,12 @@ class VehicleAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
-            return $queryBuilder;
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
         }
-        $queryBuilder
-            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-            ->setParameter('enterprise', $this->getUserLogedEnterprise())
-        ;
 
         return $queryBuilder;
     }
