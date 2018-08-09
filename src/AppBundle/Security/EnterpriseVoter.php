@@ -4,12 +4,15 @@ namespace AppBundle\Security;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
+use AppBundle\Security\Traits\VoteOnAttributeTrait;
 
 /**
  * Class EnterpriseVoter.
  */
 class EnterpriseVoter extends AbstractVoter
 {
+    use VoteOnAttributeTrait;
+
     /**
      * @param string     $attribute
      * @param Enterprise $subject
