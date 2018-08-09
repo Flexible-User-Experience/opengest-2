@@ -67,9 +67,9 @@ class EnterpriseVoter extends AbstractVoter
 
         $result = false;
         $users = $enterprise->getUsers();
-        /** @var User $user */
-        foreach ($users as $user) {
-            if ($user->getId() == $user->getId()) {
+        /* @var User $user */
+        foreach ($users as $enterpriseUser) {
+            if ($user->getId() == $enterpriseUser->getId()) {
                 $result = true;
                 break;
             }
