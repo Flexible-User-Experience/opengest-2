@@ -95,3 +95,8 @@ services:
         tags:
             - { name: security.voter }
         public: false
+    app.voter_operator:
+        class: AppBundle\Security\OperatorVoter
+        tags:
+            - { name: security.voter }
+        public: false

@@ -4,7 +4,6 @@ namespace AppBundle\Security;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
  * Class EnterpriseVoter.
@@ -20,23 +19,6 @@ class EnterpriseVoter extends AbstractVoter
     protected function supports($attribute, $subject)
     {
         return $subject instanceof Enterprise && in_array($attribute, self::ATTRIBUTES);
-    }
-
-    /**
-     * @param string         $attribute
-     * @param Enterprise     $subject
-     * @param TokenInterface $token
-     *
-     * @return bool
-     */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        switch ($attribute) {
-            case self::EDIT:
-                return $this->isOwner($token->getUser(), $subject);
-        }
-
-        throw new \LogicException('Invalid attribute: '.$attribute);
     }
 
     /**

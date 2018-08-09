@@ -143,6 +143,16 @@ class User extends BaseUser
     }
 
     /**
+     * Get session user logged enterprise.
+     *
+     * @return Enterprise
+     */
+    public function getLoggedEnterprise()
+    {
+        return $this->defaultEnterprise;
+    }
+
+    /**
      * @param Enterprise $defaultEnterprise
      *
      * @return User

@@ -60,7 +60,11 @@ class GuardService
      */
     public function isOwnOperator(Operator $operator)
     {
-        return $this->acs->isGranted('ROLE_ADMIN') || $operator->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $this->acs->isGranted(AbstractVoter::ATTRIBUTES, $operator);
     }
 
     /**

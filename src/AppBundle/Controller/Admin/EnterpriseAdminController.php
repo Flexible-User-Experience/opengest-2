@@ -30,7 +30,7 @@ class EnterpriseAdminController extends BaseAdminController
         /** GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
         if (!$guardService->isOwnEnterprise($enterprise)) {
-            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
+            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
         return parent::editAction($id);
