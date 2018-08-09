@@ -102,7 +102,12 @@ class GuardService
      */
     public function isOwnVehicle(Vehicle $vehicle)
     {
-        return $this->acs->isGranted('ROLE_ADMIN') || $vehicle->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+//        return $this->acs->isGranted('ROLE_ADMIN') || $vehicle->getEnterprise()->getId() == $this->getDefaultEnterpriseId() ? true : false;
+        if ($this->acs->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
+        return $this->acs->isGranted(AbstractVoter::ATTRIBUTES, $vehicle);
     }
 
     /**

@@ -105,3 +105,8 @@ services:
         tags:
             - { name: security.voter }
         public: false
+    app.voter_vehicle:
+        class: AppBundle\Security\OperatorCheckingVoter
+        tags:
+            - { name: security.voter }
+        public: false
