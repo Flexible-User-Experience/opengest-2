@@ -100,7 +100,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     {
         $collection
             ->remove('show')
-//            ->remove('delete')
             ->remove('batch');
     }
 
@@ -214,6 +213,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string $uploaderMapping
      *
      * @return string
+     * @throws \Twig\Error\Error
      */
     protected function getSmartHelper($attribute, $uploaderMapping)
     {
@@ -297,11 +297,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      */
     protected function getUserLogedEnterprise()
     {
-        return $this->ts->getToken()->getUser()->getDefaultEnterprise();
+        return $this->ts->getToken()->getUser()->getLoggedEnterprise();
     }
 
     /**
-     * @return User
+     * @return User|object
      */
     protected function getUser()
     {

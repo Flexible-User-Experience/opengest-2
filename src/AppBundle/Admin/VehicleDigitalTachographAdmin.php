@@ -104,9 +104,10 @@ class VehicleDigitalTachographAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.vehicle.enterprise = :enterprise')
+                ->join($queryBuilder->getRootAliases()[0].'.vehicle', 'v')
+                ->andWhere('v.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
