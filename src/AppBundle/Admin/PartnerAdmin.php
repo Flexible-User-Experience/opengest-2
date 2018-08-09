@@ -351,7 +351,7 @@ class PartnerAdmin extends AbstractBaseAdmin
             return $queryBuilder;
         }
         $queryBuilder
-            ->andWhere($queryBuilder->getRootAliases()[0].'enterprise = :enterprise')
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
             ->setParameter('enterprise', $this->getUserLogedEnterprise())
         ;
 
