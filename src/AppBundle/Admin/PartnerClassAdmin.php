@@ -69,7 +69,7 @@ class PartnerClassAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'partner.enterprise = :enterprise')
+                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }

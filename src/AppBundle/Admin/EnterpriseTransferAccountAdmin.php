@@ -140,7 +140,7 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'enterprise = :enterprise')
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
