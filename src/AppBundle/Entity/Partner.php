@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -236,8 +237,23 @@ class Partner extends AbstractBase
     private $accountNumber;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerOrder", mappedBy="partner")
+     */
+    private $orders;
+
+    /**
      * Methods.
      */
+
+    /**
+     * Partner constructor.
+     */
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -855,6 +871,45 @@ class Partner extends AbstractBase
     public function setAccountNumber($accountNumber)
     {
         $this->accountNumber = $accountNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param ArrayCollection $orders
+     *
+     * @return $this
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+
+        return $this;
+    }
+
+    public function addOrder(PartnerOrder $order)
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function remmoveOrder(PartnerOrder $order)
+    {
+        if ($this->orders->contains($order)) {
+            $this->orders->remove($order);
+        }
 
         return $this;
     }
