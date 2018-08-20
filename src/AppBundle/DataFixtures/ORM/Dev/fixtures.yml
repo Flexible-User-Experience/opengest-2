@@ -393,6 +393,13 @@ AppBundle\Entity\PartnerType:
         description: <sentence(6)>
         account: <word()>
 
+# PartnerOrders
+AppBundle\Entity\PartnerOrder:
+    partnerOrders{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        number: <<word()>
+        providerReference: <word()>
+
 # Partner
 AppBundle\Entity\Partner:
     partner{1..5}:
