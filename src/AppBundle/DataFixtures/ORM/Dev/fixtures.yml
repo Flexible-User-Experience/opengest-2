@@ -397,8 +397,17 @@ AppBundle\Entity\PartnerType:
 AppBundle\Entity\PartnerOrder:
     partnerOrders{1..5}:
         partner: '@partner<numberBetween(1,5)>'
-        number: <<word()>
+        number: <word()>
         providerReference: <word()>
+
+# PartnerBuildingSite
+AppBundle\Entity\PartnerBuildingSite:
+    partnerBuildigSite{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        name: <sentence(3)>
+        number: <word()>
+        address: <address()>
+        phone: <phoneNumber()>
 
 # Partner
 AppBundle\Entity\Partner:
