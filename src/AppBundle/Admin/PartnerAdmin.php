@@ -59,8 +59,11 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => Enterprise::class,
                         'required' => true,
-                        'label' => 'Empresa',
+                        'label' => false,
                         'query_builder' => $this->rm->getPartnerRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                        'attr' => array(
+                            'style' => 'display:none;',
+                        ),
                     )
                 )
                 ->add(
@@ -129,7 +132,6 @@ class PartnerAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'Adreça secundària',
-                        'required' => true,
                     )
                 )
                 ->add(
@@ -138,7 +140,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => City::class,
                         'label' => 'Ciutat secundària',
-                        'required' => true,
+                        'required' => false,
                         'query_builder' => $this->rm->getCityRepository()->getCitiesSortedByNameQB(),
                     )
                 )
