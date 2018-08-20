@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Partner.
@@ -146,6 +147,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
 
