@@ -60,7 +60,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => Enterprise::class,
                         'required' => true,
                         'label' => false,
-                        'query_builder' => $this->rm->getPartnerRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                        'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
                         'attr' => array(
                             'style' => 'display:none;',
                         ),

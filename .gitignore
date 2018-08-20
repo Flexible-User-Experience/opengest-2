@@ -52,6 +52,7 @@
 /web/css/
 /web/pdfs/
 !/web/pdfs/.gitkeep
+/web/app_test.php
 
 # Assets managed by Bower
 /web/assets/vendor/
