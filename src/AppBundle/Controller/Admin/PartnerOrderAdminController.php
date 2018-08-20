@@ -23,13 +23,13 @@ class PartnerOrderAdminController extends BaseAdminController
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Partner $partner */
-        $partner = $this->admin->getObject($id);
-        if (!$partner) {
+        $order = $this->admin->getObject($id);
+        if (!$order) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnPartner($partner)) {
+        if (!$guardService->isOwnPartner($order->getPartner())) {
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
