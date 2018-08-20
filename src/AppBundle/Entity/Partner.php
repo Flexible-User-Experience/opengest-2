@@ -242,6 +242,12 @@ class Partner extends AbstractBase
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerOrder", mappedBy="partner")
      */
     private $orders;
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerBuildingSite", mappedBy="partner")
+     */
+    private $buildingSites;
 
     /**
      * Methods.
@@ -253,6 +259,7 @@ class Partner extends AbstractBase
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->buildingSites = new ArrayCollection();
     }
 
     /**
@@ -895,6 +902,11 @@ class Partner extends AbstractBase
         return $this;
     }
 
+    /**
+     * @param PartnerOrder $order
+     *
+     * @return $this
+     */
     public function addOrder(PartnerOrder $order)
     {
         if (!$this->orders->contains($order)) {
@@ -905,10 +917,64 @@ class Partner extends AbstractBase
         return $this;
     }
 
+    /**
+     * @param PartnerOrder $order
+     *
+     * @return $this
+     */
     public function remmoveOrder(PartnerOrder $order)
     {
         if ($this->orders->contains($order)) {
             $this->orders->remove($order);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBuildingSites()
+    {
+        return $this->buildingSites;
+    }
+
+    /**
+     * @param ArrayCollection $buildingSites
+     *
+     * @return $this
+     */
+    public function setBuildingSites($buildingSites)
+    {
+        $this->buildingSites = $buildingSites;
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerBuildingSite $buildingSite
+     *
+     * @return $this
+     */
+    public function addBuildingSite(PartnerBuildingSite $buildingSite)
+    {
+        if (!$this->buildingSites->contains($buildingSite)) {
+            $this->buildingSites->add($buildingSite);
+            $buildingSite->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerBuildingSite $buildingSite
+     *
+     * @return $this
+     */
+    public function removeBuildingSite(PartnerBuildingSite $buildingSite)
+    {
+        if ($this->buildingSites->contains($buildingSite)) {
+            $this->buildingSites->remove($buildingSite);
         }
 
         return $this;
