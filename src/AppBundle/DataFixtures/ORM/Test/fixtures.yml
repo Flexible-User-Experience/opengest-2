@@ -380,7 +380,7 @@ AppBundle\Entity\Partner:
       phoneNumber5: <phoneNumber()>
       faxNumber1: <phoneNumber()>
       faxNumber2: <phoneNumber()>
-      email: <email()>
+      email: <safeEmail()>
       www: <domainName()>
       discount: <numberBetween(1,100)>
       code: <numerify('####')>
