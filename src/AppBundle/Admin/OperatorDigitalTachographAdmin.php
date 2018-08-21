@@ -106,7 +106,8 @@ class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.operator.enterprise = :enterprise')
+                ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+                ->andWhere('op.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
