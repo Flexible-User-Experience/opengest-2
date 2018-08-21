@@ -409,6 +409,18 @@ AppBundle\Entity\PartnerBuildingSite:
         address: <address()>
         phone: <phoneNumber()>
 
+# PartnerContact
+AppBundle\Entity\PartnerContact:
+    partnerContact{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        name: <sentence(3)>
+        care: <word()>
+        phone: <phoneNumber()>
+        mobile: <phoneNumber()>
+        fax: <phoneNumber()>
+        email: <safeEmail()>
+        notes: <text(200)>
+
 # Partner
 AppBundle\Entity\Partner:
     partner{1..5}:
