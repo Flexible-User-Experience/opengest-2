@@ -22,7 +22,16 @@ class PartnerContactAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Tercers contacte';
     protected $baseRoutePattern = 'tercers/contacte';
     protected $datagridValues = array(
-        '_sort_by' => 'partner',
+        '_sort_by' => array(
+            array(
+                'field' => 'partner.name',
+                'direction' => 'asc',
+                ),
+            array(
+                'field' => 'name',
+                'direction' => 'asc',
+                ),
+        ),
         '_sort_order' => 'asc',
     );
 
@@ -176,6 +185,8 @@ class PartnerContactAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder->AddOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC');
+
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->join($queryBuilder->getRootAliases()[0].'.partner', 'pa')
@@ -200,6 +211,10 @@ class PartnerContactAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Tercer',
                     'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'partner')),
                 )
             )
             ->add(

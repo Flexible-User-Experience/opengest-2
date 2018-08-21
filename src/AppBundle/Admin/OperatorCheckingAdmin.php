@@ -199,7 +199,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Tipus revisió',
-                    'editable' => true,
+                    'editable' => false,
                     'associated_property' => 'name',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
