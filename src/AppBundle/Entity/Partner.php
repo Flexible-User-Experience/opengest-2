@@ -250,6 +250,13 @@ class Partner extends AbstractBase
     private $buildingSites;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerContact", mappedBy="partner")
+     */
+    private $contacts;
+
+    /**
      * Methods.
      */
 
@@ -975,6 +982,55 @@ class Partner extends AbstractBase
     {
         if ($this->buildingSites->contains($buildingSite)) {
             $this->buildingSites->remove($buildingSite);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param ArrayCollection $contacts
+     *
+     * @return $this
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerContact $contact
+     *
+     * @return $this
+     */
+    public function addContact($contact)
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerContact $contact
+     *
+     * @return $this
+     */
+    public function removeContact($contact)
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->remove($contact);
         }
 
         return $this;
