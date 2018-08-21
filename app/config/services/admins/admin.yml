@@ -133,6 +133,11 @@ services:
         arguments: [ ~, AppBundle\Entity\PartnerBuildingSite, AppBundle:Admin\PartnerBuildingSiteAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Obres", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.partner_contact:
+        class: AppBundle\Admin\PartnerContactAdmin
+        arguments: [ ~, AppBundle\Entity\PartnerContact, AppBundle:Admin\PartnerContactAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Contacte", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
 # Enterprise group
