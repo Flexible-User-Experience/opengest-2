@@ -176,13 +176,15 @@ class PartnerContactAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        $queryBuilder->orderBy($queryBuilder->getRootAliases()[0].'.partner', 'DESC');
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
+            ->orderBy('p.name', 'ASC')
+        ;
         $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC');
 
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->join($queryBuilder->getRootAliases()[0].'.partner', 'pa')
-                ->andWhere('pa.enterprise = :enterprise')
+                ->andWhere('p.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
