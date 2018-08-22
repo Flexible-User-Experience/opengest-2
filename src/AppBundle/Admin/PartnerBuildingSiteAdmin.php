@@ -134,13 +134,12 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
-            ->orderBy('pa.name', 'ASC')
+            ->orderBy('p.name', 'ASC')
         ;
         $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'asc');
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->join($queryBuilder->getRootAliases()[0].'.partner', 'pa')
-                ->andWhere('pa.enterprise = :enterprise')
+                ->andWhere('p.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
