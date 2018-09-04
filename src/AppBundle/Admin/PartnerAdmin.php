@@ -7,6 +7,8 @@ use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\EnterpriseTransferAccount;
 use AppBundle\Entity\PartnerClass;
 use AppBundle\Entity\PartnerType;
+use AppBundle\Enum\UserRolesEnum;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -57,8 +59,11 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => Enterprise::class,
                         'required' => true,
-                        'label' => 'Empresa',
-    //                    'querybuilder' => TODO
+                        'label' => false,
+                        'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
+                        'attr' => array(
+                            'style' => 'display:none;',
+                        ),
                     )
                 )
                 ->add(
@@ -68,7 +73,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => PartnerClass::class,
                         'label' => 'Classe',
                         'required' => true,
-    //                    'querybuilder' => TODO
+                        'query_builder' => $this->rm->getPartnerClassRepository()->getEnabledSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -78,7 +83,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => PartnerType::class,
                         'label' => 'Tipus',
                         'required' => true,
-    //                    'querybuilder' => TODO
+                        'query_builder' => $this->rm->getPartnerTypeRepository()->getEnabledSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -87,7 +92,8 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => EnterpriseTransferAccount::class,
                         'label' => 'Compte bancari empresa',
-    //                    'querybuilder' => TODO
+                        'required' => true,
+                        'query_builder' => $this->rm->getEnterpriseTransferAccountRepository()->getEnabledSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -95,6 +101,10 @@ class PartnerAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'Notes',
+                        'attr' => array(
+                            'style' => 'resize: vertical',
+                            'rows' => 7,
+                        ),
                     )
                 )
             ->end()
@@ -114,6 +124,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => City::class,
                         'label' => 'Ciutat principal',
                         'required' => true,
+                        'query_builder' => $this->rm->getCityRepository()->getCitiesSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -121,7 +132,6 @@ class PartnerAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'Adreça secundària',
-                        'required' => true,
                     )
                 )
                 ->add(
@@ -130,7 +140,8 @@ class PartnerAdmin extends AbstractBaseAdmin
                     array(
                         'class' => City::class,
                         'label' => 'Ciutat secundària',
-                        'required' => true,
+                        'required' => false,
+                        'query_builder' => $this->rm->getCityRepository()->getCitiesSortedByNameQB(),
                     )
                 )
                 ->add(
@@ -328,6 +339,25 @@ class PartnerAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
+        }
+
+        return $queryBuilder;
     }
 
     /**

@@ -21,13 +21,13 @@ class OperatorDigitalTachographAdminController extends BaseAdminController
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var OperatorDigitalTachograph $tachograph */
-        $tachograph = $this->admin->getObject($id);
-        if (!$tachograph) {
+        $operatorDigitalTachograph = $this->admin->getObject($id);
+        if (!$operatorDigitalTachograph) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnOperator($tachograph->getOperator())) {
+        if (!$guardService->isOwnOperator($operatorDigitalTachograph->getOperator())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 

@@ -393,6 +393,34 @@ AppBundle\Entity\PartnerType:
         description: <sentence(6)>
         account: <word()>
 
+# PartnerOrders
+AppBundle\Entity\PartnerOrder:
+    partnerOrders{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        number: <word()>
+        providerReference: <word()>
+
+# PartnerBuildingSite
+AppBundle\Entity\PartnerBuildingSite:
+    partnerBuildigSite{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        name: <sentence(3)>
+        number: <word()>
+        address: <address()>
+        phone: <phoneNumber()>
+
+# PartnerContact
+AppBundle\Entity\PartnerContact:
+    partnerContact{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        name: <sentence(3)>
+        care: <word()>
+        phone: <phoneNumber()>
+        mobile: <phoneNumber()>
+        fax: <phoneNumber()>
+        email: <safeEmail()>
+        notes: <text(200)>
+
 # Partner
 AppBundle\Entity\Partner:
     partner{1..5}:
@@ -414,7 +442,7 @@ AppBundle\Entity\Partner:
       phoneNumber5: <phoneNumber()>
       faxNumber1: <phoneNumber()>
       faxNumber2: <phoneNumber()>
-      email: <email()>
+      email: <safeEmail()>
       www: <domainName()>
       discount: <numberBetween(1,100)>
       code: <numerify('####')>

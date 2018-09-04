@@ -39,6 +39,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:EnterpriseGroupBounty
+    app.enterprise_transfer_account_repository:
+        class: AppBundle\Repository\EnterpriseTransferAccountRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:EnterpriseTransferAccount
     app.operator_checking_repository:
         class: AppBundle\Repository\OperatorCheckingRepository
         factory: [ "@doctrine", getRepository ]
@@ -74,6 +79,26 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:VehicleChecking
+    app.partner_repository:
+        class: AppBundle\Repository\PartnerRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Partner
+    app.partner_class_repository:
+        class: AppBundle\Repository\PartnerClassRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:PartnerClass
+    app.partner_type_repository:
+        class: AppBundle\Repository\PartnerTypeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:PartnerType
+    app.city_repository:
+        class: AppBundle\Repository\CityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:City
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -83,6 +108,7 @@ services:
             - "@app.operator_repository"
             - "@app.enterprise_repository"
             - "@app.enterprise_group_bounty_repository"
+            - "@app.enterprise_transfer_account_repository"
             - "@app.operator_checking_repository"
             - "@app.operator_checking_type_repository"
             - "@app.operator_absence_type_repository"
@@ -90,3 +116,7 @@ services:
             - "@app.vehicle_repository"
             - "@app.vehicle_checking_type_repository"
             - "@app.vehicle_checking_repository"
+            - "@app.partner_repository"
+            - "@app.partner_class_repository"
+            - "@app.partner_type_repository"
+            - "@app.city_repository"

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -73,8 +74,19 @@ class EnterpriseTransferAccount extends AbstractBase
     private $accountNumber;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner", mappedBy="transferAccount")
+     */
+    private $partners;
+
+    /**
      * Methods.
      */
+    public function __construct()
+    {
+        $this->partners = new ArrayCollection();
+    }
 
     /**
      * @return Enterprise
@@ -236,6 +248,58 @@ class EnterpriseTransferAccount extends AbstractBase
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getPartners()
+    {
+        return $this->partners;
+    }
+
+    /**
+     * @param ArrayCollection $partners
+     *
+     * @return $this
+     */
+    public function setPartners($partners)
+    {
+        $this->partners = $partners;
+
+        return $this;
+    }
+
+    /**
+     * @param Partner $partner
+     *
+     * @return $this
+     */
+    public function addPartner($partner)
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners->add($partner);
+            $partner->setTransferAccount($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Partner $partner
+     *
+     * @return $this
+     */
+    public function removePartner($partner)
+    {
+        if ($this->partners->contains($partner)) {
+            $this->partners->remove($partner);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->id ? $this->getName() : '---';

@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Partner.
@@ -33,28 +35,28 @@ class Partner extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="partners")
      */
     private $enterprise;
 
     /**
      * @var PartnerClass
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerClass")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerClass", inversedBy="partners")
      */
     private $class;
 
     /**
      * @var PartnerType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerType", inversedBy="partners")
      */
     private $type;
 
     /**
      * @var EnterpriseTransferAccount
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", inversedBy="partners")
      */
     private $transferAccount;
 
@@ -146,6 +148,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
 
@@ -234,8 +237,37 @@ class Partner extends AbstractBase
     private $accountNumber;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerOrder", mappedBy="partner")
+     */
+    private $orders;
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerBuildingSite", mappedBy="partner")
+     */
+    private $buildingSites;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerContact", mappedBy="partner")
+     */
+    private $contacts;
+
+    /**
      * Methods.
      */
+
+    /**
+     * Partner constructor.
+     */
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+        $this->buildingSites = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -853,6 +885,153 @@ class Partner extends AbstractBase
     public function setAccountNumber($accountNumber)
     {
         $this->accountNumber = $accountNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param ArrayCollection $orders
+     *
+     * @return $this
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerOrder $order
+     *
+     * @return $this
+     */
+    public function addOrder(PartnerOrder $order)
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerOrder $order
+     *
+     * @return $this
+     */
+    public function remmoveOrder(PartnerOrder $order)
+    {
+        if ($this->orders->contains($order)) {
+            $this->orders->remove($order);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBuildingSites()
+    {
+        return $this->buildingSites;
+    }
+
+    /**
+     * @param ArrayCollection $buildingSites
+     *
+     * @return $this
+     */
+    public function setBuildingSites($buildingSites)
+    {
+        $this->buildingSites = $buildingSites;
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerBuildingSite $buildingSite
+     *
+     * @return $this
+     */
+    public function addBuildingSite(PartnerBuildingSite $buildingSite)
+    {
+        if (!$this->buildingSites->contains($buildingSite)) {
+            $this->buildingSites->add($buildingSite);
+            $buildingSite->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerBuildingSite $buildingSite
+     *
+     * @return $this
+     */
+    public function removeBuildingSite(PartnerBuildingSite $buildingSite)
+    {
+        if ($this->buildingSites->contains($buildingSite)) {
+            $this->buildingSites->remove($buildingSite);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param ArrayCollection $contacts
+     *
+     * @return $this
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerContact $contact
+     *
+     * @return $this
+     */
+    public function addContact($contact)
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PartnerContact $contact
+     *
+     * @return $this
+     */
+    public function removeContact($contact)
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->remove($contact);
+        }
 
         return $this;
     }

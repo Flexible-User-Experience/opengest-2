@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -132,21 +133,17 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.vehicle', 'v')
             ->andWhere('v.enabled = :enabled')
             ->setParameter('enabled', true)
         ;
-
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
-            return $queryBuilder;
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere('v.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+            ;
         }
-
-        $queryBuilder
-            ->andWhere('v.enterprise = :enterprise')
-            ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
-        ;
 
         return $queryBuilder;
     }

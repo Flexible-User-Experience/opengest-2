@@ -123,6 +123,21 @@ services:
         arguments: [ ~, AppBundle\Entity\PartnerType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.partner_order:
+        class: AppBundle\Admin\PartnerOrderAdmin
+        arguments: [ ~, AppBundle\Entity\PartnerOrder, AppBundle:Admin\PartnerOrderAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Comandes", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.partner_building_site:
+        class: AppBundle\Admin\PartnerBuildingSiteAdmin
+        arguments: [ ~, AppBundle\Entity\PartnerBuildingSite, AppBundle:Admin\PartnerBuildingSiteAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Obres", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.partner_contact:
+        class: AppBundle\Admin\PartnerContactAdmin
+        arguments: [ ~, AppBundle\Entity\PartnerContact, AppBundle:Admin\PartnerContactAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Contacte", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
 # Enterprise group

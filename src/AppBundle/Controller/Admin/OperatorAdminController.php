@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Operator;
+use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,10 +27,10 @@ class OperatorAdminController extends BaseAdminController
         if (!$operator) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
-
+        /** @var GuardService $guardService */
         $guardService = $this->get('app.guard_service');
         if (!$guardService->isOwnOperator($operator)) {
-            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
+            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
         return parent::editAction($id);

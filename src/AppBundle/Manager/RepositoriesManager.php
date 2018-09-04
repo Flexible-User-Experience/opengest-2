@@ -2,13 +2,18 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\CityRepository;
 use AppBundle\Repository\EnterpriseGroupBountyRepository;
 use AppBundle\Repository\EnterpriseRepository;
+use AppBundle\Repository\EnterpriseTransferAccountRepository;
 use AppBundle\Repository\OperatorAbsenceRepository;
 use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
 use AppBundle\Repository\OperatorCheckingTypeRepository;
 use AppBundle\Repository\OperatorRepository;
+use AppBundle\Repository\PartnerClassRepository;
+use AppBundle\Repository\PartnerRepository;
+use AppBundle\Repository\PartnerTypeRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
@@ -56,6 +61,11 @@ class RepositoriesManager
     private $enterpriseGroupBountyRepository;
 
     /**
+     * @var EnterpriseTransferAccountRepository
+     */
+    private $enterpriseTransferAccountRepository;
+
+    /**
      * @var OperatorCheckingRepository
      */
     private $operatorCheckingRepository;
@@ -91,27 +101,52 @@ class RepositoriesManager
     private $vehicleCheckingRepository;
 
     /**
+     * @var PartnerRepository
+     */
+    private $partnerRepository;
+
+    /**
+     * @var PartnerClassRepository
+     */
+    private $partnerClassRepository;
+
+    /**
+     * @var PartnerTypeRepository
+     */
+    private $partnerTypeRepository;
+
+    /**
+     * @var CityRepository
+     */
+    private $cityRepository;
+
+    /**
      * Methods.
      */
 
     /**
      * RepositoriesManager constructor.
      *
-     * @param ServiceRepository               $serviceRepository
-     * @param VehicleCategoryRepository       $vehicleCategoryRepository
-     * @param UserRepository                  $userRepository
-     * @param OperatorRepository              $operatorRepository
-     * @param EnterpriseRepository            $enterpriseRepository
-     * @param EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository
-     * @param OperatorCheckingRepository      $operatorCheckingRepository
-     * @param OperatorCheckingTypeRepository  $operatorCheckingTypeRepository
-     * @param OperatorAbsenceTypeRepository   $operatorAbsenceTypeRepository
-     * @param OperatorAbsenceRepository       $operatorAbsenceRepository
-     * @param VehicleRepository               $vehicleRepository
-     * @param VehicleCheckingTypeRepository   $vehicleCheckingTypeRepository
-     * @param VehicleCheckingRepository       $vehicleCheckingRepository
+     * @param ServiceRepository                   $serviceRepository
+     * @param VehicleCategoryRepository           $vehicleCategoryRepository
+     * @param UserRepository                      $userRepository
+     * @param OperatorRepository                  $operatorRepository
+     * @param EnterpriseRepository                $enterpriseRepository
+     * @param EnterpriseGroupBountyRepository     $enterpriseGroupBountyRepository
+     * @param EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository
+     * @param OperatorCheckingRepository          $operatorCheckingRepository
+     * @param OperatorCheckingTypeRepository      $operatorCheckingTypeRepository
+     * @param OperatorAbsenceTypeRepository       $operatorAbsenceTypeRepository
+     * @param OperatorAbsenceRepository           $operatorAbsenceRepository
+     * @param VehicleRepository                   $vehicleRepository
+     * @param VehicleCheckingTypeRepository       $vehicleCheckingTypeRepository
+     * @param VehicleCheckingRepository           $vehicleCheckingRepository
+     * @param PartnerRepository                   $partnerRepository
+     * @param PartnerClassRepository              $partnerClassRepository
+     * @param PartnerTypeRepository               $partnerTypeRepository
+     * @param CityRepository                      $cityRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository)
+    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository, PartnerClassRepository $partnerClassRepository, PartnerTypeRepository $partnerTypeRepository, CityRepository $cityRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -119,6 +154,7 @@ class RepositoriesManager
         $this->operatorRepository = $operatorRepository;
         $this->enterpriseRepository = $enterpriseRepository;
         $this->enterpriseGroupBountyRepository = $enterpriseGroupBountyRepository;
+        $this->enterpriseTransferAccountRepository = $enterpriseTransferAccountRepository;
         $this->operatorCheckingRepository = $operatorCheckingRepository;
         $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
         $this->operatorAbsenceTypeRepository = $operatorAbsenceTypeRepository;
@@ -126,6 +162,10 @@ class RepositoriesManager
         $this->vehicleRepository = $vehicleRepository;
         $this->vehicleCheckingTypeRepository = $vehicleCheckingTypeRepository;
         $this->vehicleCheckingRepository = $vehicleCheckingRepository;
+        $this->partnerRepository = $partnerRepository;
+        $this->partnerClassRepository = $partnerClassRepository;
+        $this->partnerTypeRepository = $partnerTypeRepository;
+        $this->cityRepository = $cityRepository;
     }
 
     /**
@@ -174,6 +214,14 @@ class RepositoriesManager
     public function getEnterpriseGroupBountyRepository()
     {
         return $this->enterpriseGroupBountyRepository;
+    }
+
+    /**
+     * @return EnterpriseTransferAccountRepository
+     */
+    public function getEnterpriseTransferAccountRepository()
+    {
+        return $this->enterpriseTransferAccountRepository;
     }
 
     /**
@@ -230,5 +278,37 @@ class RepositoriesManager
     public function getVehicleCheckingRepository()
     {
         return $this->vehicleCheckingRepository;
+    }
+
+    /**
+     * @return PartnerRepository
+     */
+    public function getPartnerRepository()
+    {
+        return $this->partnerRepository;
+    }
+
+    /**
+     * @return PartnerClassRepository
+     */
+    public function getPartnerClassRepository()
+    {
+        return $this->partnerClassRepository;
+    }
+
+    /**
+     * @return CityRepository
+     */
+    public function getCityRepository()
+    {
+        return $this->cityRepository;
+    }
+
+    /**
+     * @return PartnerTypeRepository
+     */
+    public function getPartnerTypeRepository()
+    {
+        return $this->partnerTypeRepository;
     }
 }

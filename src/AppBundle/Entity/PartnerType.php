@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,8 +39,23 @@ class PartnerType extends AbstractBase
     private $account;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner", mappedBy="type")
+     */
+    private $partners;
+
+    /**
      * Methods.
      */
+
+    /**
+     * PartnerType constructor.
+     */
+    public function __construct()
+    {
+        $this->partners = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -97,6 +113,55 @@ class PartnerType extends AbstractBase
     public function setAccount($account)
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPartners()
+    {
+        return $this->partners;
+    }
+
+    /**
+     * @param ArrayCollection $partners
+     *
+     * @return $this
+     */
+    public function setPartners($partners)
+    {
+        $this->partners = $partners;
+
+        return $this;
+    }
+
+    /**
+     * @param Partner $partner
+     *
+     * @return $this
+     */
+    public function addPartner($partner)
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners->add($partner);
+            $partner->setType($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Partner $partner
+     *
+     * @return $this
+     */
+    public function removePartner($partner)
+    {
+        if ($this->partners->contains($partner)) {
+            $this->partners->remove($partner);
+        }
 
         return $this;
     }

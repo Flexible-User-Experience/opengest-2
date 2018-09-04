@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\UserRolesEnum;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -71,6 +73,13 @@ class PartnerTypeAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                )
+            )
+            ->add(
                 'account',
                 null,
                 array(
@@ -78,6 +87,25 @@ class PartnerTypeAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
+        }
+
+        return $queryBuilder;
     }
 
     /**

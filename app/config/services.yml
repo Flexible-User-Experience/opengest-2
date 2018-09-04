@@ -82,10 +82,41 @@ services:
 # Guard
     app.guard_service:
         class: AppBundle\Service\GuardService
-        arguments: [ "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ "@security.authorization_checker" ]
 # Form
     app.form_user_default_enterprise:
         class: AppBundle\Form\UserDefaultEnterpriseForm
         arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage" ]
         tags:
             - { name: form.type }
+# Voters
+    app.voter_enterprise:
+        class: AppBundle\Security\EnterpriseVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    app.voter_operator:
+        class: AppBundle\Security\OperatorVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    app.voter_operator_checking:
+        class: AppBundle\Security\OperatorCheckingVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    app.voter_vehicle:
+        class: AppBundle\Security\VehicleVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    app.voter_vehicle_checking:
+        class: AppBundle\Security\VehicleCheckingVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    app.voter_partner:
+        class: AppBundle\Security\PartnerVoter
+        tags:
+            - { name: security.voter }
+        public: false

@@ -559,6 +559,13 @@ class Enterprise extends AbstractBase
     private $enterpriseTransferAccounts;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner", mappedBy="enterprise")
+     */
+    private $partners;
+
+    /**
      * Methods.
      */
 
@@ -570,6 +577,7 @@ class Enterprise extends AbstractBase
         $this->users = new ArrayCollection();
         $this->enterpriseGroupBounties = new ArrayCollection();
         $this->enterpriseTransferAccounts = new ArrayCollection();
+        $this->partners = new ArrayCollection();
     }
 
     /**
@@ -2013,6 +2021,50 @@ class Enterprise extends AbstractBase
     {
         if ($this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
             $this->enterpriseTransferAccounts->remove($enterpriseTransferAccount);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPartners()
+    {
+        return $this->partners;
+    }
+
+    /**
+     * @param ArrayCollection $partners
+     *
+     * @return $this
+     */
+    public function setPartners($partners)
+    {
+        $this->partners = $partners;
+
+        return $this;
+    }
+
+    /**
+     * @param Partner $partner
+     *
+     * @return $this
+     */
+    public function addPartner($partner)
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners->add($partner);
+            $partner->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartner($partner)
+    {
+        if ($this->partners->contains($partner)) {
+            $this->partners->remove($partner);
         }
 
         return $this;

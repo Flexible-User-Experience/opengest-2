@@ -60,3 +60,13 @@ Tercers tipus_delete: Esborrar
 Tercers_list: Tercers
 Tercers_create: Crear
 Tercers_delete: Esborrar
+Tercers comandes_list: Tercers comandes
+Tercers comandes_create: Crear
+Tercers comandes_delete: Esborrar
+Tercers obres_list: Tercers obres
+Tercers obres_create: Crear
+Tercers obres_delete: Esborrar
+Tercers contacte_list: Tercers contacte
+Tercers contacte_create: Crear
+Tercers contacte_delete: Esborrar
+

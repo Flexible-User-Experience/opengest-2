@@ -29,7 +29,7 @@ class VehicleCheckingAdminController extends BaseAdminController
 
         $guardService = $this->get('app.guard_service');
         if (!$guardService->isOwnVehicleChecking($vehicleChecking)) {
-            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
+            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
         return parent::editAction($id);

@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Enterprise;
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -36,17 +37,15 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 'enterprise',
                 EntityType::class,
                 array(
-                    'label' => 'Empresa',
-                    'required' => true,
                     'class' => Enterprise::class,
+                    'label' => false,
+                    'required' => true,
                     'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                    //TODO Hide this field
                     'attr' => array(
-                        'hidden' => true,
+                        'style' => 'display:none;',
                     ),
                 )
             )
-
             ->add(
                 'group',
                 null,
@@ -206,13 +205,6 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'group',
                 null,
                 array(
@@ -231,13 +223,12 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if ($this->acs->isGranted('ROLE_ADMIN')) {
-            return $queryBuilder;
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
         }
-        $queryBuilder
-            ->andWhere($queryBuilder->getRootAliases()[0].'enterprise = :enterprise')
-            ->setParameter('enterprise', $this->getUserLogedEnterprise())
-        ;
 
         return $queryBuilder;
     }
