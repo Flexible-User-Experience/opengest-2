@@ -198,6 +198,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Iban()
      */
     private $iban;
 
@@ -205,6 +206,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Bic()
      */
     private $swift;
 

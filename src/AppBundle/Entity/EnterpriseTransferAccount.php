@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class EnterpriseTransferAccount.
@@ -35,6 +36,7 @@ class EnterpriseTransferAccount extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Iban()
      */
     private $iban;
 
@@ -42,6 +44,7 @@ class EnterpriseTransferAccount extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Bic()
      */
     private $swift;
 
