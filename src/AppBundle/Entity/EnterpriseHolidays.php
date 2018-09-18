@@ -23,6 +23,8 @@ class EnterpriseHolidays extends AbstractBase
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      */
     private $day;
 
