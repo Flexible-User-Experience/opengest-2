@@ -382,7 +382,7 @@ AppBundle\Entity\EnterpriseTransferAccount:
         accountNumber: <bankAccountNumber()>
 
 # EnterpriseHolydays
-AppBundle\Entity\EnterpriseHolidays
+AppBundle\Entity\EnterpriseHolidays:
     enterpriseHoliday{1..5}:
         enterprise : '@enterprise<numberBetween(1,10)>'
         day: <dateTimeThisYear()>
