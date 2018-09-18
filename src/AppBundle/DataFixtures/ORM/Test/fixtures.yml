@@ -340,6 +340,13 @@ AppBundle\Entity\EnterpriseTransferAccount:
         controlDigit: <numerify('##')>
         accountNumber: <bankAccountNumber()>
 
+# EnterpriseHolydays
+AppBundle\Entity\EnterpriseHolidays
+    enterpriseHoliday{1..2}:
+        enterprise : '@enterprise<numberBetween(1,2)>'
+        day: <dateTimeThisYear()>
+        name: <sentence(3)>
+
 # PartnerClass
 AppBundle\Entity\PartnerClass:
     partnerClass{1..2}:
