@@ -226,7 +226,7 @@ class EnterpriseGroupBounty extends AbstractBase
     }
 
     /**
-     * @param $operator
+     * @param Operator $operator
      *
      * @return $this
      */
