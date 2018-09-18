@@ -17,7 +17,7 @@ class EnterpriseHolidays extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", mappedBy="enterpriseHolidays")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseHolidays")
      */
     private $enterprise;
 

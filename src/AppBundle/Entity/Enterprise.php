@@ -566,6 +566,13 @@ class Enterprise extends AbstractBase
     private $partners;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseHolidays", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true )
+     */
+    private $enterpriseHolidays;
+
+    /**
      * Methods.
      */
 
@@ -578,6 +585,7 @@ class Enterprise extends AbstractBase
         $this->enterpriseGroupBounties = new ArrayCollection();
         $this->enterpriseTransferAccounts = new ArrayCollection();
         $this->partners = new ArrayCollection();
+        $this->enterpriseHolidays = new ArrayCollection();
     }
 
     /**
@@ -2065,6 +2073,55 @@ class Enterprise extends AbstractBase
     {
         if ($this->partners->contains($partner)) {
             $this->partners->remove($partner);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEnterpriseHolidays()
+    {
+        return $this->enterpriseHolidays;
+    }
+
+    /**
+     * @param ArrayCollection $enterpriseHolidays
+     *
+     * @return $this
+     */
+    public function setEnterpriseHolidays($enterpriseHolidays)
+    {
+        $this->enterpriseHolidays = $enterpriseHolidays;
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseHolidays $enterpriseHoliday
+     *
+     * @return $this
+     */
+    public function addEnterpriseHoliday($enterpriseHoliday)
+    {
+        if (!$this->enterpriseHolidays->contains($enterpriseHoliday)) {
+            $this->enterpriseHolidays->add($enterpriseHoliday);
+            $enterpriseHoliday->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseHolidays $enterpriseHoliday
+     *
+     * @return $this
+     */
+    public function removeEnterpriseHoliday($enterpriseHoliday)
+    {
+        if ($this->enterpriseHolidays->contains($enterpriseHoliday)) {
+            $this->enterpriseHolidays->remove($enterpriseHoliday);
         }
 
         return $this;
