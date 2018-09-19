@@ -422,4 +422,14 @@ AppBundle\Entity\Partner:
       controlDigit: <numerify('##')>
       accountNumber: <bankAccountNumber()>
 
-
+# SaleTariff
+AppBundle\Entity\SaleTariff:
+    saleTariff{1..2}:
+        enterprise: '@enterprise<numberBetween(1,2)>'
+        year: <year()>
+        tonnage: <randomFloat(2)>
+        priceHour: <randomFloat(2)>
+        miniumHours: <randomFloat(2)>
+        miniumHolidayHours: <randomFloat(2)>
+        displacement: <randomFloat(2)>
+        increaseForHolidays: <randomFloat(2)>

@@ -3,14 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class SaleTariff.
  *
  * @category
- **
+ *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SaleTariffRepository")
  * @ORM\Table(name="sale_tariff")
+ * @UniqueEntity({"enterprise", "year", "tonnage"})
  */
 class SaleTariff extends AbstractBase
 {
