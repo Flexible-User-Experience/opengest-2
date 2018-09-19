@@ -74,6 +74,13 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'enterprise',
+                null,
+                array(
+                    'label' => 'Empresa',
+                )
+            )
+            ->add(
                 'day',
                 'doctrine_orm_date',
                 array(
@@ -117,6 +124,13 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'enterprise',
+                null,
+                array(
+                    'label' => 'Empresa',
+                )
+            )
             ->add(
                 'day',
                 null,
