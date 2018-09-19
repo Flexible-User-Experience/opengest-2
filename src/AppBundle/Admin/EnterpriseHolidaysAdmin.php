@@ -21,8 +21,8 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Dies festius';
     protected $baseRoutePattern = 'empreses/dies-festius';
     protected $datagridValues = array(
-        '_sort_by' => 'enterprise',
-        '_sort_order' => 'asc',
+        '_sort_by' => 'day',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -38,12 +38,12 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => Enterprise::class,
-                    'label' => 'Empresa',
+                    'label' => 'false',
                     'required' => true,
                     'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-//                    'attr' => array(
-//                        'style' => 'display:none;',
-//                    ),
+                    'attr' => array(
+                        'style' => 'display:none;',
+                    ),
                 )
             )
             ->add(
@@ -74,13 +74,6 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'day',
                 'doctrine_orm_date',
                 array(
@@ -98,24 +91,24 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
         ;
     }
 
-//    /**
-//     * @param string $context
-//     *
-//     * @return QueryBuilder
-//     */
-//    public function createQuery($context = 'list')
-//    {
-//        /** @var QueryBuilder $queryBuilder */
-//        $queryBuilder = parent::createQuery($context);
-//        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-//            $queryBuilder
-//                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-//                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-//            ;
-//        }
-//
-//        return $queryBuilder;
-//    }
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
+        }
+
+        return $queryBuilder;
+    }
 
     /**
      * @param ListMapper $listMapper
@@ -124,13 +117,6 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
             ->add(
                 'day',
                 null,
