@@ -38,7 +38,7 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => Enterprise::class,
-                    'label' => 'false',
+                    'label' => false,
                     'required' => true,
                     'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
                     'attr' => array(

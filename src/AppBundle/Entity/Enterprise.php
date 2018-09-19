@@ -573,6 +573,13 @@ class Enterprise extends AbstractBase
     private $enterpriseHolidays;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleTariff", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $saleTariffs;
+
+    /**
      * Methods.
      */
 
@@ -586,6 +593,7 @@ class Enterprise extends AbstractBase
         $this->enterpriseTransferAccounts = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->enterpriseHolidays = new ArrayCollection();
+        $this->saleTariffs = new ArrayCollection();
     }
 
     /**
@@ -2128,10 +2136,59 @@ class Enterprise extends AbstractBase
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getSaleTariffs()
+    {
+        return $this->saleTariffs;
+    }
+
+    /**
+     * @param ArrayCollection $saleTariffs
+     *
+     * @return $this
+     */
+    public function setSaleTariffs($saleTariffs)
+    {
+        $this->saleTariffs = $saleTariffs;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleTariff $saleTariff
+     *
+     * @return $this
+     */
+    public function addSaleTariff($saleTariff)
+    {
+        if (!$this->saleTariffs->contains($saleTariff)) {
+            $this->saleTariffs->add($saleTariff);
+            $saleTariff->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleTariff $saleTariff
+     *
+     * @return $this
+     */
+    public function removeSaleTariff($saleTariff)
+    {
+        if ($this->saleTariffs->contains($saleTariff)) {
+            $this->saleTariffs->remove($saleTariff);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getTaxIdentificationNumber().' · '.$this->getName() : '---';
+        return $this->id ? $this->getName().' · '.$this->getTaxIdentificationNumber() : '---';
     }
 }
