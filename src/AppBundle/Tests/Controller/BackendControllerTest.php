@@ -139,6 +139,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/contacte/create'),
             array('/admin/tercers/contacte/1/edit'),
             array('/admin/tercers/contacte/1/delete'),
+            // Sale
+            array('/admin/vendes/tarifa/create'),
+            array('/admin/vendes/tarifa/1/edit'),
+            array('/admin/vendes/tarifa/1/delete'),
         );
     }
 
@@ -240,6 +244,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/obres/batch'),
             array('/admin/tercers/contacte/1/show'),
             array('/admin/tercers/contacte/batch'),
+            // Sale
+            array('/admin/vendes/tarifa/1/show'),
+            array('/admin/vendes/tarifa/batch'),
         );
     }
 

@@ -23,13 +23,13 @@ class SaleTariffAdminController extends BaseAdminController
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var EnterpriseHolidays $enterpriseHoliday */
-        $enterpriseHoliday = $this->admin->getObject($id);
-        if (!$enterpriseHoliday) {
+        $saleTariff = $this->admin->getObject($id);
+        if (!$saleTariff) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($enterpriseHoliday->getEnterprise())) {
+        if (!$guardService->isOwnEnterprise($saleTariff->getEnterprise())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 
