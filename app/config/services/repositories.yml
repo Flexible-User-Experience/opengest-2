@@ -44,6 +44,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:EnterpriseTransferAccount
+    app.enterprise_holidays_repository:
+        class: AppBundle\Repository\EnterpriseHolidaysRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:EnterpriseHolidays
     app.operator_checking_repository:
         class: AppBundle\Repository\OperatorCheckingRepository
         factory: [ "@doctrine", getRepository ]
@@ -109,6 +114,7 @@ services:
             - "@app.enterprise_repository"
             - "@app.enterprise_group_bounty_repository"
             - "@app.enterprise_transfer_account_repository"
+            - "@app.enterprise_holidays_repository"
             - "@app.operator_checking_repository"
             - "@app.operator_checking_type_repository"
             - "@app.operator_absence_type_repository"

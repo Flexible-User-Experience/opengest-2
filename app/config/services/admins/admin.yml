@@ -156,3 +156,8 @@ services:
         arguments: [ ~, AppBundle\Entity\EnterpriseTransferAccount, AppBundle:Admin\EnterpriseTransferAccountAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Compte bancari", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.enterprise_holidays:
+        class: AppBundle\Admin\EnterpriseHolidaysAdmin
+        arguments: [ ~, AppBundle\Entity\EnterpriseHolidays, AppBundle:Admin\EnterpriseHolidaysAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Dies festius", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }

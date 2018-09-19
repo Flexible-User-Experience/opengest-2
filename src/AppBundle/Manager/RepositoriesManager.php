@@ -6,6 +6,7 @@ use AppBundle\Repository\CityRepository;
 use AppBundle\Repository\EnterpriseGroupBountyRepository;
 use AppBundle\Repository\EnterpriseRepository;
 use AppBundle\Repository\EnterpriseTransferAccountRepository;
+use AppBundle\Repository\EnterpriseHolidaysRepository;
 use AppBundle\Repository\OperatorAbsenceRepository;
 use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
@@ -64,6 +65,11 @@ class RepositoriesManager
      * @var EnterpriseTransferAccountRepository
      */
     private $enterpriseTransferAccountRepository;
+
+    /**
+     * @var EnterpriseHolidaysRepository
+     */
+    private $enterpriseHolidaysRepository;
 
     /**
      * @var OperatorCheckingRepository
@@ -134,6 +140,7 @@ class RepositoriesManager
      * @param EnterpriseRepository                $enterpriseRepository
      * @param EnterpriseGroupBountyRepository     $enterpriseGroupBountyRepository
      * @param EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository
+     * @param EnterpriseHolidaysRepository        $enterpriseHolidaysRepository
      * @param OperatorCheckingRepository          $operatorCheckingRepository
      * @param OperatorCheckingTypeRepository      $operatorCheckingTypeRepository
      * @param OperatorAbsenceTypeRepository       $operatorAbsenceTypeRepository
@@ -146,7 +153,26 @@ class RepositoriesManager
      * @param PartnerTypeRepository               $partnerTypeRepository
      * @param CityRepository                      $cityRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository, PartnerClassRepository $partnerClassRepository, PartnerTypeRepository $partnerTypeRepository, CityRepository $cityRepository)
+    public function __construct(
+        ServiceRepository $serviceRepository,
+        VehicleCategoryRepository $vehicleCategoryRepository,
+        UserRepository $userRepository,
+        OperatorRepository $operatorRepository,
+        EnterpriseRepository $enterpriseRepository,
+        EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository,
+        EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository,
+        EnterpriseHolidaysRepository $enterpriseHolidaysRepository,
+        OperatorCheckingRepository $operatorCheckingRepository,
+        OperatorCheckingTypeRepository $operatorCheckingTypeRepository,
+        OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository,
+        OperatorAbsenceRepository $operatorAbsenceRepository,
+        VehicleRepository $vehicleRepository,
+        VehicleCheckingTypeRepository $vehicleCheckingTypeRepository,
+        VehicleCheckingRepository $vehicleCheckingRepository,
+        PartnerRepository $partnerRepository,
+        PartnerClassRepository $partnerClassRepository,
+        PartnerTypeRepository $partnerTypeRepository,
+        CityRepository $cityRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -155,6 +181,7 @@ class RepositoriesManager
         $this->enterpriseRepository = $enterpriseRepository;
         $this->enterpriseGroupBountyRepository = $enterpriseGroupBountyRepository;
         $this->enterpriseTransferAccountRepository = $enterpriseTransferAccountRepository;
+        $this->enterpriseHolidaysRepository = $enterpriseHolidaysRepository;
         $this->operatorCheckingRepository = $operatorCheckingRepository;
         $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
         $this->operatorAbsenceTypeRepository = $operatorAbsenceTypeRepository;
@@ -222,6 +249,14 @@ class RepositoriesManager
     public function getEnterpriseTransferAccountRepository()
     {
         return $this->enterpriseTransferAccountRepository;
+    }
+
+    /**
+     * @return EnterpriseHolidaysRepository
+     */
+    public function getEnterpriseHolidaysRepository()
+    {
+        return $this->enterpriseHolidaysRepository;
     }
 
     /**
