@@ -426,7 +426,7 @@ AppBundle\Entity\Partner:
 AppBundle\Entity\SaleTariff:
     saleTariff{1..2}:
         enterprise: '@enterprise<numberBetween(1,2)>'
-        year: <randomNumber()>
+        year: <year()>
         tonnage: <word()>
         priceHour: <randomFloat()>
         miniumHours: <randomFloat()>

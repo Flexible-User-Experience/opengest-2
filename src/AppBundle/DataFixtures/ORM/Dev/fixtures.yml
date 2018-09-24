@@ -484,7 +484,7 @@ AppBundle\Entity\SaleRequest:
         vehicle: '@vehicle<numberBetween(1,5)>'
         operator: '@operator<numberBetween(1,5)>'
         tariff: '@saleTariff<numberBetween(1,5)>'
-        attendedBy: '@user<numberBetween(1,5)>'
+        attendedBy: '@admin'
         serviceDescription: <text(200)>
         height: <randomNumber()>
         distance: <randomNumber()>
@@ -492,11 +492,11 @@ AppBundle\Entity\SaleRequest:
         place: <sentence(3)>
         utensils: <sentence(3)>
         observations: <text(200)>
-        requestDate: <date($format = 'Y-m-d', $max = 'now')>
-        requestTime: <time($format = 'H:i:s', $max = 'now')>
-        serviceDate: <date($format = 'Y-m-d', $max = 'now')>
-        serviceTime: <time($format = 'H:i:s', $max = 'now')>
+        requestDate: <dateTime()>
+        requestTime: <dateTime()>
+        serviceDate: <dateTime()>
+        serviceTime: <dateTime()>
         hourPrice: <randomFloat()>
         miniumHours: <randomFloat()>
         displacement: <randomFloat()>
-        secordaryVehicle: '@vehicle<numberBetween(1,5)>'
+        secondaryVehicle: '@vehicle<numberBetween(1,5)>'
