@@ -419,7 +419,7 @@ class Operator extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", inversedBy="operator")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="operator")
      */
     private $saleRequests;
 

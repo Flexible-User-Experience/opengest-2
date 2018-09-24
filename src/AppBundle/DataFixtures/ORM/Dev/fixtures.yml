@@ -474,3 +474,29 @@ AppBundle\Entity\SaleTariff:
         miniumHolidayHours: <randomFloat(2)>
         displacement: <randomFloat(2)>
         increaseForHolidays: <randomFloat(2)>
+
+# SaleRequest
+AppBundle\Entity\SaleRequest:
+    saleTariff{1..5}:
+        enterprise: '@enterprise<numberBetween(1,5)>'
+        partner: '@partner<numberBetween(1,5)>'
+        invoiceTo: '@partner<numberBetween(1,5)>'
+        vehicle: '@vehicle<numberBetween(1,5)>'
+        operator: '@operator<numberBetween(1,5)>'
+        tariff: '@saleTariff<numberBetween(1,5)>'
+        attendedBy: '@user<numberBetween(1,5)>'
+        serviceDescription: <text(200)>
+        height: <randomNumber()>
+        distance: <randomNumber()>
+        weight: <randomFloat()>
+        place: <sentence(3)>
+        utensils: <sentence(3)>
+        observations: <text(200)>
+        requestDate: <date($format = 'Y-m-d', $max = 'now')>
+        requestTime: <time($format = 'H:i:s', $max = 'now')>
+        serviceDate: <date($format = 'Y-m-d', $max = 'now')>
+        serviceTime: <time($format = 'H:i:s', $max = 'now')>
+        hourPrice: <randomFloat()>
+        miniumHours: <randomFloat()>
+        displacement: <randomFloat()>
+        secordaryVehicle: '@vehicle<numberBetween(1,5)>'

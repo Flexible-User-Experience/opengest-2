@@ -127,6 +127,20 @@ class SaleRequest extends AbstractBase
     private $requestTime;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date")
+     */
+    private $serviceDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="time")
+     */
+    private $serviceTime;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -150,7 +164,7 @@ class SaleRequest extends AbstractBase
     /**
      * @var Vehicle
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle")
      */
     private $secondaryVehicle;
 
@@ -455,26 +469,6 @@ class SaleRequest extends AbstractBase
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getRequestTime()
-    {
-        return $this->requestTime;
-    }
-
-    /**
-     * @param \DateTime $requestTime
-     *
-     * @return $this
-     */
-    public function setRequestTime($requestTime)
-    {
-        $this->requestTime = $requestTime;
-
-        return $this;
-    }
-
-    /**
      * @return float
      */
     public function getHourPrice()
@@ -550,6 +544,66 @@ class SaleRequest extends AbstractBase
     public function setSecondaryVehicle($secondaryVehicle)
     {
         $this->secondaryVehicle = $secondaryVehicle;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getServiceDate()
+    {
+        return $this->serviceDate;
+    }
+
+    /**
+     * @param \DateTime $serviceDate
+     *
+     * @return $this
+     */
+    public function setServiceDate($serviceDate)
+    {
+        $this->serviceDate = $serviceDate;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getServiceTime()
+    {
+        return $this->serviceTime;
+    }
+
+    /**
+     * @param \DateTime $serviceTime
+     *
+     * @return $this
+     */
+    public function setServiceTime($serviceTime)
+    {
+        $this->serviceTime = $serviceTime;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRequestTime()
+    {
+        return $this->requestTime;
+    }
+
+    /**
+     * @param \DateTime $requestTime
+     *
+     * @return $this
+     */
+    public function setRequestTime($requestTime)
+    {
+        $this->requestTime = $requestTime;
 
         return $this;
     }
