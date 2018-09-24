@@ -417,6 +417,13 @@ class Operator extends AbstractBase
     private $enterpriseGroupBounty;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", inversedBy="operator")
+     */
+    private $saleRequests;
+
+    /**
      * Methods.
      */
 
@@ -426,6 +433,7 @@ class Operator extends AbstractBase
     public function __construct()
     {
         $this->operatorDigitalTachographs = new ArrayCollection();
+        $this->saleRequests = new ArrayCollection();
     }
 
     /**
@@ -1516,6 +1524,55 @@ class Operator extends AbstractBase
     public function setEnterpriseGroupBounty($enterpriseGroupBounty)
     {
         $this->enterpriseGroupBounty = $enterpriseGroupBounty;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleRequests()
+    {
+        return $this->saleRequests;
+    }
+
+    /**
+     * @param ArrayCollection $saleRequests
+     *
+     * @return $this
+     */
+    public function setSaleRequests($saleRequests)
+    {
+        $this->saleRequests = $saleRequests;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function addSaleRequest($saleRequest)
+    {
+        if (!$this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->add($saleRequest);
+            $saleRequest->setOperator($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function removeSaleRequest($saleRequest)
+    {
+        if ($this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->remove($saleRequest);
+        }
 
         return $this;
     }

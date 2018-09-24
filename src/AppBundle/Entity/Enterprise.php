@@ -580,6 +580,13 @@ class Enterprise extends AbstractBase
     private $saleTariffs;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="enterprise")
+     */
+    private $saleRequests;
+
+    /**
      * Methods.
      */
 
@@ -594,6 +601,7 @@ class Enterprise extends AbstractBase
         $this->partners = new ArrayCollection();
         $this->enterpriseHolidays = new ArrayCollection();
         $this->saleTariffs = new ArrayCollection();
+        $this->saleRequests = new ArrayCollection();
     }
 
     /**
@@ -2179,6 +2187,55 @@ class Enterprise extends AbstractBase
     {
         if ($this->saleTariffs->contains($saleTariff)) {
             $this->saleTariffs->remove($saleTariff);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleRequests()
+    {
+        return $this->saleRequests;
+    }
+
+    /**
+     * @param ArrayCollection $saleRequests
+     *
+     * @return $this
+     */
+    public function setSaleRequests($saleRequests)
+    {
+        $this->saleRequests = $saleRequests;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function addSaleRequest($saleRequest)
+    {
+        if (!$this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->add($saleRequest);
+            $saleRequest->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function removeSaleRequest($saleRequest)
+    {
+        if ($this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->remove($saleRequest);
         }
 
         return $this;
