@@ -6,12 +6,13 @@ use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\Partner;
 use AppBundle\Entity\SaleTariff;
-use AppBundle\Entity\User;
 use AppBundle\Entity\Vehicle;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 /**
  * Class SaleRequestAdmin.
@@ -35,7 +36,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('General', $this->getFormMdSuccessBoxArray(12))
+        ->with('Tercer', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'enterprise',
                 EntityType::class,
@@ -49,21 +50,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-            ->add(
-                'attendedBy',
-                EntityType::class,
-                array(
-                    'class' => User::class,
-                    'label' => false,
-                    'required' => true,
-                    'query_builder' => $this->getUser(),
-                    'attr' => array(
-                        'style' => 'display:none;',
-                    ),
-                )
-            )
-        ->end()
-        ->with('Tercer', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'partner',
                 EntityType::class,
@@ -102,7 +88,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
         ->end()
 
-        ->with('Operador', $this->getFormMdSuccessBoxArray(4))
+        ->with('Operador', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'operator',
                 EntityType::class,
@@ -113,7 +99,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'tarill',
+                'tariff',
                 EntityType::class,
                 array(
                     'class' => SaleTariff::class,
@@ -147,7 +133,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
         ->end()
 
-        ->with('Servei', $this->getFormMdSuccessBoxArray(4))
+        ->with('Servei', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'serviceDescription',
                 null,
@@ -172,7 +158,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'distance',
                 null,
                 array(
-                    'label' => 'Distancia',
+                    'label' => 'Distància',
                     'required' => false,
                 )
             )
@@ -214,37 +200,41 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
         ->end()
 
-        ->with('Data', $this->getFormMdSuccessBoxArray(4))
+        ->with('Data', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'requestDate',
-                'doctrine_orm_date',
+                DatePickerType::class,
                 array(
                     'label' => 'Data petició',
-                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd/M/y',
+                    'required' => false,
                 )
             )
             ->add(
                 'requestTime',
-                'doctrine_orm_date',
+                TimeType::class,
                 array(
                     'label' => 'Hora petició',
-                    'field_type' => 'sonata_type_date_picker',
+                    'required' => false,
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
             ->add(
                 'serviceDate',
-                'doctrine_orm_date',
+                DatePickerType::class,
                 array(
                     'label' => 'Data servei',
-                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd/M/y',
+                    'required' => false,
                 )
             )
             ->add(
                 'serviceTime',
-                'doctrine_orm_date',
+                TimeType::class,
                 array(
                     'label' => 'Hora servei',
-                    'field_type' => 'sonata_type_date_picker',
+                    'required' => false,
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
         ->end()
@@ -297,21 +287,23 @@ class SaleRequestAdmin extends AbstractBaseAdmin
         $listMapper
             //        requestDate, serviceDate, serviceHour, vehicle, tariff, operator i partner
             ->add(
-                'requestTime',
+                'requestDate',
                 null,
                 array(
                     'label' => 'Data petició',
+                    'format' => 'd/m/y',
                 )
             )
             ->add(
-                'servideDate',
+                'serviceDate',
                 null,
                 array(
                     'label' => 'Data servei',
+                    'format' => 'd/m/y',
                 )
             )
             ->add(
-                'serviceHour',
+                'serviceTime',
                 null,
                 array(
                     'label' => 'Hora servei',
@@ -359,5 +351,10 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    public function prePersist($object)
+    {
+        $object->setAttendedBy($this->getUser());
     }
 }
