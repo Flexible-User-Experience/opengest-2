@@ -168,3 +168,8 @@ services:
         arguments: [ ~, AppBundle\Entity\SaleTariff, AppBundle:Admin\SaleTariffAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_request:
+        class: AppBundle\Admin\SaleRequestAdmin
+        arguments: [ ~, AppBundle\Entity\SaleRequest, AppBundle:Admin\SaleRequestAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Petició", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
