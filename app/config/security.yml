@@ -50,6 +50,7 @@ security:
             - ROLE_APP_ADMIN_USER_ALL
             - ROLE_APP_ADMIN_PARTNER_CLASS_ALL
             - ROLE_APP_ADMIN_PARTNER_TYPE_ALL
+            - ROLE_APP_ADMIN_SALE_REQUEST_ALL
         ROLE_CMS:
             - ROLE_USER
             - ROLE_SONATA_CMS
