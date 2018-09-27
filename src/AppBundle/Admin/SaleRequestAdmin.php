@@ -2,14 +2,15 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Operator;
-use AppBundle\Entity\Partner;
 use AppBundle\Entity\SaleTariff;
 use AppBundle\Entity\Vehicle;
+use AppBundle\Enum\UserRolesEnum;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -38,32 +39,19 @@ class SaleRequestAdmin extends AbstractBaseAdmin
 
         ->with('Tercer', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'enterprise',
-                EntityType::class,
-                array(
-                    'class' => Enterprise::class,
-                    'label' => false,
-                    'required' => true,
-                    'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                    'attr' => array(
-                        'style' => 'display:none;',
-                    ),
-                )
-            )
-            ->add(
                 'partner',
-                EntityType::class,
+                ModelAutocompleteType::class,
                 array(
-                    'class' => Partner::class,
+                    'property' => 'name',
                     'label' => 'Tercer',
                     'required' => true,
                 )
             )
             ->add(
                 'invoiceTo',
-                EntityType::class,
+                ModelAutocompleteType::class,
                 array(
-                    'class' => Partner::class,
+                    'property' => 'name',
                     'label' => 'Facturar a',
                     'required' => true,
                 )
@@ -246,37 +234,196 @@ class SaleRequestAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $datagridMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
+                )
+            ;
+        }
         $datagridMapper
             ->add(
-                'requestTime',
+                'attendedBy',
+                null,
+                array(
+                    'label' => 'Atès per',
+                )
+            )
+            ->add(
+                'partner',
+                'doctrine_orm_model_autocomplete',
+                array(),
+                null,
+                array(
+                    'property' => 'name',
+                    'label' => 'Tercer',
+                )
+            )
+            ->add(
+                'invoiceTo',
+                'doctrine_orm_model_autocomplete',
+                array(),
+                null,
+                array(
+                    'property' => 'name',
+                    'label' => 'Facturar a',
+                )
+            )
+            ->add(
+                'vehicle',
+                null,
+                array(
+                    'label' => 'Vehicle',
+                )
+            )
+            ->add(
+                'secondaryVehicle',
+                null,
+                array(
+                    'label' => 'Vehicle',
+                )
+            )
+
+            ->add(
+                'operator',
+                null,
+                array(
+                    'label' => 'Operador',
+                )
+            )
+            ->add(
+                'tariff',
+                null,
+                array(
+                    'label' => 'Tarifa',
+                )
+            )
+            ->add(
+                'hourPrice',
+                null,
+                array(
+                    'label' => 'Preu hora',
+                )
+            )
+            ->add(
+                'miniumHours',
+                null,
+                array(
+                    'label' => 'Mínim hores',
+                )
+            )
+            ->add(
+                'displacement',
+                null,
+                array(
+                    'label' => 'Desplaçament',
+                )
+            )
+            ->add(
+                'serviceDescription',
+                null,
+                array(
+                    'label' => 'Descripció servei',
+                )
+            )
+            ->add(
+                'height',
+                null,
+                array(
+                    'label' => 'Alçada',
+                )
+            )
+            ->add(
+                'distance',
+                null,
+                array(
+                    'label' => 'Distància',
+                )
+            )
+            ->add(
+                'weight',
+                null,
+                array(
+                    'label' => 'Pes',
+                )
+            )
+            ->add(
+                'place',
+                null,
+                array(
+                    'label' => 'Lloc',
+                )
+            )
+            ->add(
+                'utensils',
+                null,
+                array(
+                    'label' => 'Utensilis',
+                )
+            )
+            ->add(
+                'observations',
+                null,
+                array(
+                    'label' => 'Observacions',
+                )
+            )
+            ->add(
+                'requestDate',
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data petició',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
+            ->add(
+                'requestTime',
+                null,
+                array(
+                    'label' => 'Hora petició',
+                )
+            )
+            ->add(
+                'serviceDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'Data servei',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
+                'serviceTime',
+                null,
+                array(
+                    'label' => 'Hora servei',
+                )
+            )
 
         ;
     }
 
-//    /**
-//     * @param string $context
-//     *
-//     * @return QueryBuilder
-//     */
-//    public function createQuery($context = 'list')
-//    {
-//        /** @var QueryBuilder $queryBuilder */
-//        $queryBuilder = parent::createQuery($context);
-//        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-//            $queryBuilder
-//                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-//                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-//            ;
-//        }
-//
-//        return $queryBuilder;
-//    }
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
+        }
+
+        return $queryBuilder;
+    }
 
     /**
      * @param ListMapper $listMapper
@@ -284,8 +431,17 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $listMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
+                );
+        }
         $listMapper
-            //        requestDate, serviceDate, serviceHour, vehicle, tariff, operator i partner
             ->add(
                 'requestDate',
                 null,
@@ -356,5 +512,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     public function prePersist($object)
     {
         $object->setAttendedBy($this->getUser());
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
