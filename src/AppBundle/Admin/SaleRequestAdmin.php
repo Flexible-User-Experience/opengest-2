@@ -3,7 +3,6 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Operator;
-use AppBundle\Entity\Partner;
 use AppBundle\Entity\SaleTariff;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Enum\UserRolesEnum;

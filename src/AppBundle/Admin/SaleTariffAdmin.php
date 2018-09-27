@@ -2,13 +2,11 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Enterprise;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class SaleTariffAdmin.
@@ -21,8 +19,8 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Tarifa';
     protected $baseRoutePattern = 'vendes/tarifa';
     protected $datagridValues = array(
-        '_sort_by' => 'year',
-        '_sort_order' => 'desc',
+        '_sort_by' => 'enterprise.name',
+        '_sort_order' => 'ASC',
     );
 
     /**
@@ -33,19 +31,6 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         $formMapper
 
         ->with('General', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'enterprise',
-                EntityType::class,
-                array(
-                    'class' => Enterprise::class,
-                    'label' => false,
-                    'required' => true,
-                    'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                    'attr' => array(
-                        'style' => 'display:none;',
-                    ),
-                )
-            )
             ->add(
                 'year',
                 null,
@@ -114,14 +99,19 @@ class SaleTariffAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $datagridMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
                 )
-            )
+            ;
+        }
+        $datagridMapper
+
             ->add(
                 'year',
                 null,
@@ -183,6 +173,14 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->orderBy('e.name', 'ASC')
+        ;
+        $queryBuilder
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.year', 'DESC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.tonnage', 'DESC')
+        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -199,14 +197,18 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        $listMapper
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $listMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
                 )
-            )
+            ;
+        }
+        $listMapper
             ->add(
                 'year',
                 null,
@@ -270,5 +272,13 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param $object
+     */
+    public function prePersist($object)
+    {
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
