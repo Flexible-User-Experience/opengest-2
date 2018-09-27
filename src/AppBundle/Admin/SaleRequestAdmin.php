@@ -292,7 +292,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                             ->setParameter('enterprise', $this->getUserLogedEnterprise());
                         $datagrid->setValue($property, null, $value);
                     },
-                    )
+                )
             )
             ->add(
                 'invoiceTo',
@@ -301,7 +301,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'property' => 'name',
-                    'label' => 'Facturar a',
+                    'label' => 'Tercer',
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise());
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
             )
             ->add(
@@ -330,15 +338,23 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             ->add(
                 'operator',
                 null,
+                array(),
+                EntityType::class,
                 array(
+                    'class' => Operator::class,
                     'label' => 'Operador',
+                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
                 'tariff',
                 null,
+                array(),
+                EntityType::class,
                 array(
+                    'class' => SaleTariff::class,
                     'label' => 'Tarifa',
+                    'query_builder' => $this->rm->getSaleTariffRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(

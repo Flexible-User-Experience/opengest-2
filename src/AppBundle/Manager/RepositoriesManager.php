@@ -158,7 +158,7 @@ class RepositoriesManager
      * @param PartnerClassRepository              $partnerClassRepository
      * @param PartnerTypeRepository               $partnerTypeRepository
      * @param CityRepository                      $cityRepository
-     * @param SaleTariff                          $saleTariffRepository
+     * @param SaleTariffRepository                $saleTariffRepository
      */
     public function __construct(
         ServiceRepository $serviceRepository,
@@ -357,7 +357,7 @@ class RepositoriesManager
     }
 
     /**
-     * @return SaleTariff
+     * @return SaleTariffRepository
      */
     public function getSaleTariffRepository()
     {
