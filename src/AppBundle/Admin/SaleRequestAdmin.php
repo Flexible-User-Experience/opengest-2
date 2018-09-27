@@ -436,13 +436,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'requestTime',
-                null,
-                array(
-                    'label' => 'Hora petició',
-                )
-            )
-            ->add(
                 'serviceDate',
                 'doctrine_orm_date',
                 array(
@@ -450,14 +443,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
-            ->add(
-                'serviceTime',
-                null,
-                array(
-                    'label' => 'Hora servei',
-                )
-            )
-
         ;
     }
 
