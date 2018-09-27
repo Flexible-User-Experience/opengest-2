@@ -104,6 +104,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:City
+    app.sale_tariff_repository:
+        class: AppBundle\Repository\SaleTariffRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:SaleTariff
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -126,3 +131,4 @@ services:
             - "@app.partner_class_repository"
             - "@app.partner_type_repository"
             - "@app.city_repository"
+            - "@app.sale_tariff_repository"

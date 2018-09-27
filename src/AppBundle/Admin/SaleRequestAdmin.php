@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Operator;
+use AppBundle\Entity\Partner;
 use AppBundle\Entity\SaleTariff;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
@@ -45,6 +46,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'property' => 'name',
                     'label' => 'Tercer',
                     'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
             )
             ->add(
@@ -54,6 +64,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'property' => 'name',
                     'label' => 'Facturar a',
                     'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
             )
             ->add(
@@ -63,6 +82,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'class' => Vehicle::class,
                     'label' => 'Vehicle',
                     'required' => true,
+                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -72,6 +92,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'class' => Vehicle::class,
                     'label' => 'Vehicle secundari',
                     'required' => false,
+                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
         ->end()
@@ -84,6 +105,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'class' => Operator::class,
                     'label' => 'Operador',
                     'required' => true,
+                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -93,6 +115,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'class' => SaleTariff::class,
                     'label' => 'Tarifa',
                     'required' => true,
+                    'query_builder' => $this->rm->getSaleTariffRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -234,7 +257,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $datagridMapper
                 ->add(
                     'enterprise',
@@ -261,7 +284,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'property' => 'name',
                     'label' => 'Tercer',
-                )
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise());
+                        $datagrid->setValue($property, null, $value);
+                    },
+                    )
             )
             ->add(
                 'invoiceTo',
@@ -276,15 +307,23 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             ->add(
                 'vehicle',
                 null,
+                array(),
+                EntityType::class,
                 array(
+                    'class' => Vehicle::class,
                     'label' => 'Vehicle',
+                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
                 'secondaryVehicle',
                 null,
+                array(),
+                EntityType::class,
                 array(
-                    'label' => 'Vehicle',
+                    'class' => Vehicle::class,
+                    'label' => 'Vehicle secundari',
+                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
 
@@ -431,7 +470,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $listMapper
                 ->add(
                     'enterprise',
