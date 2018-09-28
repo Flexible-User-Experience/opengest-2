@@ -290,6 +290,18 @@ class PartnerAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $datagridMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
+                )
+            ;
+        }
+
         $datagridMapper
             ->add(
                 'cifNif',
