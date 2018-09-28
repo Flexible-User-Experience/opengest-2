@@ -2,13 +2,12 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\EnterpriseTransferAccount;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class EnterpriseTransferAccountAdmin.
@@ -33,17 +32,6 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
         $formMapper
 
         ->with('Nom', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'enterprise',
-                EntityType::class,
-                array(
-                    'label' => 'Empresa',
-                    'required' => true,
-                    'class' => Enterprise::class,
-                    'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                )
-            )
-
             ->add(
                 'name',
                 null,
@@ -138,6 +126,13 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->orderBy('e.name', 'ASC')
+        ;
+        $queryBuilder
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
+        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -155,6 +150,13 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'enterprise',
+                null,
+                array(
+                    'label' => 'Empresa',
+                )
+            )
             ->add(
                 'name',
                 null,
@@ -177,5 +179,13 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param EnterpriseTransferAccount $object
+     */
+    public function prePersist($object)
+    {
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
