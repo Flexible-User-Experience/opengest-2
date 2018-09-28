@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class SaleTariffAdmin.
@@ -31,12 +32,22 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         $formMapper
 
         ->with('General', $this->getFormMdSuccessBoxArray(4))
+//            ->add(
+//                'year',
+//                null,
+//                array(
+//                    'label' => 'Any',
+//                    'required' => true,
+//                )
+//            )
             ->add(
                 'year',
-                null,
+                ChoiceType::class,
                 array(
-                    'label' => 'Any',
-                    'required' => true,
+                    'choices' => $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getYearRange(),
+                    'preferred_choices' => array(
+                        $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getCurrentYear(),
+                    ),
                 )
             )
             ->add(
