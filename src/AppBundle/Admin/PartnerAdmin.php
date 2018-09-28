@@ -3,8 +3,8 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\City;
-use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\EnterpriseTransferAccount;
+use AppBundle\Entity\Partner;
 use AppBundle\Entity\PartnerClass;
 use AppBundle\Entity\PartnerType;
 use AppBundle\Enum\UserRolesEnum;
@@ -54,19 +54,6 @@ class PartnerAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->add(
-                    'enterprise',
-                    EntityType::class,
-                    array(
-                        'class' => Enterprise::class,
-                        'required' => true,
-                        'label' => false,
-                        'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                        'attr' => array(
-                            'style' => 'display:none;',
-                        ),
-                    )
-                )
-                ->add(
                     'class',
                     EntityType::class,
                     array(
@@ -93,7 +80,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                         'class' => EnterpriseTransferAccount::class,
                         'label' => 'Compte bancari empresa',
                         'required' => true,
-                        'query_builder' => $this->rm->getEnterpriseTransferAccountRepository()->getEnabledSortedByNameQB(),
+                        'query_builder' => $this->rm->getEnterpriseTransferAccountRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                     )
                 )
                 ->add(
@@ -208,6 +195,7 @@ class PartnerAdmin extends AbstractBaseAdmin
                     )
                 )
             ->end()
+
             ->with('Controls', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'discount',
@@ -350,6 +338,14 @@ class PartnerAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->orderBy('e.name', 'ASC')
+        ;
+        $queryBuilder
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
+        ;
+
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -366,6 +362,18 @@ class PartnerAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $listMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
+                )
+            ;
+        }
+
         $listMapper
             ->add(
                 'cifNif',
@@ -433,5 +441,13 @@ class PartnerAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param Partner $object
+     */
+    public function prePersist($object)
+    {
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
