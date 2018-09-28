@@ -2,13 +2,12 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\EnterpriseGroupBounty;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class EnterpriseGroupBountyAdmin.
@@ -33,19 +32,6 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
         $formMapper
 
         ->with('Grup', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'enterprise',
-                EntityType::class,
-                array(
-                    'class' => Enterprise::class,
-                    'label' => false,
-                    'required' => true,
-                    'query_builder' => $this->rm->getEnterpriseRepository()->getEnterprisesByUserQB($this->getUser()),
-                    'attr' => array(
-                        'style' => 'display:none;',
-                    ),
-                )
-            )
             ->add(
                 'group',
                 null,
@@ -205,6 +191,13 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'enterprise',
+                null,
+                array(
+                    'label' => 'Empresa',
+                )
+            )
+            ->add(
                 'group',
                 null,
                 array(
@@ -241,6 +234,13 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'enterprise',
+                null,
+                array(
+                    'label' => 'Empresa',
+                )
+            )
+            ->add(
                 'group',
                 null,
                 array(
@@ -262,5 +262,13 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param EnterpriseGroupBounty $object
+     */
+    public function prePersist($object)
+    {
+        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
