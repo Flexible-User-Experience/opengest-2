@@ -2,13 +2,12 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Partner;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 /**
  * Class PartnerBuildingSiteAdmin.
@@ -33,16 +32,24 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'partner',
-                    EntityType::class,
-                    array(
-                        'class' => Partner::class,
-                        'label' => 'Tercer',
-                        'required' => true,
-                        'query_builder' => $this->rm->getPartnerRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                    )
+            ->add(
+                'partner',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Tercer',
+                    'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
+            )
                 ->add(
                     'name',
                     null,
@@ -87,9 +94,13 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'partner',
-                null,
+                'doctrine_orm_model_autocomplete',
                 array(
                     'label' => 'Tercer',
+                ),
+                null,
+                array(
+                    'property' => 'name',
                 )
             )
             ->add(

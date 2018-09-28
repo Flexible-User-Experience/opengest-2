@@ -278,37 +278,23 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             ->add(
                 'partner',
                 'doctrine_orm_model_autocomplete',
-                array(),
+                array(
+                    'label' => 'Tercer',
+                ),
                 null,
                 array(
                     'property' => 'name',
-                    'label' => 'Tercer',
-                    'callback' => function ($admin, $property, $value) {
-                        $datagrid = $admin->getDatagrid();
-                        $queryBuilder = $datagrid->getQuery();
-                        $queryBuilder
-                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                            ->setParameter('enterprise', $this->getUserLogedEnterprise());
-                        $datagrid->setValue($property, null, $value);
-                    },
                 )
             )
             ->add(
                 'invoiceTo',
                 'doctrine_orm_model_autocomplete',
-                array(),
+                array(
+                    'label' => 'Facturar a',
+                ),
                 null,
                 array(
                     'property' => 'name',
-                    'label' => 'Tercer',
-                    'callback' => function ($admin, $property, $value) {
-                        $datagrid = $admin->getDatagrid();
-                        $queryBuilder = $datagrid->getQuery();
-                        $queryBuilder
-                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                            ->setParameter('enterprise', $this->getUserLogedEnterprise());
-                        $datagrid->setValue($property, null, $value);
-                    },
                 )
             )
             ->add(

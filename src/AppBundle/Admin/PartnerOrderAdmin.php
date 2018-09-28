@@ -2,7 +2,6 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Partner;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -80,11 +79,12 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
             ->add(
                 'partner',
                 'doctrine_orm_model_autocomplete',
-                array(),
+                array(
+                    'label' => 'Tercer',
+                ),
                 null,
                 array(
                     'property' => 'name',
-                    'label' => 'Tercer',
                 )
             )
             ->add(
