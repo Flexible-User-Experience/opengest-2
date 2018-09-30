@@ -32,23 +32,17 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         $formMapper
 
         ->with('General', $this->getFormMdSuccessBoxArray(4))
-//            ->add(
-//                'year',
-//                null,
-//                array(
-//                    'label' => 'Any',
-//                    'required' => true,
-//                )
-//            )
             ->add(
                 'year',
                 ChoiceType::class,
                 array(
+                    'label' => 'Any',
                     'choices' => $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getYearRange(),
-                    'preferred_choices' => array(
-                        $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getCurrentYear(),
-                    ),
+                    'placeholder' => 'Selecciona un any',
+                    'required' => true,
                 )
+
+//                ),
             )
             ->add(
                 'tonnage',
