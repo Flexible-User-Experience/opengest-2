@@ -2,7 +2,6 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\EnterpriseTransferAccount;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -10,18 +9,18 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EnterpriseTransferAccountAdmin.
+ * Class EnterpriseHolidaysAdmin.
  *
  * @category    Admin
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
+class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Compte Bancari';
-    protected $baseRoutePattern = 'empreses/compte-bancari';
+    protected $classnameLabel = 'Dies festius';
+    protected $baseRoutePattern = 'empreses/dies-festius';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
-        '_sort_order' => 'asc',
+        '_sort_by' => 'day',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -31,62 +30,21 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('Nom', $this->getFormMdSuccessBoxArray(6))
+        ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'day',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'Dia festiu',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
-                    'required' => true,
-                )
-            )
-        ->end()
-        ->with('Compte Bancari', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'iban',
-                null,
-                array(
-                    'label' => 'IBAN',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'swift',
-                null,
-                array(
-                    'label' => 'SWIFT',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'bankCode',
-                null,
-                array(
-                    'label' => 'Codi Entitat',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'officeNumber',
-                null,
-                array(
-                    'label' => 'Codi Oficina',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'controlDigit',
-                null,
-                array(
-                    'label' => 'Digit de control',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'accountNumber',
-                null,
-                array(
-                    'label' => 'Número de compte',
+                    'label' => 'Nom festivitat',
                     'required' => false,
                 )
             )
@@ -108,10 +66,18 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'day',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'Dia festiu',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Nom festivitat',
                 )
             )
         ;
@@ -131,7 +97,7 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
             ->orderBy('e.name', 'ASC')
         ;
         $queryBuilder
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.day', 'DESC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
@@ -158,10 +124,18 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'day',
+                null,
+                array(
+                    'label' => 'Dia festiu',
+                    'format' => 'd/m/y',
+                    'editable' => true,
+                )
+            )->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Nom festivitat',
                     'editable' => true,
                 )
             )
@@ -182,7 +156,7 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param EnterpriseTransferAccount $object
+     * @param $object
      */
     public function prePersist($object)
     {

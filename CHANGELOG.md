@@ -1,6 +1,11 @@
 Changelog
 =========
 
+##### Version 1.1.03 (2018-10-01)
+ * add enterprise holidays management
+ * add sale tariff management
+ * add sale request management
+
 ##### Version 1.1.02 (2018-09-04)
  * add partner class management
  * add partner type management

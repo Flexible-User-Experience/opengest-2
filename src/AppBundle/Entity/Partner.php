@@ -198,6 +198,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Iban()
      */
     private $iban;
 
@@ -205,6 +206,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Bic()
      */
     private $swift;
 
@@ -257,6 +259,13 @@ class Partner extends AbstractBase
     private $contacts;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="partner")
+     */
+    private $saleRequests;
+
+    /**
      * Methods.
      */
 
@@ -267,6 +276,8 @@ class Partner extends AbstractBase
     {
         $this->orders = new ArrayCollection();
         $this->buildingSites = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
+        $this->saleRequests = new ArrayCollection();
     }
 
     /**
@@ -1031,6 +1042,55 @@ class Partner extends AbstractBase
     {
         if ($this->contacts->contains($contact)) {
             $this->contacts->remove($contact);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleRequests()
+    {
+        return $this->saleRequests;
+    }
+
+    /**
+     * @param ArrayCollection $saleRequests
+     *
+     * @return $this
+     */
+    public function setSaleRequests($saleRequests)
+    {
+        $this->saleRequests = $saleRequests;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function addSaleRequest($saleRequest)
+    {
+        if (!$this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->add($saleRequest);
+            $saleRequest->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function removeSaleRequest($saleRequest)
+    {
+        if ($this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->remove($saleRequest);
         }
 
         return $this;

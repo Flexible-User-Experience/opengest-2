@@ -6,6 +6,7 @@ use AppBundle\Repository\CityRepository;
 use AppBundle\Repository\EnterpriseGroupBountyRepository;
 use AppBundle\Repository\EnterpriseRepository;
 use AppBundle\Repository\EnterpriseTransferAccountRepository;
+use AppBundle\Repository\EnterpriseHolidaysRepository;
 use AppBundle\Repository\OperatorAbsenceRepository;
 use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
@@ -14,6 +15,7 @@ use AppBundle\Repository\OperatorRepository;
 use AppBundle\Repository\PartnerClassRepository;
 use AppBundle\Repository\PartnerRepository;
 use AppBundle\Repository\PartnerTypeRepository;
+use AppBundle\Repository\SaleTariffRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
@@ -64,6 +66,11 @@ class RepositoriesManager
      * @var EnterpriseTransferAccountRepository
      */
     private $enterpriseTransferAccountRepository;
+
+    /**
+     * @var EnterpriseHolidaysRepository
+     */
+    private $enterpriseHolidaysRepository;
 
     /**
      * @var OperatorCheckingRepository
@@ -121,6 +128,11 @@ class RepositoriesManager
     private $cityRepository;
 
     /**
+     * @var SaleTariffRepository
+     */
+    private $saleTariffRepository;
+
+    /**
      * Methods.
      */
 
@@ -134,6 +146,7 @@ class RepositoriesManager
      * @param EnterpriseRepository                $enterpriseRepository
      * @param EnterpriseGroupBountyRepository     $enterpriseGroupBountyRepository
      * @param EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository
+     * @param EnterpriseHolidaysRepository        $enterpriseHolidaysRepository
      * @param OperatorCheckingRepository          $operatorCheckingRepository
      * @param OperatorCheckingTypeRepository      $operatorCheckingTypeRepository
      * @param OperatorAbsenceTypeRepository       $operatorAbsenceTypeRepository
@@ -145,8 +158,29 @@ class RepositoriesManager
      * @param PartnerClassRepository              $partnerClassRepository
      * @param PartnerTypeRepository               $partnerTypeRepository
      * @param CityRepository                      $cityRepository
+     * @param SaleTariffRepository                $saleTariffRepository
      */
-    public function __construct(ServiceRepository $serviceRepository, VehicleCategoryRepository $vehicleCategoryRepository, UserRepository $userRepository, OperatorRepository $operatorRepository, EnterpriseRepository $enterpriseRepository, EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository, EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository, OperatorCheckingRepository $operatorCheckingRepository, OperatorCheckingTypeRepository $operatorCheckingTypeRepository, OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository, OperatorAbsenceRepository $operatorAbsenceRepository, VehicleRepository $vehicleRepository, VehicleCheckingTypeRepository $vehicleCheckingTypeRepository, VehicleCheckingRepository $vehicleCheckingRepository, PartnerRepository $partnerRepository, PartnerClassRepository $partnerClassRepository, PartnerTypeRepository $partnerTypeRepository, CityRepository $cityRepository)
+    public function __construct(
+        ServiceRepository $serviceRepository,
+        VehicleCategoryRepository $vehicleCategoryRepository,
+        UserRepository $userRepository,
+        OperatorRepository $operatorRepository,
+        EnterpriseRepository $enterpriseRepository,
+        EnterpriseGroupBountyRepository $enterpriseGroupBountyRepository,
+        EnterpriseTransferAccountRepository $enterpriseTransferAccountRepository,
+        EnterpriseHolidaysRepository $enterpriseHolidaysRepository,
+        OperatorCheckingRepository $operatorCheckingRepository,
+        OperatorCheckingTypeRepository $operatorCheckingTypeRepository,
+        OperatorAbsenceTypeRepository $operatorAbsenceTypeRepository,
+        OperatorAbsenceRepository $operatorAbsenceRepository,
+        VehicleRepository $vehicleRepository,
+        VehicleCheckingTypeRepository $vehicleCheckingTypeRepository,
+        VehicleCheckingRepository $vehicleCheckingRepository,
+        PartnerRepository $partnerRepository,
+        PartnerClassRepository $partnerClassRepository,
+        PartnerTypeRepository $partnerTypeRepository,
+        CityRepository $cityRepository,
+        SaleTariffRepository $saleTariffRepository)
     {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -155,6 +189,7 @@ class RepositoriesManager
         $this->enterpriseRepository = $enterpriseRepository;
         $this->enterpriseGroupBountyRepository = $enterpriseGroupBountyRepository;
         $this->enterpriseTransferAccountRepository = $enterpriseTransferAccountRepository;
+        $this->enterpriseHolidaysRepository = $enterpriseHolidaysRepository;
         $this->operatorCheckingRepository = $operatorCheckingRepository;
         $this->operatorCheckingTypeRepository = $operatorCheckingTypeRepository;
         $this->operatorAbsenceTypeRepository = $operatorAbsenceTypeRepository;
@@ -166,6 +201,7 @@ class RepositoriesManager
         $this->partnerClassRepository = $partnerClassRepository;
         $this->partnerTypeRepository = $partnerTypeRepository;
         $this->cityRepository = $cityRepository;
+        $this->saleTariffRepository = $saleTariffRepository;
     }
 
     /**
@@ -222,6 +258,14 @@ class RepositoriesManager
     public function getEnterpriseTransferAccountRepository()
     {
         return $this->enterpriseTransferAccountRepository;
+    }
+
+    /**
+     * @return EnterpriseHolidaysRepository
+     */
+    public function getEnterpriseHolidaysRepository()
+    {
+        return $this->enterpriseHolidaysRepository;
     }
 
     /**
@@ -310,5 +354,13 @@ class RepositoriesManager
     public function getPartnerTypeRepository()
     {
         return $this->partnerTypeRepository;
+    }
+
+    /**
+     * @return SaleTariffRepository
+     */
+    public function getSaleTariffRepository()
+    {
+        return $this->saleTariffRepository;
     }
 }

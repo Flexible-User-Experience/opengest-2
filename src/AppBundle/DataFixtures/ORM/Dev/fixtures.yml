@@ -381,6 +381,13 @@ AppBundle\Entity\EnterpriseTransferAccount:
         controlDigit: <numerify('##')>
         accountNumber: <bankAccountNumber()>
 
+# EnterpriseHolydays
+AppBundle\Entity\EnterpriseHolidays:
+    enterpriseHoliday{1..5}:
+        enterprise : '@enterprise<numberBetween(1,10)>'
+        day: <dateTimeThisYear()>
+        name: <sentence(3)>
+
 # PartnerClass
 AppBundle\Entity\PartnerClass:
     partnerClass{1..5}:
@@ -455,3 +462,41 @@ AppBundle\Entity\Partner:
       officeNumber: <numerify('##')>
       controlDigit: <numerify('##')>
       accountNumber: <bankAccountNumber()>
+
+# SaleTariff
+AppBundle\Entity\SaleTariff:
+    saleTariff{1..5}:
+        enterprise: '@enterprise<numberBetween(1,5)>'
+        year: <year()>
+        tonnage: <randomFloat(2)>
+        priceHour: <randomFloat(2)>
+        miniumHours: <randomFloat(2)>
+        miniumHolidayHours: <randomFloat(2)>
+        displacement: <randomFloat(2)>
+        increaseForHolidays: <randomFloat(2)>
+
+# SaleRequest
+AppBundle\Entity\SaleRequest:
+    saleTariff{1..5}:
+        enterprise: '@enterprise<numberBetween(1,5)>'
+        partner: '@partner<numberBetween(1,5)>'
+        invoiceTo: '@partner<numberBetween(1,5)>'
+        vehicle: '@vehicle<numberBetween(1,5)>'
+        operator: '@operator<numberBetween(1,5)>'
+        tariff: '@saleTariff<numberBetween(1,5)>'
+        attendedBy: '@admin'
+        serviceDescription: <text(200)>
+        height: <randomNumber()>
+        distance: <randomNumber()>
+        weight: <randomFloat()>
+        place: <sentence(3)>
+        utensils: <sentence(3)>
+        observations: <text(200)>
+        requestDate: <dateTime()>
+        requestTime: <dateTime()>
+        serviceDate: <dateTime()>
+        serviceTime: <dateTime()>
+        hourPrice: <randomFloat()>
+        miniumHours: <randomFloat()>
+        displacement: <randomFloat()>
+        secondaryVehicle: '@vehicle<numberBetween(1,5)>'

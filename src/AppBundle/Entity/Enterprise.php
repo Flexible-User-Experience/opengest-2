@@ -566,6 +566,27 @@ class Enterprise extends AbstractBase
     private $partners;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseHolidays", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true )
+     */
+    private $enterpriseHolidays;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleTariff", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $saleTariffs;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="enterprise")
+     */
+    private $saleRequests;
+
+    /**
      * Methods.
      */
 
@@ -578,6 +599,9 @@ class Enterprise extends AbstractBase
         $this->enterpriseGroupBounties = new ArrayCollection();
         $this->enterpriseTransferAccounts = new ArrayCollection();
         $this->partners = new ArrayCollection();
+        $this->enterpriseHolidays = new ArrayCollection();
+        $this->saleTariffs = new ArrayCollection();
+        $this->saleRequests = new ArrayCollection();
     }
 
     /**
@@ -2071,10 +2095,157 @@ class Enterprise extends AbstractBase
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getEnterpriseHolidays()
+    {
+        return $this->enterpriseHolidays;
+    }
+
+    /**
+     * @param ArrayCollection $enterpriseHolidays
+     *
+     * @return $this
+     */
+    public function setEnterpriseHolidays($enterpriseHolidays)
+    {
+        $this->enterpriseHolidays = $enterpriseHolidays;
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseHolidays $enterpriseHoliday
+     *
+     * @return $this
+     */
+    public function addEnterpriseHoliday($enterpriseHoliday)
+    {
+        if (!$this->enterpriseHolidays->contains($enterpriseHoliday)) {
+            $this->enterpriseHolidays->add($enterpriseHoliday);
+            $enterpriseHoliday->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EnterpriseHolidays $enterpriseHoliday
+     *
+     * @return $this
+     */
+    public function removeEnterpriseHoliday($enterpriseHoliday)
+    {
+        if ($this->enterpriseHolidays->contains($enterpriseHoliday)) {
+            $this->enterpriseHolidays->remove($enterpriseHoliday);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleTariffs()
+    {
+        return $this->saleTariffs;
+    }
+
+    /**
+     * @param ArrayCollection $saleTariffs
+     *
+     * @return $this
+     */
+    public function setSaleTariffs($saleTariffs)
+    {
+        $this->saleTariffs = $saleTariffs;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleTariff $saleTariff
+     *
+     * @return $this
+     */
+    public function addSaleTariff($saleTariff)
+    {
+        if (!$this->saleTariffs->contains($saleTariff)) {
+            $this->saleTariffs->add($saleTariff);
+            $saleTariff->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleTariff $saleTariff
+     *
+     * @return $this
+     */
+    public function removeSaleTariff($saleTariff)
+    {
+        if ($this->saleTariffs->contains($saleTariff)) {
+            $this->saleTariffs->remove($saleTariff);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleRequests()
+    {
+        return $this->saleRequests;
+    }
+
+    /**
+     * @param ArrayCollection $saleRequests
+     *
+     * @return $this
+     */
+    public function setSaleRequests($saleRequests)
+    {
+        $this->saleRequests = $saleRequests;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function addSaleRequest($saleRequest)
+    {
+        if (!$this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->add($saleRequest);
+            $saleRequest->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function removeSaleRequest($saleRequest)
+    {
+        if ($this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->remove($saleRequest);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getTaxIdentificationNumber().' · '.$this->getName() : '---';
+        return $this->id ? $this->getName().' · '.$this->getTaxIdentificationNumber() : '---';
     }
 }

@@ -69,4 +69,12 @@ Tercers obres_delete: Esborrar
 Tercers contacte_list: Tercers contacte
 Tercers contacte_create: Crear
 Tercers contacte_delete: Esborrar
-
+Dies festius_list: Dies festius
+Dies festius_create: Crear
+Dies festius_delete: Esborrar
+Tarifa_list: Tarifa
+Tarifa_create: Crear
+Tarifa_delete: Esborrar
+Petició_list: Petició
+Petició_create: Crear
+Petició_delete: Esborrar

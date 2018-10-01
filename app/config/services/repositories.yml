@@ -44,6 +44,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:EnterpriseTransferAccount
+    app.enterprise_holidays_repository:
+        class: AppBundle\Repository\EnterpriseHolidaysRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:EnterpriseHolidays
     app.operator_checking_repository:
         class: AppBundle\Repository\OperatorCheckingRepository
         factory: [ "@doctrine", getRepository ]
@@ -99,6 +104,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:City
+    app.sale_tariff_repository:
+        class: AppBundle\Repository\SaleTariffRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:SaleTariff
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -109,6 +119,7 @@ services:
             - "@app.enterprise_repository"
             - "@app.enterprise_group_bounty_repository"
             - "@app.enterprise_transfer_account_repository"
+            - "@app.enterprise_holidays_repository"
             - "@app.operator_checking_repository"
             - "@app.operator_checking_type_repository"
             - "@app.operator_absence_type_repository"
@@ -120,3 +131,4 @@ services:
             - "@app.partner_class_repository"
             - "@app.partner_type_repository"
             - "@app.city_repository"
+            - "@app.sale_tariff_repository"

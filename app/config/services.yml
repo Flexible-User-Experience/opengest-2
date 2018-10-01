@@ -120,3 +120,6 @@ services:
         tags:
             - { name: security.voter }
         public: false
+# Managers
+    app.year_choices_manager:
+        class: AppBundle\Manager\YearChoicesManager

@@ -2,13 +2,12 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Partner;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 /**
  * Class PartnerOrderAdmin.
@@ -35,12 +34,20 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'partner',
-                    EntityType::class,
+                    ModelAutocompleteType::class,
                     array(
-                        'class' => Partner::class,
+                        'property' => 'name',
                         'label' => 'Tercer',
                         'required' => true,
-                        'query_builder' => $this->rm->getPartnerRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                        'callback' => function ($admin, $property, $value) {
+                            $datagrid = $admin->getDatagrid();
+                            $queryBuilder = $datagrid->getQuery();
+                            $queryBuilder
+                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                            ;
+                            $datagrid->setValue($property, null, $value);
+                        },
                     )
                 )
                 ->add(
@@ -71,9 +78,13 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'partner',
-                null,
+                'doctrine_orm_model_autocomplete',
                 array(
                     'label' => 'Tercer',
+                ),
+                null,
+                array(
+                    'property' => 'name',
                 )
             )
             ->add(

@@ -117,6 +117,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/compte-bancari/create'),
             array('/admin/empreses/compte-bancari/1/edit'),
             array('/admin/empreses/compte-bancari/1/delete'),
+            array('/admin/empreses/dies-festius/create'),
+            array('/admin/empreses/dies-festius/1/edit'),
+            array('/admin/empreses/dies-festius/1/delete'),
             // Partners
             array('/admin/tercers/classe/create'),
             array('/admin/tercers/classe/1/edit'),
@@ -136,6 +139,13 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/contacte/create'),
             array('/admin/tercers/contacte/1/edit'),
             array('/admin/tercers/contacte/1/delete'),
+            // Sale
+            array('/admin/vendes/tarifa/create'),
+            array('/admin/vendes/tarifa/1/edit'),
+            array('/admin/vendes/tarifa/1/delete'),
+            array('/admin/vendes/peticio/create'),
+            array('/admin/vendes/peticio/1/edit'),
+            array('/admin/vendes/peticio/1/delete'),
         );
     }
 
@@ -185,7 +195,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/1/show'),
             array('/admin/administracio/ciutat/batch'),
             array('/admin/administracio/ciutat/1/delete'),
-
             array('/admin/administracio/usuari/1/show'),
             array('/admin/administracio/usuari/batch'),
             // Operators
@@ -223,6 +232,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/grup-prima/batch'),
             array('/admin/empreses/compte-bancari/1/show'),
             array('/admin/empreses/compte-bancari/batch'),
+            array('/admin/empreses/dies-festius/1/show'),
+            array('/admin/empreses/dies-festius/batch'),
             // Partners
             array('/admin/tercers/classe/1/show'),
             array('/admin/tercers/classe/batch'),
@@ -236,6 +247,11 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/obres/batch'),
             array('/admin/tercers/contacte/1/show'),
             array('/admin/tercers/contacte/batch'),
+            // Sale
+            array('/admin/vendes/tarifa/1/show'),
+            array('/admin/vendes/tarifa/batch'),
+            array('/admin/vendes/peticio/1/show'),
+            array('/admin/vendes/peticio/batch'),
         );
     }
 

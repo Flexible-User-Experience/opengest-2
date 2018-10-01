@@ -123,11 +123,19 @@ class Vehicle extends AbstractBase
     private $vehicleDigitalTachographs;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="vehicle")
+     */
+    private $saleRequests;
+
+    /**
      * Methods.
      */
     public function __construct()
     {
         $this->vehicleDigitalTachographs = new ArrayCollection();
+        $this->saleRequests = new ArrayCollection();
     }
 
     /**
@@ -364,6 +372,35 @@ class Vehicle extends AbstractBase
     {
         if ($this->vehicleDigitalTachographs->contains($digitalTachograph)) {
             $this->vehicleDigitalTachographs->removeElement($digitalTachograph);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function addSaleRequest($saleRequest)
+    {
+        if (!$this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->add(($saleRequest));
+            $saleRequest->setVehicle($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function removeSaleRequest($saleRequest)
+    {
+        if ($this->saleRequests->contains($saleRequest)) {
+            $this->saleRequests->remove($saleRequest);
         }
 
         return $this;
