@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Operator;
+use AppBundle\Entity\SaleRequest;
 use AppBundle\Entity\SaleTariff;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
@@ -62,7 +63,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'property' => 'name',
                     'label' => 'Facturar a',
-                    'required' => true,
+                    'required' => false,
                     'callback' => function ($admin, $property, $value) {
                         $datagrid = $admin->getDatagrid();
                         $queryBuilder = $datagrid->getQuery();
@@ -534,9 +535,17 @@ class SaleRequestAdmin extends AbstractBaseAdmin
         ;
     }
 
+    /**
+     * @param SaleRequest $object
+     */
     public function prePersist($object)
     {
         $object->setAttendedBy($this->getUser());
         $object->setEnterprise($this->getUserLogedEnterprise());
+        $object->setRequestTime(new \DateTime());
+
+        if (null == $object->getInvoiceTo()) {
+            $object->setInvoiceTo($object->getPartner());
+        }
     }
 }
