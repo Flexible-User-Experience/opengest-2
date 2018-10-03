@@ -157,7 +157,7 @@ class SaleRequest extends AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $endServiceTime;
 
