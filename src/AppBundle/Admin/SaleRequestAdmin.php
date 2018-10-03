@@ -38,13 +38,13 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('Tercer', $this->getFormMdSuccessBoxArray(3))
+        ->with('Petició', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'partner',
                 ModelAutocompleteType::class,
                 array(
                     'property' => 'name',
-                    'label' => 'Tercer',
+                    'label' => 'Client',
                     'required' => true,
                     'callback' => function ($admin, $property, $value) {
                         $datagrid = $admin->getDatagrid();
@@ -202,7 +202,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Observacions',
-                    'required' => true,
+                    'required' => false,
                     'attr' => array(
                         'style' => 'resize: vertical',
                         'rows' => 7,
@@ -219,15 +219,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'label' => 'Data petició',
                     'format' => 'd/M/y',
                     'required' => false,
-                )
-            )
-            ->add(
-                'requestTime',
-                TimeType::class,
-                array(
-                    'label' => 'Hora petició',
-                    'required' => false,
-                    'minutes' => array(0, 15, 30, 45),
+                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
             )
             ->add(
@@ -236,7 +228,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Data servei',
                     'format' => 'd/M/y',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
@@ -244,7 +236,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 TimeType::class,
                 array(
                     'label' => 'Hora servei',
-                    'required' => false,
+                    'required' => true,
                     'minutes' => array(0, 15, 30, 45),
                 )
             )

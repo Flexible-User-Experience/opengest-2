@@ -35,4 +35,15 @@ class YearChoicesManager
 
         return $currentYear;
     }
+
+    /**
+     * @return string
+     */
+    public function getTodayString()
+    {
+        $today = new \DateTime();
+        $today = $today->format('d/m/Y');
+
+        return $today;
+    }
 }
