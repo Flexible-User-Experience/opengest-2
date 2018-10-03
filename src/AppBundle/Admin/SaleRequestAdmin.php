@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 /**
@@ -73,6 +74,23 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                         ;
                         $datagrid->setValue($property, null, $value);
                     },
+                )
+            )
+            ->add(
+                'contactPersonName',
+                TextType::class,
+                array(
+                    'label' => 'Persona de contacte',
+                    'required' => false,
+                )
+            )
+
+            ->add(
+                'contactPersonPhone',
+                TextType::class,
+                array(
+                    'label' => 'Telèfon persona contacte',
+                    'required' => false,
                 )
             )
             ->add(
@@ -240,6 +258,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'minutes' => array(0, 15, 30, 45),
                 )
             )
+            ->add(
+                'endServiceTime',
+                TimeType::class,
+                array(
+                    'label' => 'Fi hora servei',
+                    'required' => false,
+                    'minutes' => array(0, 15, 30, 45),
+                )
+            )
         ->end()
         ;
     }
@@ -272,7 +299,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'partner',
                 'doctrine_orm_model_autocomplete',
                 array(
-                    'label' => 'Tercer',
+                    'label' => 'Client',
                 ),
                 null,
                 array(
