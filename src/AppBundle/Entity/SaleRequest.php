@@ -155,6 +155,13 @@ class SaleRequest extends AbstractBase
     private $serviceTime;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="time")
+     */
+    private $endServiceTime;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -685,6 +692,26 @@ class SaleRequest extends AbstractBase
     public function setHasBeenPrinted($hasBeenPrinted)
     {
         $this->hasBeenPrinted = $hasBeenPrinted;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndServiceTime()
+    {
+        return $this->endServiceTime;
+    }
+
+    /**
+     * @param \DateTime $endServiceTime
+     *
+     * @return $this
+     */
+    public function setEndServiceTime($endServiceTime)
+    {
+        $this->endServiceTime = $endServiceTime;
 
         return $this;
     }

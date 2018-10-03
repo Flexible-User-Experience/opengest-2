@@ -477,9 +477,11 @@ AppBundle\Entity\SaleTariff:
 
 # SaleRequest
 AppBundle\Entity\SaleRequest:
-    saleTariff{1..5}:
+    saleRequest{1..5}:
         enterprise: '@enterprise<numberBetween(1,5)>'
         partner: '@partner<numberBetween(1,5)>'
+        contactPersonName: <name()>
+        contactPersonPhone: <phoneNumber()>
         invoiceTo: '@partner<numberBetween(1,5)>'
         vehicle: '@vehicle<numberBetween(1,5)>'
         operator: '@operator<numberBetween(1,5)>'
@@ -496,7 +498,9 @@ AppBundle\Entity\SaleRequest:
         requestTime: <dateTime()>
         serviceDate: <dateTime()>
         serviceTime: <dateTime()>
+        endServiceTime: <dateTime()>
         hourPrice: <randomFloat()>
         miniumHours: <randomFloat()>
         displacement: <randomFloat()>
         secondaryVehicle: '@vehicle<numberBetween(1,5)>'
+        hasBeenPrinted: <boolean()>
