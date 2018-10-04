@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -18,9 +17,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class SaleDeliveryNote extends AbstractBase
 {
     /**
-     * @var datetime
+     * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $date;
 
@@ -41,14 +40,14 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var PartnerBuildingSite
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerBuildingSite", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerBuildingSite")
      */
     private $buildingSite;
 
     /**
      * @var PartnerOrder
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerOrder", inversedBy="saleDeliveryNotes", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerOrder", inversedBy="saleDeliveryNotes")
      */
     private $order;
 
@@ -83,14 +82,14 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var CollectionDocumentType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CollectionDocumentType", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CollectionDocumentType")
      */
     private $collectionDocument;
 
     /**
      * @var ActivityLine
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ActivityLine", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ActivityLine")
      */
     private $activityLine;
 
@@ -102,7 +101,7 @@ class SaleDeliveryNote extends AbstractBase
     private $wontBeInvoiced = false;
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -110,11 +109,15 @@ class SaleDeliveryNote extends AbstractBase
     }
 
     /**
-     * @param DateTime $date
+     * @param \DateTime $date
+     *
+     * @return $this
      */
-    public function setDate($date): void
+    public function setDate($date)
     {
         $this->date = $date;
+
+        return $this;
     }
 
     /**

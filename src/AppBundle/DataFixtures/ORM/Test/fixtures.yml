@@ -375,14 +375,14 @@ AppBundle\Entity\PartnerType:
 
 # PartnerOrders
 AppBundle\Entity\PartnerOrder:
-    partnerOrders{1..2}:
+    partnerOrder{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         number: <word()>
         providerReference: <word()>
 
 # PartnerBuildingSite
 AppBundle\Entity\PartnerBuildingSite:
-    partnerBuildigSite{1..2}:
+    partnerBuildingSite{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         name: <sentence(3)>
         number: <word()>
@@ -477,3 +477,19 @@ AppBundle\Entity\SaleRequest:
         displacement: <randomFloat()>
         secondaryVehicle: '@vehicle<numberBetween(1,2)>'
         hasBeenPrinted: <boolean()>
+
+# SaleDeliveryNote
+AppBundle\Entity\SaleDeliveryNote:
+    SaleDeliveryNote{1..2}:
+        date: <dateTime()>
+        enterprise: '@enterprise<numberBetween(1,2)>'
+        partner: '@partner<numberBetween(1,2)>'
+        buildingSite: '@partnerBuildingSite<numberBetween(1,2)>'
+        order: '@partnerOrder<numberBetween(1,2)>'
+        deliveryNoteNumber: <randomNumber()>
+        baseAmount: <randomFloat()>
+        discount: <randomFloat()>
+        collectionTerm: <randomNumber()>
+        collectionDocument: '@collectionDocumentType<numberBetween(1,2)>'
+        activityLine: '@activityLine<numberBetween(1,2)>'
+        wontBeInvoiced: <boolean()>
