@@ -587,6 +587,13 @@ class Enterprise extends AbstractBase
     private $saleRequests;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ActivityLine", mappedBy="enterprise")
+     */
+    private $activityLines;
+
+    /**
      * Methods.
      */
 
@@ -602,6 +609,7 @@ class Enterprise extends AbstractBase
         $this->enterpriseHolidays = new ArrayCollection();
         $this->saleTariffs = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
+        $this->activityLines = new ArrayCollection();
     }
 
     /**
@@ -2236,6 +2244,51 @@ class Enterprise extends AbstractBase
     {
         if ($this->saleRequests->contains($saleRequest)) {
             $this->saleRequests->remove($saleRequest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getActivityLines()
+    {
+        return $this->activityLines;
+    }
+
+    /**
+     * @param ArrayCollection $activityLines
+     */
+    public function setActivityLines($activityLines): void
+    {
+        $this->activityLines = $activityLines;
+    }
+
+    /**
+     * @param ActivityLine $activityLine
+     *
+     * @return $this
+     */
+    public function addActivityLine($activityLine)
+    {
+        if (!$this->activityLines->contains($activityLine)) {
+            $this->activityLines->add($activityLine);
+            $activityLine->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ActivityLine $activityLine
+     *
+     * @return $this
+     */
+    public function removeActivityLine($activityLine)
+    {
+        if ($this->activityLines->contains($activityLine)) {
+            $this->activityLines->remove($activityLine);
         }
 
         return $this;
