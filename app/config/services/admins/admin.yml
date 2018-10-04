@@ -161,6 +161,11 @@ services:
         arguments: [ ~, AppBundle\Entity\EnterpriseHolidays, AppBundle:Admin\EnterpriseHolidaysAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Dies festius", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.activity_line:
+        class: AppBundle\Admin\ActivityLineAdmin
+        arguments: [ ~, AppBundle\Entity\ActivityLine, AppBundle:Admin\ActivityLineAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Línies activitat", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Sales group
     app.admin.sale_tariff:
