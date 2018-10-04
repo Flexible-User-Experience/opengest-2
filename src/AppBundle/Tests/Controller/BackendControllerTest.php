@@ -120,6 +120,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/dies-festius/create'),
             array('/admin/empreses/dies-festius/1/edit'),
             array('/admin/empreses/dies-festius/1/delete'),
+            array('/admin/empreses/linies-activitat/create'),
+            array('/admin/empreses/linies-activitat/1/edit'),
+            array('/admin/empreses/linies-activitat/1/delete'),
             // Partners
             array('/admin/tercers/classe/create'),
             array('/admin/tercers/classe/1/edit'),
@@ -234,6 +237,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/compte-bancari/batch'),
             array('/admin/empreses/dies-festius/1/show'),
             array('/admin/empreses/dies-festius/batch'),
+            array('/admin/empreses/linies-activitat/1/show'),
+            array('/admin/empreses/linies-activitat/batch'),
             // Partners
             array('/admin/tercers/classe/1/show'),
             array('/admin/tercers/classe/batch'),
