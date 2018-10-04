@@ -394,6 +394,14 @@ AppBundle\Entity\ActivityLine:
         enterprise : '@enterprise<numberBetween(1,10)>'
         name: <sentence(3)>
 
+# CollectionDocumentType
+AppBundle\Entity\CollectionDocumentType:
+    collectionDocumentType{1..5}:
+        enterprise : '@enterprise<numberBetween(1,10)>'
+        name: <sentence(3)>
+        description: <paragraph()>
+        sitReference: <sentence(3)>
+
 # PartnerClass
 AppBundle\Entity\PartnerClass:
     partnerClass{1..5}:
