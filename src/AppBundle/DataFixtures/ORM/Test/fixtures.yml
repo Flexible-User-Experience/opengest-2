@@ -347,6 +347,12 @@ AppBundle\Entity\EnterpriseHolidays:
         day: <dateTimeThisYear()>
         name: <sentence(3)>
 
+# ActivityLine
+AppBundle\Entity\ActivityLine:
+    activityLine{1..2}:
+        enterprise : '@enterprise<numberBetween(1,2)>'
+        name: <sentence(3)>
+
 # PartnerClass
 AppBundle\Entity\PartnerClass:
     partnerClass{1..2}:
