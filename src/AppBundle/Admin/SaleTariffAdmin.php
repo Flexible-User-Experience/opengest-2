@@ -41,8 +41,6 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                     'placeholder' => 'Selecciona un any',
                     'required' => true,
                 )
-
-//                ),
             )
             ->add(
                 'tonnage',
