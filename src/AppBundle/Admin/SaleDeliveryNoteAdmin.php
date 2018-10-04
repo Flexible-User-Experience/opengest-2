@@ -147,7 +147,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 CheckboxType::class,
                 array(
                     'label' => 'No facturable',
-                    'checked' => false,
                 )
             )
         ->end()
@@ -271,10 +270,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
             ->orderBy('e.name', 'ASC')
         ;
-        $queryBuilder
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.year', 'DESC')
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.tonnage', 'DESC')
-        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -303,8 +298,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
             ;
         }
         $listMapper
-            //deliveryNoteNumber, partner, baseAmount i wontBeInvoiced.
-
             ->add(
                 'date',
                 null,
