@@ -166,6 +166,11 @@ services:
         arguments: [ ~, AppBundle\Entity\ActivityLine, AppBundle:Admin\ActivityLineAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Línies activitat", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.collection_document_type:
+        class: AppBundle\Admin\CollectionDocumentTypeAdmin
+        arguments: [ ~, AppBundle\Entity\CollectionDocumentType, AppBundle:Admin\CollectionDocumentTypeAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus document cobrament", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Sales group
     app.admin.sale_tariff:
