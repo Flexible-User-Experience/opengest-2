@@ -594,6 +594,13 @@ class Enterprise extends AbstractBase
     private $activityLines;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CollectionDocumentType", mappedBy="enterprise")
+     */
+    private $collectionDocumentTypes;
+
+    /**
      * Methods.
      */
 
@@ -610,6 +617,7 @@ class Enterprise extends AbstractBase
         $this->saleTariffs = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
         $this->activityLines = new ArrayCollection();
+        $this->collectionDocumentTypes = new ArrayCollection();
     }
 
     /**
@@ -2289,6 +2297,46 @@ class Enterprise extends AbstractBase
     {
         if ($this->activityLines->contains($activityLine)) {
             $this->activityLines->remove($activityLine);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCollectionDocumentTypes()
+    {
+        return $this->collectionDocumentTypes;
+    }
+
+    /**
+     * @param ArrayCollection $collectionDocumentTypes
+     */
+    public function setCollectionDocumentTypes($collectionDocumentTypes): void
+    {
+        $this->collectionDocumentTypes = $collectionDocumentTypes;
+    }
+
+    /**
+     * @param CollectionDocumentType $collectionDocumentType
+     *
+     * @return $this
+     */
+    public function addCollectionDocumentType($collectionDocumentType)
+    {
+        if (!$this->collectionDocumentTypes->contains($collectionDocumentType)) {
+            $this->collectionDocumentTypes->add($collectionDocumentType);
+            $collectionDocumentType->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollectionDocumentType($collectionDocumentType)
+    {
+        if ($this->collectionDocumentTypes->contains($collectionDocumentType)) {
+            $this->collectionDocumentTypes->remove($collectionDocumentType);
         }
 
         return $this;

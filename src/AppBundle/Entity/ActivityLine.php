@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseGroupBountyRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ActivityLineRepository")
  * @ORM\Table(name="activity_line")
  */
 class ActivityLine extends AbstractBase
