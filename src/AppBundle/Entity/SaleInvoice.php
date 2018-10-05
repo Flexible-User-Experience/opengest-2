@@ -71,6 +71,11 @@ class SaleInvoice extends AbstractBase
      */
     private $hasBeenCounted = false;
 
+    public function __construct()
+    {
+        $this->deliveryNotes = new ArrayCollection();
+    }
+
     /**
      * @return ArrayCollection
      */
@@ -85,6 +90,35 @@ class SaleInvoice extends AbstractBase
     public function setDeliveryNotes($deliveryNotes): void
     {
         $this->deliveryNotes = $deliveryNotes;
+    }
+
+    /**
+     * @param SaleDeliveryNote $deliveryNote
+     *
+     * @return $this
+     */
+    public function addDeliveryNote($deliveryNote)
+    {
+        if (!$this->deliveryNotes->contains($deliveryNote)) {
+            $this->deliveryNotes->add($deliveryNote);
+            $deliveryNote->setSaleInvoice($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $deliveryNote
+     *
+     * @return $this
+     */
+    public function removeDeliveryNote($deliveryNote)
+    {
+        if ($this->deliveryNotes->contains($deliveryNote)) {
+            $this->deliveryNotes->remove($deliveryNote);
+        }
+
+        return $this;
     }
 
     /**

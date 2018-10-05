@@ -101,6 +101,13 @@ class SaleDeliveryNote extends AbstractBase
     private $wontBeInvoiced = false;
 
     /**
+     * @var SaleInvoice
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleInvoice", inversedBy="deliveryNotes")
+     */
+    private $saleInvoice;
+
+    /**
      * @return \DateTime
      */
     public function getDate()
@@ -294,6 +301,26 @@ class SaleDeliveryNote extends AbstractBase
     public function setWontBeInvoiced($wontBeInvoiced): void
     {
         $this->wontBeInvoiced = $wontBeInvoiced;
+    }
+
+    /**
+     * @return SaleInvoice
+     */
+    public function getSaleInvoice()
+    {
+        return $this->saleInvoice;
+    }
+
+    /**
+     * @param SaleInvoice $saleInvoice
+     *
+     * @return $this
+     */
+    public function setSaleInvoice($saleInvoice)
+    {
+        $this->saleInvoice = $saleInvoice;
+
+        return $this;
     }
 
     /**
