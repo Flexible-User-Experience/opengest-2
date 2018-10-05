@@ -74,6 +74,11 @@ services:
         arguments: [ ~, AppBundle\Entity\User, AppBundle:Admin\UserAdmin, "@fos_user.user_manager", "@app.repositories_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_invoice_series:
+        class: AppBundle\Admin\SaleInvoiceSeriesAdmin
+        arguments: [ ~, AppBundle\Entity\SaleInvoiceSeries, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Sèries factura", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Operaris group
     app.admin.operator:
