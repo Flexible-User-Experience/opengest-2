@@ -68,7 +68,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Número de factura',
-//                    'disabled' => true,
+                    'disabled' => true,
                 )
             )
         ->end()
@@ -185,24 +185,26 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
         ;
     }
 
-    /**
-     * @param string $context
-     *
-     * @return QueryBuilder
-     */
-    public function createQuery($context = 'list')
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = parent::createQuery($context);
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
+    //TODO Filter invoices by enterprise in manager role
 
-        return $queryBuilder;
-    }
+//    /**
+//     * @param string $context
+//     *
+//     * @return QueryBuilder
+//     */
+//    public function createQuery($context = 'list')
+//    {
+//        /** @var QueryBuilder $queryBuilder */
+//        $queryBuilder = parent::createQuery($context);
+//        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+//            $queryBuilder
+//                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
+//                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+//            ;
+//        }
+//
+//        return $queryBuilder;
+//    }
 
     /**
      * @param ListMapper $listMapper

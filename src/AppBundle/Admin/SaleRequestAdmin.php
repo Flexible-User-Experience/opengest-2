@@ -84,7 +84,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-
             ->add(
                 'contactPersonPhone',
                 TextType::class,
