@@ -45,7 +45,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'Data petició',
-                    'format' => 'd/M/y',
+                    'format' => 'd/m/Y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
@@ -75,7 +75,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'class' => PartnerBuildingSite::class,
                     'label' => 'Obra',
                     'required' => false,
-//                    'query_builder' =>
+                    'query_builder' => $this->rm->getPartnerBuildingSiteRepository()->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -85,14 +85,14 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'class' => PartnerOrder::class,
                     'label' => 'Comanda',
                     'required' => false,
-//                    'query_builder' =>
+                    'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
                 )
             )
             ->add(
                 'deliveryNoteNumber',
                 null,
                 array(
-                    'label' => 'Número de comanda',
+                    'label' => 'Número d\'albarà',
                     'required' => true,
                 )
             )
@@ -121,7 +121,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'class' => CollectionDocumentType::class,
                     'label' => 'Tipus document cobrament',
                     'required' => false,
-//                    'query_builder' =>
+                    'query_builder' => $this->rm->getCollectionDocumentTypeRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -139,7 +139,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'class' => ActivityLine::class,
                     'label' => 'Línia d\'activitat',
                     'required' => false,
-//                    'query_builder' =>
+                    'query_builder' => $this->rm->getActivityLineRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -147,6 +147,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 CheckboxType::class,
                 array(
                     'label' => 'No facturable',
+                    'required' => false,
                 )
             )
         ->end()
@@ -303,6 +304,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Data albarà',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add(
@@ -310,6 +312,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Número albarà',
+                    'editable' => true,
                 )
             )
             ->add(
@@ -324,6 +327,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Import base',
+                    'editable' => true,
                 )
             )
             ->add(
@@ -331,6 +335,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'No facturable',
+                    'editable' => true,
                 )
             )
 

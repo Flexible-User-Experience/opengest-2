@@ -20,9 +20,9 @@ class ActivityLineRepository extends EntityRepository
     public function getEnabledSortedByNameQB()
     {
         return $this->createQueryBuilder('a')
-            ->where('a.name = :enabled')
-            ->set('enabled', true)
-            ->orderBy('c.name', 'ASC')
+            ->where('a.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('a.name', 'ASC')
         ;
     }
 
@@ -50,9 +50,9 @@ class ActivityLineRepository extends EntityRepository
     public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
     {
         return $this->getEnabledSortedByNameQB()
-            ->andWhere('o.enterprise = :enterprise')
+            ->andWhere('a.enterprise = :enterprise')
             ->setParameter('enterprise', $enterprise)
-            ;
+        ;
     }
 
     /**
