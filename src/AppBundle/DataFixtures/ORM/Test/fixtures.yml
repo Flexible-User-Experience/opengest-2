@@ -480,7 +480,7 @@ AppBundle\Entity\SaleRequest:
 
 # SaleDeliveryNote
 AppBundle\Entity\SaleDeliveryNote:
-    SaleDeliveryNote{1..2}:
+    saleDeliveryNote{1..2}:
         date: <dateTime()>
         enterprise: '@enterprise<numberBetween(1,2)>'
         partner: '@partner<numberBetween(1,2)>'
@@ -493,3 +493,10 @@ AppBundle\Entity\SaleDeliveryNote:
         collectionDocument: '@collectionDocumentType<numberBetween(1,2)>'
         activityLine: '@activityLine<numberBetween(1,2)>'
         wontBeInvoiced: <boolean()>
+
+# SaleInvoiceSeries
+AppBundle\Entity\SaleInvoiceSeries:
+    SaleDeliveryNote{1..2}:
+        name: <word()>
+        prefix: <word()>
+        isDefault: <boolean()>

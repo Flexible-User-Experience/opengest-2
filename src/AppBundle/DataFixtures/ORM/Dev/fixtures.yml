@@ -521,7 +521,7 @@ AppBundle\Entity\SaleRequest:
 
 # SaleDeliveryNote
 AppBundle\Entity\SaleDeliveryNote:
-    SaleDeliveryNote{1..5}:
+    saleDeliveryNote{1..5}:
         date: <dateTime()>
         enterprise: '@enterprise<numberBetween(1,5)>'
         partner: '@partner<numberBetween(1,5)>'
