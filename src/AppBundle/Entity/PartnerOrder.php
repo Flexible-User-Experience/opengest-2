@@ -156,7 +156,7 @@ class PartnerOrder extends AbstractBase
     public function removeSaleDeliveryNote($saleDeliveryNote)
     {
         if ($this->saleDeliveryNotes->contains($saleDeliveryNote)) {
-            $this->saleDeliveryNotes->remove($saleDeliveryNote);
+            $this->saleDeliveryNotes->removeElement($saleDeliveryNote);
         }
 
         return $this;

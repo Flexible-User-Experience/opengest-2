@@ -71,6 +71,9 @@ class SaleInvoice extends AbstractBase
      */
     private $hasBeenCounted = false;
 
+    /**
+     * SaleInvoice constructor.
+     */
     public function __construct()
     {
         $this->deliveryNotes = new ArrayCollection();
@@ -115,7 +118,7 @@ class SaleInvoice extends AbstractBase
     public function removeDeliveryNote($deliveryNote)
     {
         if ($this->deliveryNotes->contains($deliveryNote)) {
-            $this->deliveryNotes->remove($deliveryNote);
+            $this->deliveryNotes->removeElement($deliveryNote);
         }
 
         return $this;

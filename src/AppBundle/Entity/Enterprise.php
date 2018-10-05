@@ -2060,7 +2060,7 @@ class Enterprise extends AbstractBase
     public function removeEnterpriseTransferAccount($enterpriseTransferAccount)
     {
         if ($this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
-            $this->enterpriseTransferAccounts->remove($enterpriseTransferAccount);
+            $this->enterpriseTransferAccounts->removeElement($enterpriseTransferAccount);
         }
 
         return $this;
@@ -2104,7 +2104,7 @@ class Enterprise extends AbstractBase
     public function removePartner($partner)
     {
         if ($this->partners->contains($partner)) {
-            $this->partners->remove($partner);
+            $this->partners->removeElement($partner);
         }
 
         return $this;
@@ -2153,7 +2153,7 @@ class Enterprise extends AbstractBase
     public function removeEnterpriseHoliday($enterpriseHoliday)
     {
         if ($this->enterpriseHolidays->contains($enterpriseHoliday)) {
-            $this->enterpriseHolidays->remove($enterpriseHoliday);
+            $this->enterpriseHolidays->removeElement($enterpriseHoliday);
         }
 
         return $this;
@@ -2202,7 +2202,7 @@ class Enterprise extends AbstractBase
     public function removeSaleTariff($saleTariff)
     {
         if ($this->saleTariffs->contains($saleTariff)) {
-            $this->saleTariffs->remove($saleTariff);
+            $this->saleTariffs->removeElement($saleTariff);
         }
 
         return $this;
@@ -2251,7 +2251,7 @@ class Enterprise extends AbstractBase
     public function removeSaleRequest($saleRequest)
     {
         if ($this->saleRequests->contains($saleRequest)) {
-            $this->saleRequests->remove($saleRequest);
+            $this->saleRequests->removeElement($saleRequest);
         }
 
         return $this;
@@ -2296,7 +2296,7 @@ class Enterprise extends AbstractBase
     public function removeActivityLine($activityLine)
     {
         if ($this->activityLines->contains($activityLine)) {
-            $this->activityLines->remove($activityLine);
+            $this->activityLines->removeElement($activityLine);
         }
 
         return $this;
@@ -2336,7 +2336,7 @@ class Enterprise extends AbstractBase
     public function removeCollectionDocumentType($collectionDocumentType)
     {
         if ($this->collectionDocumentTypes->contains($collectionDocumentType)) {
-            $this->collectionDocumentTypes->remove($collectionDocumentType);
+            $this->collectionDocumentTypes->removeElement($collectionDocumentType);
         }
 
         return $this;

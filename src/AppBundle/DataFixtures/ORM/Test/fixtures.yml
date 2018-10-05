@@ -493,6 +493,7 @@ AppBundle\Entity\SaleDeliveryNote:
         collectionDocument: '@collectionDocumentType<numberBetween(1,2)>'
         activityLine: '@activityLine<numberBetween(1,2)>'
         wontBeInvoiced: <boolean()>
+        saleInvoice: '@saleInvoice<numberBetween(1,2)>'
 
 # SaleInvoiceSeries
 AppBundle\Entity\SaleInvoiceSeries:
@@ -500,3 +501,16 @@ AppBundle\Entity\SaleInvoiceSeries:
         name: <word()>
         prefix: <word()>
         isDefault: <boolean()>
+
+# SaleInvoice
+AppBundle\Entity\SaleInvoice:
+    saleInvoice{1..2}:
+        deliveryNotes: [@saleDeliveryNote1, @saleDeliveryNote2]
+        date: <dateTime()>
+        partner: '@partner<numberBetween(1,2)>'
+        invoiceNumber: <randomNumber()>
+        series: '@saleInvoiceSeries<numberBetween(1,2)>'
+        type: <randomNumber()>
+        total: <randomFloat()
+        hasBeenCounted: <boolean()>
+

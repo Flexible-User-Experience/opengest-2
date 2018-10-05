@@ -400,7 +400,7 @@ class Vehicle extends AbstractBase
     public function removeSaleRequest($saleRequest)
     {
         if ($this->saleRequests->contains($saleRequest)) {
-            $this->saleRequests->remove($saleRequest);
+            $this->saleRequests->removeElement($saleRequest);
         }
 
         return $this;
