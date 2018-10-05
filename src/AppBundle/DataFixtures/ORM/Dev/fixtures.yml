@@ -534,3 +534,10 @@ AppBundle\Entity\SaleDeliveryNote:
         collectionDocument: '@collectionDocumentType<numberBetween(1,5)>'
         activityLine: '@activityLine<numberBetween(1,5)>'
         wontBeInvoiced: <boolean()>
+
+# SaleInvoiceSeries
+AppBundle\Entity\SaleInvoiceSeries:
+    saleInvoiceSeries{1..5}:
+        name: <word()>
+        prefix: <word()>
+        isDefault: <boolean()>

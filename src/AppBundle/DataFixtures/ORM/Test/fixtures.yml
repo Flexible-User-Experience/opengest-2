@@ -496,7 +496,7 @@ AppBundle\Entity\SaleDeliveryNote:
 
 # SaleInvoiceSeries
 AppBundle\Entity\SaleInvoiceSeries:
-    SaleDeliveryNote{1..2}:
+    saleInvoiceSeries{1..2}:
         name: <word()>
         prefix: <word()>
         isDefault: <boolean()>
