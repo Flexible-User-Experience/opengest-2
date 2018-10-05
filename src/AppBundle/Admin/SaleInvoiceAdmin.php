@@ -67,8 +67,8 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Número de factural',
-                    'disabled' => true,
+                    'label' => 'Número de factura',
+//                    'disabled' => true,
                 )
             )
         ->end()
@@ -81,14 +81,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleInvoiceSeries::class,
                     'label' => 'Sèrie de facturació',
-                )
-            )
-            ->add(
-                'miniumHours',
-                null,
-                array(
-                    'label' => 'Mínim hores',
-                    'required' => false,
                 )
             )
             ->add(
@@ -184,7 +176,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'invoiceNumber',
+                'hasBeenCounted',
                 null,
                 array(
                     'label' => 'Ha estat comptat',
@@ -202,10 +194,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.partner.enterprise', 'e')
-            ->orderBy('e.name', 'ASC')
-        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
@@ -257,7 +245,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'invoiceNumber',
+                'total',
                 null,
                 array(
                     'label' => 'total',
