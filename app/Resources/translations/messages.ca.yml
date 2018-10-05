@@ -87,3 +87,6 @@ Tipus document cobrament_delete: Esborrar
 Albarà_list: Albarà
 Albarà_create: Crear
 Albarà_delete: Esborrar
+Sèries factura_list: Sèries factura
+Sèries factura_create: Crear
+Sèries factura_delete: Esborrar
