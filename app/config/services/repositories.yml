@@ -99,6 +99,16 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:PartnerType
+    app.partner_building_site_repository:
+        class: AppBundle\Repository\PartnerBuildingSiteRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:PartnerBuildingSite
+    app.partner_order_repository:
+        class: AppBundle\Repository\PartnerOrderRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:PartnerOrder
     app.city_repository:
         class: AppBundle\Repository\CityRepository
         factory: [ "@doctrine", getRepository ]
@@ -109,6 +119,16 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:SaleTariff
+    app.collection_document_type_repository:
+        class: AppBundle\Repository\CollectionDocumentTypeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:CollectionDocumentType
+    app.activity_line_repository:
+        class: AppBundle\Repository\ActivityLineRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:ActivityLine
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -132,3 +152,7 @@ services:
             - "@app.partner_type_repository"
             - "@app.city_repository"
             - "@app.sale_tariff_repository"
+            - "@app.partner_building_site_repository"
+            - "@app.partner_order_repository"
+            - "@app.collection_document_type_repository"
+            - "@app.activity_line_repository"

@@ -2,7 +2,9 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\ActivityLineRepository;
 use AppBundle\Repository\CityRepository;
+use AppBundle\Repository\CollectionDocumentTypeRepository;
 use AppBundle\Repository\EnterpriseGroupBountyRepository;
 use AppBundle\Repository\EnterpriseRepository;
 use AppBundle\Repository\EnterpriseTransferAccountRepository;
@@ -12,7 +14,9 @@ use AppBundle\Repository\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\OperatorCheckingRepository;
 use AppBundle\Repository\OperatorCheckingTypeRepository;
 use AppBundle\Repository\OperatorRepository;
+use AppBundle\Repository\PartnerBuildingSiteRepository;
 use AppBundle\Repository\PartnerClassRepository;
+use AppBundle\Repository\PartnerOrderRepository;
 use AppBundle\Repository\PartnerRepository;
 use AppBundle\Repository\PartnerTypeRepository;
 use AppBundle\Repository\SaleTariffRepository;
@@ -133,6 +137,26 @@ class RepositoriesManager
     private $saleTariffRepository;
 
     /**
+     * @var PartnerBuildingSiteRepository
+     */
+    private $partnerBuildingSiteRepository;
+
+    /**
+     * @var PartnerOrderRepository
+     */
+    private $partnerOrderRepository;
+
+    /**
+     * @var CollectionDocumentTypeRepository
+     */
+    private $collectionDocumentTypeRepository;
+
+    /**
+     * @var ActivityLineRepository
+     */
+    private $activityLineRepository;
+
+    /**
      * Methods.
      */
 
@@ -159,6 +183,10 @@ class RepositoriesManager
      * @param PartnerTypeRepository               $partnerTypeRepository
      * @param CityRepository                      $cityRepository
      * @param SaleTariffRepository                $saleTariffRepository
+     * @param PartnerBuildingSiteRepository       $partnerBuildingSiteRepository
+     * @param PartnerOrderRepository              $partnerOrderRepository
+     * @param CollectionDocumentTypeRepository    $collectionDocumentTypeRepository
+     * @param ActivityLineRepository              $activityLineRepository
      */
     public function __construct(
         ServiceRepository $serviceRepository,
@@ -180,8 +208,12 @@ class RepositoriesManager
         PartnerClassRepository $partnerClassRepository,
         PartnerTypeRepository $partnerTypeRepository,
         CityRepository $cityRepository,
-        SaleTariffRepository $saleTariffRepository)
-    {
+        SaleTariffRepository $saleTariffRepository,
+        PartnerBuildingSiteRepository $partnerBuildingSiteRepository,
+        PartnerOrderRepository $partnerOrderRepository,
+        CollectionDocumentTypeRepository $collectionDocumentTypeRepository,
+        ActivityLineRepository $activityLineRepository
+    ) {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
         $this->userRepository = $userRepository;
@@ -202,6 +234,10 @@ class RepositoriesManager
         $this->partnerTypeRepository = $partnerTypeRepository;
         $this->cityRepository = $cityRepository;
         $this->saleTariffRepository = $saleTariffRepository;
+        $this->partnerBuildingSiteRepository = $partnerBuildingSiteRepository;
+        $this->partnerOrderRepository = $partnerOrderRepository;
+        $this->collectionDocumentTypeRepository = $collectionDocumentTypeRepository;
+        $this->activityLineRepository = $activityLineRepository;
     }
 
     /**
@@ -362,5 +398,37 @@ class RepositoriesManager
     public function getSaleTariffRepository()
     {
         return $this->saleTariffRepository;
+    }
+
+    /**
+     * @return PartnerBuildingSiteRepository
+     */
+    public function getPartnerBuildingSiteRepository()
+    {
+        return $this->partnerBuildingSiteRepository;
+    }
+
+    /**
+     * @return PartnerOrderRepository
+     */
+    public function getPartnerOrderRepository()
+    {
+        return $this->partnerOrderRepository;
+    }
+
+    /**
+     * @return CollectionDocumentTypeRepository
+     */
+    public function getCollectionDocumentTypeRepository()
+    {
+        return $this->collectionDocumentTypeRepository;
+    }
+
+    /**
+     * @return ActivityLineRepository
+     */
+    public function getActivityLineRepository()
+    {
+        return $this->activityLineRepository;
     }
 }
