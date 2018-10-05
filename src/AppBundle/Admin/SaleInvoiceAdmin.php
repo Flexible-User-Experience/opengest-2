@@ -2,12 +2,7 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\ActivityLine;
-use AppBundle\Entity\CollectionDocumentType;
-use AppBundle\Entity\PartnerBuildingSite;
-use AppBundle\Entity\PartnerOrder;
-use AppBundle\Entity\SaleDeliveryNote;
-use AppBundle\Entity\SaleInvoice;
+use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -16,18 +11,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class SaleDeliveryNoteAdmin.
+ * Class SaleInvoicedmin.
  *
  * @category    Admin
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
+class SaleInvoiceAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Albarà';
-    protected $baseRoutePattern = 'vendes/albara';
+    protected $classnameLabel = 'Factura';
+    protected $baseRoutePattern = 'vendes/factura';
     protected $datagridValues = array(
         '_sort_by' => 'date',
         '_sort_order' => 'DESC',
@@ -70,94 +64,54 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'buildingSite',
-                EntityType::class,
-                array(
-                    'class' => PartnerBuildingSite::class,
-                    'label' => 'Obra',
-                    'required' => false,
-                    'query_builder' => $this->rm->getPartnerBuildingSiteRepository()->getEnabledSortedByNameQB(),
-                )
-            )
-            ->add(
-                'order',
-                EntityType::class,
-                array(
-                    'class' => PartnerOrder::class,
-                    'label' => 'Comanda',
-                    'required' => false,
-                    'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
-                )
-            )
-            ->add(
-                'deliveryNoteNumber',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Número d\'albarà',
-                    'required' => true,
+                    'label' => 'Número de factural',
+                    'disabled' => true,
                 )
             )
         ->end()
+
         ->with('Import', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'baseAmount',
-                null,
-                array(
-                    'label' => 'Import base',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'discount',
-                null,
-                array(
-                    'label' => 'Descompte',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'collectionDocument',
-                EntityType::class,
-                array(
-                    'class' => CollectionDocumentType::class,
-                    'label' => 'Tipus document cobrament',
-                    'required' => false,
-                    'query_builder' => $this->rm->getCollectionDocumentTypeRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                )
-            )
-            ->add(
-                'collectionTerm',
-                null,
-                array(
-                    'label' => 'Venciment (dies)',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'activityLine',
-                EntityType::class,
-                array(
-                    'class' => ActivityLine::class,
-                    'label' => 'Línia d\'activitat',
-                    'required' => false,
-                    'query_builder' => $this->rm->getActivityLineRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                )
-            )
 
             ->add(
-                'saleInvoice',
+                'series',
                 EntityType::class,
                 array(
-                    'class' => SaleInvoice::class,
-                    'label' => 'Factura',
+                    'class' => SaleInvoiceSeries::class,
+                    'label' => 'Sèrie de facturació',
+                )
+            )
+            ->add(
+                'miniumHours',
+                null,
+                array(
+                    'label' => 'Mínim hores',
                     'required' => false,
                 )
             )
             ->add(
-                'wontBeInvoiced',
-                CheckboxType::class,
+                'type',
+                null,
                 array(
-                    'label' => 'No facturable',
+                    'label' => 'Tipus',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'total',
+                null,
+                array(
+                    'label' => 'Total factura',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'hasBeenCounted',
+                null,
+                array(
+                    'label' => 'Ha estat comptat',
                     'required' => false,
                 )
             )
@@ -173,7 +127,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
         if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $datagridMapper
                 ->add(
-                    'enterprise',
+                    'partner.enterprise',
                     null,
                     array(
                         'label' => 'Empresa',
@@ -182,12 +136,11 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
             ;
         }
         $datagridMapper
-
             ->add(
                 'date',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Data albarà',
+                    'label' => 'Data creació',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -203,76 +156,40 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'buildingSite',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Obra',
+                    'label' => 'Núm. factura',
                 )
             )
             ->add(
-                'order',
+                'series',
                 null,
                 array(
-                    'label' => 'Comanda',
+                    'label' => 'Sèrie factura',
                 )
             )
             ->add(
-                'deliveryNoteNumber',
+                'type',
                 null,
                 array(
-                    'label' => 'Número albarà',
+                    'label' => 'Typus',
                 )
             )
             ->add(
-                'baseAmount',
+                'total',
                 null,
                 array(
-                    'label' => 'Import base',
+                    'label' => 'Total',
                 )
             )
             ->add(
-                'discount',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Descompte',
+                    'label' => 'Ha estat comptat',
                 )
             )
-            ->add(
-                'collectionTerm',
-                null,
-                array(
-                    'label' => 'Venciment',
-                )
-            )
-            ->add(
-                'collectionDocument',
-                null,
-                array(
-                    'label' => 'Tipus document cobrament',
-                )
-            )
-            ->add(
-                'activityLine',
-                null,
-                array(
-                    'label' => 'Línia activitat',
-                )
-            )
-            ->add(
-                'saleInvoice',
-                null,
-                array(
-                    'label' => 'Factura',
-                )
-            )
-            ->add(
-                'wontBeInvoiced',
-                null,
-                array(
-                    'label' => 'No facturable',
-                )
-            )
-
         ;
     }
 
@@ -286,12 +203,12 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->join($queryBuilder->getRootAliases()[0].'.partner.enterprise', 'e')
             ->orderBy('e.name', 'ASC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
@@ -308,7 +225,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
         if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $listMapper
                 ->add(
-                    'enterprise',
+                    'partner.enterprise',
                     null,
                     array(
                         'label' => 'Empresa',
@@ -321,16 +238,15 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 'date',
                 null,
                 array(
-                    'label' => 'Data albarà',
+                    'label' => 'Data',
                     'format' => 'd/m/Y',
                 )
             )
             ->add(
-                'deliveryNoteNumber',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Número albarà',
-                    'editable' => true,
+                    'label' => 'Número factura',
                 )
             )
             ->add(
@@ -341,19 +257,17 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'baseAmount',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Import base',
-                    'editable' => true,
+                    'label' => 'total',
                 )
             )
             ->add(
-                'wontBeInvoiced',
+                'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'No facturable',
-                    'editable' => true,
+                    'label' => 'Ha estat comptat',
                 )
             )
 
@@ -370,13 +284,5 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
         ;
-    }
-
-    /**
-     * @param SaleDeliveryNote $object
-     */
-    public function prePersist($object)
-    {
-        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }
