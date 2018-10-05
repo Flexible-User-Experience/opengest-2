@@ -76,6 +76,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/usuari/create'),
             array('/admin/administracio/usuari/1/edit'),
             array('/admin/administracio/usuari/1/delete'),
+            array('/admin/administracio/series-factura/1/edit'),
+            array('/admin/administracio/series-factura/1/delete'),
             // Operators
             array('/admin/operaris/operador/list'),
             array('/admin/operaris/operador/create'),
@@ -206,6 +208,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/1/delete'),
             array('/admin/administracio/usuari/1/show'),
             array('/admin/administracio/usuari/batch'),
+            array('/admin/administracio/series-factura/1/show'),
+            array('/admin/administracio/series-factura/batch'),
             // Operators
             array('/admin/operaris/operador/1/delete'),
             array('/admin/operaris/operador/1/show'),
