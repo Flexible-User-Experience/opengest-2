@@ -81,6 +81,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleInvoiceSeries::class,
                     'label' => 'Sèrie de facturació',
+                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(), gitme,
                 )
             )
             ->add(
@@ -185,26 +186,25 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
         ;
     }
 
-    //TODO Filter invoices by enterprise in manager role
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
+                ->andWhere('p.enterprise = :enterprise')
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ;
+        }
 
-//    /**
-//     * @param string $context
-//     *
-//     * @return QueryBuilder
-//     */
-//    public function createQuery($context = 'list')
-//    {
-//        /** @var QueryBuilder $queryBuilder */
-//        $queryBuilder = parent::createQuery($context);
-//        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-//            $queryBuilder
-//                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
-//                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-//            ;
-//        }
-//
-//        return $queryBuilder;
-//    }
+        return $queryBuilder;
+    }
 
     /**
      * @param ListMapper $listMapper

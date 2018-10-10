@@ -19,6 +19,7 @@ use AppBundle\Repository\PartnerClassRepository;
 use AppBundle\Repository\PartnerOrderRepository;
 use AppBundle\Repository\PartnerRepository;
 use AppBundle\Repository\PartnerTypeRepository;
+use AppBundle\Repository\SaleInvoiceSeriesRepository;
 use AppBundle\Repository\SaleTariffRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
@@ -157,6 +158,11 @@ class RepositoriesManager
     private $activityLineRepository;
 
     /**
+     * @var SaleInvoiceSeriesRepository
+     */
+    private $saleInvoiceSeriesRepository;
+
+    /**
      * Methods.
      */
 
@@ -187,6 +193,7 @@ class RepositoriesManager
      * @param PartnerOrderRepository              $partnerOrderRepository
      * @param CollectionDocumentTypeRepository    $collectionDocumentTypeRepository
      * @param ActivityLineRepository              $activityLineRepository
+     * @param SaleInvoiceSeriesRepository         $saleInvoiceSeriesRepository
      */
     public function __construct(
         ServiceRepository $serviceRepository,
@@ -212,7 +219,8 @@ class RepositoriesManager
         PartnerBuildingSiteRepository $partnerBuildingSiteRepository,
         PartnerOrderRepository $partnerOrderRepository,
         CollectionDocumentTypeRepository $collectionDocumentTypeRepository,
-        ActivityLineRepository $activityLineRepository
+        ActivityLineRepository $activityLineRepository,
+        SaleInvoiceSeriesRepository $saleInvoiceSeriesRepository
     ) {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -238,6 +246,7 @@ class RepositoriesManager
         $this->partnerOrderRepository = $partnerOrderRepository;
         $this->collectionDocumentTypeRepository = $collectionDocumentTypeRepository;
         $this->activityLineRepository = $activityLineRepository;
+        $this->saleInvoiceSeriesRepository = $saleInvoiceSeriesRepository;
     }
 
     /**
@@ -430,5 +439,13 @@ class RepositoriesManager
     public function getActivityLineRepository()
     {
         return $this->activityLineRepository;
+    }
+
+    /**
+     * @return SaleInvoiceSeriesRepository
+     */
+    public function getSaleInvoiceSeriesRepository()
+    {
+        return $this->saleInvoiceSeriesRepository;
     }
 }
