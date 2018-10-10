@@ -81,7 +81,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleInvoiceSeries::class,
                     'label' => 'Sèrie de facturació',
-                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(), gitme,
+                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
