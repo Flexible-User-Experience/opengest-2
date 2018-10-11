@@ -164,23 +164,27 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-        ->end()
-        ->with('Albarà línies', $this->getFormMdSuccessBoxArray(12))
-            ->add(
-                'saleDeliveryNoteLines',
-                CollectionType::class,
-                array(
-                    'required' => false,
-                    'error_bubbling' => true,
-                    'label' => false,
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
+        ->end();
+
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('Albarà línies', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'saleDeliveryNoteLines',
+                    CollectionType::class,
+                    array(
+                        'required' => false,
+                        'error_bubbling' => true,
+                        'label' => false,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    )
                 )
-            )
-        ->end()
-        ;
+                ->end()
+            ;
+        }
     }
 
     /**
