@@ -157,6 +157,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/albara/create'),
             array('/admin/vendes/albara/1/edit'),
             array('/admin/vendes/albara/1/delete'),
+            array('/admin/vendes/albara-linia/create'),
+            array('/admin/vendes/albara-linia/1/edit'),
+            array('/admin/vendes/albara-linia/1/delete'),
             array('/admin/vendes/factura/create'),
             array('/admin/vendes/factura/1/edit'),
             array('/admin/vendes/factura/1/delete'),
@@ -274,6 +277,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/peticio/batch'),
             array('/admin/vendes/albara/1/show'),
             array('/admin/vendes/albara/batch'),
+            array('/admin/vendes/albara-linia/1/show'),
+            array('/admin/vendes/albara-linia/batch'),
             array('/admin/vendes/factura/1/show'),
             array('/admin/vendes/factura/batch'),
         );
