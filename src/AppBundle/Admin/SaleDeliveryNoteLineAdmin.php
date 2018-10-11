@@ -56,7 +56,7 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Preu unitat',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
@@ -88,7 +88,7 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'IVA',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
@@ -96,7 +96,7 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'IRPF',
-                    'required' => false,
+                    'required' => true,
                 )
             )
         ->end()
