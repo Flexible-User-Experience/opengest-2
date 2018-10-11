@@ -197,7 +197,7 @@ services:
         class: AppBundle\Admin\SaleDeliveryNoteLineAdmin
         arguments: [ ~, AppBundle\Entity\SaleDeliveryNoteLine, AppBundle:Admin\SaleDeliveryNoteLineAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Albarà línia", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: true}
+            - { name: sonata.admin, manager_type: orm, label: "Albarà línia", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false}
     app.admin.sale_invoice:
         class: AppBundle\Admin\SaleInvoiceAdmin
         arguments: [ ~, AppBundle\Entity\SaleInvoice, AppBundle:Admin\SaleInvoiceAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]

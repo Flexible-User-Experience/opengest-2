@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -144,6 +145,8 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
 
+        ->end()
+        ->with('Factura', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'saleInvoice',
                 EntityType::class,
@@ -159,6 +162,21 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'No facturable',
                     'required' => false,
+                )
+            )
+        ->end()
+        ->with('Albarà línies', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'saleDeliveryNoteLines',
+                CollectionType::class,
+                array(
+                    'required' => false,
+                    'error_bubbling' => true,
+                    'label' => false,
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
                 )
             )
         ->end()

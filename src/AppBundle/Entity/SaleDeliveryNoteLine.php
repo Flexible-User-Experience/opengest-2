@@ -235,6 +235,6 @@ class SaleDeliveryNoteLine extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getDate()->format('d/m/Y').' · '.$this->getEnterprise().' · '.$this->getPartner() : '---';
+        return $this->id ? $this->getDeliveryNote() : '---';
     }
 }

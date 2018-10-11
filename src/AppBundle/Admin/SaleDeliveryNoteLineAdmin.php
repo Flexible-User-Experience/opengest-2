@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Enum\ConstantsEnum;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -89,6 +90,10 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'IVA',
                     'required' => true,
+                    'empty_data' => (string) ConstantsEnum::IVA,
+                    'attr' => array(
+                        'placeholder' => ConstantsEnum::IVA,
+                    ),
                 )
             )
             ->add(
@@ -97,6 +102,10 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'IRPF',
                     'required' => true,
+                    'empty_data' => (string) ConstantsEnum::IRPF,
+                    'attr' => array(
+                        'placeholder' => ConstantsEnum::IRPF,
+                    ),
                 )
             )
         ->end()

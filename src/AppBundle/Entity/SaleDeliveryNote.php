@@ -111,9 +111,14 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNoteLine", mappedBy="saleDeliveryNote")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNoteLine", mappedBy="deliveryNote", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $SaleDeliveryNoteLines;
+    private $saleDeliveryNoteLines;
+
+    public function __construct()
+    {
+        $this->saleDeliveryNoteLines = new ArrayCollection();
+    }
 
     /**
      * @return \DateTime
@@ -336,7 +341,7 @@ class SaleDeliveryNote extends AbstractBase
      */
     public function getSaleDeliveryNoteLines()
     {
-        return $this->SaleDeliveryNoteLines;
+        return $this->saleDeliveryNoteLines;
     }
 
     /**
@@ -346,7 +351,7 @@ class SaleDeliveryNote extends AbstractBase
      */
     public function setSaleDeliveryNoteLines($SaleDeliveryNoteLines)
     {
-        $this->SaleDeliveryNoteLines = $SaleDeliveryNoteLines;
+        $this->saleDeliveryNoteLines = $SaleDeliveryNoteLines;
 
         return $this;
     }
@@ -358,8 +363,8 @@ class SaleDeliveryNote extends AbstractBase
      */
     public function addSaleDeliveryNoteLine(SaleDeliveryNoteLine $saleDeliveryNoteLine)
     {
-        if (!$this->SaleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
-            $this->SaleDeliveryNoteLines->add($saleDeliveryNoteLine);
+        if (!$this->saleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
+            $this->saleDeliveryNoteLines->add($saleDeliveryNoteLine);
             $saleDeliveryNoteLine->setDeliveryNote($this);
         }
 
@@ -373,8 +378,8 @@ class SaleDeliveryNote extends AbstractBase
      */
     public function removeSaleDeliveryNoteLine(SaleDeliveryNoteLine $saleDeliveryNoteLine)
     {
-        if ($this->SaleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
-            $this->SaleDeliveryNoteLines->removeElement($saleDeliveryNoteLine);
+        if ($this->saleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
+            $this->saleDeliveryNoteLines->removeElement($saleDeliveryNoteLine);
         }
 
         return $this;
