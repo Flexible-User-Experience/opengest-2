@@ -93,3 +93,6 @@ Sèries factura_delete: Esborrar
 Factura_list: Factura
 Factura_create: Crear
 Factura_delete: Esborrar
+Albarà línia_list: Factura
+Albarà línia_create: Crear
+Albarà línia_delete: Esborrar
