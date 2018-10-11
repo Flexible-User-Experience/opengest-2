@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -106,6 +107,13 @@ class SaleDeliveryNote extends AbstractBase
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleInvoice", inversedBy="deliveryNotes")
      */
     private $saleInvoice;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNoteLine", mappedBy="saleDeliveryNote")
+     */
+    private $SaleDeliveryNoteLines;
 
     /**
      * @return \DateTime
@@ -319,6 +327,55 @@ class SaleDeliveryNote extends AbstractBase
     public function setSaleInvoice($saleInvoice)
     {
         $this->saleInvoice = $saleInvoice;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleDeliveryNoteLines()
+    {
+        return $this->SaleDeliveryNoteLines;
+    }
+
+    /**
+     * @param ArrayCollection $SaleDeliveryNoteLines
+     *
+     * @return $this
+     */
+    public function setSaleDeliveryNoteLines($SaleDeliveryNoteLines)
+    {
+        $this->SaleDeliveryNoteLines = $SaleDeliveryNoteLines;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNoteLine $saleDeliveryNoteLine
+     *
+     * @return $this
+     */
+    public function addSaleDeliveryNoteLine(SaleDeliveryNoteLine $saleDeliveryNoteLine)
+    {
+        if (!$this->SaleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
+            $this->SaleDeliveryNoteLines->add($saleDeliveryNoteLine);
+            $saleDeliveryNoteLine->setDeliveryNote($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNoteLine $saleDeliveryNoteLine
+     *
+     * @return $this
+     */
+    public function removeSaleDeliveryNoteLine(SaleDeliveryNoteLine $saleDeliveryNoteLine)
+    {
+        if ($this->SaleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
+            $this->SaleDeliveryNoteLines->removeElement($saleDeliveryNoteLine);
+        }
 
         return $this;
     }
