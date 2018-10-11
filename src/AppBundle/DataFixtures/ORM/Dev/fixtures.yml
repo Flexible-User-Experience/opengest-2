@@ -535,6 +535,18 @@ AppBundle\Entity\SaleDeliveryNote:
         activityLine: '@activityLine<numberBetween(1,5)>'
         wontBeInvoiced: <boolean()>
 
+# SaleDeliveryNoteLine
+AppBundle\Entity\SaleDeliveryNoteLine:
+    saleDeliveryNoteLine{1..2}:
+        deliveryNote: '@saleDeliveryNote<numberBetween(1,2)>'
+        units: <randomFloat()>
+        priceUnit: <randomFloat()>
+        total: <randomFloat()>
+        discount: <randomFloat()>
+        description: <sentence(6)>
+        iva: 21
+        irpf: 0
+
 # SaleInvoiceSeries
 AppBundle\Entity\SaleInvoiceSeries:
     saleInvoiceSeries{1..5}:
