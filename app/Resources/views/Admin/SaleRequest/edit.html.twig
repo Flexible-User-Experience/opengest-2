@@ -1,0 +1,18 @@
+{% extends "::Admin/edit.html.twig" %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+             // Handler for .ready() called.
+            var partnerNode = jQuery('#sonata-ba-field-container-{{ form.partner.vars.id }}');
+             //on change
+            partnerNode.change(function(event) {
+                console.log(event);
+            });
+            console.log(partnerNode);
+            console.log('#{{ form.partner.vars.id }}')
+        });
+    </script>
+{% endblock %}

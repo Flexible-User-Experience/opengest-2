@@ -59,21 +59,53 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'invoiceTo',
-                ModelAutocompleteType::class,
+                'cifNif',
+                TextType::class,
                 array(
-                    'property' => 'name',
-                    'label' => 'Facturar a',
+                    'label' => 'CIF',
                     'required' => false,
-                    'callback' => function ($admin, $property, $value) {
-                        $datagrid = $admin->getDatagrid();
-                        $queryBuilder = $datagrid->getQuery();
-                        $queryBuilder
-                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                        ;
-                        $datagrid->setValue($property, null, $value);
-                    },
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'mainAddress',
+                TextType::class,
+                array(
+                    'label' => 'Adreça principal',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'mainCity',
+                TextType::class,
+                array(
+                    'label' => 'Població',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'province',
+                TextType::class,
+                array(
+                    'label' => 'Província',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'paymentType',
+                TextType::class,
+                array(
+                    'label' => 'Forma de pagament',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -90,6 +122,24 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Telèfon persona contacte',
                     'required' => false,
+                )
+            )
+            ->add(
+                'invoiceTo',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Facturar a',
+                    'required' => false,
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
             )
             ->add(
