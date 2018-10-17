@@ -2,7 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Partner;
+use
+    AppBundle\Entity\Partner;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,5 +35,9 @@ class PartnerAdminController extends BaseAdminController
         }
 
         return parent::editAction($id);
+    }
+
+    public function getJsonPartnerByIdAction($id)
+    {
     }
 }
