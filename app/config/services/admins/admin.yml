@@ -1,7 +1,7 @@
-services:
 # Sonata Admin
+services:
 
-# web group
+# Web group
     app.admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
@@ -28,7 +28,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Accesori", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
-# vehicles group
+# Vehicles group
     app.admin.vehicle:
         class: AppBundle\Admin\VehicleAdmin
         arguments: [ ~ , AppBundle\Entity\Vehicle, AppBundle\Controller\Admin\VehicleAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
@@ -51,14 +51,14 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
-# contactes group
+# Contact group
     app.admin.contact_message:
         class: AppBundle\Admin\ContactMessageAdmin
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle\Controller\Admin\ContactMessageAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Contactes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
-# Administració group
+# Admin group
     app.admin.province:
         class: AppBundle\Admin\ProvinceAdmin
         arguments: [ ~, AppBundle\Entity\Province, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
@@ -80,7 +80,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Sèries factura", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
-# Operaris group
+# Operators group
     app.admin.operator:
         class: AppBundle\Admin\OperatorAdmin
         arguments: [ ~, AppBundle\Entity\Operator, AppBundle\Controller\Admin\OperatorAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
@@ -168,12 +168,12 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Dies festius", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.activity_line:
         class: AppBundle\Admin\ActivityLineAdmin
-        arguments: [ ~, AppBundle\Entity\ActivityLine, AppBundle:Admin\ActivityLineAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ ~, AppBundle\Entity\ActivityLine, AppBundle\Controller\Admin\ActivityLineAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Línies activitat", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.collection_document_type:
         class: AppBundle\Admin\CollectionDocumentTypeAdmin
-        arguments: [ ~, AppBundle\Entity\CollectionDocumentType, AppBundle:Admin\CollectionDocumentTypeAdmin, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ ~, AppBundle\Entity\CollectionDocumentType, AppBundle\Controller\Admin\CollectionDocumentTypeAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus document cobrament", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
