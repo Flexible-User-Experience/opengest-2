@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,7 +20,7 @@ class PartnerOrder extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="orders", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="orders")
      */
     private $partner;
 
@@ -38,8 +39,19 @@ class PartnerOrder extends AbstractBase
     private $providerReference;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="order")
+     */
+    private $saleDeliveryNotes;
+
+    /**
      * Methods.
      */
+    public function __construct()
+    {
+        $this->saleDeliveryNotes = new ArrayCollection();
+    }
 
     /**
      * @return Partner
@@ -97,6 +109,55 @@ class PartnerOrder extends AbstractBase
     public function setProviderReference($providerReference)
     {
         $this->providerReference = $providerReference;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleDeliveryNotes()
+    {
+        return $this->saleDeliveryNotes;
+    }
+
+    /**
+     * @param ArrayCollection $saleDeliveryNotes
+     *
+     * @return $this
+     */
+    public function setSaleDeliveryNotes($saleDeliveryNotes)
+    {
+        $this->saleDeliveryNotes = $saleDeliveryNotes;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $saleDeliveryNote
+     *
+     * @return $this
+     */
+    public function addSaleDeliveryNote($saleDeliveryNote)
+    {
+        if (!$this->saleDeliveryNotes->contains($saleDeliveryNote)) {
+            $this->saleDeliveryNotes->add($saleDeliveryNote);
+            $saleDeliveryNote->setOrder($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $saleDeliveryNote
+     *
+     * @return $this
+     */
+    public function removeSaleDeliveryNote($saleDeliveryNote)
+    {
+        if ($this->saleDeliveryNotes->contains($saleDeliveryNote)) {
+            $this->saleDeliveryNotes->removeElement($saleDeliveryNote);
+        }
 
         return $this;
     }

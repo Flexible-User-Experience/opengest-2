@@ -1,0 +1,26 @@
+{% extends "::Admin/edit.html.twig" %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+             // Handler for .ready() called.
+            var partnerNode = jQuery('#sonata-ba-field-container-{{ form.partner.vars.id }}');
+            var cifNif = jQuery('#{{ form.cifNif.vars.id }}');
+            var mainAddress = jQuery('#{{ form.mainAddress.vars.id }}');
+            var mainCity = jQuery('#{{ form.mainCity.vars.id }}');
+            var province = jQuery('#{{ form.province.vars.id }}');
+            var paymentType = jQuery('#{{ form.paymentType.vars.id }}');
+
+             //on change
+            partnerNode.change(function(event) {
+                console.log(event);
+                var partnerId = event.val;
+            });
+            {#console.log(partnerNode);#}
+            {#console.log('#{{ form.partner.vars.id }}')#}
+            console.log('hola');
+        });
+    </script>
+{% endblock %}

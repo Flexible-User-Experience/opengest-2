@@ -16,28 +16,28 @@ class PartnerOrderRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
-    public function getEnabledSortedByNameQB()
+    public function getEnabledSortedByNumberQB()
     {
         return $this->createQueryBuilder('p')
             ->where('p.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('p.name', 'ASC')
+            ->orderBy('p.number', 'DESC')
         ;
     }
 
     /**
      * @return Query
      */
-    public function getEnabledSortedByNameQ()
+    public function getEnabledSortedByNumberQ()
     {
-        return  $this->getEnabledSortedByNameQB()->getQuery();
+        return  $this->getEnabledSortedByNumberQB()->getQuery();
     }
 
     /**
      * @return array
      */
-    public function getEnabledSortedByName()
+    public function getEnabledSortedByNumber()
     {
-        return $this->getEnabledSortedByNameQ()->getResult();
+        return $this->getEnabledSortedByNumberQ()->getResult();
     }
 }

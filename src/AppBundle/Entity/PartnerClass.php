@@ -106,7 +106,7 @@ class PartnerClass extends AbstractBase
     public function removePartner($partner)
     {
         if ($this->partners->contains($partner)) {
-            $this->partners->remove($partner);
+            $this->partners->removeElement($partner);
         }
 
         return $this;

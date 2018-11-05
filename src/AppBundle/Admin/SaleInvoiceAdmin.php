@@ -2,26 +2,29 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Class SaleTariffAdmin.
+ * Class SaleInvoicedmin.
  *
  * @category    Admin
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class SaleTariffAdmin extends AbstractBaseAdmin
+class SaleInvoiceAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tarifa';
-    protected $baseRoutePattern = 'vendes/tarifa';
+    protected $classnameLabel = 'Factura';
+    protected $baseRoutePattern = 'vendes/factura';
     protected $datagridValues = array(
-        '_sort_by' => 'enterprise.name',
-        '_sort_order' => 'ASC',
+        '_sort_by' => 'date',
+        '_sort_order' => 'DESC',
     );
 
     /**
@@ -33,63 +36,75 @@ class SaleTariffAdmin extends AbstractBaseAdmin
 
         ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'year',
-                ChoiceType::class,
+                'date',
+                DatePickerType::class,
                 array(
-                    'label' => 'Any',
-                    'choices' => $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getYearRange(),
-                    'placeholder' => 'Selecciona un any',
+                    'label' => 'Data petició',
+                    'format' => 'd/m/Y',
                     'required' => true,
+                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
             )
             ->add(
-                'tonnage',
+                'partner',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Client',
+                    'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        $datagrid = $admin->getDatagrid();
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
+                )
+            )
+            ->add(
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Tonatge',
-                    'required' => true,
+                    'label' => 'Número de factura',
+                    'disabled' => true,
                 )
             )
         ->end()
-        ->with('Tarifa', $this->getFormMdSuccessBoxArray(4))
+
+        ->with('Import', $this->getFormMdSuccessBoxArray(4))
 
             ->add(
-                'priceHour',
+                'series',
+                EntityType::class,
+                array(
+                    'class' => SaleInvoiceSeries::class,
+                    'label' => 'Sèrie de facturació',
+                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'type',
                 null,
                 array(
-                    'label' => 'Preu hora',
+                    'label' => 'Tipus',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'total',
+                null,
+                array(
+                    'label' => 'Total factura',
                     'required' => false,
                 )
             )
             ->add(
-                'miniumHours',
+                'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Mínim hores',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'miniumHolidayHours',
-                null,
-                array(
-                    'label' => 'Mínim hores vacances',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'displacement',
-                null,
-                array(
-                    'label' => 'Desplaçament',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'increaseForHolidays',
-                null,
-                array(
-                    'label' => 'Increment per vacances',
+                    'label' => 'Ha estat comptat',
                     'required' => false,
                 )
             )
@@ -105,7 +120,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $datagridMapper
                 ->add(
-                    'enterprise',
+                    'partner.enterprise',
                     null,
                     array(
                         'label' => 'Empresa',
@@ -114,54 +129,58 @@ class SaleTariffAdmin extends AbstractBaseAdmin
             ;
         }
         $datagridMapper
-
             ->add(
-                'year',
-                null,
+                'date',
+                'doctrine_orm_date',
                 array(
-                    'label' => 'Any',
+                    'label' => 'Data creació',
+                    'field_type' => 'sonata_type_date_picker',
                 )
             )
             ->add(
-                'tonnage',
+                'partner',
+                'doctrine_orm_model_autocomplete',
+                array(
+                    'label' => 'Client',
+                ),
                 null,
                 array(
-                    'label' => 'Tonatge',
+                    'property' => 'name',
                 )
             )
             ->add(
-                'priceHour',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Preu hora',
+                    'label' => 'Núm. factura',
                 )
             )
             ->add(
-                'miniumHours',
+                'series',
                 null,
                 array(
-                    'label' => 'Mínim hores',
+                    'label' => 'Sèrie factura',
                 )
             )
             ->add(
-                'miniumHolidayHours',
+                'type',
                 null,
                 array(
-                    'label' => 'Mínim hores vacances',
+                    'label' => 'Typus',
                 )
             )
             ->add(
-                'displacement',
+                'total',
                 null,
                 array(
-                    'label' => 'Desplaçament',
+                    'label' => 'Total',
                 )
             )
             ->add(
-                'increaseForHolidays',
+                'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Increment per vacances',
+                    'label' => 'Ha estat comptat',
                 )
             )
         ;
@@ -176,17 +195,10 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
-            ->orderBy('e.name', 'ASC')
-        ;
-        $queryBuilder
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.year', 'DESC')
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.tonnage', 'DESC')
-        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
+                ->andWhere('p.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
@@ -203,7 +215,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $listMapper
                 ->add(
-                    'enterprise',
+                    'partner.enterprise',
                     null,
                     array(
                         'label' => 'Empresa',
@@ -213,52 +225,39 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         }
         $listMapper
             ->add(
-                'year',
+                'date',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label' => 'Data',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add(
-                'tonnage',
+                'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Tonnatge',
+                    'label' => 'Número factura',
                 )
             )
             ->add(
-                'priceHour',
+                'partner',
                 null,
                 array(
-                    'label' => 'Preu hora',
+                    'label' => 'Client',
                 )
             )
             ->add(
-                'miniumHours',
+                'total',
                 null,
                 array(
-                    'label' => 'Mínim hores',
+                    'label' => 'total',
                 )
             )
             ->add(
-                'miniumHolidayHours',
+                'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Mínim hores vacances',
-                )
-            )
-            ->add(
-                'displacement',
-                null,
-                array(
-                    'label' => 'Desplaçament',
-                )
-            )
-            ->add(
-                'increaseForHolidays',
-                null,
-                array(
-                    'label' => 'Increment per vacances',
+                    'label' => 'Ha estat comptat',
                 )
             )
 
@@ -275,13 +274,5 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 )
             )
         ;
-    }
-
-    /**
-     * @param $object
-     */
-    public function prePersist($object)
-    {
-        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }

@@ -347,6 +347,20 @@ AppBundle\Entity\EnterpriseHolidays:
         day: <dateTimeThisYear()>
         name: <sentence(3)>
 
+# ActivityLine
+AppBundle\Entity\ActivityLine:
+    activityLine{1..2}:
+        enterprise : '@enterprise<numberBetween(1,2)>'
+        name: <sentence(3)>
+
+# CollectionDocumentType
+AppBundle\Entity\CollectionDocumentType:
+    collectionDocumentType{1..2}:
+        enterprise : '@enterprise<numberBetween(1,2)>'
+        name: <sentence(3)>
+        description: <paragraph()>
+        sitReference: <sentence(3)>
+
 # PartnerClass
 AppBundle\Entity\PartnerClass:
     partnerClass{1..2}:
@@ -361,14 +375,14 @@ AppBundle\Entity\PartnerType:
 
 # PartnerOrders
 AppBundle\Entity\PartnerOrder:
-    partnerOrders{1..2}:
+    partnerOrder{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         number: <word()>
         providerReference: <word()>
 
 # PartnerBuildingSite
 AppBundle\Entity\PartnerBuildingSite:
-    partnerBuildigSite{1..2}:
+    partnerBuildingSite{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         name: <sentence(3)>
         number: <word()>
@@ -439,6 +453,8 @@ AppBundle\Entity\SaleRequest:
     saleRequest{1..2}:
         enterprise: '@enterprise<numberBetween(1,2)>'
         partner: '@partner<numberBetween(1,2)>'
+        contactPersonName: <name()>
+        contactPersonPhone: <phoneNumber()>
         invoiceTo: '@partner<numberBetween(1,2)>'
         vehicle: '@vehicle<numberBetween(1,2)>'
         operator: '@operator<numberBetween(1,2)>'
@@ -455,7 +471,59 @@ AppBundle\Entity\SaleRequest:
         requestTime: <dateTime()>
         serviceDate: <dateTime()>
         serviceTime: <dateTime()>
+        endServiceTime: <dateTime()>
         hourPrice: <randomFloat()>
         miniumHours: <randomFloat()>
         displacement: <randomFloat()>
         secondaryVehicle: '@vehicle<numberBetween(1,2)>'
+        hasBeenPrinted: <boolean()>
+
+# SaleDeliveryNote
+AppBundle\Entity\SaleDeliveryNote:
+    saleDeliveryNote{1..2}:
+        date: <dateTime()>
+        enterprise: '@enterprise<numberBetween(1,2)>'
+        partner: '@partner<numberBetween(1,2)>'
+        buildingSite: '@partnerBuildingSite<numberBetween(1,2)>'
+        order: '@partnerOrder<numberBetween(1,2)>'
+        deliveryNoteNumber: <randomNumber()>
+        baseAmount: <randomFloat()>
+        discount: <randomFloat()>
+        collectionTerm: <randomNumber()>
+        collectionDocument: '@collectionDocumentType<numberBetween(1,2)>'
+        activityLine: '@activityLine<numberBetween(1,2)>'
+        wontBeInvoiced: <boolean()>
+        saleInvoice: '@saleInvoice<numberBetween(1,2)>'
+
+# SaleDeliveryNoteLine
+AppBundle\Entity\SaleDeliveryNoteLine:
+    saleDeliveryNoteLine{1..2}:
+        deliveryNote: '@saleDeliveryNote<numberBetween(1,2)>'
+        units: <randomFloat()>
+        priceUnit: <randomFloat()>
+        total: <randomFloat()>
+        discount: <randomFloat()>
+        description: <sentence(6)>
+        iva: 21
+        irpf: 0
+
+
+# SaleInvoiceSeries
+AppBundle\Entity\SaleInvoiceSeries:
+    saleInvoiceSeries{1..2}:
+        name: <word()>
+        prefix: <word()>
+        isDefault: <boolean()>
+
+# SaleInvoice
+AppBundle\Entity\SaleInvoice:
+    saleInvoice{1..2}:
+        deliveryNotes: [@saleDeliveryNote1, @saleDeliveryNote2]
+        date: <dateTime()>
+        partner: '@partner<numberBetween(1,2)>'
+        invoiceNumber: <randomNumber()>
+        series: '@saleInvoiceSeries<numberBetween(1,2)>'
+        type: <randomNumber()>
+        total: <randomFloat()
+        hasBeenCounted: <boolean()>
+

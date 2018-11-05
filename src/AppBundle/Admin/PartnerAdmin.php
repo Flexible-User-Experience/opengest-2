@@ -12,6 +12,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -30,6 +31,13 @@ class PartnerAdmin extends AbstractBaseAdmin
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->add('getJsonPartnerById', $this->getRouterIdParameter().'/get-json-partner-by-id')
+        ;
+    }
 
     /**
      * @param FormMapper $formMapper

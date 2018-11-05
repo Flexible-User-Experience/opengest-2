@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Operator;
+use AppBundle\Entity\SaleRequest;
 use AppBundle\Entity\SaleTariff;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
@@ -13,6 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 /**
@@ -37,13 +39,13 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('Tercer', $this->getFormMdSuccessBoxArray(3))
+        ->with('Petició', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'partner',
                 ModelAutocompleteType::class,
                 array(
                     'property' => 'name',
-                    'label' => 'Tercer',
+                    'label' => 'Client',
                     'required' => true,
                     'callback' => function ($admin, $property, $value) {
                         $datagrid = $admin->getDatagrid();
@@ -57,12 +59,78 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'cifNif',
+                TextType::class,
+                array(
+                    'label' => 'CIF',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'mainAddress',
+                TextType::class,
+                array(
+                    'label' => 'Adreça principal',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'mainCity',
+                TextType::class,
+                array(
+                    'label' => 'Població',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'province',
+                TextType::class,
+                array(
+                    'label' => 'Província',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'paymentType',
+                TextType::class,
+                array(
+                    'label' => 'Forma de pagament',
+                    'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'contactPersonName',
+                TextType::class,
+                array(
+                    'label' => 'Persona de contacte',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'contactPersonPhone',
+                TextType::class,
+                array(
+                    'label' => 'Telèfon persona contacte',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'invoiceTo',
                 ModelAutocompleteType::class,
                 array(
                     'property' => 'name',
                     'label' => 'Facturar a',
-                    'required' => true,
+                    'required' => false,
                     'callback' => function ($admin, $property, $value) {
                         $datagrid = $admin->getDatagrid();
                         $queryBuilder = $datagrid->getQuery();
@@ -201,7 +269,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Observacions',
-                    'required' => true,
+                    'required' => false,
                     'attr' => array(
                         'style' => 'resize: vertical',
                         'rows' => 7,
@@ -218,15 +286,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'label' => 'Data petició',
                     'format' => 'd/M/y',
                     'required' => false,
-                )
-            )
-            ->add(
-                'requestTime',
-                TimeType::class,
-                array(
-                    'label' => 'Hora petició',
-                    'required' => false,
-                    'minutes' => array(0, 15, 30, 45),
+                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
             )
             ->add(
@@ -235,7 +295,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Data servei',
                     'format' => 'd/M/y',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
@@ -243,6 +303,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 TimeType::class,
                 array(
                     'label' => 'Hora servei',
+                    'required' => true,
+                    'minutes' => array(0, 15, 30, 45),
+                )
+            )
+            ->add(
+                'endServiceTime',
+                TimeType::class,
+                array(
+                    'label' => 'Fi hora servei',
                     'required' => false,
                     'minutes' => array(0, 15, 30, 45),
                 )
@@ -279,7 +348,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'partner',
                 'doctrine_orm_model_autocomplete',
                 array(
-                    'label' => 'Tercer',
+                    'label' => 'Client',
                 ),
                 null,
                 array(
@@ -534,9 +603,17 @@ class SaleRequestAdmin extends AbstractBaseAdmin
         ;
     }
 
+    /**
+     * @param SaleRequest $object
+     */
     public function prePersist($object)
     {
         $object->setAttendedBy($this->getUser());
         $object->setEnterprise($this->getUserLogedEnterprise());
+        $object->setRequestTime(new \DateTime());
+
+        if (null == $object->getInvoiceTo()) {
+            $object->setInvoiceTo($object->getPartner());
+        }
     }
 }
