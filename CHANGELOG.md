@@ -1,6 +1,14 @@
 Changelog
 =========
 
+##### Version 1.1.04 (2018-11-05)
+ * add activity line management
+ * add collection document type management
+ * add sale delivery note management
+ * add sale delivery note line management
+ * add sale invoice management
+ * add sale invoice series management
+
 ##### Version 1.1.03 (2018-10-01)
  * add enterprise holidays management
  * add sale tariff management

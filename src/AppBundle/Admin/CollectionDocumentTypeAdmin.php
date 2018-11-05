@@ -2,7 +2,7 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\EnterpriseHolidays;
+use AppBundle\Entity\CollectionDocumentType;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -10,18 +10,18 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EnterpriseHolidaysAdmin.
+ * Class CollectionDocumentTypeAdmin.
  *
  * @category    Admin
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
+class CollectionDocumentTypeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Dies festius';
-    protected $baseRoutePattern = 'empreses/dies-festius';
+    protected $classnameLabel = 'Tipus document cobrament';
+    protected $baseRoutePattern = 'empreses/tipus-document-cobrament';
     protected $datagridValues = array(
-        '_sort_by' => 'day',
-        '_sort_order' => 'desc',
+        '_sort_by' => 'name',
+        '_sort_order' => 'ASC',
     );
 
     /**
@@ -31,21 +31,28 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'day',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
+        ->with('Tipus document cobrament', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Nom',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'sitReference',
+                null,
+                array(
+                    'label' => 'Referència SIT',
                     'required' => false,
                 )
             )
@@ -67,18 +74,24 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'day',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'Dia festiu',
-                    'field_type' => 'sonata_type_date_picker',
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Línia d\'activitat',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                )
+            )
+            ->add(
+                'sitReference',
+                null,
+                array(
+                    'label' => 'Referència SIT',
                 )
             )
         ;
@@ -98,7 +111,7 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
             ->orderBy('e.name', 'ASC')
         ;
         $queryBuilder
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.day', 'DESC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
@@ -125,18 +138,26 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'day',
-                null,
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/m/y',
-                    'editable' => true,
-                )
-            )->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Nom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'sitReference',
+                null,
+                array(
+                    'label' => 'Referència SIT',
                     'editable' => true,
                 )
             )
@@ -157,7 +178,7 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param EnterpriseHolidays $object
+     * @param CollectionDocumentType $object
      */
     public function prePersist($object)
     {

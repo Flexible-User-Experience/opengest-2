@@ -2,26 +2,23 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\EnterpriseHolidays;
-use AppBundle\Enum\UserRolesEnum;
-use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EnterpriseHolidaysAdmin.
+ * Class SaleInvoiceSeriesAdmin.
  *
  * @category    Admin
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
+class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Dies festius';
-    protected $baseRoutePattern = 'empreses/dies-festius';
+    protected $classnameLabel = 'Sèries factura';
+    protected $baseRoutePattern = 'administracio/series-factura';
     protected $datagridValues = array(
-        '_sort_by' => 'day',
-        '_sort_order' => 'desc',
+        '_sort_by' => 'name',
+        '_sort_order' => 'ASC',
     );
 
     /**
@@ -31,21 +28,28 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'day',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
+        ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Nom',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'prefix',
+                null,
+                array(
+                    'label' => 'Prefix',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'isDefault',
+                null,
+                array(
+                    'label' => 'Sèrie per defecte',
                     'required' => false,
                 )
             )
@@ -59,55 +63,29 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
-                'day',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'Dia festiu',
-                    'field_type' => 'sonata_type_date_picker',
-                )
-            )
+
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'prefix',
+                null,
+                array(
+                    'label' => 'Prefix',
+                )
+            )
+            ->add(
+                'isDefault',
+                null,
+                array(
+                    'label' => 'Sèrie per defecte',
                 )
             )
         ;
-    }
-
-    /**
-     * @param string $context
-     *
-     * @return QueryBuilder
-     */
-    public function createQuery($context = 'list')
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = parent::createQuery($context);
-        $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
-            ->orderBy('e.name', 'ASC')
-        ;
-        $queryBuilder
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.day', 'DESC')
-        ;
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
-
-        return $queryBuilder;
     }
 
     /**
@@ -118,25 +96,26 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
-                'day',
-                null,
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/m/y',
-                    'editable' => true,
-                )
-            )->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Nom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'prefix',
+                null,
+                array(
+                    'label' => 'Prefix',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'isDefault',
+                null,
+                array(
+                    'label' => 'Sèrie per defecte',
                     'editable' => true,
                 )
             )
@@ -154,13 +133,5 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 )
             )
         ;
-    }
-
-    /**
-     * @param EnterpriseHolidays $object
-     */
-    public function prePersist($object)
-    {
-        $object->setEnterprise($this->getUserLogedEnterprise());
     }
 }

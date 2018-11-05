@@ -2,7 +2,7 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\EnterpriseHolidays;
+use AppBundle\Entity\ActivityLine;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -10,18 +10,18 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EnterpriseHolidaysAdmin.
+ * Class ActivityLineAdmin.
  *
  * @category    Admin
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
+class ActivityLineAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Dies festius';
-    protected $baseRoutePattern = 'empreses/dies-festius';
+    protected $classnameLabel = 'Línies d\'activitat';
+    protected $baseRoutePattern = 'empreses/linies-activitat';
     protected $datagridValues = array(
-        '_sort_by' => 'day',
-        '_sort_order' => 'desc',
+        '_sort_by' => 'name',
+        '_sort_order' => 'ASC',
     );
 
     /**
@@ -31,22 +31,13 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $formMapper
 
-        ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'day',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
+        ->with('Línia d\'activitat', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
-                    'required' => false,
+                    'label' => 'Línia d\'activitat',
+                    'required' => true,
                 )
             )
         ->end()
@@ -67,18 +58,10 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'day',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'Dia festiu',
-                    'field_type' => 'sonata_type_date_picker',
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Línia d\'activitat',
                 )
             )
         ;
@@ -98,7 +81,7 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
             ->orderBy('e.name', 'ASC')
         ;
         $queryBuilder
-            ->addOrderBy($queryBuilder->getRootAliases()[0].'.day', 'DESC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
@@ -125,18 +108,10 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'day',
-                null,
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/m/y',
-                    'editable' => true,
-                )
-            )->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom festivitat',
+                    'label' => 'Línia d\'activitat',
                     'editable' => true,
                 )
             )
@@ -157,7 +132,7 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param EnterpriseHolidays $object
+     * @param ActivityLine $object
      */
     public function prePersist($object)
     {

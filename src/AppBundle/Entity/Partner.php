@@ -943,7 +943,7 @@ class Partner extends AbstractBase
     public function remmoveOrder(PartnerOrder $order)
     {
         if ($this->orders->contains($order)) {
-            $this->orders->remove($order);
+            $this->orders->removeElement($order);
         }
 
         return $this;
@@ -992,7 +992,7 @@ class Partner extends AbstractBase
     public function removeBuildingSite(PartnerBuildingSite $buildingSite)
     {
         if ($this->buildingSites->contains($buildingSite)) {
-            $this->buildingSites->remove($buildingSite);
+            $this->buildingSites->removeElement($buildingSite);
         }
 
         return $this;
@@ -1041,7 +1041,7 @@ class Partner extends AbstractBase
     public function removeContact($contact)
     {
         if ($this->contacts->contains($contact)) {
-            $this->contacts->remove($contact);
+            $this->contacts->removeElement($contact);
         }
 
         return $this;
@@ -1090,7 +1090,7 @@ class Partner extends AbstractBase
     public function removeSaleRequest($saleRequest)
     {
         if ($this->saleRequests->contains($saleRequest)) {
-            $this->saleRequests->remove($saleRequest);
+            $this->saleRequests->removeElement($saleRequest);
         }
 
         return $this;

@@ -587,6 +587,20 @@ class Enterprise extends AbstractBase
     private $saleRequests;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ActivityLine", mappedBy="enterprise")
+     */
+    private $activityLines;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CollectionDocumentType", mappedBy="enterprise")
+     */
+    private $collectionDocumentTypes;
+
+    /**
      * Methods.
      */
 
@@ -602,6 +616,8 @@ class Enterprise extends AbstractBase
         $this->enterpriseHolidays = new ArrayCollection();
         $this->saleTariffs = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
+        $this->activityLines = new ArrayCollection();
+        $this->collectionDocumentTypes = new ArrayCollection();
     }
 
     /**
@@ -2044,7 +2060,7 @@ class Enterprise extends AbstractBase
     public function removeEnterpriseTransferAccount($enterpriseTransferAccount)
     {
         if ($this->enterpriseTransferAccounts->contains($enterpriseTransferAccount)) {
-            $this->enterpriseTransferAccounts->remove($enterpriseTransferAccount);
+            $this->enterpriseTransferAccounts->removeElement($enterpriseTransferAccount);
         }
 
         return $this;
@@ -2088,7 +2104,7 @@ class Enterprise extends AbstractBase
     public function removePartner($partner)
     {
         if ($this->partners->contains($partner)) {
-            $this->partners->remove($partner);
+            $this->partners->removeElement($partner);
         }
 
         return $this;
@@ -2137,7 +2153,7 @@ class Enterprise extends AbstractBase
     public function removeEnterpriseHoliday($enterpriseHoliday)
     {
         if ($this->enterpriseHolidays->contains($enterpriseHoliday)) {
-            $this->enterpriseHolidays->remove($enterpriseHoliday);
+            $this->enterpriseHolidays->removeElement($enterpriseHoliday);
         }
 
         return $this;
@@ -2186,7 +2202,7 @@ class Enterprise extends AbstractBase
     public function removeSaleTariff($saleTariff)
     {
         if ($this->saleTariffs->contains($saleTariff)) {
-            $this->saleTariffs->remove($saleTariff);
+            $this->saleTariffs->removeElement($saleTariff);
         }
 
         return $this;
@@ -2235,7 +2251,92 @@ class Enterprise extends AbstractBase
     public function removeSaleRequest($saleRequest)
     {
         if ($this->saleRequests->contains($saleRequest)) {
-            $this->saleRequests->remove($saleRequest);
+            $this->saleRequests->removeElement($saleRequest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getActivityLines()
+    {
+        return $this->activityLines;
+    }
+
+    /**
+     * @param ArrayCollection $activityLines
+     */
+    public function setActivityLines($activityLines): void
+    {
+        $this->activityLines = $activityLines;
+    }
+
+    /**
+     * @param ActivityLine $activityLine
+     *
+     * @return $this
+     */
+    public function addActivityLine($activityLine)
+    {
+        if (!$this->activityLines->contains($activityLine)) {
+            $this->activityLines->add($activityLine);
+            $activityLine->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ActivityLine $activityLine
+     *
+     * @return $this
+     */
+    public function removeActivityLine($activityLine)
+    {
+        if ($this->activityLines->contains($activityLine)) {
+            $this->activityLines->removeElement($activityLine);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCollectionDocumentTypes()
+    {
+        return $this->collectionDocumentTypes;
+    }
+
+    /**
+     * @param ArrayCollection $collectionDocumentTypes
+     */
+    public function setCollectionDocumentTypes($collectionDocumentTypes): void
+    {
+        $this->collectionDocumentTypes = $collectionDocumentTypes;
+    }
+
+    /**
+     * @param CollectionDocumentType $collectionDocumentType
+     *
+     * @return $this
+     */
+    public function addCollectionDocumentType($collectionDocumentType)
+    {
+        if (!$this->collectionDocumentTypes->contains($collectionDocumentType)) {
+            $this->collectionDocumentTypes->add($collectionDocumentType);
+            $collectionDocumentType->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollectionDocumentType($collectionDocumentType)
+    {
+        if ($this->collectionDocumentTypes->contains($collectionDocumentType)) {
+            $this->collectionDocumentTypes->removeElement($collectionDocumentType);
         }
 
         return $this;

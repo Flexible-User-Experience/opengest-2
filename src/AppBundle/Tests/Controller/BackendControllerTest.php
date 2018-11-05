@@ -76,6 +76,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/usuari/create'),
             array('/admin/administracio/usuari/1/edit'),
             array('/admin/administracio/usuari/1/delete'),
+            array('/admin/administracio/series-factura/1/edit'),
+            array('/admin/administracio/series-factura/1/delete'),
             // Operators
             array('/admin/operaris/operador/list'),
             array('/admin/operaris/operador/create'),
@@ -120,6 +122,12 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/dies-festius/create'),
             array('/admin/empreses/dies-festius/1/edit'),
             array('/admin/empreses/dies-festius/1/delete'),
+            array('/admin/empreses/linies-activitat/create'),
+            array('/admin/empreses/linies-activitat/1/edit'),
+            array('/admin/empreses/linies-activitat/1/delete'),
+            array('/admin/empreses/tipus-document-cobrament/create'),
+            array('/admin/empreses/tipus-document-cobrament/1/edit'),
+            array('/admin/empreses/tipus-document-cobrament/1/delete'),
             // Partners
             array('/admin/tercers/classe/create'),
             array('/admin/tercers/classe/1/edit'),
@@ -146,6 +154,15 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/peticio/create'),
             array('/admin/vendes/peticio/1/edit'),
             array('/admin/vendes/peticio/1/delete'),
+            array('/admin/vendes/albara/create'),
+            array('/admin/vendes/albara/1/edit'),
+            array('/admin/vendes/albara/1/delete'),
+            array('/admin/vendes/albara-linia/create'),
+            array('/admin/vendes/albara-linia/1/edit'),
+            array('/admin/vendes/albara-linia/1/delete'),
+            array('/admin/vendes/factura/create'),
+            array('/admin/vendes/factura/1/edit'),
+            array('/admin/vendes/factura/1/delete'),
         );
     }
 
@@ -197,6 +214,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administracio/ciutat/1/delete'),
             array('/admin/administracio/usuari/1/show'),
             array('/admin/administracio/usuari/batch'),
+            array('/admin/administracio/series-factura/1/show'),
+            array('/admin/administracio/series-factura/batch'),
             // Operators
             array('/admin/operaris/operador/1/delete'),
             array('/admin/operaris/operador/1/show'),
@@ -234,6 +253,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/empreses/compte-bancari/batch'),
             array('/admin/empreses/dies-festius/1/show'),
             array('/admin/empreses/dies-festius/batch'),
+            array('/admin/empreses/linies-activitat/1/show'),
+            array('/admin/empreses/linies-activitat/batch'),
+            array('/admin/empreses/tipus-document-cobrament/1/show'),
+            array('/admin/empreses/tipus-document-cobrament/batch'),
             // Partners
             array('/admin/tercers/classe/1/show'),
             array('/admin/tercers/classe/batch'),
@@ -252,6 +275,12 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/tarifa/batch'),
             array('/admin/vendes/peticio/1/show'),
             array('/admin/vendes/peticio/batch'),
+            array('/admin/vendes/albara/1/show'),
+            array('/admin/vendes/albara/batch'),
+            array('/admin/vendes/albara-linia/1/show'),
+            array('/admin/vendes/albara-linia/batch'),
+            array('/admin/vendes/factura/1/show'),
+            array('/admin/vendes/factura/batch'),
         );
     }
 

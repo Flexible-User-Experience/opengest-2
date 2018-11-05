@@ -248,7 +248,7 @@ class EnterpriseGroupBounty extends AbstractBase
     public function removeOperator($operator)
     {
         if ($this->operators->contains($operator)) {
-            $this->operators->remove($operator);
+            $this->operators->removeElement($operator);
         }
 
         return $this;

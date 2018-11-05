@@ -29,6 +29,20 @@ class SaleRequest extends AbstractBase
     private $partner;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $contactPersonName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $contactPersonPhone;
+
+    /**
      * @var Partner
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner")
@@ -141,6 +155,13 @@ class SaleRequest extends AbstractBase
     private $serviceTime;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="time", nullable=true)
+     */
+    private $endServiceTime;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -167,6 +188,13 @@ class SaleRequest extends AbstractBase
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle")
      */
     private $secondaryVehicle;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $hasBeenPrinted = false;
 
     /**
      * @return Enterprise
@@ -604,6 +632,86 @@ class SaleRequest extends AbstractBase
     public function setRequestTime($requestTime)
     {
         $this->requestTime = $requestTime;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactPersonName()
+    {
+        return $this->contactPersonName;
+    }
+
+    /**
+     * @param string $contactPersonName
+     *
+     * @return $this
+     */
+    public function setContactPersonName($contactPersonName)
+    {
+        $this->contactPersonName = $contactPersonName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactPersonPhone()
+    {
+        return $this->contactPersonPhone;
+    }
+
+    /**
+     * @param string $contactPersonPhone
+     *
+     * @return $this
+     */
+    public function setContactPersonPhone($contactPersonPhone)
+    {
+        $this->contactPersonPhone = $contactPersonPhone;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasBeenPrinted()
+    {
+        return $this->hasBeenPrinted;
+    }
+
+    /**
+     * @param bool $hasBeenPrinted
+     *
+     * @return $this
+     */
+    public function setHasBeenPrinted($hasBeenPrinted)
+    {
+        $this->hasBeenPrinted = $hasBeenPrinted;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndServiceTime()
+    {
+        return $this->endServiceTime;
+    }
+
+    /**
+     * @param \DateTime $endServiceTime
+     *
+     * @return $this
+     */
+    public function setEndServiceTime($endServiceTime)
+    {
+        $this->endServiceTime = $endServiceTime;
 
         return $this;
     }
