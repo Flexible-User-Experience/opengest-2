@@ -17,10 +17,23 @@
             partnerNode.change(function(event) {
                 console.log(event);
                 var partnerId = event.val;
+
+                jQuery.get( "/admin/tercers/tercer/3/get-json-partner-by-id", function() {
+                    console.log( "success" );
+                }).done(function() {
+                    console.log('second success');
+                    // alert( "second success" );
+                });
             });
-            {#console.log(partnerNode);#}
-            {#console.log('#{{ form.partner.vars.id }}')#}
-            console.log('hola');
+
+            jQuery.get( "/admin/tercers/tercer/3/get-json-partner-by-id", function() {
+                console.log( "success" );
+            }).done(function(response) {
+                console.log(response);
+                // alert( "second success" );
+            });
+
+
         });
     </script>
 {% endblock %}
