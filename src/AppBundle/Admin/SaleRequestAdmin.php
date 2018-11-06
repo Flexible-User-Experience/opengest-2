@@ -38,8 +38,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('Petició', $this->getFormMdSuccessBoxArray(3))
+            ->with('Petició', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'partner',
                 ModelAutocompleteType::class,
@@ -162,9 +161,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
-        ->end()
-
-        ->with('Operador', $this->getFormMdSuccessBoxArray(3))
+            ->end()
+            ->with('Operador', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'operator',
                 EntityType::class,
@@ -209,9 +207,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-        ->end()
-
-        ->with('Servei', $this->getFormMdSuccessBoxArray(3))
+            ->end()
+            ->with('Servei', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'serviceDescription',
                 null,
@@ -276,9 +273,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-        ->end()
-
-        ->with('Data', $this->getFormMdSuccessBoxArray(3))
+            ->end()
+            ->with('Data', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'requestDate',
                 DatePickerType::class,
@@ -316,7 +312,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'minutes' => array(0, 15, 30, 45),
                 )
             )
-        ->end()
+            ->end()
         ;
     }
 
