@@ -131,7 +131,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Venciment (dies)',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
