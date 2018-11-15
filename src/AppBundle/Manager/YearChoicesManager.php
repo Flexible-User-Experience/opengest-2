@@ -19,7 +19,7 @@ class YearChoicesManager
         $currentYear = new \DateTime();
         $years = array();
         for ($currentYear = intval($currentYear->format('Y')) + 1; $currentYear >= self::INITIAL_YEAR; --$currentYear) {
-            $years[] = $currentYear;
+            $years[$currentYear] = $currentYear;
         }
 
         return $years;
