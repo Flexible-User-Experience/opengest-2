@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerUnableDaysRepository")
- * @ORM\Table(name="Partner_Unable_Days")
+ * @ORM\Table(name="partner_unable_days")
  */
 class PartnerUnableDays extends AbstractBase
 {
