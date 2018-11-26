@@ -266,6 +266,13 @@ class Partner extends AbstractBase
     private $saleRequests;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerUnableDays", mappedBy="partner")
+     */
+    private $partnerUnableDays;
+
+    /**
      * Methods.
      */
 
@@ -278,6 +285,7 @@ class Partner extends AbstractBase
         $this->buildingSites = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
+        $this->partnerUnableDays = new ArrayCollection();
     }
 
     /**
@@ -1091,6 +1099,46 @@ class Partner extends AbstractBase
     {
         if ($this->saleRequests->contains($saleRequest)) {
             $this->saleRequests->removeElement($saleRequest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPartnerUnableDays()
+    {
+        return $this->partnerUnableDays;
+    }
+
+    /**
+     * @param ArrayCollection $partnerUnableDays
+     */
+    public function setPartnerUnableDays($partnerUnableDays): void
+    {
+        $this->partnerUnableDays = $partnerUnableDays;
+    }
+
+    /**
+     * @param PartnerUnableDays $partnerUnableDays
+     *
+     * @return $this
+     */
+    public function addPartnerUnableDay($partnerUnableDays)
+    {
+        if (!$this->partnerUnableDays->contains($partnerUnableDays)) {
+            $this->partnerUnableDays->add($partnerUnableDays);
+            $partnerUnableDays->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartnerUnableDay($partnerUnableDays)
+    {
+        if ($this->partnerUnableDays->contains($partnerUnableDays)) {
+            $this->partnerUnableDays->removeElement($partnerUnableDays);
         }
 
         return $this;
