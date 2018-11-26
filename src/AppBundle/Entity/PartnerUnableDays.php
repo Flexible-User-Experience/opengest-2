@@ -33,7 +33,7 @@ class PartnerUnableDays extends AbstractBase
     /**
      * @var \DateTime
      *
-     * ORM\Column(type="date")
+     * @ORM\Column(type="date")
      */
     private $end;
 
@@ -94,6 +94,6 @@ class PartnerUnableDays extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getPartner().' : '.$this->getBegin()->format('d/m/Y').' - '.$this->getEnd()->format('d/m/Y') : '---';
+        return $this->id ? $this->getPartner()->getName().' : '.$this->getBegin()->format('d/m/Y') : '---';
     }
 }

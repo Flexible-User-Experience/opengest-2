@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -31,7 +32,6 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
             ->with('General', $this->getFormMdSuccessBoxArray(4))
 
             ->add(
@@ -57,8 +57,8 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'Data inici',
-                    'format' => 'd/m/Y',
                     'required' => true,
+                    'format' => 'd/M/y',
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
             )
@@ -67,7 +67,7 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'Data fi',
-                    'format' => 'd/m/Y',
+                    'format' => 'd/M/y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
@@ -174,6 +174,7 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Data inici',
+                    'format' => 'd/m/Y',
                     'editable' => true,
                 )
             )
@@ -182,6 +183,7 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Data fi',
+                    'format' => 'd/m/Y',
                     'editable' => true,
                 )
             )
