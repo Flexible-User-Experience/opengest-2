@@ -407,6 +407,13 @@ AppBundle\Entity\PartnerClass:
     partnerClass{1..5}:
         name: <word()>
 
+# PartnerUnableDays
+AppBundle\Entity\PartnerUnableDays:
+    partnerUnableDays{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        begin: <dateTime()>
+        end: <dateTime()>
+
 # PartnerType
 AppBundle\Entity\PartnerType:
     partnerType{1..5}:
