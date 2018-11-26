@@ -68,7 +68,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Número de factura',
-                    'disabled' => true,
+//                    'disabled' => true,
                 )
             )
         ->end()
