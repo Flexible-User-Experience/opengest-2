@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class PartnerUnableDaysAdminController.
  */
-class PartnerAdminController extends BaseAdminController
+class PartnerUnableDaysAdminController extends BaseAdminController
 {
     /**
      * @param null $id

@@ -145,7 +145,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Contacte", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_unable_days:
         class: AppBundle\Admin\PartnerUnableDaysAdmin
-        arguments: [ ~, AppBundle\Entity\PartnerUndableDays, AppBundle\Controller\Admin\PartnerUndableDaysAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        arguments: [ ~, AppBundle\Entity\PartnerUnableDays, AppBundle\Controller\Admin\PartnerUnableDaysAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Dies inhàbils", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
