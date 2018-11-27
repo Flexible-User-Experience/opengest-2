@@ -170,6 +170,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/factura/create'),
             array('/admin/vendes/factura/1/edit'),
             array('/admin/vendes/factura/1/delete'),
+            array('/admin/vendes/valoracio-peticio-albara/create'),
+            array('/admin/vendes/valoracio-peticio-albara/1/edit'),
+            array('/admin/vendes/valoracio-peticio-albara/1/delete'),
         );
     }
 
@@ -292,6 +295,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/albara-linia/batch'),
             array('/admin/vendes/factura/1/show'),
             array('/admin/vendes/factura/batch'),
+            array('/admin/vendes/valoracio-peticio-albara/1/show'),
+            array('/admin/vendes/valoracio-peticio-albara/batch'),
         );
     }
 
