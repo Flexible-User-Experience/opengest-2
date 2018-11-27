@@ -68,10 +68,6 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Descripció',
                     'required' => false,
-                    'attr' => array(
-                        'style' => 'resize: vertical',
-                        'rows' => 7,
-                    ),
                 )
             )
             ->add(
