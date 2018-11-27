@@ -111,6 +111,11 @@ services:
         arguments: [ ~, AppBundle\Entity\OperatorDigitalTachograph, AppBundle\Controller\Admin\OperatorDigitalTachographAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator.various_amount:
+        class: AppBundle\Admin\OperatorVariousAmountAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorVariousAmount, AppBundle\Controller\Admin\OperatorVariousAmountAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Imports varis", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Partner group
     app.admin.partner:
