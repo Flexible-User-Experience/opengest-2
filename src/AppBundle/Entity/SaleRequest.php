@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -195,6 +196,25 @@ class SaleRequest extends AbstractBase
      * @ORM\Column(type="boolean")
      */
     private $hasBeenPrinted = false;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequestHasDeliveryNote", mappedBy="saleRequest")
+     */
+    private $saleRequestHasDeliveryNotes;
+
+    /**
+     * Methods.
+     */
+
+    /**
+     * SaleRequest constructor.
+     */
+    public function __construct()
+    {
+        $this->saleRequestHasDeliveryNotes = new ArrayCollection();
+    }
 
     /**
      * @return Enterprise
@@ -712,6 +732,55 @@ class SaleRequest extends AbstractBase
     public function setEndServiceTime($endServiceTime)
     {
         $this->endServiceTime = $endServiceTime;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleRequestHasDeliveryNotes()
+    {
+        return $this->saleRequestHasDeliveryNotes;
+    }
+
+    /**
+     * @param ArrayCollection $saleRequestHasDeliveryNotes
+     *
+     * @return $this
+     */
+    public function setSaleRequestHasDeliveryNotes($saleRequestHasDeliveryNotes)
+    {
+        $this->saleRequestHasDeliveryNotes = $saleRequestHasDeliveryNotes;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequestHasDeliveryNote $saleRequestHasDeliveryNotes
+     *
+     * @return $this
+     */
+    public function addSaleRequestHasDeliveryNote($saleRequestHasDeliveryNotes)
+    {
+        if (!$this->$saleRequestHasDeliveryNotes->contains($saleRequestHasDeliveryNotes)) {
+            $this->saleRequestHasDeliveryNotes->add($saleRequestHasDeliveryNotes);
+            $saleRequestHasDeliveryNotes->setSaleRequest($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequestHasDeliveryNote $saleRequestHasDeliveryNotes
+     *
+     * @return $this
+     */
+    public function removeSaleRequestHasDeliveryNote($saleRequestHasDeliveryNotes)
+    {
+        if ($this->saleRequestHasDeliveryNotes->contains($saleRequestHasDeliveryNotes)) {
+            $this->saleRequestHasDeliveryNotes->removeElement($saleRequestHasDeliveryNotes);
+        }
 
         return $this;
     }
