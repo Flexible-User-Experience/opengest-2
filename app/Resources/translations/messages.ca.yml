@@ -69,6 +69,9 @@ Tercers obres_delete: Esborrar
 Tercers contacte_list: Tercers contacte
 Tercers contacte_create: Crear
 Tercers contacte_delete: Esborrar
+Tercers dies inhàbils_list: Tercers dies inhàbils
+Tercers dies inhàbils_create: Crear
+Tercers dies inhàbils_delete: Esborrar
 Dies festius_list: Dies festius
 Dies festius_create: Crear
 Dies festius_delete: Esborrar
