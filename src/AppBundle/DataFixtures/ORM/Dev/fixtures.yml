@@ -581,3 +581,27 @@ AppBundle\Entity\SaleInvoice:
         type: <randomNumber()>
         total: <randomFloat()
         hasBeenCounted: <boolean()>
+
+# SaleRequestHasDeliveryNote
+AppBundle\Entity\SaleRequestHasDeliveryNote:
+    saleRequestHasDeliveryNote{1..5}:
+        saleRequest: '@saleRequest<numberBetween(1,5)>'
+        saleDeliveryNote: '@saleDeliveryNote<numberBetween(1,5)>'
+        reference: <word()>
+        totalHoursMorning: <randomFloat()>
+        priceHourMorning: <randomFloat()>
+        amountMorning:  <randomFloat()>
+        totalHoursAfternoon: <randomFloat()>
+        priceHourAfternoon: <randomFloat()>
+        amountAfternoon: <randomFloat()>
+        totalHoursNight: <randomFloat()>
+        priceHourNight: <randomFloat()>
+        amountNight: <randomFloat()>
+        totalHoursEarlyMorning: <randomFloat()>
+        priceHourEarlyMorning: <randomFloat()>
+        amountEarlyMorning: <randomFloat()>
+        totalHoursDisplacement: <randomFloat()>
+        priceHourDisplacement: <randomFloat()>
+        amountDisplacement: <randomFloat()>
+        ivaType: <randomFloat()>
+        retentionType: <randomFloat()>
