@@ -299,6 +299,15 @@ AppBundle\Entity\OperatorDigitalTachograph:
         operator: '@operator<numberBetween(1,2)>'
         uploadedFileName: <word()>
 
+# OperatorVariousAmount
+AppBundle\Entity\OperatorVariousAmount:
+    operatorVariousAmount{1..2}:
+        operator: '@operator<numberBetween(1,2)>'
+        date: <dateTime()>
+        units: <randomNumber()>
+        description: <sentence(3)>
+        priceUnit: <randomFloat()>
+
 # VehicleDigitalTachograph
 AppBundle\Entity\VehicleDigitalTachograph:
     vehicleDigitalTachograph{1..2}:

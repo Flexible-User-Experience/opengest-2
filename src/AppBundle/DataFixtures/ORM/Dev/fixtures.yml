@@ -262,13 +262,22 @@ AppBundle\Entity\OperatorAbsenceType:
 # OperatorAbsenceType
 AppBundle\Entity\OperatorAbsence:
   operatorAbsence{1..5}:
-    operator: '@operator<numberBetween(1,2)>'
+    operator: '@operator<numberBetween(1,5)>'
     type: '@absenceType<numberBetween(1,5)>'
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+
+# OperatorVariousAmount
+AppBundle\Entity\OperatorVariousAmount:
+    operatorVariousAmount{1..5}:
+        operator: '@operator<numberBetween(1,5)>'
+        date: <dateTime()>
+        units: <randomNumber()>
+        description: <sentence(3)>
+        priceUnit: <randomFloat()>
 
 # VehicleCheckingType
 AppBundle\Entity\VehicleCheckingType:
