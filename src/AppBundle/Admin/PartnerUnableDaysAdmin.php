@@ -132,9 +132,15 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
+            ->orderBy($queryBuilder->getRootAliases()[0].'.begin', 'DESC')
+            ->addOrderBy('p.name', 'ASC')
+        ;
+
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.partner.enterprise = :enterprise')
+                ->andWhere('p.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
