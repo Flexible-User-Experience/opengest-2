@@ -224,7 +224,6 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleRequest::class,
                     'label' => 'Petició',
-//                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -235,7 +234,6 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleDeliveryNote::class,
                     'label' => 'Albarà',
-//                    'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -369,9 +367,11 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                ->join($queryBuilder->getRootAliases()[0].'.saleRequest', 's')
+                ->andWhere('s.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
