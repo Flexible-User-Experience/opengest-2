@@ -41,7 +41,7 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                         'class' => SaleRequest::class,
                         'label' => 'Petició',
                         'required' => true,
-                        'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                        'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                     )
                 )
                 ->add(
@@ -51,7 +51,7 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                         'class' => SaleDeliveryNote::class,
                         'label' => 'Albarà',
                         'required' => true,
-                        'query_builder' => $this->rm->getSaleTariffRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
                     )
                 )
                 ->add(
@@ -224,6 +224,7 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleRequest::class,
                     'label' => 'Petició',
+                    'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -234,6 +235,7 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleDeliveryNote::class,
                     'label' => 'Albarà',
+                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
