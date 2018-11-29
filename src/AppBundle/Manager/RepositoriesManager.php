@@ -19,7 +19,9 @@ use AppBundle\Repository\PartnerClassRepository;
 use AppBundle\Repository\PartnerOrderRepository;
 use AppBundle\Repository\PartnerRepository;
 use AppBundle\Repository\PartnerTypeRepository;
+use AppBundle\Repository\SaleDeliveryNoteRepository;
 use AppBundle\Repository\SaleInvoiceSeriesRepository;
+use AppBundle\Repository\SaleRequestRepository;
 use AppBundle\Repository\SaleTariffRepository;
 use AppBundle\Repository\ServiceRepository;
 use AppBundle\Repository\UserRepository;
@@ -163,6 +165,16 @@ class RepositoriesManager
     private $saleInvoiceSeriesRepository;
 
     /**
+     * @var SaleRequestRepository
+     */
+    private $saleRequestRepository;
+
+    /**
+     * @var SaleDeliveryNoteRepository
+     */
+    private $saleDeliveryNoteRepository;
+
+    /**
      * Methods.
      */
 
@@ -194,6 +206,8 @@ class RepositoriesManager
      * @param CollectionDocumentTypeRepository    $collectionDocumentTypeRepository
      * @param ActivityLineRepository              $activityLineRepository
      * @param SaleInvoiceSeriesRepository         $saleInvoiceSeriesRepository
+     * @param SaleRequestRepository               $saleRequestRepository
+     * @param SaleDeliveryNoteRepository          $saleDeliveryNoteRepository
      */
     public function __construct(
         ServiceRepository $serviceRepository,
@@ -220,7 +234,9 @@ class RepositoriesManager
         PartnerOrderRepository $partnerOrderRepository,
         CollectionDocumentTypeRepository $collectionDocumentTypeRepository,
         ActivityLineRepository $activityLineRepository,
-        SaleInvoiceSeriesRepository $saleInvoiceSeriesRepository
+        SaleInvoiceSeriesRepository $saleInvoiceSeriesRepository,
+        SaleRequestRepository $saleRequestRepository,
+        SaleDeliveryNoteRepository $saleDeliveryNoteRepository
     ) {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -247,6 +263,8 @@ class RepositoriesManager
         $this->collectionDocumentTypeRepository = $collectionDocumentTypeRepository;
         $this->activityLineRepository = $activityLineRepository;
         $this->saleInvoiceSeriesRepository = $saleInvoiceSeriesRepository;
+        $this->saleRequestRepository = $saleRequestRepository;
+        $this->saleDeliveryNoteRepository = $saleDeliveryNoteRepository;
     }
 
     /**
@@ -447,5 +465,21 @@ class RepositoriesManager
     public function getSaleInvoiceSeriesRepository()
     {
         return $this->saleInvoiceSeriesRepository;
+    }
+
+    /**
+     * @return SaleRequestRepository
+     */
+    public function getSaleRequestRepository()
+    {
+        return $this->saleRequestRepository;
+    }
+
+    /**
+     * @return SaleDeliveryNoteRepository
+     */
+    public function getSaleDeliveryNoteRepository()
+    {
+        return $this->saleDeliveryNoteRepository;
     }
 }
