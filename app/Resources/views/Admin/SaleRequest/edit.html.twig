@@ -17,16 +17,16 @@
             partnerNode.change(function(event) {
                 console.log(event);
                 var partnerId = event.val;
-
-                jQuery.get( "/admin/tercers/tercer/3/get-json-partner-by-id", function() {
+                // TODO AVOID HARDCORED ROUTES
+                jQuery.get( "/admin/tercers/tercer/"+partnerId+"/get-json-partner-by-id", function() {
                     console.log( "success" );
-                }).done(function() {
-                    console.log('second success');
+                }).done(function(response) {
+                    console.log(response);
                     // alert( "second success" );
                 });
             });
 
-            jQuery.get( "/admin/tercers/tercer/3/get-json-partner-by-id", function() {
+            jQuery.get( "/admin/tercers/tercer/{{ form.partner.vars.data.id }}/get-json-partner-by-id", function() {
                 console.log( "success" );
             }).done(function(response) {
                 console.log(response);

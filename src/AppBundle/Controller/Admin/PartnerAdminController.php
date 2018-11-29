@@ -2,8 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
-use
-    AppBundle\Entity\Partner;
+use AppBundle\Entity\Partner;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -56,7 +55,11 @@ class PartnerAdminController extends BaseAdminController
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
-        $response = new JsonResponse($partner);
+        $serializer = $this->container->get('serializer');
+
+        $serializedPartner = $serializer->serialize($partner, 'json', array('groups' => array('api')));
+
+        $response = new JsonResponse($serializedPartner);
 
         return $response;
     }

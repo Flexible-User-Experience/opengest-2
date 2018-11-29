@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class Partner.
@@ -22,6 +23,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Groups({"api"})
      */
     private $cifNif;
 
@@ -71,6 +73,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $mainAddress;
 
@@ -78,6 +81,7 @@ class Partner extends AbstractBase
      * @var City
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @Groups({"api"})
      */
     private $mainCity;
 

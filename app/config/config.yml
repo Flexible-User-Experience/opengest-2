@@ -25,6 +25,7 @@ framework:
         name:        OG2SESSID
         handler_id:  ~
     http_method_override: true
+    serializer: { enable_annotations: true }
 
 # Twig
 twig:
