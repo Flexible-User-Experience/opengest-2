@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Entity\SaleInvoice;
 use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -309,14 +310,11 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
         ;
     }
 
+    /**
+     * @param SaleInvoice $object
+     */
     public function prePersist($object)
     {
-        $object->setAttendedBy($this->getUser());
-        $object->setEnterprise($this->getUserLogedEnterprise());
-        $object->setRequestTime(new \DateTime());
-
-        if (null == $object->getInvoiceTo()) {
-            $object->setInvoiceTo($object->getPartner());
-        }
+        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerie($object->getSeries()));
     }
 }

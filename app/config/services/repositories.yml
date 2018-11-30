@@ -134,6 +134,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:SaleInvoiceSeries
+    app.sale_invoice_repository:
+        class: AppBundle\Repository\SaleInvoiceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:SaleInvoice
     app.sale_request_repository:
         class: AppBundle\Repository\SaleRequestRepository
         factory: [ "@doctrine", getRepository ]
