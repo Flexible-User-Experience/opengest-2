@@ -34,7 +34,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
         ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'date',
@@ -62,14 +61,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                         ;
                         $datagrid->setValue($property, null, $value);
                     },
-                )
-            )
-            ->add(
-                'invoiceNumber',
-                null,
-                array(
-                    'label' => 'Número de factura',
-//                    'disabled' => true,
                 )
             )
         ->end()
@@ -124,8 +115,33 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ->end()
-
         ;
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'invoiceNumber',
+                        null,
+                        array(
+                            'label' => 'Número de factura',
+                            'disabled' => true,
+                        )
+                    )
+                ->end()
+                ->with('Import', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'series',
+                        EntityType::class,
+                        array(
+                            'class' => SaleInvoiceSeries::class,
+                            'label' => 'Sèrie de facturació',
+                            'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                            'disabled' => true,
+                        )
+                    )
+                ->end()
+            ;
+        }
     }
 
     /**
@@ -253,6 +269,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Número factura',
+                    'template' => '::Admin/Cells/list__cell_sale_invoice_full_invoice_number.html.twig',
                 )
             )
             ->add(
@@ -290,5 +307,16 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    public function prePersist($object)
+    {
+        $object->setAttendedBy($this->getUser());
+        $object->setEnterprise($this->getUserLogedEnterprise());
+        $object->setRequestTime(new \DateTime());
+
+        if (null == $object->getInvoiceTo()) {
+            $object->setInvoiceTo($object->getPartner());
+        }
     }
 }
