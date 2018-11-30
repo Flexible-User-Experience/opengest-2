@@ -7,7 +7,6 @@ use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use JMS\Serializer\SerializationContext;
 
 /**
  * Class PartnerAdminController.
@@ -56,9 +55,9 @@ class PartnerAdminController extends BaseAdminController
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
-        $serializer = $this->container->get('jms_serializer');
+        $serializer = $this->container->get('serializer');
 
-        $serializedPartner = $serializer->serialize($partner, 'json', SerializationContext::create()->setGroups(array('api')));
+        $serializedPartner = $serializer->serialize($partner, 'json', array('groups' => array('api')));
 
         $response = new JsonResponse($serializedPartner);
 
