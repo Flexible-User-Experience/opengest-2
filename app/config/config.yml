@@ -125,3 +125,7 @@ knp_paginator:
 beelab_recaptcha2:
     site_key: "%recaptcha_site_key%"
     secret:   "%recaptcha_secret%"
+
+# JS Routing
+fos_js_routing:
+    routes_to_expose: [ "admin_app_partner_getJsonPartnerById" ]

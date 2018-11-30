@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             // Vendors
             new Beelab\Recaptcha2Bundle\BeelabRecaptcha2Bundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),

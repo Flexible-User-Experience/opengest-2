@@ -3,6 +3,9 @@
 {# override javascript includes #}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
     <script type="text/javascript">
         jQuery(document).ready(function() {
              // Handler for .ready() called.
@@ -11,15 +14,13 @@
             var mainAddress = jQuery('#{{ form.mainAddress.vars.id }}');
             var mainCity = jQuery('#{{ form.mainCity.vars.id }}');
             var province = jQuery('#{{ form.province.vars.id }}');
-            var paymentType = jQuery('#{{ form.paymentType.vars.id }}');
+            {#var paymentType = jQuery('#{{ form.paymentType.vars.id }}');#}
 
              //on change
             partnerNode.change(function(event) {
                 console.log(event);
                 var partnerId = event.val;
-                // TODO AVOID HARDCORED ROUTES
-                jQuery.get( "/admin/tercers/tercer/"+partnerId+"/get-json-partner-by-id", function() {
-                    console.log( "success" );
+                jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: partnerId }), function() {
                 }).done(function(response) {
                     updateNodesInfo(response);
                 });
@@ -27,8 +28,7 @@
 
             //on load
             {% if form.partner.vars.data is not null %}
-                jQuery.get( "/admin/tercers/tercer/{{ form.partner.vars.data.id }}/get-json-partner-by-id", function() {
-                    // console.log( "success" );
+                jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: {{ form.partner.vars.data.id }} }), function() {
                 }).done(function(response) {
                     updateNodesInfo(response);
                 });
@@ -36,8 +36,6 @@
 
             function updateNodesInfo(response) {
                 var partner = jQuery.parseJSON(response);
-                // console.log(response);
-                // console.log(partner);
 
                 cifNif.val(partner.cif_nif);
                 mainAddress.val(partner.main_address);
