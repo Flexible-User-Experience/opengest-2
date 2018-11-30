@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),

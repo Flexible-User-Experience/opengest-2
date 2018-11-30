@@ -32,11 +32,11 @@
                 var partner =jQuery.parseJSON(response);
                 console.log(response);
                 console.log(partner);
-                cifNif.val(partner.cifNif);
-                mainAddress.val(partner.mainAddress);
-                mainCity.val(partner.mainCity.name);
-                province.val(partner.mainCity.province.name);
 
+                cifNif.val(partner.cif_nif);
+                mainAddress.val(partner.main_address);
+                mainCity.val(partner.main_city.name);
+                province.val(partner.main_city.province.name);
             });
 
 
