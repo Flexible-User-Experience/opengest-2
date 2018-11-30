@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\SaleDeliveryNote;
 use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -109,6 +110,21 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ->end()
+        ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'deliveryNotes',
+                EntityType::class,
+                array(
+                    'label' => 'Albarans',
+                    'required' => false,
+                    'class' => SaleDeliveryNote::class,
+                    'multiple' => true,
+                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
+                    'by_reference' => false,
+                )
+            )
+        ->end()
+
         ;
     }
 
