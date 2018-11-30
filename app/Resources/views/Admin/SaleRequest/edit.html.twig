@@ -22,15 +22,21 @@
                     console.log( "success" );
                 }).done(function(response) {
                     console.log(response);
-                    // alert( "second success" );
                 });
             });
 
+            //on load
             jQuery.get( "/admin/tercers/tercer/{{ form.partner.vars.data.id }}/get-json-partner-by-id", function() {
                 console.log( "success" );
             }).done(function(response) {
+                var partner =jQuery.parseJSON(response);
                 console.log(response);
-                // alert( "second success" );
+                console.log(partner);
+                cifNif.val(partner.cifNif);
+                mainAddress.val(partner.mainAddress);
+                mainCity.val(partner.mainCity.name);
+                province.val(partner.mainCity.province.name);
+
             });
 
 
