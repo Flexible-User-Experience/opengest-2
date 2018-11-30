@@ -21,24 +21,29 @@
                 jQuery.get( "/admin/tercers/tercer/"+partnerId+"/get-json-partner-by-id", function() {
                     console.log( "success" );
                 }).done(function(response) {
-                    console.log(response);
+                    updateNodesInfo(response);
                 });
             });
 
             //on load
-            jQuery.get( "/admin/tercers/tercer/{{ form.partner.vars.data.id }}/get-json-partner-by-id", function() {
-                console.log( "success" );
-            }).done(function(response) {
-                var partner =jQuery.parseJSON(response);
-                console.log(response);
-                console.log(partner);
+            {% if form.partner.vars.data is not null %}
+                jQuery.get( "/admin/tercers/tercer/{{ form.partner.vars.data.id }}/get-json-partner-by-id", function() {
+                    // console.log( "success" );
+                }).done(function(response) {
+                    updateNodesInfo(response);
+                });
+            {% endif %}
+
+            function updateNodesInfo(response) {
+                var partner = jQuery.parseJSON(response);
+                // console.log(response);
+                // console.log(partner);
 
                 cifNif.val(partner.cif_nif);
                 mainAddress.val(partner.main_address);
                 mainCity.val(partner.main_city.name);
                 province.val(partner.main_city.province.name);
-            });
-
+            }
 
         });
     </script>
