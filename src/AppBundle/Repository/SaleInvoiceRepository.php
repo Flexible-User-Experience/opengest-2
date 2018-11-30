@@ -2,8 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\SaleInvoice;
 use AppBundle\Entity\SaleInvoiceSeries;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
@@ -39,8 +41,15 @@ class SaleInvoiceRepository extends EntityRepository
         return $this->getLastInvoiceBySerieQB($saleInvoiceSeries)->getQuery();
     }
 
+    /**
+     * @param SaleInvoiceSeries $saleInvoiceSeries
+     *
+     * @return SaleInvoice|null
+     *
+     * @throws NonUniqueResultException
+     */
     public function getLastInvoiceBySerie(SaleInvoiceSeries $saleInvoiceSeries)
     {
-        return $this->getLastInvoiceBySerieQ($saleInvoiceSeries)->getResult();
+        return $this->getLastInvoiceBySerieQ($saleInvoiceSeries)->getOneOrNullResult();
     }
 }
