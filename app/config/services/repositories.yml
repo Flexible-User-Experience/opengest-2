@@ -134,6 +134,21 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:SaleInvoiceSeries
+    app.sale_invoice_repository:
+        class: AppBundle\Repository\SaleInvoiceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:SaleInvoice
+    app.sale_request_repository:
+        class: AppBundle\Repository\SaleRequestRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:SaleRequest
+    app.sale_delivery_note_repository:
+        class: AppBundle\Repository\SaleDeliveryNoteRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:SaleDeliveryNote
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -162,4 +177,6 @@ services:
             - "@app.collection_document_type_repository"
             - "@app.activity_line_repository"
             - "@app.sale_invoice_series_repository"
+            - "@app.sale_request_repository"
+            - "@app.sale_delivery_note_repository"
 

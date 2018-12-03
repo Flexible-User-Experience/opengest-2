@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class City.
@@ -22,6 +23,7 @@ class City extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Groups({"api"})
      */
     private $name;
 
@@ -36,6 +38,7 @@ class City extends AbstractBase
      * @var Province
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Province")
+     * @Groups({"api"})
      */
     private $province;
 

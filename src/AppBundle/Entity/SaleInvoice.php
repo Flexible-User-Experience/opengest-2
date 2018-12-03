@@ -173,6 +173,14 @@ class SaleInvoice extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getFullInvoiceNumber()
+    {
+        return ($this->getSeries() ? $this->getSeries()->getPrefix() : '???').'/'.$this->getInvoiceNumber();
+    }
+
+    /**
      * @return SaleInvoiceSeries
      */
     public function getSeries()

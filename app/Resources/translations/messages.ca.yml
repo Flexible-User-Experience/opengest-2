@@ -69,6 +69,9 @@ Tercers obres_delete: Esborrar
 Tercers contacte_list: Tercers contacte
 Tercers contacte_create: Crear
 Tercers contacte_delete: Esborrar
+Tercers dies inhàbils_list: Tercers dies inhàbils
+Tercers dies inhàbils_create: Crear
+Tercers dies inhàbils_delete: Esborrar
 Dies festius_list: Dies festius
 Dies festius_create: Crear
 Dies festius_delete: Esborrar
@@ -96,3 +99,9 @@ Factura_delete: Esborrar
 Albarà línia_list: Factura
 Albarà línia_create: Crear
 Albarà línia_delete: Esborrar
+Imports varis_list: Imports Varis
+Imports varis_create: Crear
+Imports varis_delete: Esborrar
+Valoració petició-albarà_list: Valoració petició-albarà
+Valoració petició-albarà_create: Crear
+Valoració petició-albarà_delete: Esborrar

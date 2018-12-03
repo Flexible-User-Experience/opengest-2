@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Entity\SaleInvoice;
 use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -33,7 +35,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
         ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'date',
@@ -61,14 +62,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                         ;
                         $datagrid->setValue($property, null, $value);
                     },
-                )
-            )
-            ->add(
-                'invoiceNumber',
-                null,
-                array(
-                    'label' => 'Número de factura',
-                    'disabled' => true,
                 )
             )
         ->end()
@@ -109,7 +102,47 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ->end()
+        ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'deliveryNotes',
+                EntityType::class,
+                array(
+                    'label' => 'Albarans',
+                    'required' => false,
+                    'class' => SaleDeliveryNote::class,
+                    'multiple' => true,
+                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
+                    'by_reference' => false,
+                )
+            )
+        ->end()
         ;
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'invoiceNumber',
+                        null,
+                        array(
+                            'label' => 'Número de factura',
+                            'disabled' => true,
+                        )
+                    )
+                ->end()
+                ->with('Import', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'series',
+                        EntityType::class,
+                        array(
+                            'class' => SaleInvoiceSeries::class,
+                            'label' => 'Sèrie de facturació',
+                            'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                            'disabled' => true,
+                        )
+                    )
+                ->end()
+            ;
+        }
     }
 
     /**
@@ -237,6 +270,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Número factura',
+                    'template' => '::Admin/Cells/list__cell_sale_invoice_full_invoice_number.html.twig',
                 )
             )
             ->add(
@@ -274,5 +308,13 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param SaleInvoice $object
+     */
+    public function prePersist($object)
+    {
+        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerie($object->getSeries()));
     }
 }

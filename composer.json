@@ -24,6 +24,7 @@
         "doctrine/orm": "^2.4.8",
         "egeloen/ckeditor-bundle": "^4.0",
         "egulias/email-validator": "^1.2",
+        "friendsofsymfony/jsrouting-bundle": "^2.0",
         "hampe/zurb-ink-bundle": "^2.2",
         "hautelook/alice-bundle": "^1.0",
         "incenteev/composer-parameter-handler": "~2.0",

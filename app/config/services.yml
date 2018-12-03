@@ -123,3 +123,7 @@ services:
 # Managers
     app.year_choices_manager:
         class: AppBundle\Manager\YearChoicesManager
+    app.invoice_manager:
+        class: AppBundle\Manager\InvoiceManager
+        arguments: [ "@app.sale_invoice_repository"]
+

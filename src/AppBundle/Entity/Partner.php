@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,6 +23,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Groups({"api"})
      */
     private $cifNif;
 
@@ -71,6 +73,7 @@ class Partner extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $mainAddress;
 
@@ -78,6 +81,7 @@ class Partner extends AbstractBase
      * @var City
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @Groups({"api"})
      */
     private $mainCity;
 
@@ -266,6 +270,13 @@ class Partner extends AbstractBase
     private $saleRequests;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerUnableDays", mappedBy="partner")
+     */
+    private $partnerUnableDays;
+
+    /**
      * Methods.
      */
 
@@ -278,6 +289,7 @@ class Partner extends AbstractBase
         $this->buildingSites = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
+        $this->partnerUnableDays = new ArrayCollection();
     }
 
     /**
@@ -446,6 +458,18 @@ class Partner extends AbstractBase
     public function getMainCity()
     {
         return $this->mainCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMainCityName()
+    {
+        if ($this->mainCity) {
+            return $this->getMainCity()->getName();
+        }
+
+        return null;
     }
 
     /**
@@ -1091,6 +1115,46 @@ class Partner extends AbstractBase
     {
         if ($this->saleRequests->contains($saleRequest)) {
             $this->saleRequests->removeElement($saleRequest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPartnerUnableDays()
+    {
+        return $this->partnerUnableDays;
+    }
+
+    /**
+     * @param ArrayCollection $partnerUnableDays
+     */
+    public function setPartnerUnableDays($partnerUnableDays): void
+    {
+        $this->partnerUnableDays = $partnerUnableDays;
+    }
+
+    /**
+     * @param PartnerUnableDays $partnerUnableDays
+     *
+     * @return $this
+     */
+    public function addPartnerUnableDay($partnerUnableDays)
+    {
+        if (!$this->partnerUnableDays->contains($partnerUnableDays)) {
+            $this->partnerUnableDays->add($partnerUnableDays);
+            $partnerUnableDays->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartnerUnableDay($partnerUnableDays)
+    {
+        if ($this->partnerUnableDays->contains($partnerUnableDays)) {
+            $this->partnerUnableDays->removeElement($partnerUnableDays);
         }
 
         return $this;

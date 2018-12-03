@@ -115,9 +115,24 @@ class SaleDeliveryNote extends AbstractBase
      */
     private $saleDeliveryNoteLines;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequestHasDeliveryNote", mappedBy="saleDeliveryNote")
+     */
+    private $saleRequestHasDeliveryNotes;
+
+    /**
+     * Methods.
+     */
+
+    /**
+     * SaleDeliveryNote constructor.
+     */
     public function __construct()
     {
         $this->saleDeliveryNoteLines = new ArrayCollection();
+        $this->saleRequestHasDeliveryNotes = new ArrayCollection();
     }
 
     /**
@@ -380,6 +395,55 @@ class SaleDeliveryNote extends AbstractBase
     {
         if ($this->saleDeliveryNoteLines->contains($saleDeliveryNoteLine)) {
             $this->saleDeliveryNoteLines->removeElement($saleDeliveryNoteLine);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleRequestHasDeliveryNotes()
+    {
+        return $this->saleRequestHasDeliveryNotes;
+    }
+
+    /**
+     * @param ArrayCollection $saleRequestHasDeliveryNotes
+     *
+     * @return $this
+     */
+    public function setSaleRequestHasDeliveryNotes($saleRequestHasDeliveryNotes)
+    {
+        $this->saleRequestHasDeliveryNotes = $saleRequestHasDeliveryNotes;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequestHasDeliveryNote $saleRequestHasDeliveryNotes
+     *
+     * @return $this
+     */
+    public function addSaleRequestHasDeliveryNote($saleRequestHasDeliveryNotes)
+    {
+        if (!$this->saleRequestHasDeliveryNotes->contains($saleRequestHasDeliveryNotes)) {
+            $this->saleRequestHasDeliveryNotes->add($saleRequestHasDeliveryNotes);
+            $saleRequestHasDeliveryNotes->setSaleDeliveryNote($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleRequestHasDeliveryNote $saleRequestHasDeliveryNotes
+     *
+     * @return $this
+     */
+    public function removeRequestHasDeliveryNote($saleRequestHasDeliveryNotes)
+    {
+        if ($this->saleRequestHasDeliveryNotes->contains($saleRequestHasDeliveryNotes)) {
+            $this->saleRequestHasDeliveryNotes->removeElement($saleRequestHasDeliveryNotes);
         }
 
         return $this;

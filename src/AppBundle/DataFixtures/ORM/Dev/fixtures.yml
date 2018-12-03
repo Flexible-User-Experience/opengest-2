@@ -262,13 +262,22 @@ AppBundle\Entity\OperatorAbsenceType:
 # OperatorAbsenceType
 AppBundle\Entity\OperatorAbsence:
   operatorAbsence{1..5}:
-    operator: '@operator<numberBetween(1,2)>'
+    operator: '@operator<numberBetween(1,5)>'
     type: '@absenceType<numberBetween(1,5)>'
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
+
+# OperatorVariousAmount
+AppBundle\Entity\OperatorVariousAmount:
+    operatorVariousAmount{1..5}:
+        operator: '@operator<numberBetween(1,5)>'
+        date: <dateTime()>
+        units: <randomNumber()>
+        description: <sentence(3)>
+        priceUnit: <randomFloat()>
 
 # VehicleCheckingType
 AppBundle\Entity\VehicleCheckingType:
@@ -406,6 +415,13 @@ AppBundle\Entity\CollectionDocumentType:
 AppBundle\Entity\PartnerClass:
     partnerClass{1..5}:
         name: <word()>
+
+# PartnerUnableDays
+AppBundle\Entity\PartnerUnableDays:
+    partnerUnableDays{1..5}:
+        partner: '@partner<numberBetween(1,5)>'
+        begin: <dateTime()>
+        end: <dateTime()>
 
 # PartnerType
 AppBundle\Entity\PartnerType:
@@ -565,3 +581,27 @@ AppBundle\Entity\SaleInvoice:
         type: <randomNumber()>
         total: <randomFloat()
         hasBeenCounted: <boolean()>
+
+# SaleRequestHasDeliveryNote
+AppBundle\Entity\SaleRequestHasDeliveryNote:
+    saleRequestHasDeliveryNote{1..5}:
+        saleRequest: '@saleRequest<numberBetween(1,5)>'
+        saleDeliveryNote: '@saleDeliveryNote<numberBetween(1,5)>'
+        reference: <word()>
+        totalHoursMorning: <randomFloat()>
+        priceHourMorning: <randomFloat()>
+        amountMorning:  <randomFloat()>
+        totalHoursAfternoon: <randomFloat()>
+        priceHourAfternoon: <randomFloat()>
+        amountAfternoon: <randomFloat()>
+        totalHoursNight: <randomFloat()>
+        priceHourNight: <randomFloat()>
+        amountNight: <randomFloat()>
+        totalHoursEarlyMorning: <randomFloat()>
+        priceHourEarlyMorning: <randomFloat()>
+        amountEarlyMorning: <randomFloat()>
+        totalHoursDisplacement: <randomFloat()>
+        priceHourDisplacement: <randomFloat()>
+        amountDisplacement: <randomFloat()>
+        ivaType: <randomFloat()>
+        retentionType: <randomFloat()>

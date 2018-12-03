@@ -1,6 +1,13 @@
 Changelog
 =========
 
+##### Version 1.1.05 (2018-12-03)
+ * add partner unable days management
+ * add operator various amount management
+ * add sale request delivery note management
+ * add invoice manager
+ * apply some dynamic behaviour into sale request views
+
 ##### Version 1.1.04 (2018-11-05)
  * add activity line management
  * add collection document type management

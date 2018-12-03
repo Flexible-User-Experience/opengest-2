@@ -424,6 +424,13 @@ class Operator extends AbstractBase
     private $saleRequests;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OperatorVariousAmount", mappedBy="operator")
+     */
+    private $operatorVariousAmount;
+
+    /**
      * Methods.
      */
 
@@ -434,6 +441,7 @@ class Operator extends AbstractBase
     {
         $this->operatorDigitalTachographs = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
+        $this->operatorVariousAmount = new ArrayCollection();
     }
 
     /**
@@ -1572,6 +1580,55 @@ class Operator extends AbstractBase
     {
         if ($this->saleRequests->contains($saleRequest)) {
             $this->saleRequests->removeElement($saleRequest);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOperatorVariousAmount()
+    {
+        return $this->operatorVariousAmount;
+    }
+
+    /**
+     * @param ArrayCollection $operatorVariousAmount
+     *
+     * @return $this
+     */
+    public function setOperatorVariousAmount($operatorVariousAmount)
+    {
+        $this->operatorVariousAmount = $operatorVariousAmount;
+
+        return $this;
+    }
+
+    /**
+     * @param OperatorVariousAmount $operatorVariousAmount
+     *
+     * @return $this
+     */
+    public function addOperatorVariousAmount($operatorVariousAmount)
+    {
+        if (!$this->operatorVariousAmount->contains($operatorVariousAmount)) {
+            $this->operatorVariousAmount->add($operatorVariousAmount);
+            $operatorVariousAmount->setOperator($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param OperatorVariousAmount $operatorVariousAmount
+     *
+     * @return $this
+     */
+    public function removeOperatorVariousAmount($operatorVariousAmount)
+    {
+        if ($this->operatorVariousAmount->contains($operatorVariousAmount)) {
+            $this->operatorVariousAmount->removeElement($operatorVariousAmount);
         }
 
         return $this;

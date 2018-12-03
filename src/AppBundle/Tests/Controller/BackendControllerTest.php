@@ -97,6 +97,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/tacograf/list'),
             array('/admin/operaris/tacograf/create'),
             array('/admin/operaris/tacograf/1/edit'),
+            array('/admin/operaris/imports-varis/list'),
+            array('/admin/operaris/imports-varis/create'),
+            array('/admin/operaris/imports-varis/1/edit'),
             // Vehicles
             array('/admin/vehicles/vehicle/list'),
             array('/admin/vehicles/vehicle/create'),
@@ -147,6 +150,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/contacte/create'),
             array('/admin/tercers/contacte/1/edit'),
             array('/admin/tercers/contacte/1/delete'),
+            array('/admin/tercers/dies-inhabils/list'),
+            array('/admin/tercers/dies-inhabils/create'),
+            array('/admin/tercers/dies-inhabils/1/edit'),
+            array('/admin/tercers/dies-inhabils/1/delete'),
             // Sale
             array('/admin/vendes/tarifa/create'),
             array('/admin/vendes/tarifa/1/edit'),
@@ -163,6 +170,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/factura/create'),
             array('/admin/vendes/factura/1/edit'),
             array('/admin/vendes/factura/1/delete'),
+            array('/admin/vendes/valoracio-peticio-albara/create'),
+            array('/admin/vendes/valoracio-peticio-albara/1/edit'),
+            array('/admin/vendes/valoracio-peticio-albara/1/delete'),
         );
     }
 
@@ -235,6 +245,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/tacograf/1/delete'),
             array('/admin/operaris/tacograf/1/show'),
             array('/admin/operaris/tacograf/batch'),
+            array('/admin/operaris/imports-varis/1/show'),
+            array('/admin/operaris/imports-varis/batch'),
             // Vehicles
             array('/admin/vehicles/tacograf/delete'),
             array('/admin/vehicles/tacograf/show'),
@@ -270,6 +282,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/obres/batch'),
             array('/admin/tercers/contacte/1/show'),
             array('/admin/tercers/contacte/batch'),
+            array('/admin/tercers/dies-inhabils/1/show'),
+            array('/admin/tercers/dies-inhabils/batch'),
             // Sale
             array('/admin/vendes/tarifa/1/show'),
             array('/admin/vendes/tarifa/batch'),
@@ -281,6 +295,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/albara-linia/batch'),
             array('/admin/vendes/factura/1/show'),
             array('/admin/vendes/factura/batch'),
+            array('/admin/vendes/valoracio-peticio-albara/1/show'),
+            array('/admin/vendes/valoracio-peticio-albara/batch'),
         );
     }
 

@@ -111,6 +111,11 @@ services:
         arguments: [ ~, AppBundle\Entity\OperatorDigitalTachograph, AppBundle\Controller\Admin\OperatorDigitalTachographAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator.various_amount:
+        class: AppBundle\Admin\OperatorVariousAmountAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorVariousAmount, AppBundle\Controller\Admin\OperatorVariousAmountAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Imports varis", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Partner group
     app.admin.partner:
@@ -143,6 +148,11 @@ services:
         arguments: [ ~, AppBundle\Entity\PartnerContact, AppBundle\Controller\Admin\PartnerContactAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Contacte", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.partner_unable_days:
+        class: AppBundle\Admin\PartnerUnableDaysAdmin
+        arguments: [ ~, AppBundle\Entity\PartnerUnableDays, AppBundle\Controller\Admin\PartnerUnableDaysAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Dies inhàbils", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 
 # Enterprise group
@@ -205,3 +215,8 @@ services:
         arguments: [ ~, AppBundle\Entity\SaleInvoice, AppBundle\Controller\Admin\SaleInvoiceAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_request_has_delivery_note:
+        class: AppBundle\Admin\SaleRequestHasDeliveryNoteAdmin
+        arguments: [ ~, AppBundle\Entity\SaleRequestHasDeliveryNote, AppBundle\Controller\Admin\SaleRequestHasDeliveryNoteAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Valoració petició-albarà", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }

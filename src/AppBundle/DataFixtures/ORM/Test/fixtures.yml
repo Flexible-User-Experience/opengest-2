@@ -299,6 +299,15 @@ AppBundle\Entity\OperatorDigitalTachograph:
         operator: '@operator<numberBetween(1,2)>'
         uploadedFileName: <word()>
 
+# OperatorVariousAmount
+AppBundle\Entity\OperatorVariousAmount:
+    operatorVariousAmount{1..2}:
+        operator: '@operator<numberBetween(1,2)>'
+        date: <dateTime()>
+        units: <randomNumber()>
+        description: <sentence(3)>
+        priceUnit: <randomFloat()>
+
 # VehicleDigitalTachograph
 AppBundle\Entity\VehicleDigitalTachograph:
     vehicleDigitalTachograph{1..2}:
@@ -365,6 +374,14 @@ AppBundle\Entity\CollectionDocumentType:
 AppBundle\Entity\PartnerClass:
     partnerClass{1..2}:
         name: <word()>
+
+# PartnerUnableDays
+AppBundle\Entity\PartnerUnableDays:
+    partnerUnableDays{1..2}:
+        partner: '@partner<numberBetween(1,2)>'
+        begin: <dateTime()>
+        end: <dateTime()>
+
 
 # PartnerType
 AppBundle\Entity\PartnerType:
@@ -524,6 +541,29 @@ AppBundle\Entity\SaleInvoice:
         invoiceNumber: <randomNumber()>
         series: '@saleInvoiceSeries<numberBetween(1,2)>'
         type: <randomNumber()>
-        total: <randomFloat()
+        total: <randomFloat()>
         hasBeenCounted: <boolean()>
 
+# SaleRequestHasDeliveryNote
+AppBundle\Entity\SaleRequestHasDeliveryNote:
+    saleRequestHasDeliveryNote{1..2}:
+        saleRequest: '@saleRequest<numberBetween(1,2)>'
+        saleDeliveryNote: '@saleDeliveryNote<numberBetween(1,2)>'
+        reference: <word()>
+        totalHoursMorning: <randomFloat()>
+        priceHourMorning: <randomFloat()>
+        amountMorning:  <randomFloat()>
+        totalHoursAfternoon: <randomFloat()>
+        priceHourAfternoon: <randomFloat()>
+        amountAfternoon: <randomFloat()>
+        totalHoursNight: <randomFloat()>
+        priceHourNight: <randomFloat()>
+        amountNight: <randomFloat()>
+        totalHoursEarlyMorning: <randomFloat()>
+        priceHourEarlyMorning: <randomFloat()>
+        amountEarlyMorning: <randomFloat()>
+        totalHoursDisplacement: <randomFloat()>
+        priceHourDisplacement: <randomFloat()>
+        amountDisplacement: <randomFloat()>
+        ivaType: <randomFloat()>
+        retentionType: <randomFloat()>

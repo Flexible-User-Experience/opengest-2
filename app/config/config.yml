@@ -25,6 +25,7 @@ framework:
         name:        OG2SESSID
         handler_id:  ~
     http_method_override: true
+    serializer: { enable_annotations: true }
 
 # Twig
 twig:
@@ -38,7 +39,7 @@ twig:
         google_analytics_account: "%google_analytics_account%"
         main_brand_title:         "%project_web_title%"
         admin_brand_title:        "%project_admin_title%"
-        admin_tag_version:        "v1.1.04"
+        admin_tag_version:        "v1.1.05"
 
 # Assetic
 assetic:
@@ -125,3 +126,7 @@ knp_paginator:
 beelab_recaptcha2:
     site_key: "%recaptcha_site_key%"
     secret:   "%recaptcha_secret%"
+
+# JS Routing
+fos_js_routing:
+    routes_to_expose: [ "admin_app_partner_getJsonPartnerById" ]

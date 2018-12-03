@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\OperatorChecking;
+use AppBundle\Entity\PartnerUnableDays;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class OperatorCheckingAdminController.
+ * Class PartnerUnableDaysAdminController.
  */
-class OperatorCheckingAdminController extends BaseAdminController
+class PartnerUnableDaysAdminController extends BaseAdminController
 {
     /**
      * @param null $id
@@ -22,15 +22,14 @@ class OperatorCheckingAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var OperatorChecking $operatorChecking */
-        $operatorChecking = $this->admin->getObject($id);
-        if (!$operatorChecking) {
+        /** @var PartnerUnableDays $partnerUnableDays */
+        $partnerUnableDays = $this->admin->getObject($id);
+        if (!$partnerUnableDays) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
-
         /** @var GuardService $guardService */
-        $guardService = $this->get('app.guard_service');
-        if (!$guardService->isOwnOperatorCheking($operatorChecking)) {
+        $guardService = $this->container->get('app.guard_service');
+        if (!$guardService->isOwnPartner($partnerUnableDays->getPartner())) {
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 

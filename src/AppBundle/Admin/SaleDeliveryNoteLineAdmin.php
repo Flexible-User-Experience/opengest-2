@@ -39,9 +39,12 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => SaleDeliveryNote::class,
-                    'label' => 'Albarà',
+                    'label' => false,
                     'required' => true,
 //                    'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
+                    'attr' => array(
+                        'style' => 'display:none;',
+                    ),
                 )
             )
             ->add(
