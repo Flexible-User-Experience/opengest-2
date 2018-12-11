@@ -218,7 +218,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'attr' => array(
                         'style' => 'resize: vertical',
                         'rows' => 7,
-                    ),
+                        ),
                 )
             )
             ->add(
@@ -251,6 +251,10 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Lloc',
                     'required' => false,
+                    'attr' => array(
+                        'style' => 'resize: vertical',
+                        'rows' => 3,
+                    ),
                 )
             )
             ->add(
