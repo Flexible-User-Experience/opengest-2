@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Entity\SaleDeliveryNoteLine;
 use AppBundle\Enum\ConstantsEnum;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -64,26 +65,10 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'total',
-                null,
-                array(
-                    'label' => 'Total',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'discount',
                 null,
                 array(
                     'label' => 'Descompte',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
                     'required' => false,
                 )
             )
@@ -111,7 +96,25 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-        ->end()
+            ->add(
+                'total',
+                null,
+                array(
+                    'label' => 'Total',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                    'required' => false,
+                )
+            )
+
+            ->end()
         ;
     }
 
@@ -281,7 +284,7 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param SaleDeliveryNote $object
+     * @param SaleDeliveryNoteLine $object
      */
     public function prePersist($object)
     {

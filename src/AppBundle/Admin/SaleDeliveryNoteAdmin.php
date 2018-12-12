@@ -422,8 +422,17 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
     public function postUpdate($object)
     {
         $totalPrice = 0;
+        $base = 0;
+        $iva = 0;
+        $irpf = 0;
 
         foreach ($object->getSaleDeliveryNoteLines() as $deliveryNoteLine) {
+            $base = $deliveryNoteLine->getUnits() * $deliveryNoteLine->getPriceUnit() - ($deliveryNoteLine->getDiscount() * $deliveryNoteLine->getPriceUnit() * $deliveryNoteLine->getUnits() / 100);
+            $iva = $base * ($deliveryNoteLine->getIva() / 100);
+            $irpf = $base * ($deliveryNoteLine->getIrpf() / 100);
+
+            $deliveryNoteLine->setTotal($base + $iva - $irpf);
+
             $subtotal = $deliveryNoteLine->getTotal();
 
             $totalPrice = $totalPrice + $subtotal;
