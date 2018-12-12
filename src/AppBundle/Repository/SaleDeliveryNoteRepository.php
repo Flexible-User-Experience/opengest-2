@@ -3,7 +3,9 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\SaleDeliveryNote;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
@@ -73,5 +75,40 @@ class SaleDeliveryNoteRepository extends EntityRepository
     public function getFilteredByEnterpriseSortedByName(Enterprise $enterprise)
     {
         return $this->getFilteredByEnterpriseSortedByNameQ($enterprise)->getResult();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     */
+    public function getLastDeliveryNoteByEnterpriseQB(Enterprise $enterprise)
+    {
+        return $this->getFilteredByEnterpriseSortedByNameQB($enterprise)
+             ->orderBy('s.deliveryNoteNumber', 'DESC')
+             ->setMaxResults(1)
+         ;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     */
+    public function getLastDeliveryNoteByEnterpriseQ(Enterprise $enterprise)
+    {
+        return $this->getLastDeliveryNoteByEnterpriseQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return SaleDeliveryNote|null
+     *
+     * @throws NonUniqueResultException
+     */
+    public function getLastDeliveryNoteByenterprise(Enterprise $enterprise)
+    {
+        return $this->getLastDeliveryNoteByEnterpriseQ($enterprise)->getOneOrNullResult();
     }
 }

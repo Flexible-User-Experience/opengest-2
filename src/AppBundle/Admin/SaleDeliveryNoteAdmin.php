@@ -408,5 +408,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
     public function prePersist($object)
     {
         $object->setEnterprise($this->getUserLogedEnterprise());
+
+        $object->setDeliveryNoteNumber($this->getConfigurationPool()->getContainer()->get('app.delivery_note_manager')->getLastDeliveryNoteByenterprise($this->getUserLogedEnterprise()));
     }
 }
