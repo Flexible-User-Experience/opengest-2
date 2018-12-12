@@ -64,7 +64,7 @@ class SaleDeliveryNote extends AbstractBase
      *
      * @ORM\Column(type="float")
      */
-    private $baseAmount;
+    private $baseAmount = 0;
 
     /**
      * @var float

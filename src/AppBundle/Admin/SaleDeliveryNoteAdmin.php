@@ -9,6 +9,7 @@ use AppBundle\Entity\PartnerOrder;
 use AppBundle\Entity\SaleDeliveryNote;
 use AppBundle\Entity\SaleInvoice;
 use AppBundle\Enum\UserRolesEnum;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -114,6 +115,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Import base',
                     'required' => true,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -375,7 +377,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Import base',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -403,12 +405,33 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param SaleDeliveryNote $object
+     * @param $object
+     *
+     * @throws NonUniqueResultException
      */
     public function prePersist($object)
     {
         $object->setEnterprise($this->getUserLogedEnterprise());
 
         $object->setDeliveryNoteNumber($this->getConfigurationPool()->getContainer()->get('app.delivery_note_manager')->getLastDeliveryNoteByenterprise($this->getUserLogedEnterprise()));
+    }
+
+    /**
+     * @param SaleDeliveryNote $object
+     */
+    public function postUpdate($object)
+    {
+        $totalPrice = 0;
+
+        foreach ($object->getSaleDeliveryNoteLines() as $deliveryNoteLine) {
+            $subtotal = $deliveryNoteLine->getTotal();
+
+            $totalPrice = $totalPrice + $subtotal;
+        }
+
+        $object->setBaseAmount($totalPrice);
+
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+        $em->flush();
     }
 }
