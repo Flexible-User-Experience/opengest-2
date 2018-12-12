@@ -315,6 +315,8 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
      */
     public function prePersist($object)
     {
-        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerie($object->getSeries()));
+        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerieAndEnterprise($object->getSeries(), $this->getUserLogedEnterprise()));
+
+//        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerie($object->getSeries()));
     }
 }

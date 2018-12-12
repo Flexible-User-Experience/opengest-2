@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\SaleInvoice;
 use AppBundle\Entity\SaleInvoiceSeries;
 use Doctrine\ORM\EntityRepository;
@@ -17,14 +18,57 @@ use Doctrine\ORM\QueryBuilder;
 class SaleInvoiceRepository extends EntityRepository
 {
     /**
-     * @param SaleInvoiceSeries $saleInvoiceSeries
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedByDateQB()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('s.date', 'DESC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function gettEnabledSortedByDateQ()
+    {
+        return $this->getEnabledSortedByDateQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledSortedByDate()
+    {
+        return $this->gettEnabledSortedByDateQ()->getResult();
+    }
+
+    /**
+     * @param Enterprise $enterprise
      *
      * @return QueryBuilder
      */
-    public function getLastInvoiceBySerieQB(SaleInvoiceSeries $saleInvoiceSeries)
+    public function getFilteredByEnterpriseSortedByDateQB(Enterprise $enterprise)
     {
-        return $this->createQueryBuilder('s')
-            ->where('s.series = :serie')
+        return $this->getEnabledSortedByDateQB()
+            ->join('s.partner', 'p')
+            ->andWhere('p.enterprise = :enterprise')
+            ->setParameter('enterprise', $enterprise)
+        ;
+    }
+
+    /**
+     * @param SaleInvoiceSeries $saleInvoiceSeries
+     * @param Enterprise        $enterprise
+     *
+     * @return QueryBuilder
+     */
+    public function getLastInvoiceBySerieAndEnterpriseQB(SaleInvoiceSeries $saleInvoiceSeries, Enterprise $enterprise)
+    {
+        return $this->getFilteredByEnterpriseSortedByDateQB($enterprise)
+            ->andWhere('s.series = :serie')
             ->setParameter('serie', $saleInvoiceSeries)
             ->orderBy('s.invoiceNumber', 'DESC')
             ->setMaxResults(1)
@@ -33,23 +77,25 @@ class SaleInvoiceRepository extends EntityRepository
 
     /**
      * @param SaleInvoiceSeries $saleInvoiceSeries
+     * @param Enterprise        $enterprise
      *
      * @return Query
      */
-    public function getLastInvoiceBySerieQ(SaleInvoiceSeries $saleInvoiceSeries)
+    public function getLastInvoiceBySerieAndEnterpriseB(SaleInvoiceSeries $saleInvoiceSeries, Enterprise $enterprise)
     {
-        return $this->getLastInvoiceBySerieQB($saleInvoiceSeries)->getQuery();
+        return $this->getLastInvoiceBySerieAndEnterpriseQB($saleInvoiceSeries, $enterprise)->getQuery();
     }
 
     /**
      * @param SaleInvoiceSeries $saleInvoiceSeries
+     * @param Enterprise        $enterprise
      *
      * @return SaleInvoice|null
      *
      * @throws NonUniqueResultException
      */
-    public function getLastInvoiceBySerie(SaleInvoiceSeries $saleInvoiceSeries)
+    public function getLastInvoiceBySerieAndEnterprise(SaleInvoiceSeries $saleInvoiceSeries, Enterprise $enterprise)
     {
-        return $this->getLastInvoiceBySerieQ($saleInvoiceSeries)->getOneOrNullResult();
+        return $this->getLastInvoiceBySerieAndEnterpriseB($saleInvoiceSeries, $enterprise)->getOneOrNullResult();
     }
 }
