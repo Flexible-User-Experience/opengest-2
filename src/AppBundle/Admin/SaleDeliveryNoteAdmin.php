@@ -39,6 +39,22 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if ($this->id($this->getSubject())) { // is edit mode
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'deliveryNoteNumber',
+                        null,
+                        array(
+                            'label' => 'Número d\'albarà',
+                            'required' => true,
+                            'disabled' => true,
+                        )
+                    )
+                ->end()
+            ;
+        }
+
         $formMapper
 
         ->with('General', $this->getFormMdSuccessBoxArray(4))
@@ -88,14 +104,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'Comanda',
                     'required' => false,
                     'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
-                )
-            )
-            ->add(
-                'deliveryNoteNumber',
-                null,
-                array(
-                    'label' => 'Número d\'albarà',
-                    'required' => true,
                 )
             )
         ->end()
