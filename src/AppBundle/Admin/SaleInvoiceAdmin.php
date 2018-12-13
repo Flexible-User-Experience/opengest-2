@@ -317,4 +317,24 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     {
         $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerieAndEnterprise($object->getSeries(), $this->getUserLogedEnterprise()));
     }
+
+    /**
+     * @param SaleInvoice $object
+     */
+    public function postUpdate($object)
+    {
+        $totalPrice = 0;
+
+        /** @var SaleDeliveryNote $deliveryNote */
+        foreach ($object->getDeliveryNotes() as $deliveryNote) {
+            $base = $deliveryNote->getBaseAmount() - ($deliveryNote->getBaseAmount() * $deliveryNote->getDiscount() / 100);
+
+            $totalPrice = $totalPrice + $base;
+        }
+
+        $object->setTotal($totalPrice);
+
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+        $em->flush();
+    }
 }
