@@ -113,6 +113,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Persona de contacte',
                     'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -121,6 +123,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Telèfon persona contacte',
                     'required' => false,
+                    'mapped' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -184,18 +188,19 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'hourPrice',
-                null,
-                array(
-                    'label' => 'Preu hora',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'miniumHours',
                 null,
                 array(
                     'label' => 'Mínim hores',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'hourPrice',
+                null,
+                array(
+                    'label' => 'Preu hora',
                     'required' => false,
                 )
             )
