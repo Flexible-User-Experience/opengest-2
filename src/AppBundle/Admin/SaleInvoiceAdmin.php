@@ -40,7 +40,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'date',
                 DatePickerType::class,
                 array(
-                    'label' => 'Data petició',
+                    'label' => 'Data factura',
                     'format' => 'd/m/Y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
@@ -97,7 +97,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptat',
+                    'label' => 'Ha estat comptabilitzada',
                     'required' => false,
                 )
             )
@@ -213,7 +213,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptat',
+                    'label' => 'Ha estat comptabilitzada',
                 )
             )
         ;
@@ -291,7 +291,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptat',
+                    'label' => 'Ha estat comptabilitzada',
                 )
             )
 
