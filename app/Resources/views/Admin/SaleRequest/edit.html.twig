@@ -14,6 +14,12 @@
             var mainAddress = jQuery('#{{ form.mainAddress.vars.id }}');
             var mainCity = jQuery('#{{ form.mainCity.vars.id }}');
             var province = jQuery('#{{ form.province.vars.id }}');
+            var contactPersonName = jQuery('#sonata-ba-field-container-{{ form.contactPersonName.vars.id }}');
+            var contactPersonPhone = jQuery('#{{ form.contactPersonPhone.vars.id }}');
+            var saleTariff = jQuery('#sonata-ba-field-container-{{ form.tariff.vars.id }}')
+            var miniumHours = jQuery('#{{ form.miniumHours.vars.id }}');
+            var hourPrice = jQuery('#{{ form.hourPrice.vars.id }}');
+            var displacement =jQuery('#{{ form.displacement.vars.id }}');
             {#var paymentType = jQuery('#{{ form.paymentType.vars.id }}');#}
 
              //on change
@@ -24,6 +30,16 @@
                 }).done(function(response) {
                     updateNodesInfo(response);
                 });
+            });
+
+            saleTariff.change(function (event) {
+               console.log(event);
+               var saleTariffId = event.val;
+               jQuery.get( Routing.generate('admin_app_sale_tariff_getJsonSaleTariffById', { id: saleTariffId }), function () {
+
+               }).done(function (response) {
+                   updateNodesInfo(response);
+               });
             });
 
             //on load
@@ -41,6 +57,22 @@
                 mainAddress.val(partner.mainAddress);
                 mainCity.val(partner.mainCity.name);
                 province.val(partner.mainCity.province.name);
+            }
+
+            //on load
+            {% if form.tariff.vars.data is not null %}
+                jQuery.get( Routing.generate('admin_app_sale_tariff_getJsonSaleTariffById', { id: {{ form.tariff.vars.data.id }} }), function() {
+                }).done(function(response) {
+                     updateNodesInfoTariff(response);
+                });
+            {% endif %}
+
+            function updateNodesInfoTariff(response) {
+                var partner = jQuery.parseJSON(response);
+
+                miniumHours.val(tariff.miniumHours);
+                hourPrice.val(tariff.hourPrice);
+                displacement.val(tariff.displacement);
             }
 
         });
