@@ -193,6 +193,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Mínim hores',
                     'required' => false,
+                    'help' => '<i id="minium-hours-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -201,6 +202,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Preu hora',
                     'required' => false,
+                    'help' => '<i id="hour-price-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -209,6 +211,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Desplaçament',
                     'required' => false,
+                    'help' => '<i id="displacement-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->end()

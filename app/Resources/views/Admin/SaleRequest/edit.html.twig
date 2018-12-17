@@ -18,13 +18,15 @@
             var contactPersonPhone = jQuery('#{{ form.contactPersonPhone.vars.id }}');
             var saleTariff = jQuery('#sonata-ba-field-container-{{ form.tariff.vars.id }}')
             var miniumHours = jQuery('#{{ form.miniumHours.vars.id }}');
+            var miniumHoursIcon = jQuery('#minium-hours-icon');
             var priceHour = jQuery('#{{ form.hourPrice.vars.id }}');
+            var priceHourIcon = jQuery('#hour-price-icon');
             var displacement =jQuery('#{{ form.displacement.vars.id }}');
+            var displacementIcon =jQuery('#displacement-icon');
             {#var paymentType = jQuery('#{{ form.paymentType.vars.id }}');#}
 
              //on change
             partnerNode.change(function(event) {
-                console.log(event);
                 var partnerId = event.val;
                 jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: partnerId }), function() {
                 }).done(function(response) {
@@ -33,7 +35,9 @@
             });
 
             saleTariff.change(function (event) {
-               console.log(event);
+               displacementIcon.removeClass('hidden');
+               miniumHoursIcon.removeClass('hidden');
+               priceHourIcon.removeClass('hidden');
                var saleTariffId = event.val;
                jQuery.get( Routing.generate('admin_app_saletariff_getJsonSaleTariffById', { id: saleTariffId }), function () {
 
@@ -70,6 +74,10 @@
 
             function updateNodesInfoTariff(response) {
                 var tariff = jQuery.parseJSON(response);
+
+                displacementIcon.addClass('hidden');
+                miniumHoursIcon.addClass('hidden');
+                priceHourIcon.addClass('hidden');
 
                 miniumHours.val(tariff.miniumHours);
                 priceHour.val(tariff.priceHour);
