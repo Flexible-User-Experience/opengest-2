@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -23,6 +24,17 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         '_sort_by' => 'enterprise.name',
         '_sort_order' => 'ASC',
     );
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection
+            ->add('getJsonSaleTariffById', $this->getRouterIdParameter().'/get-json-sale-tariff-by-id')
+        ;
+    }
 
     /**
      * @param FormMapper $formMapper

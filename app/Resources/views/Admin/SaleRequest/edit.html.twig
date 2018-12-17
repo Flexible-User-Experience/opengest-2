@@ -18,7 +18,7 @@
             var contactPersonPhone = jQuery('#{{ form.contactPersonPhone.vars.id }}');
             var saleTariff = jQuery('#sonata-ba-field-container-{{ form.tariff.vars.id }}')
             var miniumHours = jQuery('#{{ form.miniumHours.vars.id }}');
-            var hourPrice = jQuery('#{{ form.hourPrice.vars.id }}');
+            var priceHour = jQuery('#{{ form.hourPrice.vars.id }}');
             var displacement =jQuery('#{{ form.displacement.vars.id }}');
             {#var paymentType = jQuery('#{{ form.paymentType.vars.id }}');#}
 
@@ -35,10 +35,11 @@
             saleTariff.change(function (event) {
                console.log(event);
                var saleTariffId = event.val;
-               jQuery.get( Routing.generate('admin_app_sale_tariff_getJsonSaleTariffById', { id: saleTariffId }), function () {
+               jQuery.get( Routing.generate('admin_app_saletariff_getJsonSaleTariffById', { id: saleTariffId }), function () {
 
                }).done(function (response) {
-                   updateNodesInfo(response);
+                   console.log(response);
+                   updateNodesInfoTariff(response);
                });
             });
 
@@ -61,17 +62,17 @@
 
             //on load
             {% if form.tariff.vars.data is not null %}
-                jQuery.get( Routing.generate('admin_app_sale_tariff_getJsonSaleTariffById', { id: {{ form.tariff.vars.data.id }} }), function() {
+                jQuery.get( Routing.generate('admin_app_saletariff_getJsonSaleTariffById', { id: {{ form.tariff.vars.data.id }} }), function() {
                 }).done(function(response) {
                      updateNodesInfoTariff(response);
                 });
             {% endif %}
 
             function updateNodesInfoTariff(response) {
-                var partner = jQuery.parseJSON(response);
+                var tariff = jQuery.parseJSON(response);
 
                 miniumHours.val(tariff.miniumHours);
-                hourPrice.val(tariff.hourPrice);
+                priceHour.val(tariff.priceHour);
                 displacement.val(tariff.displacement);
             }
 

@@ -32,6 +32,9 @@ class PartnerAdmin extends AbstractBaseAdmin
         '_sort_order' => 'asc',
     );
 
+    /**
+     * @param RouteCollection $collection
+     */
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);

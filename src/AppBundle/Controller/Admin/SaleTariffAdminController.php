@@ -37,6 +37,11 @@ class SaleTariffAdminController extends BaseAdminController
         return parent::editAction($id);
     }
 
+    /**
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
     public function getJsonSaleTariffByIdAction($id)
     {
         /** @var EnterpriseHolidays $enterpriseHoliday */
