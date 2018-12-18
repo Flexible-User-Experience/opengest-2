@@ -66,6 +66,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="cif-nif-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -76,6 +77,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="main-address-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -86,6 +88,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="main-city-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -96,6 +99,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="province-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
