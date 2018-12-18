@@ -63,4 +63,25 @@ class PartnerAdminController extends BaseAdminController
 
         return $response;
     }
+
+    /**
+     * @param int $id
+     *
+     * @return array
+     */
+    public function getPartnerContactsByIdAction($id)
+    {
+        /** @var Partner $partner */
+        $partner = $this->admin->getObject($id);
+        if (!$partner) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+        /** @var GuardService $guardService */
+        $guardService = $this->container->get('app.guard_service');
+        if (!$guardService->isOwnPartner($partner)) {
+            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
+        }
+
+        return $this->container->get('doctrine')->getRepository('AppBundle:PartnerContact')->getFilteredByPartnerSortedByName($id);
+    }
 }
