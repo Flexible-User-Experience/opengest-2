@@ -40,6 +40,13 @@
                 }).done(function(response) {
                     updateNodesInfo(response);
                 });
+
+                jQuery.get( Routing.generate('admin_app_partner_getPartnerContactsById', { id: partnerId }), function() {
+                }).done(function(response) {
+                    console.log(response);
+                    updateContactNode(response);
+                });
+
             });
 
             saleTariff.change(function (event) {
@@ -75,6 +82,10 @@
                 mainAddress.val(partner.mainAddress);
                 mainCity.val(partner.mainCity.name);
                 province.val(partner.mainCity.province.name);
+            }
+
+            function updateContactNode(response) {
+                contactPersonName.val(response);
             }
 
             //on load

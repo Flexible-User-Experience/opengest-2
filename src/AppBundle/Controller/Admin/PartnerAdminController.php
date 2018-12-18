@@ -56,9 +56,7 @@ class PartnerAdminController extends BaseAdminController
         }
 
         $serializer = $this->container->get('serializer');
-
         $serializedPartner = $serializer->serialize($partner, 'json', array('groups' => array('api')));
-
         $response = new JsonResponse($serializedPartner);
 
         return $response;
@@ -67,7 +65,7 @@ class PartnerAdminController extends BaseAdminController
     /**
      * @param int $id
      *
-     * @return array
+     * @return JsonResponse
      */
     public function getPartnerContactsByIdAction($id)
     {
@@ -82,6 +80,10 @@ class PartnerAdminController extends BaseAdminController
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
-        return $this->container->get('doctrine')->getRepository('AppBundle:PartnerContact')->getFilteredByPartnerSortedByName($id);
+        $serializer = $this->container->get('serializer');
+        $serializedContacts = $serializer->serialize($partner->getContacts(), 'json', array('groups' => array('api')));
+        $response = new JsonResponse($serializedContacts);
+
+        return $response;
     }
 }

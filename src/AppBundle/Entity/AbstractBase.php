@@ -2,15 +2,15 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Class AbstractBase
+ * Class AbstractBase.
  *
  * @category Entity
- * @package AppBundle\Entity
+ *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
@@ -18,16 +18,18 @@ use Gedmo\Mapping\Annotation as Gedmo;
 abstract class AbstractBase
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     protected $id;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
@@ -50,13 +52,11 @@ abstract class AbstractBase
     protected $updatedAt;
 
     /**
-     *
-     * Methods
-     *
+     * Methods.
      */
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -66,7 +66,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get Enabled
+     * Get Enabled.
      *
      * @return bool
      */
@@ -76,7 +76,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set Enabled
+     * Set Enabled.
      *
      * @param bool $enabled
      *
@@ -90,7 +90,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -100,7 +100,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -114,7 +114,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -124,7 +124,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -138,12 +138,12 @@ abstract class AbstractBase
     }
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getId() . ' · ' . $this->getCreatedAt()->format('d/m/Y') : '---';
+        return $this->id ? $this->getId().' · '.$this->getCreatedAt()->format('d/m/Y') : '---';
     }
 }
