@@ -116,8 +116,17 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'contactPersonName',
                 ChoiceType::class,
                 array(
-                    'label' => 'Persona de contacte',
+                    'label' => 'Contactes del client',
 //                    'choices' =>
+                    'required' => false,
+                    'mapped' => false,
+                )
+            )
+            ->add(
+                'contactPerson',
+                TextType::class,
+                array(
+                    'label' => 'Persona de contacte',
                     'required' => false,
                     'mapped' => false,
                 )
