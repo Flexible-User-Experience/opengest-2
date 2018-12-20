@@ -18,7 +18,8 @@
             var mainCityIcon = jQuery('#main-city-icon');
             var province = jQuery('#{{ form.province.vars.id }}');
             var provinceIcon = jQuery('#province-icon');
-            var contactPersonName = jQuery('#sonata-ba-field-container-{{ form.contactPersonName.vars.id }}');
+            var selectContactPersonName = jQuery('#{{ form.selectContactPersonName.vars.id }}');
+            var contactPersonName = jQuery('#{{ form.contactPersonName.vars.id }}');
             var contactPersonPhone = jQuery('#{{ form.contactPersonPhone.vars.id }}');
             var saleTariff = jQuery('#sonata-ba-field-container-{{ form.tariff.vars.id }}')
             var miniumHours = jQuery('#{{ form.miniumHours.vars.id }}');
@@ -43,8 +44,8 @@
 
                 jQuery.get( Routing.generate('admin_app_partner_getPartnerContactsById', { id: partnerId }), function() {
                 }).done(function(response) {
-                    console.log(response);
-                    updateContactNode(response);
+                    var partnerContacts = jQuery.parseJSON(response);
+                    selectContactPersonName.select2({data: partnerContacts});
                 });
 
             });
@@ -82,10 +83,6 @@
                 mainAddress.val(partner.mainAddress);
                 mainCity.val(partner.mainCity.name);
                 province.val(partner.mainCity.province.name);
-            }
-
-            function updateContactNode(response) {
-                contactPersonName.val(response);
             }
 
             //on load

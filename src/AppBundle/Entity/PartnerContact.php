@@ -211,6 +211,16 @@ class PartnerContact extends AbstractBase
     }
 
     /**
+     * @Groups({"api"})
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->name.' - '.$this->phone;
+    }
+
+    /**
      * @return string
      */
     public function __toString()

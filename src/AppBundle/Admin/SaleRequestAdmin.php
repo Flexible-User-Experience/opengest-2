@@ -14,7 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
@@ -113,22 +113,20 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'contactPersonName',
-                ChoiceType::class,
+                'selectContactPersonName',
+                HiddenType::class,
                 array(
                     'label' => 'Contactes del client',
-//                    'choices' =>
                     'required' => false,
                     'mapped' => false,
                 )
             )
             ->add(
-                'contactPerson',
+                'contactPersonName',
                 TextType::class,
                 array(
                     'label' => 'Persona de contacte',
                     'required' => false,
-                    'mapped' => false,
                 )
             )
             ->add(
@@ -137,7 +135,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Telèfon persona contacte',
                     'required' => false,
-                    'mapped' => false,
                 )
             )
             ->add(
