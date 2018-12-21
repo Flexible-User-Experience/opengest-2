@@ -211,6 +211,8 @@ class PartnerContact extends AbstractBase
     }
 
     /**
+     * @Groups({"api"})
+     *
      * @return string
      */
     public function getPublicPhone()

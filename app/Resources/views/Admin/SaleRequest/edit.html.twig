@@ -55,8 +55,9 @@
 
             //on change PartnerContact
             selectContactPersonName.on("change", function(event) {
+                console.log(event)
                 contactPersonName.val(event.added.name);
-                contactPersonPhone.val(event.added.phone);
+                contactPersonPhone.val(event.added.publicPhone);
 
             });
 
