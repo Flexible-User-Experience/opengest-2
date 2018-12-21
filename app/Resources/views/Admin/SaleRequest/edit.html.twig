@@ -37,19 +37,30 @@
                 mainCityIcon.removeClass('hidden');
                 provinceIcon.removeClass('hidden');
                 var partnerId = event.val;
+
+                //on change Partner
                 jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: partnerId }), function() {
                 }).done(function(response) {
                     updateNodesInfo(response);
                 });
 
+                //on change PartnerContact
                 jQuery.get( Routing.generate('admin_app_partner_getPartnerContactsById', { id: partnerId }), function() {
                 }).done(function(response) {
-                    var partnerContacts = jQuery.parseJSON(response);
-                    selectContactPersonName.select2({data: partnerContacts});
+                    console.log(response);
+                    updateNodesInfoContacts(response);
                 });
 
             });
 
+            //on change PartnerContact
+            selectContactPersonName.on("change", function(event) {
+                contactPersonName.val(event.added.name);
+                contactPersonPhone.val(event.added.phone);
+
+            });
+
+            //on change Tariff
             saleTariff.change(function (event) {
                displacementIcon.removeClass('hidden');
                miniumHoursIcon.removeClass('hidden');
@@ -63,7 +74,9 @@
                });
             });
 
-            //on load
+
+
+            //on load Partner
             {% if form.partner.vars.data is not null %}
                 jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: {{ form.partner.vars.data.id }} }), function() {
                 }).done(function(response) {
@@ -85,7 +98,22 @@
                 province.val(partner.mainCity.province.name);
             }
 
-            //on load
+            //on load PartnerContacts
+            {% if form.selectContactPersonName.vars.id is not null %}
+            jQuery.get( Routing.generate('admin_app_partner_getPartnerContactsById', { id: {{ form.selectContactPersonName.vars.id }} }), function() {
+            }).done(function(response) {
+                updateNodesInfoContacts(response);
+            });
+            {% endif %}
+
+            function updateNodesInfoContacts(response) {
+                var partnerContacts = jQuery.parseJSON(response);
+                selectContactPersonName.select2({data: partnerContacts});
+            }
+
+
+
+            //on load Tariff
             {% if form.tariff.vars.data is not null %}
                 jQuery.get( Routing.generate('admin_app_saletariff_getJsonSaleTariffById', { id: {{ form.tariff.vars.data.id }} }), function() {
                 }).done(function(response) {
