@@ -211,13 +211,29 @@ class PartnerContact extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPublicPhone()
+    {
+        if ($this->getPhone() or $this->getMobile()) {
+            if ($this->getMobile()) {
+                return $this->getMobile();
+            } else {
+                return $this->getPhone();
+            }
+        }
+
+        return '---';
+    }
+
+    /**
      * @Groups({"api"})
      *
      * @return string
      */
     public function getText()
     {
-        return $this->name.' - '.$this->phone;
+        return $this->name.' - '.$this->getPublicPhone();
     }
 
     /**
@@ -225,6 +241,6 @@ class PartnerContact extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getName() : '---';
+        return $this->id ? $this->getName() : '???';
     }
 }
