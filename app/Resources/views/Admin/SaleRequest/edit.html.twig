@@ -18,6 +18,7 @@
             var mainCityIcon = jQuery('#main-city-icon');
             var province = jQuery('#{{ form.province.vars.id }}');
             var provinceIcon = jQuery('#province-icon');
+            var selectContactPersonNode = jQuery('#sonata-ba-field-container-{{ form.selectContactPersonName.vars.id }}');
             var selectContactPersonName = jQuery('#{{ form.selectContactPersonName.vars.id }}');
             var contactPersonName = jQuery('#{{ form.contactPersonName.vars.id }}');
             var contactPersonPhone = jQuery('#{{ form.contactPersonPhone.vars.id }}');
@@ -107,8 +108,11 @@
             });
             {% endif %}
 
+            selectContactPersonNode.addClass('hidden');
+
             function updateNodesInfoContacts(response) {
                 var partnerContacts = jQuery.parseJSON(response);
+                selectContactPersonNode.removeClass('hidden');
                 selectContactPersonName.select2({data: partnerContacts});
             }
 
