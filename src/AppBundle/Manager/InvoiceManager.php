@@ -2,6 +2,7 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Repository\SaleInvoiceRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -30,14 +31,15 @@ class InvoiceManager
 
     /**
      * @param SaleInvoiceSeries $serie
+     * @param Enterprise        $enterprise
      *
      * @return int
      *
      * @throws NonUniqueResultException
      */
-    public function getLastInvoiceNumberBySerie(SaleInvoiceSeries $serie)
+    public function getLastInvoiceNumberBySerieAndEnterprise(SaleInvoiceSeries $serie, Enterprise $enterprise)
     {
-        $lastSaleInvoice = $this->saleInvoiceRepository->getLastInvoiceBySerie($serie);
+        $lastSaleInvoice = $this->saleInvoiceRepository->getLastInvoiceBySerieAndEnterprise($serie, $enterprise);
 
         return $lastSaleInvoice ? $lastSaleInvoice->getInvoiceNumber() + 1 : 1;
     }

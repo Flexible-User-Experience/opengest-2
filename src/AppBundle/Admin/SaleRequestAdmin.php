@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
@@ -65,6 +66,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="cif-nif-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -75,6 +77,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="main-address-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -85,6 +88,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="main-city-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -95,6 +99,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                    'help' => '<i id="province-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -105,6 +110,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'mapped' => false,
                     'disabled' => true,
+                )
+            )
+            ->add(
+                'selectContactPersonName',
+                HiddenType::class,
+                array(
+                    'label' => 'Contactes del client',
+                    'required' => false,
+                    'mapped' => false,
                 )
             )
             ->add(
@@ -184,19 +198,21 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'hourPrice',
-                null,
-                array(
-                    'label' => 'Preu hora',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'miniumHours',
                 null,
                 array(
                     'label' => 'Mínim hores',
                     'required' => false,
+                    'help' => '<i id="minium-hours-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
+                )
+            )
+            ->add(
+                'hourPrice',
+                null,
+                array(
+                    'label' => 'Preu hora',
+                    'required' => false,
+                    'help' => '<i id="hour-price-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->add(
@@ -205,6 +221,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Desplaçament',
                     'required' => false,
+                    'help' => '<i id="displacement-icon" class="fa fa-refresh fa-spin fa-fw hidden text-info"></i>',
                 )
             )
             ->end()
@@ -218,7 +235,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'attr' => array(
                         'style' => 'resize: vertical',
                         'rows' => 7,
-                    ),
+                        ),
                 )
             )
             ->add(
@@ -251,6 +268,10 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Lloc',
                     'required' => false,
+                    'attr' => array(
+                        'style' => 'resize: vertical',
+                        'rows' => 3,
+                    ),
                 )
             )
             ->add(

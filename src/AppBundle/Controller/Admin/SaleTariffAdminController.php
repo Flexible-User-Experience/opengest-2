@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\EnterpriseHolidays;
 use AppBundle\Service\GuardService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,5 +35,32 @@ class SaleTariffAdminController extends BaseAdminController
         }
 
         return parent::editAction($id);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
+    public function getJsonSaleTariffByIdAction($id)
+    {
+        /** @var EnterpriseHolidays $enterpriseHoliday */
+        $saleTariff = $this->admin->getObject($id);
+        if (!$saleTariff) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+        /** @var GuardService $guardService */
+        $guardService = $this->container->get('app.guard_service');
+        if (!$guardService->isOwnEnterprise($saleTariff->getEnterprise())) {
+            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
+        }
+
+        $serializer = $this->container->get('serializer');
+
+        $serializedSaleTariff = $serializer->serialize($saleTariff, 'json', array('groups' => array('apiSaleTariff')));
+
+        $response = new JsonResponse($serializedSaleTariff);
+
+        return $response;
     }
 }

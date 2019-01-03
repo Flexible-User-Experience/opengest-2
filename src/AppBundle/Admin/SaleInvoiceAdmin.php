@@ -40,7 +40,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'date',
                 DatePickerType::class,
                 array(
-                    'label' => 'Data petició',
+                    'label' => 'Data factura',
                     'format' => 'd/m/Y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
@@ -97,7 +97,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptat',
+                    'label' => 'Ha estat comptabilitzada',
                     'required' => false,
                 )
             )
@@ -213,7 +213,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptat',
+                    'label' => 'Ha estat comptabilitzada',
                 )
             )
         ;
@@ -291,7 +291,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptat',
+                    'label' => 'Ha estat comptabilitzada',
                 )
             )
 
@@ -315,6 +315,26 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
      */
     public function prePersist($object)
     {
-        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerie($object->getSeries()));
+        $object->setInvoiceNumber($this->getConfigurationPool()->getContainer()->get('app.invoice_manager')->getLastInvoiceNumberBySerieAndEnterprise($object->getSeries(), $this->getUserLogedEnterprise()));
+    }
+
+    /**
+     * @param SaleInvoice $object
+     */
+    public function postUpdate($object)
+    {
+        $totalPrice = 0;
+
+        /** @var SaleDeliveryNote $deliveryNote */
+        foreach ($object->getDeliveryNotes() as $deliveryNote) {
+            $base = $deliveryNote->getBaseAmount() - ($deliveryNote->getBaseAmount() * $deliveryNote->getDiscount() / 100);
+
+            $totalPrice = $totalPrice + $base;
+        }
+
+        $object->setTotal($totalPrice);
+
+        $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+        $em->flush();
     }
 }

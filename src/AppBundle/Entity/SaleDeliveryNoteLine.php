@@ -17,7 +17,7 @@ class SaleDeliveryNoteLine extends AbstractBase
     /**
      * @var SaleDeliveryNote
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleDeliveryNote", inversedBy="SaleDeliveryNoteLines")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleDeliveryNote", inversedBy="saleDeliveryNoteLines")
      */
     private $deliveryNote;
 

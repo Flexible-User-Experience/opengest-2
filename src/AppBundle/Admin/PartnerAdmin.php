@@ -32,11 +32,15 @@ class PartnerAdmin extends AbstractBaseAdmin
         '_sort_order' => 'asc',
     );
 
+    /**
+     * @param RouteCollection $collection
+     */
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
         $collection
             ->add('getJsonPartnerById', $this->getRouterIdParameter().'/get-json-partner-by-id')
+            ->add('getPartnerContactsById', $this->getRouterIdParameter().'/get-partner-contacts-by-id')
         ;
     }
 

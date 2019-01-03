@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class PartnerContact.
@@ -28,6 +29,7 @@ class PartnerContact extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Groups({"api"})
      */
     private $name;
 
@@ -42,6 +44,7 @@ class PartnerContact extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $phone;
 
@@ -49,6 +52,7 @@ class PartnerContact extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $mobile;
 
@@ -207,10 +211,38 @@ class PartnerContact extends AbstractBase
     }
 
     /**
+     * @Groups({"api"})
+     *
+     * @return string
+     */
+    public function getPublicPhone()
+    {
+        if ($this->getPhone() or $this->getMobile()) {
+            if ($this->getMobile()) {
+                return $this->getMobile();
+            } else {
+                return $this->getPhone();
+            }
+        }
+
+        return '---';
+    }
+
+    /**
+     * @Groups({"api"})
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->name.' - '.$this->getPublicPhone();
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getName() : '---';
+        return $this->id ? $this->getName() : '???';
     }
 }

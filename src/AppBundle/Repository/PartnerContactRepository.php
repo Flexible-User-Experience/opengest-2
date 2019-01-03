@@ -40,4 +40,37 @@ class PartnerContactRepository extends EntityRepository
     {
         return $this->getEnabledSortedByNameQ()->getResult();
     }
+
+    /**
+     * @param int $partnerId
+     *
+     * @return QueryBuilder
+     */
+    public function getFilteredByPartnerSortedByNameQB(int $partnerId)
+    {
+        return $this->getEnabledSortedByNameQB()
+            ->andWhere('p.partner = :partner')
+            ->setParameter('partner', $partnerId)
+        ;
+    }
+
+    /**
+     * @param int $partnerId
+     *
+     * @return Query
+     */
+    public function getFilteredByPartnerSortedByNameQ(int $partnerId)
+    {
+        return $this->getFilteredByPartnerSortedByNameQB($partnerId)->getQuery();
+    }
+
+    /**
+     * @param int $partnerId
+     *
+     * @return array
+     */
+    public function getFilteredByPartnerSortedByName(int $partnerId)
+    {
+        return $this->getFilteredByPartnerSortedByNameQ($partnerId)->getResult();
+    }
 }
