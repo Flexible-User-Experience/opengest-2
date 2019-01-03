@@ -1,6 +1,14 @@
 Changelog
 =========
 
+##### Version 1.1.06 (2019-01-03)
+ * fix minor textarea resize bug
+ * fix minor invalid Doctrine mapping
+ * add auto numbering system into sale delivery notes and sale invoices
+ * apply some auto calculations and fix minor bugs into sale delivery notes
+ * fix partner unable days date range validation
+ * improve dynamic behaviour into sale request views
+
 ##### Version 1.1.05 (2018-12-03)
  * add partner unable days management
  * add operator various amount management
