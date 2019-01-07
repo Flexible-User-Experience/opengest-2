@@ -1,6 +1,36 @@
 {% extends "::Admin/edit.html.twig" %}
 
-{% block sonata_admin_content%}
+{% block formactions %}
+    {% if object.deliveryNotes is not empty %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h4 class="box-title">Albarans</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Núm. albarà</th>
+                                    <th>Data albarà</th>
+                                    <th>Import base</th>
+                                    <th>Descompte</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for deliveryNote in object.deliveryNotes %}
+                                <tr>
+                                    <th>{{ deliveryNote.deliveryNoteNumber }}</th>
+                                    <th>{{ deliveryNote.date|date('d/m/Y') }}</th>
+                                    <th>{{ deliveryNote.baseAmount }}</th>
+                                    <th>{{ deliveryNote.discount }}</th>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {{ parent() }}
-
 {% endblock %}
