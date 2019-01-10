@@ -86,4 +86,29 @@ class PartnerAdminController extends BaseAdminController
 
         return $response;
     }
+
+    /**
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
+    public function getJsonsDeliveryNotesByIdAction($id)
+    {
+        /** @var Partner $partner */
+        $partner = $this->admin->getObject($id);
+        if (!$partner) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+        /** @var GuardService $guardService */
+        $guardService = $this->container->get('app.guard_service');
+        if (!$guardService->isOwnPartner($partner)) {
+            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
+        }
+
+        $serializer = $this->container->get('serializer');
+        $serializedDeliveryNotes = $serializer->serialize($partner->getSaleDeliveryNotes(), 'json', array('groups' => array('api')));
+        $response = new JsonResponse($serializedContacts);
+
+        return $response;
+    }
 }

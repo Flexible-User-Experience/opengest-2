@@ -277,6 +277,14 @@ class Partner extends AbstractBase
     private $partnerUnableDays;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="partner")
+     * @Groups({"api"})
+     */
+    private $saleDeliveryNotes;
+
+    /**
      * Methods.
      */
 
@@ -290,6 +298,7 @@ class Partner extends AbstractBase
         $this->contacts = new ArrayCollection();
         $this->saleRequests = new ArrayCollection();
         $this->partnerUnableDays = new ArrayCollection();
+        $this->saleDeliveryNotes = new ArrayCollection();
     }
 
     /**
@@ -1155,6 +1164,55 @@ class Partner extends AbstractBase
     {
         if ($this->partnerUnableDays->contains($partnerUnableDays)) {
             $this->partnerUnableDays->removeElement($partnerUnableDays);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleDeliveryNotes()
+    {
+        return $this->saleDeliveryNotes;
+    }
+
+    /**
+     * @param ArrayCollection $saleDeliveryNotes
+     *
+     * @return $this
+     */
+    public function setSaleDeliveryNotes($saleDeliveryNotes)
+    {
+        $this->saleDeliveryNotes = $saleDeliveryNotes;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $saleDeliveryNote
+     *
+     * @return $this
+     */
+    public function addSaleDeliveryNote($saleDeliveryNote)
+    {
+        if (!$this->saleDeliveryNotes->contains($saleDeliveryNote)) {
+            $this->saleDeliveryNotes->add($saleDeliveryNote);
+            $saleDeliveryNote->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $saleDeliveryNote
+     *
+     * @return $this
+     */
+    public function removeSaleDeliverynote($saleDeliveryNote)
+    {
+        if ($this->saleDeliveryNotes->contains($saleDeliveryNote)) {
+            $this->saleDeliveryNotes->removeElement($saleDeliveryNote);
         }
 
         return $this;

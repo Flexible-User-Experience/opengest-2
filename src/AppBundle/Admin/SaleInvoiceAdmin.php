@@ -65,9 +65,23 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ->end()
+        ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'deliveryNotes',
+                EntityType::class,
+                array(
+                    'label' => 'Albarans',
+                    'required' => false,
+                    'class' => SaleDeliveryNote::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
+                    'by_reference' => false,
+                )
+            )
+        ->end()
 
         ->with('Import', $this->getFormMdSuccessBoxArray(4))
-
             ->add(
                 'series',
                 EntityType::class,
@@ -102,20 +116,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
         ->end()
-        ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'deliveryNotes',
-                EntityType::class,
-                array(
-                    'label' => 'Albarans',
-                    'required' => false,
-                    'class' => SaleDeliveryNote::class,
-                    'multiple' => true,
-                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
-                    'by_reference' => false,
-                )
-            )
-        ->end()
+
         ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper

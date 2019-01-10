@@ -34,7 +34,7 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="saleDeliveryNotes")
      */
     private $partner;
 

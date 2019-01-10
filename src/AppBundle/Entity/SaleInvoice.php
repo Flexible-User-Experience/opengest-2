@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class SaleInvoice.
@@ -19,6 +20,7 @@ class SaleInvoice extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="saleInvoice")
+     * @Groups({"api"})
      */
     private $deliveryNotes;
 

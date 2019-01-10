@@ -1,5 +1,11 @@
 {% extends "::Admin/edit.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endblock %}
+
 {% block formactions %}
     {% if object.deliveryNotes is not empty %}
         <div class="row">
