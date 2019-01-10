@@ -71,7 +71,7 @@ class SaleDeliveryNote extends AbstractBase
      *
      * @ORM\Column(type="float", nullable=true)
      */
-    private $discount;
+    private $discount = 0;
 
     /**
      * @var int
