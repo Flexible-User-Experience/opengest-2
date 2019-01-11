@@ -66,19 +66,41 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
             )
         ->end()
         ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'deliveryNotes',
-                EntityType::class,
-                array(
-                    'label' => 'Albarans',
-                    'required' => false,
-                    'class' => SaleDeliveryNote::class,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
-                    'by_reference' => false,
+        ;
+        if ($this->id($this->getSubject())) { // is edit mode
+            $formMapper
+                ->add(
+                    'deliveryNotes',
+                    EntityType::class,
+                    array(
+                        'label' => 'Albarans',
+                        'required' => false,
+                        'class' => SaleDeliveryNote::class,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
+                        'by_reference' => false,
+                    )
                 )
-            )
+            ;
+        } else { // is create mode
+            $formMapper
+                ->add(
+                    'deliveryNotes',
+                    EntityType::class,
+                    array(
+                        'label' => 'Albarans',
+                        'required' => false,
+                        'class' => SaleDeliveryNote::class,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getEmptyQueryBuilder(),
+                        'by_reference' => false,
+                    )
+                )
+            ;
+        }
+        $formMapper
         ->end()
 
         ->with('Import', $this->getFormMdSuccessBoxArray(4))

@@ -111,4 +111,15 @@ class SaleDeliveryNoteRepository extends EntityRepository
     {
         return $this->getLastDeliveryNoteByEnterpriseQ($enterprise)->getOneOrNullResult();
     }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getEmptyQueryBuilder()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.id = :novalue')
+            ->setParameter('novalue', -1)
+            ;
+    }
 }

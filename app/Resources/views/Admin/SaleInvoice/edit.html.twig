@@ -22,17 +22,19 @@
                 });
             });
 
-            //on load
-            {% if form.partner.vars.data is not null %}
-                jQuery.get( Routing.generate('admin_app_partner_getJsonDeliveryNotesById', { id: {{ form.partner.vars.data.id }} }), function() {
-                }).done(function(response) {
-                    updateNodesInfo(response);
-                });
-            {% endif %}
+            {#//on load#}
+            {#{% if form.partner.vars.data is not null %}#}
+                {#jQuery.get( Routing.generate('admin_app_partner_getJsonDeliveryNotesById', { id: {{ form.partner.vars.data.id }} }), function() {#}
+                {#}).done(function(response) {#}
+                    {#updateNodesInfo(response);#}
+                {#});#}
+            {#{% endif %}#}
 
             function updateNodesInfo(response) {
                 var deliveryNotes = jQuery.parseJSON(response);
                 console.log(deliveryNotes);
+                console.log('{{ form.deliveryNotes.vars.id }}');
+                console.log('{{ form.vars.id }}[deliveryNotes][]');
                 ulDeliveryNotesNode.html(buildLiCheckboxNodes(deliveryNotes));
 
                 // selectDeliveryNotesNodeIcon.addClass('hidden');
@@ -48,10 +50,8 @@
                         '<li>'+
                             '<div class="checkbox">'+
                                 '<label>'+
-                                    '<input type="checkbox" id="{{ form.deliveryNotes.vars.id }}_'+deliveryNote.id+'" name="{{ form.partner.vars.id }}[deliveryNotes][]" value="'+deliveryNote.id+'">'+
-                                    deliveryNote.dateToString+' · '+deliveryNote.deliveryNoteNumber+' · '+deliveryNote.baseAmount+
-
-                        // <input type="checkbox" id="s7fe0954022_deliveryNotes_4" name="s7fe0954022[deliveryNotes][]" value="4" style="position: absolute; opacity: 0;">
+                                    '<input type="checkbox" id="{{ form.deliveryNotes.vars.id }}_'+deliveryNote.id+'" name="{{ form.vars.id }}[deliveryNotes][]" value="'+deliveryNote.id+'">'+
+                                        deliveryNote.dateToString+' · '+deliveryNote.deliveryNoteNumber+' · '+deliveryNote.baseAmount+
                                 '</label>'+
                             '</div>'+
                         '</li>';

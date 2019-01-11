@@ -121,6 +121,7 @@ class SaleInvoice extends AbstractBase
     {
         if ($this->deliveryNotes->contains($deliveryNote)) {
             $this->deliveryNotes->removeElement($deliveryNote);
+            $deliveryNote->setSaleInvoice(null);
         }
 
         return $this;
