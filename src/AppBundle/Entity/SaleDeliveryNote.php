@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class SaleDeliveryNote.
@@ -56,6 +57,7 @@ class SaleDeliveryNote extends AbstractBase
      * @var int
      *
      * @ORM\Column(type="integer")
+     * @Groups({"api"})
      */
     private $deliveryNoteNumber;
 
@@ -63,6 +65,7 @@ class SaleDeliveryNote extends AbstractBase
      * @var float
      *
      * @ORM\Column(type="float")
+     * @Groups({"api"})
      */
     private $baseAmount = 0;
 
@@ -447,6 +450,15 @@ class SaleDeliveryNote extends AbstractBase
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     * @Groups({"api"})
+     */
+    public function getDateToString()
+    {
+        return $this->getDate()->format('Y-m-d');
     }
 
     /**

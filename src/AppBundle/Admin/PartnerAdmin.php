@@ -41,6 +41,7 @@ class PartnerAdmin extends AbstractBaseAdmin
         $collection
             ->add('getJsonPartnerById', $this->getRouterIdParameter().'/get-json-partner-by-id')
             ->add('getPartnerContactsById', $this->getRouterIdParameter().'/get-partner-contacts-by-id')
+            ->add('getJsonDeliveryNotesById', $this->getRouterIdParameter().'/get-json-delivery-notes-by-id')
         ;
     }
 

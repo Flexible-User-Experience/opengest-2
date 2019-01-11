@@ -92,7 +92,7 @@ class PartnerAdminController extends BaseAdminController
      *
      * @return JsonResponse
      */
-    public function getJsonsDeliveryNotesByIdAction($id)
+    public function getJsonDeliveryNotesByIdAction($id)
     {
         /** @var Partner $partner */
         $partner = $this->admin->getObject($id);
@@ -107,7 +107,7 @@ class PartnerAdminController extends BaseAdminController
 
         $serializer = $this->container->get('serializer');
         $serializedDeliveryNotes = $serializer->serialize($partner->getSaleDeliveryNotes(), 'json', array('groups' => array('api')));
-        $response = new JsonResponse($serializedContacts);
+        $response = new JsonResponse($serializedDeliveryNotes);
 
         return $response;
     }

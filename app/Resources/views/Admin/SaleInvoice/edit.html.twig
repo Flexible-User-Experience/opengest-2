@@ -4,8 +4,70 @@
     {{ parent() }}
     <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var partnerNode = jQuery('#sonata-ba-field-container-{{ form.partner.vars.id }}');
+            var ulDeliveryNotesNode = jQuery('#{{ form.deliveryNotes.vars.id }}');
+            // var selectDeliveryNotesIcon = jQuery('#delivery-notes-icon');
+
+            //on change Partner
+            partnerNode.change(function(event) {
+                // selectDeliveryNotesIcon.removeClass('hidden');
+                var partnerId = event.val;
+                jQuery.get(Routing.generate('admin_app_partner_getJsonDeliveryNotesById', {id: partnerId}), function() {
+                }).done(function (response) {
+                    console.log(response);
+                    updateNodesInfo(response);
+                });
+            });
+
+            //on load
+            {% if form.partner.vars.data is not null %}
+                jQuery.get( Routing.generate('admin_app_partner_getJsonDeliveryNotesById', { id: {{ form.partner.vars.data.id }} }), function() {
+                }).done(function(response) {
+                    updateNodesInfo(response);
+                });
+            {% endif %}
+
+            function updateNodesInfo(response) {
+                var deliveryNotes = jQuery.parseJSON(response);
+                console.log(deliveryNotes);
+                ulDeliveryNotesNode.html(buildLiCheckboxNodes(deliveryNotes));
+
+                // selectDeliveryNotesNodeIcon.addClass('hidden');
+
+                // selectDeliveryNotesNode.val(deliveryNotes.XXXXXX);
+            }
+
+            function buildLiCheckboxNodes(deliveryNotes) {
+                var html = '';
+
+                jQuery.each(deliveryNotes, function(key, deliveryNote) {
+                    html = html+
+                        '<li>'+
+                            '<div class="checkbox">'+
+                                '<label>'+
+                                    '<input type="checkbox" id="{{ form.deliveryNotes.vars.id }}_'+deliveryNote.id+'" name="{{ form.partner.vars.id }}[deliveryNotes][]" value="'+deliveryNote.id+'">'+
+                                    deliveryNote.dateToString+' · '+deliveryNote.deliveryNoteNumber+' · '+deliveryNote.baseAmount+
+
+                        // <input type="checkbox" id="s7fe0954022_deliveryNotes_4" name="s7fe0954022[deliveryNotes][]" value="4" style="position: absolute; opacity: 0;">
+                                '</label>'+
+                            '</div>'+
+                        '</li>';
+                });
+
+                return html;
+            }
+        });
+    </script>
 {% endblock %}
 
+{% block body %}
+
+{% endblock %}
+
+{# Edit mode shows related table: DeliveryNotes#}
 {% block formactions %}
     {% if object.deliveryNotes is not empty %}
         <div class="row">

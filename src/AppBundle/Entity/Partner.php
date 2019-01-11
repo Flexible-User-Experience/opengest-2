@@ -280,7 +280,6 @@ class Partner extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="partner")
-     * @Groups({"api"})
      */
     private $saleDeliveryNotes;
 
