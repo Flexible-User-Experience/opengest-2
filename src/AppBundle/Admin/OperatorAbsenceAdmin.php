@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -27,8 +28,6 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -66,7 +65,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'begin',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data inici',
                     'format' => 'd/M/y',
@@ -75,7 +74,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'end',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data fi',
                     'format' => 'd/M/y',
@@ -111,7 +110,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data inici',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -119,7 +118,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data fi',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
         ;

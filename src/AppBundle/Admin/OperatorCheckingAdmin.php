@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -66,7 +67,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'begin',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data d\'expedició',
                     'format' => 'd/M/y',
@@ -75,7 +76,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'end',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data de caducitat',
                     'format' => 'd/M/y',
@@ -111,7 +112,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data d\'expedició',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -119,7 +120,7 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data caducitat',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
         ;

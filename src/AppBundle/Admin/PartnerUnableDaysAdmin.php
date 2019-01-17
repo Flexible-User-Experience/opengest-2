@@ -4,11 +4,12 @@ namespace AppBundle\Admin;
 
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\DatePickerType;
 
 /**
  * Class PartnerUnableDaysAdmin.
@@ -28,6 +29,8 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -42,7 +45,9 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                     'label' => 'Tercer',
                     'required' => true,
                     'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
                         $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
                         $queryBuilder = $datagrid->getQuery();
                         $queryBuilder
                             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -108,7 +113,7 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data inici',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -116,10 +121,9 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data fi',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
-
         ;
     }
 
@@ -165,7 +169,6 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                 )
             ;
         }
-
         $listMapper
             ->add(
                 'partner',

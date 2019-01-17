@@ -7,17 +7,19 @@ use AppBundle\Entity\SaleInvoice;
 use AppBundle\Entity\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class SaleInvoicedmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleInvoiceAdmin extends AbstractBaseAdmin
@@ -31,41 +33,45 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->with('General', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'date',
-                DatePickerType::class,
-                array(
-                    'label' => 'Data factura',
-                    'format' => 'd/m/Y',
-                    'required' => true,
-                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'date',
+                    DatePickerType::class,
+                    array(
+                        'label' => 'Data factura',
+                        'format' => 'd/m/Y',
+                        'required' => true,
+                        'dp_default_date' => (new \DateTime())->format('d/m/Y'),
+                    )
                 )
-            )
-            ->add(
-                'partner',
-                ModelAutocompleteType::class,
-                array(
-                    'property' => 'name',
-                    'label' => 'Client',
-                    'required' => true,
-                    'callback' => function ($admin, $property, $value) {
-                        $datagrid = $admin->getDatagrid();
-                        $queryBuilder = $datagrid->getQuery();
-                        $queryBuilder
-                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                        ;
-                        $datagrid->setValue($property, null, $value);
-                    },
+                ->add(
+                    'partner',
+                    ModelAutocompleteType::class,
+                    array(
+                        'property' => 'name',
+                        'label' => 'Client',
+                        'required' => true,
+                        'callback' => function ($admin, $property, $value) {
+                            /** @var Admin $admin */
+                            $datagrid = $admin->getDatagrid();
+                            /** @var QueryBuilder $queryBuilder */
+                            $queryBuilder = $datagrid->getQuery();
+                            $queryBuilder
+                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                            ;
+                            $datagrid->setValue($property, null, $value);
+                        },
+                    )
                 )
-            )
-        ->end()
-        ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
+            ->end()
+            ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
         ;
         if ($this->id($this->getSubject())) { // is edit mode
             $formMapper
@@ -101,44 +107,42 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
             ;
         }
         $formMapper
-        ->end()
-
-        ->with('Import', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'series',
-                EntityType::class,
-                array(
-                    'class' => SaleInvoiceSeries::class,
-                    'label' => 'Sèrie de facturació',
-                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+            ->end()
+            ->with('Import', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'series',
+                    EntityType::class,
+                    array(
+                        'class' => SaleInvoiceSeries::class,
+                        'label' => 'Sèrie de facturació',
+                        'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                    )
                 )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'Tipus',
-                    'required' => true,
+                ->add(
+                    'type',
+                    null,
+                    array(
+                        'label' => 'Tipus',
+                        'required' => true,
+                    )
                 )
-            )
-            ->add(
-                'total',
-                null,
-                array(
-                    'label' => 'Total factura',
-                    'required' => false,
+                ->add(
+                    'total',
+                    null,
+                    array(
+                        'label' => 'Total factura',
+                        'required' => false,
+                    )
                 )
-            )
-            ->add(
-                'hasBeenCounted',
-                null,
-                array(
-                    'label' => 'Ha estat comptabilitzada',
-                    'required' => false,
+                ->add(
+                    'hasBeenCounted',
+                    null,
+                    array(
+                        'label' => 'Ha estat comptabilitzada',
+                        'required' => false,
+                    )
                 )
-            )
-        ->end()
-
+            ->end()
         ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
@@ -190,7 +194,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data creació',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -335,6 +339,8 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
 
     /**
      * @param SaleInvoice $object
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function prePersist($object)
     {
@@ -347,14 +353,11 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     public function postUpdate($object)
     {
         $totalPrice = 0;
-
         /** @var SaleDeliveryNote $deliveryNote */
         foreach ($object->getDeliveryNotes() as $deliveryNote) {
             $base = $deliveryNote->getBaseAmount() - ($deliveryNote->getBaseAmount() * $deliveryNote->getDiscount() / 100);
-
             $totalPrice = $totalPrice + $base;
         }
-
         $object->setTotal($totalPrice);
 
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();

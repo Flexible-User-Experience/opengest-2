@@ -6,6 +6,8 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Form\Type\CollectionType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -27,8 +29,6 @@ class WorkAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -80,7 +80,7 @@ class WorkAdmin extends AbstractBaseAdmin
             ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'date',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data',
                     'format' => 'd/M/y',
@@ -104,13 +104,14 @@ class WorkAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
                 ->with('Imatges', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'images',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label' => 'Imatges',
                         'required' => true,
@@ -124,7 +125,8 @@ class WorkAdmin extends AbstractBaseAdmin
                         'sortable' => 'position',
                     )
                 )
-                ->end();
+                ->end()
+            ;
         }
     }
 
@@ -139,7 +141,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -176,7 +178,8 @@ class WorkAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Actiu',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -248,6 +251,7 @@ class WorkAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }

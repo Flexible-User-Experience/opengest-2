@@ -8,11 +8,12 @@ use AppBundle\Entity\SaleTariff;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -21,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
  * Class SaleRequestAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleRequestAdmin extends AbstractBaseAdmin
@@ -34,6 +36,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -47,7 +51,9 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'label' => 'Client',
                     'required' => true,
                     'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
                         $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
                         $queryBuilder = $datagrid->getQuery();
                         $queryBuilder
                             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -144,7 +150,9 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'label' => 'Facturar a',
                     'required' => false,
                     'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
                         $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
                         $queryBuilder = $datagrid->getQuery();
                         $queryBuilder
                             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -502,7 +510,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data petició',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -510,7 +518,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data servei',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
         ;
@@ -549,7 +557,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     array(
                         'label' => 'Empresa',
                     )
-                );
+                )
+            ;
         }
         $listMapper
             ->add(
@@ -603,7 +612,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'label' => 'Tercer',
                 )
             )
-
             ->add(
                 '_action',
                 'actions',
@@ -621,6 +629,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
 
     /**
      * @param SaleRequest $object
+     *
+     * @throws \Exception
      */
     public function prePersist($object)
     {

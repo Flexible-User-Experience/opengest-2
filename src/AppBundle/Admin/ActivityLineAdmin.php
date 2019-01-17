@@ -13,6 +13,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  * Class ActivityLineAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class ActivityLineAdmin extends AbstractBaseAdmin

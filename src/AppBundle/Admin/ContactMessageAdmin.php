@@ -6,10 +6,13 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class ContactMessageAdmin.
  *
+ * @category    Admin
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  */
@@ -23,8 +26,6 @@ class ContactMessageAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -34,7 +35,8 @@ class ContactMessageAdmin extends AbstractBaseAdmin
             ->remove('edit')
             ->remove('delete')
             ->remove('batch')
-            ->add('answer', $this->getRouterIdParameter().'/answer');
+            ->add('answer', $this->getRouterIdParameter().'/answer')
+        ;
     }
 
     /**
@@ -55,7 +57,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data creació',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -92,7 +94,8 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Contestat',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -132,7 +135,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'message',
-                'textarea',
+                TextareaType::class,
                 array(
                     'label' => 'Missatge',
                 )
@@ -143,7 +146,8 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Contestat',
                 )
-            );
+            )
+        ;
         if ($this->getSubject()->getAnswered()) {
             $showMapper
                 ->add(
@@ -152,7 +156,8 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                     array(
                         'label' => 'Resposta',
                     )
-                );
+                )
+            ;
         }
     }
 
@@ -213,6 +218,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }

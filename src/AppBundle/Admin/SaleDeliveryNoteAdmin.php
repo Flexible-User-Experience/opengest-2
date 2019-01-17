@@ -7,16 +7,18 @@ use AppBundle\Entity\CollectionDocumentType;
 use AppBundle\Entity\PartnerBuildingSite;
 use AppBundle\Entity\PartnerOrder;
 use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Entity\SaleDeliveryNoteLine;
 use AppBundle\Entity\SaleInvoice;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
-use Sonata\CoreBundle\Form\Type\CollectionType;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\CollectionType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -24,6 +26,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * Class SaleDeliveryNoteAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
@@ -37,6 +40,8 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -55,127 +60,126 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 ->end()
             ;
         }
-
         $formMapper
-
-        ->with('General', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'date',
-                DatePickerType::class,
-                array(
-                    'label' => 'Data petició',
-                    'format' => 'd/m/Y',
-                    'required' => true,
-                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'date',
+                    DatePickerType::class,
+                    array(
+                        'label' => 'Data petició',
+                        'format' => 'd/m/Y',
+                        'required' => true,
+                        'dp_default_date' => (new \DateTime())->format('d/m/Y'),
+                    )
                 )
-            )
-            ->add(
-                'partner',
-                ModelAutocompleteType::class,
-                array(
-                    'property' => 'name',
-                    'label' => 'Client',
-                    'required' => true,
-                    'callback' => function ($admin, $property, $value) {
-                        $datagrid = $admin->getDatagrid();
-                        $queryBuilder = $datagrid->getQuery();
-                        $queryBuilder
-                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                        ;
-                        $datagrid->setValue($property, null, $value);
-                    },
+                ->add(
+                    'partner',
+                    ModelAutocompleteType::class,
+                    array(
+                        'property' => 'name',
+                        'label' => 'Client',
+                        'required' => true,
+                        'callback' => function ($admin, $property, $value) {
+                            /** @var Admin $admin */
+                            $datagrid = $admin->getDatagrid();
+                            /** @var QueryBuilder $queryBuilder */
+                            $queryBuilder = $datagrid->getQuery();
+                            $queryBuilder
+                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                            ;
+                            $datagrid->setValue($property, null, $value);
+                        },
+                    )
                 )
-            )
-            ->add(
-                'buildingSite',
-                EntityType::class,
-                array(
-                    'class' => PartnerBuildingSite::class,
-                    'label' => 'Obra',
-                    'required' => false,
-                    'query_builder' => $this->rm->getPartnerBuildingSiteRepository()->getEnabledSortedByNameQB(),
+                ->add(
+                    'buildingSite',
+                    EntityType::class,
+                    array(
+                        'class' => PartnerBuildingSite::class,
+                        'label' => 'Obra',
+                        'required' => false,
+                        'query_builder' => $this->rm->getPartnerBuildingSiteRepository()->getEnabledSortedByNameQB(),
+                    )
                 )
-            )
-            ->add(
-                'order',
-                EntityType::class,
-                array(
-                    'class' => PartnerOrder::class,
-                    'label' => 'Comanda',
-                    'required' => false,
-                    'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
+                ->add(
+                    'order',
+                    EntityType::class,
+                    array(
+                        'class' => PartnerOrder::class,
+                        'label' => 'Comanda',
+                        'required' => false,
+                        'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
+                    )
                 )
-            )
-        ->end()
-        ->with('Import', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'baseAmount',
-                null,
-                array(
-                    'label' => 'Import base',
-                    'required' => true,
-                    'disabled' => true,
+            ->end()
+            ->with('Import', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'baseAmount',
+                    null,
+                    array(
+                        'label' => 'Import base',
+                        'required' => true,
+                        'disabled' => true,
+                    )
                 )
-            )
-            ->add(
-                'discount',
-                null,
-                array(
-                    'label' => 'Descompte',
-                    'required' => false,
+                ->add(
+                    'discount',
+                    null,
+                    array(
+                        'label' => 'Descompte',
+                        'required' => false,
+                    )
                 )
-            )
-            ->add(
-                'collectionDocument',
-                EntityType::class,
-                array(
-                    'class' => CollectionDocumentType::class,
-                    'label' => 'Tipus document cobrament',
-                    'required' => false,
-                    'query_builder' => $this->rm->getCollectionDocumentTypeRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                ->add(
+                    'collectionDocument',
+                    EntityType::class,
+                    array(
+                        'class' => CollectionDocumentType::class,
+                        'label' => 'Tipus document cobrament',
+                        'required' => false,
+                        'query_builder' => $this->rm->getCollectionDocumentTypeRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                    )
                 )
-            )
-            ->add(
-                'collectionTerm',
-                null,
-                array(
-                    'label' => 'Venciment (dies)',
-                    'required' => false,
+                ->add(
+                    'collectionTerm',
+                    null,
+                    array(
+                        'label' => 'Venciment (dies)',
+                        'required' => false,
+                    )
                 )
-            )
-            ->add(
-                'activityLine',
-                EntityType::class,
-                array(
-                    'class' => ActivityLine::class,
-                    'label' => 'Línia d\'activitat',
-                    'required' => false,
-                    'query_builder' => $this->rm->getActivityLineRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                ->add(
+                    'activityLine',
+                    EntityType::class,
+                    array(
+                        'class' => ActivityLine::class,
+                        'label' => 'Línia d\'activitat',
+                        'required' => false,
+                        'query_builder' => $this->rm->getActivityLineRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                    )
                 )
-            )
-
-        ->end()
-        ->with('Factura', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'saleInvoice',
-                EntityType::class,
-                array(
-                    'class' => SaleInvoice::class,
-                    'label' => 'Factura',
-                    'required' => false,
+            ->end()
+            ->with('Factura', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'saleInvoice',
+                    EntityType::class,
+                    array(
+                        'class' => SaleInvoice::class,
+                        'label' => 'Factura',
+                        'required' => false,
+                    )
                 )
-            )
-            ->add(
-                'wontBeInvoiced',
-                CheckboxType::class,
-                array(
-                    'label' => 'No facturable',
-                    'required' => false,
+                ->add(
+                    'wontBeInvoiced',
+                    CheckboxType::class,
+                    array(
+                        'label' => 'No facturable',
+                        'required' => false,
+                    )
                 )
-            )
-        ->end();
-
+            ->end()
+        ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
                 ->with('Albarà línies', $this->getFormMdSuccessBoxArray(12))
@@ -220,7 +224,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data albarà',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -304,7 +308,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'No facturable',
                 )
             )
-
         ;
     }
 
@@ -388,7 +391,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-
             ->add(
                 '_action',
                 'actions',
@@ -405,7 +407,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param $object
+     * @param SaleDeliveryNote $object
      *
      * @throws NonUniqueResultException
      */
@@ -422,22 +424,15 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
     public function postUpdate($object)
     {
         $totalPrice = 0;
-        $base = 0;
-        $iva = 0;
-        $irpf = 0;
-
+        /** @var SaleDeliveryNoteLine $deliveryNoteLine */
         foreach ($object->getSaleDeliveryNoteLines() as $deliveryNoteLine) {
             $base = $deliveryNoteLine->getUnits() * $deliveryNoteLine->getPriceUnit() - ($deliveryNoteLine->getDiscount() * $deliveryNoteLine->getPriceUnit() * $deliveryNoteLine->getUnits() / 100);
             $iva = $base * ($deliveryNoteLine->getIva() / 100);
             $irpf = $base * ($deliveryNoteLine->getIrpf() / 100);
-
             $deliveryNoteLine->setTotal($base + $iva - $irpf);
-
             $subtotal = $deliveryNoteLine->getTotal();
-
             $totalPrice = $totalPrice + $subtotal;
         }
-
         $object->setBaseAmount($totalPrice);
 
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();

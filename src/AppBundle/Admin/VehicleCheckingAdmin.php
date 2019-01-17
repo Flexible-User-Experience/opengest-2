@@ -8,12 +8,14 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class VehicleCheckingAdmin
  *
  * @category Admin
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class VehicleCheckingAdmin extends AbstractBaseAdmin
@@ -26,8 +28,6 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -65,7 +65,7 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'begin',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data d\'expedició',
                     'format' => 'd/M/y',
@@ -74,7 +74,7 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'end',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'Data de caducitat',
                     'format' => 'd/M/y',
@@ -110,7 +110,7 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data d\'expedició',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -118,7 +118,7 @@ class VehicleCheckingAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data caducitat',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
         ;

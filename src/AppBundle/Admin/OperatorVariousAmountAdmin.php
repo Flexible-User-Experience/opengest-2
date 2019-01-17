@@ -8,7 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -29,6 +29,8 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -115,7 +117,7 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Data',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -139,7 +141,6 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                     'label' => 'Preu unitat',
                 )
             )
-
         ;
     }
 
@@ -223,7 +224,6 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                     'label' => 'Preu unitat',
                 )
             )
-
             ->add(
                 '_action',
                 'actions',
@@ -235,7 +235,6 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                     'label' => 'Accions',
                 )
             )
-
         ;
     }
 }

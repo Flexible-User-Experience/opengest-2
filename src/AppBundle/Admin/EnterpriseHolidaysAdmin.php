@@ -8,6 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\Form\Type\DatePickerType;
 
 /**
  * Class EnterpriseHolidaysAdmin.
@@ -30,26 +31,25 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'day',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'Dia festiu',
-                    'format' => 'd/M/y',
-                    'required' => true,
+            ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'day',
+                    DatePickerType::class,
+                    array(
+                        'label' => 'Dia festiu',
+                        'format' => 'd/M/y',
+                        'required' => true,
+                    )
                 )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom festivitat',
-                    'required' => false,
+                ->add(
+                    'name',
+                    null,
+                    array(
+                        'label' => 'Nom festivitat',
+                        'required' => false,
+                    )
                 )
-            )
-        ->end()
+            ->end()
         ;
     }
 
@@ -71,7 +71,7 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'Dia festiu',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
