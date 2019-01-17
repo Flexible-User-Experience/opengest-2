@@ -91,25 +91,25 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Web ]
+                    groups: [ Web, Contactes ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Contactes, Vehicles ]
+                    groups: [ Operaris, Vehicles ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Operaris ]
+                    groups: [ Tercers, Empreses ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Empreses, Administracio ]
+                    groups: [ Vendes, Administracio ]
             -
                 position: bottom
                 type: sonata.block.service.text
