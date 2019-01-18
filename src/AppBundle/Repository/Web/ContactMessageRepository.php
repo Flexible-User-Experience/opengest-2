@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Web;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -36,7 +36,10 @@ class ContactMessageRepository extends EntityRepository
     }
 
     /**
-     * @return int
+     * @return int|array
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getPendingMessagesAmount()
     {

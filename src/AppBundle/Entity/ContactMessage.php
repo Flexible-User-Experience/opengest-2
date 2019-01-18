@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ContactMessageRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Web\ContactMessageRepository")
  */
 class ContactMessage extends AbstractBase
 {

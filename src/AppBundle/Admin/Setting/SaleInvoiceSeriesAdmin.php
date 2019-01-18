@@ -17,7 +17,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Sèries factura';
-    protected $baseRoutePattern = 'administracio/series-factura';
+    protected $baseRoutePattern = 'configuracio/series-factura';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'ASC',
