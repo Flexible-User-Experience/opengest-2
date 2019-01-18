@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SaleRequestHasDeliveryNoteRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Sale\SaleRequestHasDeliveryNoteRepository")
  * @ORM\Table(name="sale_request_has_delivery_note")
  */
 class SaleRequestHasDeliveryNote extends AbstractBase

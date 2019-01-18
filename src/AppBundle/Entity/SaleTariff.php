@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @category
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SaleTariffRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Sale\SaleTariffRepository")
  * @ORM\Table(name="sale_tariff")
  * @UniqueEntity({"enterprise", "year", "tonnage"})
  */

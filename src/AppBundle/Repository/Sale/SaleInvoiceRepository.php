@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Sale;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\SaleInvoice;

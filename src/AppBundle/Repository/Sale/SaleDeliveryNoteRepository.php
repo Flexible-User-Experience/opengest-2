@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Sale;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\SaleDeliveryNote;
@@ -119,7 +119,7 @@ class SaleDeliveryNoteRepository extends EntityRepository
     {
         return $this->createQueryBuilder('s')
             ->where('s.id = :novalue')
-            ->setParameter('novalue', -1)
-            ;
+            ->setParameter('novalue', 0)
+        ;
     }
 }

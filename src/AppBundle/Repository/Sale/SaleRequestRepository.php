@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Sale;
 
 use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
@@ -8,30 +8,28 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class SaleTariffRepository.
+ * Class SaleRequestRepository.
  *
  * @category    Repository
  */
-class SaleTariffRepository extends EntityRepository
+class SaleRequestRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
      */
     public function getEnabledSortedByNameQB()
     {
-        return $this->createQueryBuilder('st')
-            ->where('st.enabled = :enabled')
+        return $this->createQueryBuilder('s')
+            ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('st.enterprise', 'ASC')
-            ->addOrderBy('st.year', 'DESC')
-            ->addOrderBy('st.tonnage', 'DESC')
+            ->orderBy('s.requestDate', 'DESC')
         ;
     }
 
     /**
      * @return Query
      */
-    public function getEnabledSortedByNameB()
+    public function getEnabledSortedByNameQ()
     {
         return $this->getEnabledSortedByNameQB()->getQuery();
     }
@@ -41,7 +39,7 @@ class SaleTariffRepository extends EntityRepository
      */
     public function getEnabledSortedByName()
     {
-        return $this->getEnabledSortedByNameB()->getResult();
+        return $this->getEnabledSortedByNameQ()->getResult();
     }
 
     /**
@@ -52,7 +50,7 @@ class SaleTariffRepository extends EntityRepository
     public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
     {
         return $this->getEnabledSortedByNameQB()
-            ->andWhere('st.enterprise = :enterprise')
+            ->andWhere('s.enterprise = :enterprise')
             ->setParameter('enterprise', $enterprise)
         ;
     }
@@ -68,12 +66,12 @@ class SaleTariffRepository extends EntityRepository
     }
 
     /**
-     * @param Enterprise $enterpise
+     * @param Enterprise $enterprise
      *
      * @return array
      */
-    public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterpise)
+    public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterprise)
     {
-        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterpise)->getResult();
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterprise)->getResult();
     }
 }

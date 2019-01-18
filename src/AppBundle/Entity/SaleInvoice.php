@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @category
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SaleInvoiceRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Sale\SaleInvoiceRepository")
  * @ORM\Table(name="sale_invoice")
  */
 class SaleInvoice extends AbstractBase

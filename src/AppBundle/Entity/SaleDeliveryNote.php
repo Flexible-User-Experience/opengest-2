@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @category
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SaleDeliveryNoteRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Sale\SaleDeliveryNoteRepository")
  * @ORM\Table(name="sale_delivery_note")
  * @UniqueEntity({"enterprise", "deliveryNoteNumber"})
  */
