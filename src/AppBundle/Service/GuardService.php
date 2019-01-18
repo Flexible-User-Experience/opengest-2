@@ -29,8 +29,6 @@ class GuardService
      */
 
     /**
-     * GuardService constructor.
-     *
      * @param AuthorizationChecker $acs
      */
     public function __construct(AuthorizationChecker $acs)

@@ -28,8 +28,6 @@ class FileService
      */
 
     /**
-     * Constructor.
-     *
      * @param UploaderHelper $uhs
      * @param string         $krd
      */

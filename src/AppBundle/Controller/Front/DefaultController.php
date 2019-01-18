@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * Class DefaultController.
+ *
+ * @category Controller
+ */
 class DefaultController extends Controller
 {
     /**
@@ -34,6 +39,10 @@ class DefaultController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function companyAction(Request $request)
     {
@@ -97,15 +106,14 @@ class DefaultController extends Controller
      * @return Response
      *
      * @throws HttpException
+     * @throws \Exception
      */
     public function testEmailAction()
     {
         if ('prod' == $this->get('kernel')->getEnvironment()) {
             throw new HttpException(403);
         }
-
         $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
-
 //        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
 
         return $this->render(':Mails:vehicles_checking_invalid_admin_notification.html.twig', array(

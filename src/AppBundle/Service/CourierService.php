@@ -21,8 +21,6 @@ class CourierService
      */
 
     /**
-     * CourierService constructor.
-     *
      * @param \Swift_Mailer $mailer
      */
     public function __construct(\Swift_Mailer $mailer)
@@ -31,8 +29,6 @@ class CourierService
     }
 
     /**
-     * Send an email.
-     *
      * @param string      $from
      * @param string      $to
      * @param string      $subject

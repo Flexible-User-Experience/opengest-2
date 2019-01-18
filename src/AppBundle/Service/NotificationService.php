@@ -40,8 +40,6 @@ class NotificationService
      */
 
     /**
-     * NotificationService constructor.
-     *
      * @param CourierService    $messenger
      * @param \Twig_Environment $twig
      * @param string            $amd
@@ -59,6 +57,10 @@ class NotificationService
      * Send a common notification mail to frontend user.
      *
      * @param ContactMessage $contactMessage
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendCommonUserNotification(ContactMessage $contactMessage)
     {
@@ -76,6 +78,10 @@ class NotificationService
      * Send a common notification mail to admin user.
      *
      * @param string $text
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendCommonAdminNotification($text)
     {
@@ -93,6 +99,10 @@ class NotificationService
      * Send a contact form notification to admin user.
      *
      * @param ContactMessage $contactMessage
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendContactAdminNotification(ContactMessage $contactMessage)
     {
@@ -110,6 +120,10 @@ class NotificationService
      * Send a contact form notification to admin user.
      *
      * @param ContactMessage $contactMessage
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendUserBackendAnswerNotification(ContactMessage $contactMessage)
     {
@@ -125,6 +139,10 @@ class NotificationService
 
     /**
      * @param array|OperatorChecking[] $entities
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendOperatorCheckingInvalidNotification($entities)
     {
@@ -138,6 +156,10 @@ class NotificationService
 
     /**
      * @param array|OperatorChecking[] $entities
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendOperatorCheckingBeforeToBeInvalidNotification($entities)
     {
@@ -151,6 +173,10 @@ class NotificationService
 
     /**
      * @param OperatorChecking $entity
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendToOperatorInvalidCheckingNotification(OperatorChecking $entity)
     {
@@ -164,6 +190,10 @@ class NotificationService
 
     /**
      * @param OperatorChecking $entity
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendToOperatorBeforeToBeInvalidCheckingNotification(OperatorChecking $entity)
     {
@@ -177,6 +207,10 @@ class NotificationService
 
     /**
      * @param array|VehicleChecking[] $entities
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendVehicleCheckingInvalidNotification($entities)
     {
@@ -190,6 +224,10 @@ class NotificationService
 
     /**
      * @param array|VehicleChecking[] $entities
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendVehicleCheckingBeforeToBeInvalidNotification($entities)
     {

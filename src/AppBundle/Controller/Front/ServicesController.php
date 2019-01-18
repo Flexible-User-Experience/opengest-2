@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ServicesController.
+ *
+ * @category Controller
+ */
 class ServicesController extends Controller
 {
     /**
@@ -44,6 +49,9 @@ class ServicesController extends Controller
      * @return Response
      *
      * @throws EntityNotFoundException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function detailServiceAction(Request $request, $slug)
     {
@@ -73,7 +81,6 @@ class ServicesController extends Controller
         }
 
         $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => $slug]);
-
         if (!$service) {
             throw new EntityNotFoundException();
         }

@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ComplementController.
+ *
+ * @category Controller
  */
 class ComplementController extends AbstractBaseController
 {
@@ -35,7 +37,6 @@ class ComplementController extends AbstractBaseController
     public function complementDetailAction($slug)
     {
         $complement = $this->getDoctrine()->getRepository('AppBundle:Complement')->findOneBy(['slug' => $slug]);
-
         if (!$complement) {
             throw new EntityNotFoundException();
         }

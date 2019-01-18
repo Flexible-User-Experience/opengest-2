@@ -6,6 +6,11 @@ use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class WorkController.
+ *
+ * @category Controller
+ */
 class WorkController extends AbstractBaseController
 {
     /**
@@ -18,7 +23,6 @@ class WorkController extends AbstractBaseController
     public function listAction($page = 1)
     {
         $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByDate();
-
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($works, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
 
@@ -39,11 +43,9 @@ class WorkController extends AbstractBaseController
     public function detailAction($slug)
     {
         $work = $this->getDoctrine()->getRepository('AppBundle:Work')->findOneBy(['slug' => $slug]);
-
         if (!$work) {
             throw new EntityNotFoundException();
         }
-
         $images = $this->getDoctrine()->getRepository('AppBundle:WorkImage')->findEnabledSortedByPosition($work);
 
         return $this->render(':Frontend:work_detail.html.twig', [

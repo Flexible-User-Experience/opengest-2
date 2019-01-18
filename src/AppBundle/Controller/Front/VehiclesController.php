@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class VehiclesController.
+ *
+ * @category Controller
  */
 class VehiclesController extends AbstractBaseController
 {
@@ -49,11 +51,9 @@ class VehiclesController extends AbstractBaseController
     {
         /** @var Vehicle|null $vehicle */
         $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findOneBy(['slug' => $slug]);
-
         if (!$vehicle) {
             throw new EntityNotFoundException();
         }
-
         if (Enterprise::GRUAS_ROMANI_TIN != $vehicle->getEnterprise()->getTaxIdentificationNumber()) {
             throw new EntityNotFoundException();
         }
@@ -76,11 +76,9 @@ class VehiclesController extends AbstractBaseController
     public function vehiclesCategoryAction($slug, $page = 1)
     {
         $category = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findOneBy(['slug' => $slug]);
-
         if (!$category) {
             throw new EntityNotFoundException();
         }
-
         $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
