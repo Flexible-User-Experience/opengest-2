@@ -28,7 +28,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
-    # Operators group
+# Operators group
     app.admin.operator:
         class: AppBundle\Admin\Operator\OperatorAdmin
         arguments: [ ~, AppBundle\Entity\Operator, AppBundle\Controller\Admin\OperatorAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
@@ -92,61 +92,39 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
-# Admin group
-    app.admin.province:
-        class: AppBundle\Admin\ProvinceAdmin
-        arguments: [ ~, AppBundle\Entity\Province, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.city:
-        class: AppBundle\Admin\CityAdmin
-        arguments: [ ~, AppBundle\Entity\City, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.user:
-        class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, AppBundle\Controller\Admin\UserAdminController, "@fos_user.user_manager", "@app.repositories_manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.sale_invoice_series:
-        class: AppBundle\Admin\SaleInvoiceSeriesAdmin
-        arguments: [ ~, AppBundle\Entity\SaleInvoiceSeries, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Sèries factura", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-
 # Partner group
     app.admin.partner:
-        class: AppBundle\Admin\PartnerAdmin
+        class: AppBundle\Admin\Partner\PartnerAdmin
         arguments: [ ~, AppBundle\Entity\Partner, AppBundle\Controller\Admin\PartnerAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tercer", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_class:
-        class: AppBundle\Admin\PartnerClassAdmin
+        class: AppBundle\Admin\Partner\PartnerClassAdmin
         arguments: [ ~, AppBundle\Entity\PartnerClass, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Classe", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_type:
-        class: AppBundle\Admin\PartnerTypeAdmin
+        class: AppBundle\Admin\Partner\PartnerTypeAdmin
         arguments: [ ~, AppBundle\Entity\PartnerType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_order:
-        class: AppBundle\Admin\PartnerOrderAdmin
+        class: AppBundle\Admin\Partner\PartnerOrderAdmin
         arguments: [ ~, AppBundle\Entity\PartnerOrder, AppBundle\Controller\Admin\PartnerOrderAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Comandes", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_building_site:
-        class: AppBundle\Admin\PartnerBuildingSiteAdmin
+        class: AppBundle\Admin\Partner\PartnerBuildingSiteAdmin
         arguments: [ ~, AppBundle\Entity\PartnerBuildingSite, AppBundle\Controller\Admin\PartnerBuildingSiteAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Obres", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_contact:
-        class: AppBundle\Admin\PartnerContactAdmin
+        class: AppBundle\Admin\Partner\PartnerContactAdmin
         arguments: [ ~, AppBundle\Entity\PartnerContact, AppBundle\Controller\Admin\PartnerContactAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Contacte", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.partner_unable_days:
-        class: AppBundle\Admin\PartnerUnableDaysAdmin
+        class: AppBundle\Admin\Partner\PartnerUnableDaysAdmin
         arguments: [ ~, AppBundle\Entity\PartnerUnableDays, AppBundle\Controller\Admin\PartnerUnableDaysAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Dies inhàbils", group: "Tercers", label_translator_strategy: "sonata.admin.label.strategy.noop" }
@@ -220,3 +198,25 @@ services:
         arguments: [ ~, AppBundle\Entity\SaleRequestHasDeliveryNote, AppBundle\Controller\Admin\SaleRequestHasDeliveryNoteAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Valoració petició-albarà", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+
+# Admin group
+    app.admin.province:
+        class: AppBundle\Admin\ProvinceAdmin
+        arguments: [ ~, AppBundle\Entity\Province, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.city:
+        class: AppBundle\Admin\CityAdmin
+        arguments: [ ~, AppBundle\Entity\City, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [ ~, AppBundle\Entity\User, AppBundle\Controller\Admin\UserAdminController, "@fos_user.user_manager", "@app.repositories_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_invoice_series:
+        class: AppBundle\Admin\SaleInvoiceSeriesAdmin
+        arguments: [ ~, AppBundle\Entity\SaleInvoiceSeries, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Sèries factura", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }

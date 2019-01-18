@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Partner;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
@@ -36,7 +37,6 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
-
             ->add(
                 'partner',
                 ModelAutocompleteType::class,
@@ -77,6 +77,7 @@ class PartnerUnableDaysAdmin extends AbstractBaseAdmin
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
             )
+            ->end()
         ;
     }
 

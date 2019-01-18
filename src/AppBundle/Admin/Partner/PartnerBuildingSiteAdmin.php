@@ -1,25 +1,27 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Partner;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 /**
- * Class PartnerOrderAdmin.
+ * Class PartnerBuildingSiteAdmin.
  *
  * @category Admin
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  */
-class PartnerOrderAdmin extends AbstractBaseAdmin
+class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tercers comandes';
-    protected $baseRoutePattern = 'tercers/comandes';
+    protected $classnameLabel = 'Tercers obres';
+    protected $baseRoutePattern = 'tercers/obres';
     protected $datagridValues = array(
         '_sort_by' => 'partner.name',
         '_sort_order' => 'asc',
@@ -32,37 +34,55 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'partner',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Tercer',
+                    'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
+                        $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
+                )
+            )
                 ->add(
-                    'partner',
-                    ModelAutocompleteType::class,
+                    'name',
+                    null,
                     array(
-                        'property' => 'name',
-                        'label' => 'Tercer',
+                        'label' => 'Nom',
                         'required' => true,
-                        'callback' => function ($admin, $property, $value) {
-                            $datagrid = $admin->getDatagrid();
-                            $queryBuilder = $datagrid->getQuery();
-                            $queryBuilder
-                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                            ;
-                            $datagrid->setValue($property, null, $value);
-                        },
                     )
                 )
                 ->add(
                     'number',
                     null,
                     array(
-                        'label' => 'Número comanda',
-                        'required' => true,
+                        'label' => 'Número',
+                        'required' => false,
                     )
                 )
                 ->add(
-                    'providerReference',
+                    'address',
                     null,
                     array(
-                        'label' => 'Referència proveïdor',
+                        'label' => 'Adreça',
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'phone',
+                    null,
+                    array(
+                        'label' => 'Telèfon',
                         'required' => false,
                     )
                 )
@@ -88,17 +108,31 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'number',
+                'name',
                 null,
                 array(
-                    'label' => 'Número comanda',
+                    'label' => 'Nom',
                 )
             )
             ->add(
-                'providerReference',
+                'number',
                 null,
                 array(
-                    'label' => 'Referència proveïdor',
+                    'label' => 'Número',
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Telèfon',
                 )
             )
         ;
@@ -117,7 +151,7 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
             ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
             ->orderBy('p.name', 'ASC')
         ;
-        $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.number', 'ASC');
+        $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'asc');
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere('p.enterprise = :enterprise')
@@ -148,18 +182,34 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'number',
+                'name',
                 null,
                 array(
-                    'label' => 'Número Comanda',
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )
             ->add(
-                'providerReference',
+                'number',
                 null,
                 array(
-                    'label' => 'Referència proveïdor',
+                    'label' => 'Número',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Telèfon',
                     'editable' => true,
                 )
             )

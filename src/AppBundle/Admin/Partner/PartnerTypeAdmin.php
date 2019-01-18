@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Partner;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -31,30 +32,30 @@ class PartnerTypeAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
-                ->add(
-                    'name',
-                    null,
-                    array(
-                        'label' => 'Nom',
-                        'required' => true,
-                    )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                    'required' => true,
                 )
-                ->add(
-                    'description',
-                    null,
-                    array(
-                        'label' => 'Descripció',
-                        'required' => true,
-                    )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                    'required' => true,
                 )
-                ->add(
-                    'account',
-                    null,
-                    array(
-                        'label' => 'Compte',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'account',
+                null,
+                array(
+                    'label' => 'Compte',
+                    'required' => false,
                 )
+            )
             ->end()
         ;
     }

@@ -1,25 +1,27 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Partner;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 /**
- * Class PartnerBuildingSiteAdmin.
+ * Class PartnerOrderAdmin.
  *
  * @category Admin
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  */
-class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
+class PartnerOrderAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tercers obres';
-    protected $baseRoutePattern = 'tercers/obres';
+    protected $classnameLabel = 'Tercers comandes';
+    protected $baseRoutePattern = 'tercers/comandes';
     protected $datagridValues = array(
         '_sort_by' => 'partner.name',
         '_sort_order' => 'asc',
@@ -40,7 +42,9 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
                     'label' => 'Tercer',
                     'required' => true,
                     'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
                         $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
                         $queryBuilder = $datagrid->getQuery();
                         $queryBuilder
                             ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
@@ -50,38 +54,22 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
                     },
                 )
             )
-                ->add(
-                    'name',
-                    null,
-                    array(
-                        'label' => 'Nom',
-                        'required' => true,
-                    )
+            ->add(
+                'number',
+                null,
+                array(
+                    'label' => 'Número comanda',
+                    'required' => true,
                 )
-                ->add(
-                    'number',
-                    null,
-                    array(
-                        'label' => 'Número',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'providerReference',
+                null,
+                array(
+                    'label' => 'Referència proveïdor',
+                    'required' => false,
                 )
-                ->add(
-                    'address',
-                    null,
-                    array(
-                        'label' => 'Adreça',
-                        'required' => false,
-                    )
-                )
-                ->add(
-                    'phone',
-                    null,
-                    array(
-                        'label' => 'Telèfon',
-                        'required' => false,
-                    )
-                )
+            )
             ->end()
         ;
     }
@@ -104,31 +92,17 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
                 'number',
                 null,
                 array(
-                    'label' => 'Número',
+                    'label' => 'Número comanda',
                 )
             )
             ->add(
-                'address',
+                'providerReference',
                 null,
                 array(
-                    'label' => 'Adreça',
-                )
-            )
-            ->add(
-                'phone',
-                null,
-                array(
-                    'label' => 'Telèfon',
+                    'label' => 'Referència proveïdor',
                 )
             )
         ;
@@ -147,7 +121,7 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
             ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
             ->orderBy('p.name', 'ASC')
         ;
-        $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'asc');
+        $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.number', 'ASC');
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere('p.enterprise = :enterprise')
@@ -178,34 +152,18 @@ class PartnerBuildingSiteAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'number',
                 null,
                 array(
-                    'label' => 'Número',
+                    'label' => 'Número Comanda',
                     'editable' => true,
                 )
             )
             ->add(
-                'address',
+                'providerReference',
                 null,
                 array(
-                    'label' => 'Adreça',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'phone',
-                null,
-                array(
-                    'label' => 'Telèfon',
+                    'label' => 'Referència proveïdor',
                     'editable' => true,
                 )
             )

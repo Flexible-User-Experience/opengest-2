@@ -1,10 +1,11 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Partner;
 
-use AppBundle\Entity\Partner;
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -33,86 +34,88 @@ class PartnerContactAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'partner',
-                    ModelAutocompleteType::class,
-                    array(
-                        'property' => 'name',
-                        'label' => 'Tercer',
-                        'required' => true,
-                        'callback' => function ($admin, $property, $value) {
-                            $datagrid = $admin->getDatagrid();
-                            $queryBuilder = $datagrid->getQuery();
-                            $queryBuilder
-                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                            ;
-                            $datagrid->setValue($property, null, $value);
-                        },
-                    )
+            ->add(
+                'partner',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Tercer',
+                    'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
+                        $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
-                ->add(
-                    'name',
-                    null,
-                    array(
-                        'label' => 'Nom',
-                        'required' => true,
-                    )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                    'required' => true,
                 )
-                ->add(
-                    'phone',
-                    null,
-                    array(
-                        'label' => 'Telèfon',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Telèfon',
+                    'required' => false,
                 )
-                ->add(
-                    'fax',
-                    null,
-                    array(
-                        'label' => 'Fax',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'fax',
+                null,
+                array(
+                    'label' => 'Fax',
+                    'required' => false,
                 )
-                ->add(
-                    'notes',
-                    null,
-                    array(
-                        'label' => 'Notes',
-                        'required' => false,
-                        'attr' => array(
-                            'style' => 'resize: vertical',
-                            'rows' => 7,
-                        ),
-                    )
+            )
+            ->add(
+                'notes',
+                null,
+                array(
+                    'label' => 'Notes',
+                    'required' => false,
+                    'attr' => array(
+                        'style' => 'resize: vertical',
+                        'rows' => 7,
+                    ),
                 )
+            )
             ->end()
             ->with('Càrrec', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'care',
-                    null,
-                    array(
-                        'label' => 'Càrrec',
-                        'required' => false,
-                    )
+            ->add(
+                'care',
+                null,
+                array(
+                    'label' => 'Càrrec',
+                    'required' => false,
                 )
-                ->add(
-                    'mobile',
-                    null,
-                    array(
-                        'label' => 'Mòbil',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'mobile',
+                null,
+                array(
+                    'label' => 'Mòbil',
+                    'required' => false,
                 )
-                ->add(
-                    'email',
-                    null,
-                    array(
-                        'label' => 'Email',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'Email',
+                    'required' => false,
                 )
+            )
             ->end()
         ;
     }
@@ -191,9 +194,8 @@ class PartnerContactAdmin extends AbstractBaseAdmin
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
             ->orderBy('p.name', 'ASC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
-        $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC');
-
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->andWhere('p.enterprise = :enterprise')
