@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Web;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
@@ -52,7 +52,7 @@ class WorkRepository extends EntityRepository
             ->where('w.enabled = :enabled')
             ->setParameter('enabled', true)
             ->orderBy('w.date', 'DESC')
-            ;
+        ;
     }
 
     /**

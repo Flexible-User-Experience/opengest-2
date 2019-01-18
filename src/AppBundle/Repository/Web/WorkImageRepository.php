@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Web;
 
 use AppBundle\Entity\Work;
 use Doctrine\ORM\EntityRepository;

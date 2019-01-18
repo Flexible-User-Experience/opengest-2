@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Web\ServiceRepository")
  * @ORM\Table(name="service")
  * @Vich\Uploadable
  * @UniqueEntity({"name"})
@@ -99,6 +99,7 @@ class Service extends AbstractBase
      * @param File|null $mainImageFile
      *
      * @return $this
+     * @throws \Exception
      */
     public function setMainImageFile(File $mainImageFile = null)
     {

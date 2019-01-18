@@ -20,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Web\WorkRepository")
  * @ORM\Table(name="work")
  * @Vich\Uploadable()
  * @UniqueEntity({"name"})

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkImageRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Web\WorkImageRepository")
  * @ORM\Table(name="work_image")
  * @Vich\Uploadable
  */

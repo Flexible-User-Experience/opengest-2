@@ -23,7 +23,7 @@ use AppBundle\Repository\SaleDeliveryNoteRepository;
 use AppBundle\Repository\SaleInvoiceSeriesRepository;
 use AppBundle\Repository\SaleRequestRepository;
 use AppBundle\Repository\SaleTariffRepository;
-use AppBundle\Repository\ServiceRepository;
+use AppBundle\Repository\Web\ServiceRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\VehicleCategoryRepository;
 use AppBundle\Repository\VehicleCheckingRepository;
