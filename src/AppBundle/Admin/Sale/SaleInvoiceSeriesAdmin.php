@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Sale;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -10,6 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  * Class SaleInvoiceSeriesAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
@@ -27,8 +29,7 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -53,7 +54,7 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-        ->end()
+            ->end()
         ;
     }
 
@@ -63,7 +64,6 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-
             ->add(
                 'name',
                 null,
@@ -119,7 +119,6 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-
             ->add(
                 '_action',
                 'actions',

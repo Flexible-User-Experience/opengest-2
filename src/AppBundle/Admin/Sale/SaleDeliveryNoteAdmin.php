@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Sale;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\ActivityLine;
 use AppBundle\Entity\CollectionDocumentType;
 use AppBundle\Entity\PartnerBuildingSite;
@@ -48,136 +49,136 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
         if ($this->id($this->getSubject())) { // is edit mode
             $formMapper
                 ->with('General', $this->getFormMdSuccessBoxArray(4))
-                    ->add(
-                        'deliveryNoteNumber',
-                        null,
-                        array(
-                            'label' => 'Número d\'albarà',
-                            'required' => true,
-                            'disabled' => true,
-                        )
+                ->add(
+                    'deliveryNoteNumber',
+                    null,
+                    array(
+                        'label' => 'Número d\'albarà',
+                        'required' => true,
+                        'disabled' => true,
                     )
+                )
                 ->end()
             ;
         }
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'date',
-                    DatePickerType::class,
-                    array(
-                        'label' => 'Data petició',
-                        'format' => 'd/m/Y',
-                        'required' => true,
-                        'dp_default_date' => (new \DateTime())->format('d/m/Y'),
-                    )
+            ->add(
+                'date',
+                DatePickerType::class,
+                array(
+                    'label' => 'Data petició',
+                    'format' => 'd/m/Y',
+                    'required' => true,
+                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
-                ->add(
-                    'partner',
-                    ModelAutocompleteType::class,
-                    array(
-                        'property' => 'name',
-                        'label' => 'Client',
-                        'required' => true,
-                        'callback' => function ($admin, $property, $value) {
-                            /** @var Admin $admin */
-                            $datagrid = $admin->getDatagrid();
-                            /** @var QueryBuilder $queryBuilder */
-                            $queryBuilder = $datagrid->getQuery();
-                            $queryBuilder
-                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                            ;
-                            $datagrid->setValue($property, null, $value);
-                        },
-                    )
+            )
+            ->add(
+                'partner',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Client',
+                    'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
+                        $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
-                ->add(
-                    'buildingSite',
-                    EntityType::class,
-                    array(
-                        'class' => PartnerBuildingSite::class,
-                        'label' => 'Obra',
-                        'required' => false,
-                        'query_builder' => $this->rm->getPartnerBuildingSiteRepository()->getEnabledSortedByNameQB(),
-                    )
+            )
+            ->add(
+                'buildingSite',
+                EntityType::class,
+                array(
+                    'class' => PartnerBuildingSite::class,
+                    'label' => 'Obra',
+                    'required' => false,
+                    'query_builder' => $this->rm->getPartnerBuildingSiteRepository()->getEnabledSortedByNameQB(),
                 )
-                ->add(
-                    'order',
-                    EntityType::class,
-                    array(
-                        'class' => PartnerOrder::class,
-                        'label' => 'Comanda',
-                        'required' => false,
-                        'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
-                    )
+            )
+            ->add(
+                'order',
+                EntityType::class,
+                array(
+                    'class' => PartnerOrder::class,
+                    'label' => 'Comanda',
+                    'required' => false,
+                    'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
                 )
+            )
             ->end()
             ->with('Import', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'baseAmount',
-                    null,
-                    array(
-                        'label' => 'Import base',
-                        'required' => true,
-                        'disabled' => true,
-                    )
+            ->add(
+                'baseAmount',
+                null,
+                array(
+                    'label' => 'Import base',
+                    'required' => true,
+                    'disabled' => true,
                 )
-                ->add(
-                    'discount',
-                    null,
-                    array(
-                        'label' => 'Descompte',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'discount',
+                null,
+                array(
+                    'label' => 'Descompte',
+                    'required' => false,
                 )
-                ->add(
-                    'collectionDocument',
-                    EntityType::class,
-                    array(
-                        'class' => CollectionDocumentType::class,
-                        'label' => 'Tipus document cobrament',
-                        'required' => false,
-                        'query_builder' => $this->rm->getCollectionDocumentTypeRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                    )
+            )
+            ->add(
+                'collectionDocument',
+                EntityType::class,
+                array(
+                    'class' => CollectionDocumentType::class,
+                    'label' => 'Tipus document cobrament',
+                    'required' => false,
+                    'query_builder' => $this->rm->getCollectionDocumentTypeRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
-                ->add(
-                    'collectionTerm',
-                    null,
-                    array(
-                        'label' => 'Venciment (dies)',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'collectionTerm',
+                null,
+                array(
+                    'label' => 'Venciment (dies)',
+                    'required' => false,
                 )
-                ->add(
-                    'activityLine',
-                    EntityType::class,
-                    array(
-                        'class' => ActivityLine::class,
-                        'label' => 'Línia d\'activitat',
-                        'required' => false,
-                        'query_builder' => $this->rm->getActivityLineRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                    )
+            )
+            ->add(
+                'activityLine',
+                EntityType::class,
+                array(
+                    'class' => ActivityLine::class,
+                    'label' => 'Línia d\'activitat',
+                    'required' => false,
+                    'query_builder' => $this->rm->getActivityLineRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
+            )
             ->end()
             ->with('Factura', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'saleInvoice',
-                    EntityType::class,
-                    array(
-                        'class' => SaleInvoice::class,
-                        'label' => 'Factura',
-                        'required' => false,
-                    )
+            ->add(
+                'saleInvoice',
+                EntityType::class,
+                array(
+                    'class' => SaleInvoice::class,
+                    'label' => 'Factura',
+                    'required' => false,
                 )
-                ->add(
-                    'wontBeInvoiced',
-                    CheckboxType::class,
-                    array(
-                        'label' => 'No facturable',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'wontBeInvoiced',
+                CheckboxType::class,
+                array(
+                    'label' => 'No facturable',
+                    'required' => false,
                 )
+            )
             ->end()
         ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
@@ -218,7 +219,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
             ;
         }
         $datagridMapper
-
             ->add(
                 'date',
                 'doctrine_orm_date',
@@ -414,7 +414,6 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
     public function prePersist($object)
     {
         $object->setEnterprise($this->getUserLogedEnterprise());
-
         $object->setDeliveryNoteNumber($this->getConfigurationPool()->getContainer()->get('app.delivery_note_manager')->getLastDeliveryNoteByenterprise($this->getUserLogedEnterprise()));
     }
 

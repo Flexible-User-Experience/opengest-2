@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Sale;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Operator;
 use AppBundle\Entity\SaleRequest;
 use AppBundle\Entity\SaleTariff;
@@ -412,7 +413,6 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
-
             ->add(
                 'operator',
                 null,

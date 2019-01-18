@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Sale;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\SaleDeliveryNote;
 use AppBundle\Entity\SaleRequest;
 use AppBundle\Entity\SaleRequestHasDeliveryNote;
@@ -16,6 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  * Class SaleRequestHasDeliveryNoteAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
@@ -34,178 +36,177 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
-                ->add(
-                    'saleRequest',
-                    EntityType::class,
-                    array(
-                        'class' => SaleRequest::class,
-                        'label' => 'Petició',
-                        'required' => true,
-                        'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
-                    )
+            ->add(
+                'saleRequest',
+                EntityType::class,
+                array(
+                    'class' => SaleRequest::class,
+                    'label' => 'Petició',
+                    'required' => true,
+                    'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
-                ->add(
-                    'saleDeliveryNote',
-                    EntityType::class,
-                    array(
-                        'class' => SaleDeliveryNote::class,
-                        'label' => 'Albarà',
-                        'required' => true,
-                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
-                    )
+            )
+            ->add(
+                'saleDeliveryNote',
+                EntityType::class,
+                array(
+                    'class' => SaleDeliveryNote::class,
+                    'label' => 'Albarà',
+                    'required' => true,
+                    'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
                 )
-                ->add(
-                    'reference',
-                    null,
-                    array(
-                        'label' => 'Referència',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'reference',
+                null,
+                array(
+                    'label' => 'Referència',
+                    'required' => false,
                 )
-                ->add(
-                    'ivaType',
-                    null,
-                    array(
-                        'label' => 'Tipus IVA',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'ivaType',
+                null,
+                array(
+                    'label' => 'Tipus IVA',
+                    'required' => false,
                 )
-                ->add(
-                    'retentionType',
-                    null,
-                    array(
-                        'label' => 'Tipus retenció',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'retentionType',
+                null,
+                array(
+                    'label' => 'Tipus retenció',
+                    'required' => false,
                 )
+            )
             ->end()
             ->with('Preus', $this->getFormMdSuccessBoxArray(6))
-                ->add(
-                    'totalHoursMorning',
-                    null,
-                    array(
-                        'label' => 'Total hores matí',
-                        'required' => false,
-                    )
+            ->add(
+                'totalHoursMorning',
+                null,
+                array(
+                    'label' => 'Total hores matí',
+                    'required' => false,
                 )
-                ->add(
-                    'priceHourMorning',
-                    null,
-                    array(
-                        'label' => 'Preu hora matí',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'priceHourMorning',
+                null,
+                array(
+                    'label' => 'Preu hora matí',
+                    'required' => false,
                 )
-                ->add(
-                    'amountMorning',
-                    null,
-                    array(
-                        'label' => 'Total matí',
-                        'required' => false,
-                        'disabled' => true,
-                    )
+            )
+            ->add(
+                'amountMorning',
+                null,
+                array(
+                    'label' => 'Total matí',
+                    'required' => false,
+                    'disabled' => true,
                 )
-                ->add(
-                    'totalHoursAfternoon',
-                    null,
-                    array(
-                        'label' => 'Total hores tarda',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'totalHoursAfternoon',
+                null,
+                array(
+                    'label' => 'Total hores tarda',
+                    'required' => false,
                 )
-                ->add(
-                    'priceHourAfternoon',
-                    null,
-                    array(
-                        'label' => 'Preu hora tarda',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'priceHourAfternoon',
+                null,
+                array(
+                    'label' => 'Preu hora tarda',
+                    'required' => false,
                 )
-                ->add(
-                    'amountAfternoon',
-                    null,
-                    array(
-                        'label' => 'Total tarda',
-                        'required' => false,
-                        'disabled' => true,
-                    )
+            )
+            ->add(
+                'amountAfternoon',
+                null,
+                array(
+                    'label' => 'Total tarda',
+                    'required' => false,
+                    'disabled' => true,
                 )
-                ->add(
-                    'totalHoursNight',
-                    null,
-                    array(
-                        'label' => 'Total hores nit',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'totalHoursNight',
+                null,
+                array(
+                    'label' => 'Total hores nit',
+                    'required' => false,
                 )
-                ->add(
-                    'priceHourNight',
-                    null,
-                    array(
-                        'label' => 'Preu hora nit',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'priceHourNight',
+                null,
+                array(
+                    'label' => 'Preu hora nit',
+                    'required' => false,
                 )
-                ->add(
-                    'amountNight',
-                    null,
-                    array(
-                        'label' => 'Total nit',
-                        'required' => false,
-                        'disabled' => true,
-                    )
+            )
+            ->add(
+                'amountNight',
+                null,
+                array(
+                    'label' => 'Total nit',
+                    'required' => false,
+                    'disabled' => true,
                 )
-                ->add(
-                    'totalHoursEarlyMorning',
-                    null,
-                    array(
-                        'label' => 'Total hores matinada',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'totalHoursEarlyMorning',
+                null,
+                array(
+                    'label' => 'Total hores matinada',
+                    'required' => false,
                 )
-                ->add(
-                    'priceHourEarlyMorning',
-                    null,
-                    array(
-                        'label' => 'Preu hora matinada',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'priceHourEarlyMorning',
+                null,
+                array(
+                    'label' => 'Preu hora matinada',
+                    'required' => false,
                 )
-                ->add(
-                    'amountEarlyMorning',
-                    null,
-                    array(
-                        'label' => 'Total matinada',
-                        'required' => false,
-                        'disabled' => true,
-                    )
+            )
+            ->add(
+                'amountEarlyMorning',
+                null,
+                array(
+                    'label' => 'Total matinada',
+                    'required' => false,
+                    'disabled' => true,
                 )
-                ->add(
-                    'totalHoursDisplacement',
-                    null,
-                    array(
-                        'label' => 'Total hores desplaçament',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'totalHoursDisplacement',
+                null,
+                array(
+                    'label' => 'Total hores desplaçament',
+                    'required' => false,
                 )
-                ->add(
-                    'priceHourDisplacement',
-                    null,
-                    array(
-                        'label' => 'Preu hora desplaçament',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'priceHourDisplacement',
+                null,
+                array(
+                    'label' => 'Preu hora desplaçament',
+                    'required' => false,
                 )
-                ->add(
-                    'amountDisplacement',
-                    null,
-                    array(
-                        'label' => 'Total desplaçament',
-                        'required' => false,
-                        'disabled' => true,
-                    )
+            )
+            ->add(
+                'amountDisplacement',
+                null,
+                array(
+                    'label' => 'Total desplaçament',
+                    'required' => false,
+                    'disabled' => true,
                 )
-
+            )
             ->end()
         ;
     }
@@ -369,7 +370,6 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
                 ->join($queryBuilder->getRootAliases()[0].'.saleRequest', 's')

@@ -1,31 +1,40 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Sale;
 
-use AppBundle\Entity\SaleDeliveryNote;
-use AppBundle\Entity\SaleDeliveryNoteLine;
-use AppBundle\Enum\ConstantsEnum;
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Class SaleDeliveryNoteLineAdmin.
+ * Class SaleTariffAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
+class SaleTariffAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Albarà línia';
-    protected $baseRoutePattern = 'vendes/albara-linia';
+    protected $classnameLabel = 'Tarifa';
+    protected $baseRoutePattern = 'vendes/tarifa';
     protected $datagridValues = array(
-        '_sort_by' => 'id',
+        '_sort_by' => 'enterprise.name',
         '_sort_order' => 'ASC',
     );
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->add('getJsonSaleTariffById', $this->getRouterIdParameter().'/get-json-sale-tariff-by-id');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -33,87 +42,67 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('Albarà línia', $this->getFormMdSuccessBoxArray(12))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'deliveryNote',
-                EntityType::class,
+                'year',
+                ChoiceType::class,
                 array(
-                    'class' => SaleDeliveryNote::class,
-                    'label' => false,
-                    'required' => true,
-//                    'query_builder' => $this->rm->getPartnerOrderRepository()->getEnabledSortedByNumberQB(),
-                    'attr' => array(
-                        'style' => 'display:none;',
-                    ),
-                )
-            )
-            ->add(
-                'units',
-                null,
-                array(
-                    'label' => 'Unitats',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'priceUnit',
-                null,
-                array(
-                    'label' => 'Preu unitat',
+                    'label' => 'Any',
+                    'choices' => $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getYearRange(),
+                    'placeholder' => 'Selecciona un any',
                     'required' => true,
                 )
             )
             ->add(
-                'discount',
+                'tonnage',
                 null,
                 array(
-                    'label' => 'Descompte',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'iva',
-                null,
-                array(
-                    'label' => 'IVA',
+                    'label' => 'Tonatge',
                     'required' => true,
-                    'empty_data' => (string) ConstantsEnum::IVA,
-                    'attr' => array(
-                        'placeholder' => ConstantsEnum::IVA,
-                    ),
                 )
             )
+            ->end()
+            ->with('Tarifa', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'irpf',
+                'priceHour',
                 null,
                 array(
-                    'label' => 'IRPF',
-                    'required' => true,
-                    'empty_data' => (string) ConstantsEnum::IRPF,
-                    'attr' => array(
-                        'placeholder' => ConstantsEnum::IRPF,
-                    ),
-                )
-            )
-            ->add(
-                'total',
-                null,
-                array(
-                    'label' => 'Total',
-                    'required' => false,
-                    'disabled' => true,
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
+                    'label' => 'Preu hora',
                     'required' => false,
                 )
             )
-
+            ->add(
+                'miniumHours',
+                null,
+                array(
+                    'label' => 'Mínim hores',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'miniumHolidayHours',
+                null,
+                array(
+                    'label' => 'Mínim hores vacances',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'displacement',
+                null,
+                array(
+                    'label' => 'Desplaçament',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'increaseForHolidays',
+                null,
+                array(
+                    'label' => 'Increment per vacances',
+                    'required' => false,
+                )
+            )
             ->end()
         ;
     }
@@ -123,64 +112,67 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $datagridMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
+                )
+            ;
+        }
         $datagridMapper
             ->add(
-                'deliveryNote',
+                'year',
                 null,
                 array(
-                    'label' => 'Albarà',
+                    'label' => 'Any',
                 )
             )
             ->add(
-                'units',
+                'tonnage',
                 null,
                 array(
-                    'label' => 'Unitats',
+                    'label' => 'Tonatge',
                 )
             )
             ->add(
-                'priceUnit',
+                'priceHour',
                 null,
                 array(
-                    'label' => 'Preu unitat',
+                    'label' => 'Preu hora',
                 )
             )
             ->add(
-                'total',
+                'miniumHours',
                 null,
                 array(
-                    'label' => 'Total',
+                    'label' => 'Mínim hores',
                 )
             )
             ->add(
-                'discount',
+                'miniumHolidayHours',
                 null,
                 array(
-                    'label' => 'Descompte',
+                    'label' => 'Mínim hores vacances',
                 )
             )
             ->add(
-                'description',
+                'displacement',
                 null,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'Desplaçament',
                 )
             )
             ->add(
-                'iva',
+                'increaseForHolidays',
                 null,
                 array(
-                    'label' => 'IVA',
+                    'label' => 'Increment per vacances',
                 )
             )
-            ->add(
-                'irpf',
-                null,
-                array(
-                    'label' => 'IRPF',
-                )
-            )
-
         ;
     }
 
@@ -193,10 +185,15 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->orderBy('e.name', 'ASC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.year', 'DESC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.tonnage', 'DESC')
+        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->join($queryBuilder->getRootAliases()[0].'.deliveryNote', 's')
-                ->where('s.enterprise = :enterprise')
+                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
                 ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
@@ -210,64 +207,67 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $listMapper
+                ->add(
+                    'enterprise',
+                    null,
+                    array(
+                        'label' => 'Empresa',
+                    )
+                )
+            ;
+        }
         $listMapper
             ->add(
-                'deliveryNote',
+                'year',
                 null,
                 array(
-                    'label' => 'Albarà',
+                    'label' => 'Any',
                 )
             )
             ->add(
-                'units',
+                'tonnage',
                 null,
                 array(
-                    'label' => 'Unitats',
+                    'label' => 'Tonnatge',
                 )
             )
             ->add(
-                'priceUnit',
+                'priceHour',
                 null,
                 array(
-                    'label' => 'Preu unitat',
+                    'label' => 'Preu hora',
                 )
             )
             ->add(
-                'total',
+                'miniumHours',
                 null,
                 array(
-                    'label' => 'Total',
+                    'label' => 'Mínim hores',
                 )
             )
             ->add(
-                'discount',
+                'miniumHolidayHours',
                 null,
                 array(
-                    'label' => 'Descompte',
+                    'label' => 'Mínim hores vacances',
                 )
             )
             ->add(
-                'description',
+                'displacement',
                 null,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'Desplaçament',
                 )
             )
             ->add(
-                'iva',
+                'increaseForHolidays',
                 null,
                 array(
-                    'label' => 'IVA',
+                    'label' => 'Increment per vacances',
                 )
             )
-            ->add(
-                'irpf',
-                null,
-                array(
-                    'label' => 'IRPF',
-                )
-            )
-
             ->add(
                 '_action',
                 'actions',
@@ -284,7 +284,7 @@ class SaleDeliveryNoteLineAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param SaleDeliveryNoteLine $object
+     * @param $object
      */
     public function prePersist($object)
     {

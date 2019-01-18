@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Sale;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\SaleDeliveryNote;
 use AppBundle\Entity\SaleInvoice;
 use AppBundle\Entity\SaleInvoiceSeries;
@@ -40,36 +41,36 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'date',
-                    DatePickerType::class,
-                    array(
-                        'label' => 'Data factura',
-                        'format' => 'd/m/Y',
-                        'required' => true,
-                        'dp_default_date' => (new \DateTime())->format('d/m/Y'),
-                    )
+            ->add(
+                'date',
+                DatePickerType::class,
+                array(
+                    'label' => 'Data factura',
+                    'format' => 'd/m/Y',
+                    'required' => true,
+                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
                 )
-                ->add(
-                    'partner',
-                    ModelAutocompleteType::class,
-                    array(
-                        'property' => 'name',
-                        'label' => 'Client',
-                        'required' => true,
-                        'callback' => function ($admin, $property, $value) {
-                            /** @var Admin $admin */
-                            $datagrid = $admin->getDatagrid();
-                            /** @var QueryBuilder $queryBuilder */
-                            $queryBuilder = $datagrid->getQuery();
-                            $queryBuilder
-                                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-                            ;
-                            $datagrid->setValue($property, null, $value);
-                        },
-                    )
+            )
+            ->add(
+                'partner',
+                ModelAutocompleteType::class,
+                array(
+                    'property' => 'name',
+                    'label' => 'Client',
+                    'required' => true,
+                    'callback' => function ($admin, $property, $value) {
+                        /** @var Admin $admin */
+                        $datagrid = $admin->getDatagrid();
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder = $datagrid->getQuery();
+                        $queryBuilder
+                            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+                            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                        ;
+                        $datagrid->setValue($property, null, $value);
+                    },
                 )
+            )
             ->end()
             ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
         ;
@@ -109,6 +110,54 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
         $formMapper
             ->end()
             ->with('Import', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'series',
+                EntityType::class,
+                array(
+                    'class' => SaleInvoiceSeries::class,
+                    'label' => 'Sèrie de facturació',
+                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'Tipus',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'total',
+                null,
+                array(
+                    'label' => 'Total factura',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'hasBeenCounted',
+                null,
+                array(
+                    'label' => 'Ha estat comptabilitzada',
+                    'required' => false,
+                )
+            )
+            ->end()
+        ;
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'invoiceNumber',
+                    null,
+                    array(
+                        'label' => 'Número de factura',
+                        'disabled' => true,
+                    )
+                )
+                ->end()
+                ->with('Import', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'series',
                     EntityType::class,
@@ -116,57 +165,9 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                         'class' => SaleInvoiceSeries::class,
                         'label' => 'Sèrie de facturació',
                         'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                        'disabled' => true,
                     )
                 )
-                ->add(
-                    'type',
-                    null,
-                    array(
-                        'label' => 'Tipus',
-                        'required' => true,
-                    )
-                )
-                ->add(
-                    'total',
-                    null,
-                    array(
-                        'label' => 'Total factura',
-                        'required' => false,
-                    )
-                )
-                ->add(
-                    'hasBeenCounted',
-                    null,
-                    array(
-                        'label' => 'Ha estat comptabilitzada',
-                        'required' => false,
-                    )
-                )
-            ->end()
-        ;
-        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
-            $formMapper
-                ->with('General', $this->getFormMdSuccessBoxArray(4))
-                    ->add(
-                        'invoiceNumber',
-                        null,
-                        array(
-                            'label' => 'Número de factura',
-                            'disabled' => true,
-                        )
-                    )
-                ->end()
-                ->with('Import', $this->getFormMdSuccessBoxArray(4))
-                    ->add(
-                        'series',
-                        EntityType::class,
-                        array(
-                            'class' => SaleInvoiceSeries::class,
-                            'label' => 'Sèrie de facturació',
-                            'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
-                            'disabled' => true,
-                        )
-                    )
                 ->end()
             ;
         }
@@ -321,7 +322,6 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'Ha estat comptabilitzada',
                 )
             )
-
             ->add(
                 '_action',
                 'actions',
