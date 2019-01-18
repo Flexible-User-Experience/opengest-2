@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Web;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;

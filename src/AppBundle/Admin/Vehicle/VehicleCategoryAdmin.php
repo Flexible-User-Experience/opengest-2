@@ -1,28 +1,27 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Vehicle;
 
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class ComplementAdmin.
+ * Class VehicleCategoryAdmin.
  *
  * @category Admin
  *
- * @author   Wils Iglesias <wiglesias83@gamil.com>
+ * @author Wils Iglesias <wiglesias83@gmail.com>
  */
-class ComplementAdmin extends AbstractBaseAdmin
+class VehicleCategoryAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Accesori';
-    protected $baseRoutePattern = 'web/accesori';
+    protected $classnameLabel = 'Categoria Vehicles';
+    protected $baseRoutePattern = 'web/categoria-vehicle';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
@@ -43,7 +42,7 @@ class ComplementAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(8))
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'name',
                 null,
@@ -51,31 +50,13 @@ class ComplementAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'shortDescription',
+                'position',
                 null,
                 array(
-                    'label' => 'Descripció breu',
-                )
-            )
-            ->add(
-                'description',
-                CKEditorType::class,
-                array(
-                    'label' => 'Descripció',
-                    'config_name' => 'my_config',
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'mainImageFile',
-                FileType::class,
-                array(
-                    'label' => 'Imatge',
-                    'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
-                    'required' => false,
+                    'label' => 'Posició',
                 )
             )
             ->add(
@@ -86,8 +67,7 @@ class ComplementAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -103,20 +83,20 @@ class ComplementAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
-            ->add(
-                'shortDescription',
-                null,
-                array(
-                    'label' => 'Descripció breu',
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
-                )
-            )
+//            ->add(
+//                'position',
+//                null,
+//                array(
+//                    'label' => 'Posició',
+//                )
+//            )
+//            ->add(
+//                'vehicles',
+//                null,
+//                array(
+//                    'label' => 'Vehicles',
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
@@ -134,14 +114,6 @@ class ComplementAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'mainImage',
-                null,
-                array(
-                    'label' => 'Imatge',
-                    'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
@@ -150,13 +122,21 @@ class ComplementAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'shortDescription',
+                'position',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'Posició',
                     'editable' => true,
                 )
             )
+//            ->add(
+//                'vehicles',
+//                null,
+//                array(
+//                    'label' => 'Vehicles',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
@@ -176,7 +156,6 @@ class ComplementAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            )
-        ;
+            );
     }
 }

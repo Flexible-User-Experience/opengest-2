@@ -46,8 +46,8 @@ sonata_admin:
         groups:
             Web:
                 icon: "<i class='fa fa-chrome'></i>"
-            Contactes:
-                icon: "<i class='fa fa-envelope'></i>"
+#            Contactes:
+#                icon: "<i class='fa fa-envelope'></i>"
             Operaris:
                 icon: "<i class='fa fa-users'></i>"
             Vehicles:
@@ -91,7 +91,7 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Web, Contactes ]
+                    groups: [ Web ]
             -
                 position: top
                 type: sonata.admin.block.admin_list

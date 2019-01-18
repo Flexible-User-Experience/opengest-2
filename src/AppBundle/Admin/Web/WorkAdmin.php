@@ -1,37 +1,35 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Web;
 
-use AppBundle\Entity\Vehicle;
-use AppBundle\Enum\UserRolesEnum;
-use Doctrine\ORM\QueryBuilder;
+use AppBundle\Admin\AbstractBaseAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\Form\Type\CollectionType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class VehicleAdmin.
+ * Class WorkAdmin.
  *
  * @category Admin
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class VehicleAdmin extends AbstractBaseAdmin
+class WorkAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Vehicles';
-    protected $baseRoutePattern = 'vehicles/vehicle';
+    protected $classnameLabel = 'Treball';
+    protected $baseRoutePattern = 'web/treball';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
-        '_sort_order' => 'asc',
+        '_sort_by' => 'date',
+        '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -55,14 +53,6 @@ class VehicleAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'vehicleRegistrationNumber',
-                null,
-                array(
-                    'label' => 'Matrícula',
-                    'required' => true,
-                )
-            )
-            ->add(
                 'shortDescription',
                 null,
                 array(
@@ -78,8 +68,6 @@ class VehicleAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-            ->with('Recursos', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'mainImageFile',
                 FileType::class,
@@ -89,39 +77,24 @@ class VehicleAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->add(
-                'attatchmentPDFFile',
-                FileType::class,
-                array(
-                    'label' => 'Document',
-                    'help' => $this->getDownloadPdfButton(),
-                    'required' => false,
-                )
-            )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(3))
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'category',
-                null,
+                'date',
+                DatePickerType::class,
                 array(
-                    'label' => 'Category',
+                    'label' => 'Data',
+                    'format' => 'd/M/y',
                     'required' => true,
-                    'query_builder' => $this->rm->getVehicleCategoryRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
-                'link',
+                'service',
                 null,
                 array(
-                    'label' => 'Pàgina web fabricant',
+                    'label' => 'Servei',
                     'required' => false,
-                )
-            )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'Posició',
+                    'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -134,6 +107,28 @@ class VehicleAdmin extends AbstractBaseAdmin
             )
             ->end()
         ;
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('Imatges', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'images',
+                    CollectionType::class,
+                    array(
+                        'label' => 'Imatges',
+                        'required' => true,
+                        'cascade_validation' => true,
+                        'error_bubbling' => true,
+                        'by_reference' => false,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position',
+                    )
+                )
+                ->end()
+            ;
+        }
     }
 
     /**
@@ -143,10 +138,18 @@ class VehicleAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'vehicleRegistrationNumber',
+                'date',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'Data',
+                    'field_type' => DatePickerType::class,
+                )
+            )
+            ->add(
+                'service',
                 null,
                 array(
-                    'label' => 'Matrícula',
+                    'label' => 'Servei',
                 )
             )
             ->add(
@@ -154,13 +157,6 @@ class VehicleAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nom',
-                )
-            )
-            ->add(
-                'category',
-                null,
-                array(
-                    'label' => 'Categoria',
                 )
             )
             ->add(
@@ -178,38 +174,13 @@ class VehicleAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'link',
-                null,
-                array(
-                    'label' => 'Pàgina web fabricant',
-                )
-            )
-            ->add(
                 'enabled',
                 null,
                 array(
                     'label' => 'Actiu',
                 )
-            );
-    }
-
-    /**
-     * @param string $context
-     *
-     * @return QueryBuilder
-     */
-    public function createQuery($context = 'list')
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = parent::createQuery($context);
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
-
-        return $queryBuilder;
+            )
+        ;
     }
 
     /**
@@ -228,10 +199,11 @@ class VehicleAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'vehicleRegistrationNumber',
-                null,
+                'date',
+                'date',
                 array(
-                    'label' => 'Matrícula',
+                    'label' => 'Data',
+                    'format' => 'd/m/Y',
                     'editable' => true,
                 )
             )
@@ -244,24 +216,23 @@ class VehicleAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'category',
+                'shortDescription',
                 null,
                 array(
-                    'label' => 'Categoria',
+                    'label' => 'Descripció breu',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'service',
+                null,
+                array(
+                    'label' => 'Servei',
                     'editable' => false,
                     'associated_property' => 'name',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'category')),
-                )
-            )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'Posició',
-                    'editable' => true,
-                )
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'service')),                )
             )
             ->add(
                 'enabled',
@@ -281,14 +252,7 @@ class VehicleAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'Accions',
                 )
-            );
-    }
-
-    /**
-     * @param Vehicle $object
-     */
-    public function prePersist($object)
-    {
-        $object->setEnterprise($this->getUserLogedEnterprise());
+            )
+        ;
     }
 }

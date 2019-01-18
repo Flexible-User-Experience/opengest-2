@@ -1,26 +1,27 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Vehicle;
 
-use Sonata\AdminBundle\Datagrid\ListMapper;
+use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class VehicleCategoryAdmin.
+ * Class VehicleCheckingTypeAdmin
  *
  * @category Admin
  *
- * @author Wils Iglesias <wiglesias83@gmail.com>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class VehicleCategoryAdmin extends AbstractBaseAdmin
+class VehicleCheckingTypeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Categoria Vehicles';
-    protected $baseRoutePattern = 'web/categoria-vehicle';
+    protected $classnameLabel = 'Tipus revisió';
+    protected $baseRoutePattern = 'vehicles/tipus-revisio';
     protected $datagridValues = array(
-        '_sort_by' => 'position',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -52,13 +53,6 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'Posició',
-                )
-            )
-            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -66,7 +60,8 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -82,27 +77,14 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label' => 'Posició',
-//                )
-//            )
-//            ->add(
-//                'vehicles',
-//                null,
-//                array(
-//                    'label' => 'Vehicles',
-//                )
-//            )
             ->add(
                 'enabled',
                 null,
                 array(
                     'label' => 'Actiu',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -121,22 +103,6 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'Posició',
-                    'editable' => true,
-                )
-            )
-//            ->add(
-//                'vehicles',
-//                null,
-//                array(
-//                    'label' => 'Vehicles',
-//                    'editable' => true,
-//                )
-//            )
-            ->add(
                 'enabled',
                 null,
                 array(
@@ -151,10 +117,10 @@ class VehicleCategoryAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-//                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Web;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 class ContactMessageAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Missatge de contacte';
-    protected $baseRoutePattern = 'contactes/missatge-contacte';
+    protected $baseRoutePattern = 'web/missatge-contacte';
     protected $datagridValues = array(
         '_sort_by' => 'createdAt',
         '_sort_order' => 'desc',

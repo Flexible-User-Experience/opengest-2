@@ -3,60 +3,57 @@ services:
 
 # Web group
     app.admin.service:
-        class: AppBundle\Admin\ServiceAdmin
+        class: AppBundle\Admin\Web\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.work:
-        class: AppBundle\Admin\WorkAdmin
+        class: AppBundle\Admin\Web\WorkAdmin
         arguments: [ ~ , AppBundle\Entity\Work, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Treball", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.work_image:
-        class: AppBundle\Admin\WorkImageAdmin
+        class: AppBundle\Admin\Web\WorkImageAdmin
         arguments: [ ~ , AppBundle\Entity\WorkImage, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Imatge Treball", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    app.admin.vehicle_category:
-        class: AppBundle\Admin\VehicleCategoryAdmin
-        arguments: [ ~ , AppBundle\Entity\VehicleCategory, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Categoria Vehicle", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.complement:
-        class: AppBundle\Admin\ComplementAdmin
+        class: AppBundle\Admin\Web\ComplementAdmin
         arguments: [ ~ , AppBundle\Entity\Complement, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Accesori", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.contact_message:
+        class: AppBundle\Admin\Web\ContactMessageAdmin
+        arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle\Controller\Admin\ContactMessageAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Vehicles group
     app.admin.vehicle:
-        class: AppBundle\Admin\VehicleAdmin
+        class: AppBundle\Admin\Vehicle\VehicleAdmin
         arguments: [ ~ , AppBundle\Entity\Vehicle, AppBundle\Controller\Admin\VehicleAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Vehicle", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.vehicle_category:
+        class: AppBundle\Admin\Vehicle\VehicleCategoryAdmin
+        arguments: [ ~ , AppBundle\Entity\VehicleCategory, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Categoria Vehicle", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.vehicle_checking_type:
-        class: AppBundle\Admin\VehicleCheckingTypeAdmin
+        class: AppBundle\Admin\Vehicle\VehicleCheckingTypeAdmin
         arguments: [ ~, AppBundle\Entity\VehicleCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.vehicle_checking:
-        class: AppBundle\Admin\VehicleCheckingAdmin
+        class: AppBundle\Admin\Vehicle\VehicleCheckingAdmin
         arguments: [ ~, AppBundle\Entity\VehicleChecking, AppBundle\Controller\Admin\VehicleCheckingAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Revisió", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.vehicle.digital_tachograph:
-        class: AppBundle\Admin\VehicleDigitalTachographAdmin
+        class: AppBundle\Admin\Vehicle\VehicleDigitalTachographAdmin
         arguments: [ ~, AppBundle\Entity\VehicleDigitalTachograph, AppBundle\Controller\Admin\VehicleDigitalTachographAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Vehicles", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-
-
-# Contact group
-    app.admin.contact_message:
-        class: AppBundle\Admin\ContactMessageAdmin
-        arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle\Controller\Admin\ContactMessageAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Contactes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Admin group
     app.admin.province:
