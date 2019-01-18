@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category Entity
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleCheckingTypeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Vehicle\VehicleCheckingTypeRepository")
  * @ORM\Table(name="vehicle_checking_type")
  */
 class VehicleCheckingType extends AbstractBase

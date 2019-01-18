@@ -25,10 +25,10 @@ use AppBundle\Repository\SaleRequestRepository;
 use AppBundle\Repository\SaleTariffRepository;
 use AppBundle\Repository\Web\ServiceRepository;
 use AppBundle\Repository\UserRepository;
-use AppBundle\Repository\VehicleCategoryRepository;
-use AppBundle\Repository\VehicleCheckingRepository;
-use AppBundle\Repository\VehicleCheckingTypeRepository;
-use AppBundle\Repository\VehicleRepository;
+use AppBundle\Repository\Vehicle\VehicleCategoryRepository;
+use AppBundle\Repository\Vehicle\VehicleCheckingRepository;
+use AppBundle\Repository\Vehicle\VehicleCheckingTypeRepository;
+use AppBundle\Repository\Vehicle\VehicleRepository;
 
 /**
  * Class RepositoriesManager.

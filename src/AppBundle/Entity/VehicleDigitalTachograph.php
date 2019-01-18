@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleDigitalTachographRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Vehicle\VehicleDigitalTachographRepository")
  * @ORM\Table(name="vehicle_digital_tachograph")
  * @Vich\Uploadable()
  */

@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleCategoryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Vehicle\VehicleCategoryRepository")
  * @ORM\Table(name="vehicle_category")
  * @UniqueEntity({"name"})
  */

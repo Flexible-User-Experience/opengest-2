@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Vehicle;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -10,6 +10,7 @@ use Doctrine\ORM\Query;
  * Class VehicleCheckingTypeRepository
  *
  * @catetory Repository
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class VehicleCheckingTypeRepository extends EntityRepository

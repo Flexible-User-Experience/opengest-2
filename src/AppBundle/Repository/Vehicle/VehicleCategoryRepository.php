@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Vehicle;
 
 use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
@@ -54,7 +54,7 @@ class VehicleCategoryRepository extends EntityRepository
             ->join('v.enterprise', 'e')
             ->andWhere('e.taxIdentificationNumber = :tin')
             ->setParameter('tin', Enterprise::GRUAS_ROMANI_TIN)
-            ;
+        ;
     }
 
     /**

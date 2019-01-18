@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @category Entity
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\VehicleCheckingRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Vehicle\VehicleCheckingRepository")
  * @ORM\Table(name="vehicle_checking")
  */
 class VehicleChecking extends AbstractBase
