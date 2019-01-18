@@ -34,8 +34,6 @@ class OperatorCheckingBlock extends AbstractBlockService
      */
 
     /**
-     * OperatorCheckingBlock constructor.
-     *
      * @param null|string                $name
      * @param EngineInterface            $templating
      * @param OperatorCheckingRepository $ocr
@@ -90,8 +88,6 @@ class OperatorCheckingBlock extends AbstractBlockService
     }
 
     /**
-     * Get name.
-     *
      * @return string
      */
     public function getName()

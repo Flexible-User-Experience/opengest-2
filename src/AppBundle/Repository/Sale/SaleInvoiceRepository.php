@@ -14,6 +14,8 @@ use Doctrine\ORM\QueryBuilder;
  * Class SaleInvoiceRepository.
  *
  * @category    Repository
+ *
+ * @author Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleInvoiceRepository extends EntityRepository
 {

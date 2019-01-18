@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerContactRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Partner\PartnerContactRepository")
  * @ORM\Table(name="partner_contact")
  */
 class PartnerContact extends AbstractBase

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Partner\PartnerRepository")
  * @ORM\Table(name="partner")
  */
 class Partner extends AbstractBase

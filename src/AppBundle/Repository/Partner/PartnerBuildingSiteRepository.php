@@ -1,17 +1,19 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Partner;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class PartnerClassRepository.
+ * Class PartnerBuildingSiteRepository.
+ *
+ * @category    Repository
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class PartnerClassRepository extends EntityRepository
+class PartnerBuildingSiteRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
@@ -30,7 +32,7 @@ class PartnerClassRepository extends EntityRepository
      */
     public function getEnabledSortedByNameQ()
     {
-        return $this->getEnabledSortedByNameQB()->getQuery();
+        return  $this->getEnabledSortedByNameQB()->getQuery();
     }
 
     /**

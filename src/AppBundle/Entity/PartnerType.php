@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerTypeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Partner\PartnerTypeRepository")
  * @ORM\Table(name="partner_type")
  */
 class PartnerType extends AbstractBase

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerBuildingSiteRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Partner\PartnerBuildingSiteRepository")
  * @ORM\Table(name="partner_building_site")
  */
 class PartnerBuildingSite extends AbstractBase

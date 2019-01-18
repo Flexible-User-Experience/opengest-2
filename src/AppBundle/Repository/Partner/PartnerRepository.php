@@ -1,17 +1,20 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Partner;
 
+use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class PartnerContactRepository.
+ * Class PartnerRepository.
+ *
+ * @category    Repository
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class PartnerContactRepository extends EntityRepository
+class PartnerRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
@@ -30,7 +33,7 @@ class PartnerContactRepository extends EntityRepository
      */
     public function getEnabledSortedByNameQ()
     {
-        return  $this->getEnabledSortedByNameQB()->getQuery();
+        return $this->getEnabledSortedByNameQB()->getQuery();
     }
 
     /**
@@ -42,35 +45,35 @@ class PartnerContactRepository extends EntityRepository
     }
 
     /**
-     * @param int $partnerId
+     * @param Enterprise $enterprise
      *
      * @return QueryBuilder
      */
-    public function getFilteredByPartnerSortedByNameQB(int $partnerId)
+    public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
     {
         return $this->getEnabledSortedByNameQB()
-            ->andWhere('p.partner = :partner')
-            ->setParameter('partner', $partnerId)
+            ->andWhere('p.enterprise = :enterprise')
+            ->setParameter('enterprise', $enterprise)
         ;
     }
 
     /**
-     * @param int $partnerId
+     * @param Enterprise $enterprise
      *
      * @return Query
      */
-    public function getFilteredByPartnerSortedByNameQ(int $partnerId)
+    public function getFilteredByEnterpriseEnabledSortedByNameQ(Enterprise $enterprise)
     {
-        return $this->getFilteredByPartnerSortedByNameQB($partnerId)->getQuery();
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQB($enterprise)->getQuery();
     }
 
     /**
-     * @param int $partnerId
+     * @param Enterprise $enterprise
      *
      * @return array
      */
-    public function getFilteredByPartnerSortedByName(int $partnerId)
+    public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterprise)
     {
-        return $this->getFilteredByPartnerSortedByNameQ($partnerId)->getResult();
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterprise)->getResult();
     }
 }

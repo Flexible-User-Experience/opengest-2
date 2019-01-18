@@ -1,17 +1,19 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Partner;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class PartnerBuildingSiteRepository.
+ * Class PartnerUnableDaysRepository.
+ *
+ * @category    Repository
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class PartnerBuildingSiteRepository extends EntityRepository
+class PartnerUnableDaysRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder

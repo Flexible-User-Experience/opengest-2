@@ -34,8 +34,6 @@ class OperatorAbsenceBlock extends AbstractBlockService
      */
 
     /**
-     * OperatorAbsenceBlock constructor.
-     *
      * @param null|string               $name
      * @param EngineInterface           $templating
      * @param OperatorAbsenceRepository $oar

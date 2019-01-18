@@ -1,43 +1,45 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Partner;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class PartnerOrderRepository.
+ * Class PartnerTypeRepository.
+ *
+ * @category    Repository
  *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class PartnerOrderRepository extends EntityRepository
+class PartnerTypeRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
      */
-    public function getEnabledSortedByNumberQB()
+    public function getEnabledSortedByNameQB()
     {
         return $this->createQueryBuilder('p')
             ->where('p.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('p.number', 'DESC')
+            ->orderBy('p.name', 'ASC')
         ;
     }
 
     /**
      * @return Query
      */
-    public function getEnabledSortedByNumberQ()
+    public function getEnabledSortedByNameQ()
     {
-        return  $this->getEnabledSortedByNumberQB()->getQuery();
+        return  $this->getEnabledSortedByNameQB()->getQuery();
     }
 
     /**
      * @return array
      */
-    public function getEnabledSortedByNumber()
+    public function getEnabledSortedByName()
     {
-        return $this->getEnabledSortedByNumberQ()->getResult();
+        return $this->getEnabledSortedByNameQ()->getResult();
     }
 }

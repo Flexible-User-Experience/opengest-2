@@ -13,6 +13,8 @@ use Doctrine\ORM\QueryBuilder;
  * Class SaleDeliveryNoteRepository.
  *
  * @category    Repository
+ *
+ * @author Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleDeliveryNoteRepository extends EntityRepository
 {

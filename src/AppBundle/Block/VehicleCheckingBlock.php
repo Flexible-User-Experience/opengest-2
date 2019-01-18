@@ -30,8 +30,10 @@ class VehicleCheckingBlock extends AbstractBlockService
     private $tss;
 
     /**
-     * VehicleCheckingBlock constructor.
-     *
+     * Methods.
+     */
+
+    /**
      * @param null|string               $name
      * @param EngineInterface           $templating
      * @param VehicleCheckingRepository $vcr
@@ -49,6 +51,9 @@ class VehicleCheckingBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {

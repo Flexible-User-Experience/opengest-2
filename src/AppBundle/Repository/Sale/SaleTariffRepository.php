@@ -11,6 +11,8 @@ use Doctrine\ORM\QueryBuilder;
  * Class SaleTariffRepository.
  *
  * @category    Repository
+ *
+ * @author Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleTariffRepository extends EntityRepository
 {

@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerUnableDaysRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Partner\PartnerUnableDaysRepository")
  * @ORM\Table(name="partner_unable_days")
  */
 class PartnerUnableDays extends AbstractBase

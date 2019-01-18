@@ -28,9 +28,7 @@ class ContactMessageBlock extends AbstractBlockService
      */
 
     /**
-     * Constructor.
-     *
-     * @param $name
+     * @param string          $name
      * @param EngineInterface $templating
      * @param EntityManager   $em
      */
@@ -47,6 +45,9 @@ class ContactMessageBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
@@ -81,8 +82,6 @@ class ContactMessageBlock extends AbstractBlockService
     }
 
     /**
-     * Get name.
-     *
      * @return string
      */
     public function getName()
