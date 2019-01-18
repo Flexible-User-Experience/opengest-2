@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Setting;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class     SaleInvoiceSeriesRepository.
+ * Class SaleInvoiceSeriesRepository.
  *
  * @category Repository
  */

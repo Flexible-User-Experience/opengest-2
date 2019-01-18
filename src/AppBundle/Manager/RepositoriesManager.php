@@ -3,7 +3,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Repository\ActivityLineRepository;
-use AppBundle\Repository\CityRepository;
+use AppBundle\Repository\Setting\CityRepository;
 use AppBundle\Repository\CollectionDocumentTypeRepository;
 use AppBundle\Repository\EnterpriseGroupBountyRepository;
 use AppBundle\Repository\EnterpriseRepository;
@@ -20,11 +20,11 @@ use AppBundle\Repository\PartnerOrderRepository;
 use AppBundle\Repository\PartnerRepository;
 use AppBundle\Repository\PartnerTypeRepository;
 use AppBundle\Repository\SaleDeliveryNoteRepository;
-use AppBundle\Repository\SaleInvoiceSeriesRepository;
+use AppBundle\Repository\Setting\SaleInvoiceSeriesRepository;
 use AppBundle\Repository\SaleRequestRepository;
 use AppBundle\Repository\SaleTariffRepository;
 use AppBundle\Repository\Web\ServiceRepository;
-use AppBundle\Repository\UserRepository;
+use AppBundle\Repository\Setting\UserRepository;
 use AppBundle\Repository\Vehicle\VehicleCategoryRepository;
 use AppBundle\Repository\Vehicle\VehicleCheckingRepository;
 use AppBundle\Repository\Vehicle\VehicleCheckingTypeRepository;

@@ -17,7 +17,7 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Setting\UserRepository")
  * @ORM\Table(name="admin_user")
  * @Vich\Uploadable()
  */

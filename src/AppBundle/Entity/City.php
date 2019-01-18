@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CityRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Setting\CityRepository")
  * @ORM\Table(name="city")
  * @UniqueEntity({"postalCode", "province"})
  */
