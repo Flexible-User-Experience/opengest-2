@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category Entity
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorCheckingTypeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Operator\OperatorCheckingTypeRepository")
  * @ORM\Table(name="operator_checking_type")
  */
 class OperatorCheckingType extends AbstractBase

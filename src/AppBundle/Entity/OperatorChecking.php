@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorCheckingRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Operator\OperatorCheckingRepository")
  * @ORM\Table(name="operator_cheking")
  */
 class OperatorChecking extends AbstractBase

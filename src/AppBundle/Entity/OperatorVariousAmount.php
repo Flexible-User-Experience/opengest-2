@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorVariousAmountRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Operator\OperatorVariousAmountRepository")
  * @ORM\Table(name="operator_various_amount")
  */
 class OperatorVariousAmount extends AbstractBase

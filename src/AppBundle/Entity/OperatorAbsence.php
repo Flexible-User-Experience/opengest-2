@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorAbsenceRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Operator\OperatorAbsenceRepository")
  * @ORM\Table(name="operator_absence")
  */
 class OperatorAbsence extends AbstractBase

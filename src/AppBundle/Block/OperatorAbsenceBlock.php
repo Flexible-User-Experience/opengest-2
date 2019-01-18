@@ -2,7 +2,7 @@
 
 namespace AppBundle\Block;
 
-use AppBundle\Repository\OperatorAbsenceRepository;
+use AppBundle\Repository\Operator\OperatorAbsenceRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -51,6 +51,9 @@ class OperatorAbsenceBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {

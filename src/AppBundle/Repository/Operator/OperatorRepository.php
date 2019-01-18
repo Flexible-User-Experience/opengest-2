@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Operator;
 
 use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
@@ -9,6 +9,8 @@ use Doctrine\ORM\Query;
 
 /**
  * Class OperatorRepository.
+ *
+ * @category Repository
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  */

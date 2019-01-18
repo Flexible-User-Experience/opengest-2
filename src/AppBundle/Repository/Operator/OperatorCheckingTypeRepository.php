@@ -1,29 +1,29 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Operator;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
 
 /**
- * Class OperatorAbsenceTypeRepository.
+ * Class OperatorCheckingTypeRepository.
  *
  * @category Repository
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author   Wils Iglesias
  */
-class OperatorAbsenceTypeRepository extends EntityRepository
+class OperatorCheckingTypeRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
      */
     public function getEnabledSortedByNameQB()
     {
-        return $this->createQueryBuilder('oat')
-            ->where('oat.enabled = :enabled')
+        return $this->createQueryBuilder('oct')
+            ->where('oct.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('oat.name', 'ASC')
+            ->orderBy('oct.name', 'ASC')
         ;
     }
 

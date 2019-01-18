@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Operator;
 
 use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
@@ -18,6 +18,7 @@ class OperatorCheckingRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
+     * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidByEnabledOperatorQB()
     {
@@ -35,6 +36,7 @@ class OperatorCheckingRepository extends EntityRepository
 
     /**
      * @return Query
+     * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidByEnabledOperatorQ()
     {
@@ -43,6 +45,7 @@ class OperatorCheckingRepository extends EntityRepository
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidByEnabledOperator()
     {
@@ -53,6 +56,7 @@ class OperatorCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
+     * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQB(Enterprise $enterprise)
     {
@@ -78,6 +82,7 @@ class OperatorCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return Query
+     * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQ(Enterprise $enterprise)
     {
@@ -88,6 +93,9 @@ class OperatorCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmount(Enterprise $enterprise)
     {
@@ -96,6 +104,7 @@ class OperatorCheckingRepository extends EntityRepository
 
     /**
      * @return QueryBuilder
+     * @throws \Exception
      */
     public function getItemsInvalidByEnabledOperatorQB()
     {
@@ -112,6 +121,7 @@ class OperatorCheckingRepository extends EntityRepository
 
     /**
      * @return Query
+     * @throws \Exception
      */
     public function getItemsInvalidByEnabledOperatorQ()
     {
@@ -120,6 +130,7 @@ class OperatorCheckingRepository extends EntityRepository
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function getItemsInvalidByEnabledOperator()
     {
@@ -130,6 +141,7 @@ class OperatorCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
+     * @throws \Exception
      */
     public function getItemsInvalidSinceTodayByEnterpriseAmountQB(Enterprise $enterprise)
     {
@@ -151,6 +163,7 @@ class OperatorCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return Query
+     * @throws \Exception
      */
     public function getItemsInvalidSinceTodayByEnterpriseAmountQ(Enterprise $enterprise)
     {
@@ -161,6 +174,9 @@ class OperatorCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Exception
      */
     public function getItemsInvalidSinceTodayByEnterpriseAmount(Enterprise $enterprise)
     {

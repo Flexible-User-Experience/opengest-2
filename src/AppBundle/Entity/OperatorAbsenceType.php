@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OperatorAbsenceTypeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Operator\OperatorAbsenceTypeRepository")
  * @ORM\Table(name="operator_absence_type")
  */
 class OperatorAbsenceType extends AbstractBase
