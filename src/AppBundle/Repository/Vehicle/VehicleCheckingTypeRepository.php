@@ -7,7 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
 
 /**
- * Class VehicleCheckingTypeRepository
+ * Class VehicleCheckingTypeRepository.
  *
  * @catetory Repository
  *

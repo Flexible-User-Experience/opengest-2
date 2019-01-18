@@ -42,7 +42,7 @@ class ImportVehicleCsvCommand extends AbstractBaseCommand
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
-        while (($row = $this->readRow($fr)) !== false) {
+        while (false !== ($row = $this->readRow($fr))) {
             $vehicle = $this->em->getRepository('AppBundle:Vehicle')->findOneBy(['name' => $this->readColumn(9, $row)]);
             // new vehicle
             if (!$vehicle) {

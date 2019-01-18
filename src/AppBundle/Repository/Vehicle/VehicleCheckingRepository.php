@@ -8,15 +8,17 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
 
 /**
- * Class VehicleCheckingRepository
+ * Class VehicleCheckingRepository.
  *
  * @category Repository
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class VehicleCheckingRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getItemsInvalidByEnabledVehicleQB()
@@ -34,6 +36,7 @@ class VehicleCheckingRepository extends EntityRepository
 
     /**
      * @return Query
+     *
      * @throws \Exception
      */
     public function getItemsInvalidByEnabledVehicleQ()
@@ -43,6 +46,7 @@ class VehicleCheckingRepository extends EntityRepository
 
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getItemsInvalidByEnabledVehicle()
@@ -52,6 +56,7 @@ class VehicleCheckingRepository extends EntityRepository
 
     /**
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidByEnabledVehicleQB()
@@ -70,6 +75,7 @@ class VehicleCheckingRepository extends EntityRepository
 
     /**
      * @return Query
+     *
      * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidByEnabledVehicleQ()
@@ -79,6 +85,7 @@ class VehicleCheckingRepository extends EntityRepository
 
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidByEnabledVehicle()
@@ -90,6 +97,7 @@ class VehicleCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getItemsInvalidSinceTodayByEnterpriseAmountQB(Enterprise $enterprise)
@@ -112,6 +120,7 @@ class VehicleCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return Query
+     *
      * @throws \Exception
      */
     public function getItemsInvalidSinceTodayByEnterpriseAmountQ(Enterprise $enterprise)
@@ -123,6 +132,7 @@ class VehicleCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Exception
@@ -136,6 +146,7 @@ class VehicleCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQB(Enterprise $enterprise)
@@ -162,6 +173,7 @@ class VehicleCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return Query
+     *
      * @throws \Exception
      */
     public function getItemsBeforeToBeInvalidSinceTodayByEnterpriseAmountQ(Enterprise $enterprise)
@@ -173,6 +185,7 @@ class VehicleCheckingRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Exception

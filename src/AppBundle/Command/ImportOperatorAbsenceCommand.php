@@ -47,7 +47,7 @@ class ImportOperatorAbsenceCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
-        while (($row = $this->readRow($fr)) != false) {
+        while (false != ($row = $this->readRow($fr))) {
             $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
             $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
             $type = $this->em->getRepository('AppBundle:OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(5, $row)]);
@@ -74,7 +74,7 @@ class ImportOperatorAbsenceCommand extends AbstractBaseCommand
                     ->setType($type)
                 ;
                 $this->em->persist($operatorAbsence);
-                if ($rowsRead % self::CSV_BATCH_WINDOW == 0) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
                     $this->em->flush();
                 }
             } else {

@@ -63,7 +63,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
             throw new \Exception('Column index '.$index.' doesn\'t exists');
         }
 
-        return $row[$index] != '\\N' ? $row[$index] : null;
+        return '\\N' != $row[$index] ? $row[$index] : null;
     }
 
     /**

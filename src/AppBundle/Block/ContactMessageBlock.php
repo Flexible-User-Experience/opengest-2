@@ -60,7 +60,7 @@ class ContactMessageBlock extends AbstractBlockService
 
         if ($pendingMessagesAmount > 0) {
             $backgroundColor = 'bg-red';
-            if ($pendingMessagesAmount == 1) {
+            if (1 == $pendingMessagesAmount) {
                 $content = '<h3>'.$pendingMessagesAmount.'</h3><p>Missatge de contacte pendent de contestar</p>';
             } else {
                 $content = '<h3>'.$pendingMessagesAmount.'</h3><p>Missatges de contacte pendents de contestar</p>';

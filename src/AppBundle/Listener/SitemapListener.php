@@ -46,7 +46,7 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $section = $event->getSection();
-        if (is_null($section) || $section == 'default') {
+        if (is_null($section) || 'default' == $section) {
             $sitemap = $this->menuBuilder->createSitemapMenu();
             /** @var MenuItem $item */
             foreach ($sitemap->getIterator() as $item) {
@@ -102,7 +102,7 @@ class SitemapListener implements SitemapListenerInterface
     {
         return new UrlConcrete(
             $url,
-            $date === null ? new \DateTime() : $date,
+            null === $date ? new \DateTime() : $date,
             UrlConcrete::CHANGEFREQ_WEEKLY,
             $priority
         );

@@ -24,7 +24,7 @@ class ServicesController extends Controller
     public function servicesAction()
     {
         $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPositionAndName();
-        if (count($services) == 0) {
+        if (0 == count($services)) {
             throw new EntityNotFoundException();
         }
         /** @var Service $service */
@@ -66,7 +66,7 @@ class ServicesController extends Controller
             $messenger->sendCommonUserNotification($contactMessage);
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form in production eviorament
-            if ($this->get('kernel')->getEnvironment() == 'prod') {
+            if ('prod' == $this->get('kernel')->getEnvironment()) {
                 $contactMessage = new ContactMessage();
                 $form = $this->createForm(ContactMessageForm::class, $contactMessage);
             }

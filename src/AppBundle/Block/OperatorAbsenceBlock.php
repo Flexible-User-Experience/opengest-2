@@ -68,10 +68,10 @@ class OperatorAbsenceBlock extends AbstractBlockService
         if ($operatorsBeforeAbsent > 0 && $operatorsAbsentAmount > 0) {
             $backgroundColor = 'bg-red';
             $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>Operaris avui no estan disponibles</p><p>'.$operatorsBeforeAbsent.' operaris demà no estaran disponibles</p>';
-        } elseif ($operatorsAbsentAmount > 0 && $operatorsBeforeAbsent == 0) {
+        } elseif ($operatorsAbsentAmount > 0 && 0 == $operatorsBeforeAbsent) {
             $backgroundColor = 'bg-red';
             $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>Operaris avui no estan disponibles</p>';
-        } elseif ($operatorsAbsentAmount == 0 && $operatorsBeforeAbsent > 0) {
+        } elseif (0 == $operatorsAbsentAmount && $operatorsBeforeAbsent > 0) {
             $backgroundColor = 'bg-yellow';
             $content = '<h3>'.$operatorsBeforeAbsent.'</h3><p>Operaris demà no estaran disponibles</p>';
         }

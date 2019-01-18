@@ -45,7 +45,7 @@ class ContactMessageAdminController extends BaseAdminController
         $this->admin->checkAccess('show', $object);
 
         $preResponse = $this->preShow($request, $object);
-        if ($preResponse !== null) {
+        if (null !== $preResponse) {
             return $preResponse;
         }
 

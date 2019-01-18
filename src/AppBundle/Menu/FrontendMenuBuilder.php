@@ -118,7 +118,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Servicios',
                 'route' => 'front_services',
-                'current' => $route == 'front_services' || $route == 'front_service_detail',
+                'current' => 'front_services' == $route || 'front_service_detail' == $route,
             )
         );
         $menu->addChild(
@@ -126,7 +126,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Vehículos',
                 'route' => 'front_vehicles',
-                'current' => $route == 'front_vehicles' || $route == 'front_vehicle_detail' || $route == 'front_vehicles_category',
+                'current' => 'front_vehicles' == $route || 'front_vehicle_detail' == $route || 'front_vehicles_category' == $route,
             )
         );
         $menu->addChild(
@@ -134,7 +134,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Trabajos',
                 'route' => 'front_works',
-                'current' => $route == 'front_works' || $route == 'front_work_detail',
+                'current' => 'front_works' == $route || 'front_work_detail' == $route,
             )
         );
         $menu->addChild(
@@ -142,7 +142,7 @@ class FrontendMenuBuilder
             array(
                 'label' => 'Accesorios',
                 'route' => 'front_complement',
-                'current' => $route == 'front_complement' || $route == 'front_complement_detail',
+                'current' => 'front_complement' == $route || 'front_complement_detail' == $route,
             )
         );
         $menu->addChild(

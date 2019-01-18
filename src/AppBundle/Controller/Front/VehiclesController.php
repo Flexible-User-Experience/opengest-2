@@ -25,7 +25,7 @@ class VehiclesController extends AbstractBaseController
     public function vehiclesAction()
     {
         $categories = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findEnabledSortedByNameForWeb();
-        if (count($categories) == 0) {
+        if (0 == count($categories)) {
             throw new EntityNotFoundException();
         }
         /** @var VehicleCategory $categoria */
@@ -54,7 +54,7 @@ class VehiclesController extends AbstractBaseController
             throw new EntityNotFoundException();
         }
 
-        if ($vehicle->getEnterprise()->getTaxIdentificationNumber() != Enterprise::GRUAS_ROMANI_TIN) {
+        if (Enterprise::GRUAS_ROMANI_TIN != $vehicle->getEnterprise()->getTaxIdentificationNumber()) {
             throw new EntityNotFoundException();
         }
 

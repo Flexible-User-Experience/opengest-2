@@ -99,6 +99,7 @@ class Service extends AbstractBase
      * @param File|null $mainImageFile
      *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setMainImageFile(File $mainImageFile = null)

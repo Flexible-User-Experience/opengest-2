@@ -9,9 +9,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class LinkVehicleEnterpriseCommand
+ * Class LinkVehicleEnterpriseCommand.
  *
  * @category Command
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class LinkVehicleEnterpriseCommand extends AbstractBaseCommand

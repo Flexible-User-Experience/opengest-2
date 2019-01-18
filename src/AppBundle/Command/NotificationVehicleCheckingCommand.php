@@ -8,9 +8,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 /**
- * Class NotificationVehicleCheckingCommand
+ * Class NotificationVehicleCheckingCommand.
  *
  * @category Command
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class NotificationVehicleCheckingCommand extends AbstractBaseCommand

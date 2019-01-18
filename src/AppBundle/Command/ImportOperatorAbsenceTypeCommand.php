@@ -46,7 +46,7 @@ class ImportOperatorAbsenceTypeCommand extends AbstractBaseCommand
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
-        while (($row = $this->readRow($fr)) !== false) {
+        while (false !== ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row));
 
             $operatorAbsenceType = $this->em->getRepository('AppBundle:OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(1, $row)]);

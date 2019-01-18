@@ -329,7 +329,7 @@ class BackendControllerTest extends AbstractBaseTest
         );
     }
 
-    /**
+    /*
      * Test HTTP request is redirection.
      *
      * dataProvider provideRedirectionUrls
@@ -345,7 +345,7 @@ class BackendControllerTest extends AbstractBaseTest
     }
     */
 
-    /**
+    /*
      * Not found Urls provider.
      *
      * @return array

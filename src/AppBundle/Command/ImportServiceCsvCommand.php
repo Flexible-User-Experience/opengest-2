@@ -42,7 +42,7 @@ class ImportServiceCsvCommand extends AbstractBaseCommand
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
-        while (($row = $this->readRow($fr)) !== false) {
+        while (false !== ($row = $this->readRow($fr))) {
             $service = $this->em->getRepository('AppBundle:Service')->findOneBy(['slug' => $this->readColumn(26, $row)]);
             // new service
             if (!$service) {

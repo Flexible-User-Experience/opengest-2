@@ -49,7 +49,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
-        while (($row = $this->readRow($fr)) != false) {
+        while (false != ($row = $this->readRow($fr))) {
             $birthDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(16, $row));
             $registrationDate = \DateTime::createFromFormat('Y-m-d', $this->readColumn(17, $row));
 

@@ -40,7 +40,7 @@ class ReadCsvTestCommand extends AbstractBaseCommand
         // Print CSV rows
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
-        while (($data = $this->readRow($fr)) !== false) {
+        while (false !== ($data = $this->readRow($fr))) {
             echo implode(self::CSV_DELIMITER, $data).PHP_EOL;
             ++$rowsRead;
         }

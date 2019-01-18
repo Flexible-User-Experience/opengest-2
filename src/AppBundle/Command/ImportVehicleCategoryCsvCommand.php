@@ -42,7 +42,7 @@ class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
-        while (($row = $this->readRow($fr)) !== false) {
+        while (false !== ($row = $this->readRow($fr))) {
             $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(4, $row)]);
             // new vehicle category
             if (!$vehicleCategory) {

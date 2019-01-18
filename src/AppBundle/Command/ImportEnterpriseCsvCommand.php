@@ -48,7 +48,7 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
-        while (($row = $this->readRow($fr)) != false) {
+        while (false != ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(8, $row).' · '.$this->readColumn(2, $row));
 
             $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(5, $row)]);

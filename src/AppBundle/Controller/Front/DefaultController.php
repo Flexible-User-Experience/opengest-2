@@ -56,7 +56,7 @@ class DefaultController extends Controller
             $messenger->sendCommonUserNotification($contactMessage);
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form in production envioronment
-            if ($this->get('kernel')->getEnvironment() == 'prod') {
+            if ('prod' == $this->get('kernel')->getEnvironment()) {
                 $contactMessage = new ContactMessage();
                 $form = $this->createForm(ContactMessageForm::class, $contactMessage);
             }
@@ -100,7 +100,7 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        if ($this->get('kernel')->getEnvironment() == 'prod') {
+        if ('prod' == $this->get('kernel')->getEnvironment()) {
             throw new HttpException(403);
         }
 
