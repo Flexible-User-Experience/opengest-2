@@ -180,19 +180,21 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/valoracio-peticio-albara/create'),
             array('/admin/vendes/valoracio-peticio-albara/1/edit'),
             array('/admin/vendes/valoracio-peticio-albara/1/delete'),
-            // Administration
-            array('/admin/administracio/provincia/list'),
-            array('/admin/administracio/provincia/create'),
-            array('/admin/administracio/provincia/1/edit'),
-            array('/admin/administracio/ciutat/list'),
-            array('/admin/administracio/ciutat/create'),
-            array('/admin/administracio/ciutat/1/edit'),
-            array('/admin/administracio/usuari/list'),
-            array('/admin/administracio/usuari/create'),
-            array('/admin/administracio/usuari/1/edit'),
-            array('/admin/administracio/usuari/1/delete'),
-            array('/admin/administracio/series-factura/1/edit'),
-            array('/admin/administracio/series-factura/1/delete'),
+            // Setting
+            array('/admin/configuracio/provincia/list'),
+            array('/admin/configuracio/provincia/create'),
+            array('/admin/configuracio/provincia/1/edit'),
+            array('/admin/configuracio/ciutat/list'),
+            array('/admin/configuracio/ciutat/create'),
+            array('/admin/configuracio/ciutat/1/edit'),
+            array('/admin/configuracio/usuari/list'),
+            array('/admin/configuracio/usuari/create'),
+            array('/admin/configuracio/usuari/1/edit'),
+            array('/admin/configuracio/usuari/1/delete'),
+            array('/admin/configuracio/series-factura/list'),
+            array('/admin/configuracio/series-factura/create'),
+            array('/admin/configuracio/series-factura/1/edit'),
+            array('/admin/configuracio/series-factura/1/delete'),
         );
     }
 
@@ -313,17 +315,17 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/factura/batch'),
             array('/admin/vendes/valoracio-peticio-albara/1/show'),
             array('/admin/vendes/valoracio-peticio-albara/batch'),
-            // Administrator
-            array('/admin/administracio/provincia/1/show'),
-            array('/admin/administracio/provincia/batch'),
-            array('/admin/administracio/provincia/1/delete'),
-            array('/admin/administracio/ciutat/1/show'),
-            array('/admin/administracio/ciutat/batch'),
-            array('/admin/administracio/ciutat/1/delete'),
-            array('/admin/administracio/usuari/1/show'),
-            array('/admin/administracio/usuari/batch'),
-            array('/admin/administracio/series-factura/1/show'),
-            array('/admin/administracio/series-factura/batch'),
+            // Setting
+            array('/admin/configuracio/provincia/1/show'),
+            array('/admin/configuracio/provincia/batch'),
+            array('/admin/configuracio/provincia/1/delete'),
+            array('/admin/configuracio/ciutat/1/show'),
+            array('/admin/configuracio/ciutat/batch'),
+            array('/admin/configuracio/ciutat/1/delete'),
+            array('/admin/configuracio/usuari/1/show'),
+            array('/admin/configuracio/usuari/batch'),
+            array('/admin/configuracio/series-factura/1/show'),
+            array('/admin/configuracio/series-factura/batch'),
         );
     }
 

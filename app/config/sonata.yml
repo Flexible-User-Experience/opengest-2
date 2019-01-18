@@ -41,13 +41,10 @@ sonata_admin:
     templates:
         layout: "::Admin/layout.html.twig"
         edit:   "::Admin/edit.html.twig"
-#        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
             Web:
                 icon: "<i class='fa fa-chrome'></i>"
-#            Contactes:
-#                icon: "<i class='fa fa-envelope'></i>"
             Operaris:
                 icon: "<i class='fa fa-users'></i>"
             Vehicles:
@@ -58,10 +55,9 @@ sonata_admin:
                 icon: "<i class='fa fa-building'></i>"
             Vendes:
                 icon: "<i class='fa fa-eur'></i>"
-            Administracio:
-                label: "Administració"
+            Configuracio:
+                label: "Configuració"
                 icon: "<i class='fa fa-briefcase'></i>"
-
         blocks:
             -
                 position: top
@@ -109,7 +105,7 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Vendes, Administracio ]
+                    groups: [ Vendes, Configuracio ]
             -
                 position: bottom
                 type: sonata.block.service.text

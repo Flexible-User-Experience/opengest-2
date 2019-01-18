@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Setting;
 
 use AppBundle\Enum\UserRolesEnum;
 use Sonata\UserBundle\Admin\Model\UserAdmin as ParentUserAdmin;
@@ -25,15 +25,13 @@ class UserAdmin extends ParentUserAdmin
     protected $userManager;
 
     protected $classnameLabel = 'Usuari';
-    protected $baseRoutePattern = 'administracio/usuari';
+    protected $baseRoutePattern = 'configuracio/usuari';
     protected $datagridValues = array(
         '_sort_by' => 'username',
         '_sort_order' => 'asc',
     );
 
     /**
-     * UserAdmin constructor.
-     *
      * @param string $code
      * @param string $class
      * @param string $baseControllerName
@@ -46,8 +44,6 @@ class UserAdmin extends ParentUserAdmin
     }
 
     /**
-     * Available routes.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -61,8 +57,6 @@ class UserAdmin extends ParentUserAdmin
     }
 
     /**
-     * Remove batch action list view first column.
-     *
      * @return array
      */
     public function getBatchActions()
@@ -83,7 +77,8 @@ class UserAdmin extends ParentUserAdmin
             ->with('General', array(
                 'class' => 'col-md-6',
                 'box_class' => 'box box-success',
-            ))
+                )
+            )
             ->add(
                 'firstname',
                 null,
@@ -126,7 +121,8 @@ class UserAdmin extends ParentUserAdmin
             ->with('Controls', array(
                 'class' => 'col-md-6',
                 'box_class' => 'box box-success',
-            ))
+                )
+            )
             ->add(
                 'enabled',
                 'checkbox',
@@ -153,7 +149,8 @@ class UserAdmin extends ParentUserAdmin
                     'expanded' => true,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -176,24 +173,14 @@ class UserAdmin extends ParentUserAdmin
                     'label' => 'Correu electrònic',
                 )
             )
-//            ->add(
-//                'roles',
-//                'doctrine_orm_choice',
-//                array(
-//                    'label' => 'Rols',
-//                    'field_type' => 'choice',
-//                    'field_options' => array(
-//                        'choices' => UserRolesEnum::getEnumArray(),
-//                    ),
-//                )
-//            )
             ->add(
                 'enabled',
                 null,
                 array(
                     'label' => 'Actiu',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -253,6 +240,7 @@ class UserAdmin extends ParentUserAdmin
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                 )
-            );
+            )
+        ;
     }
 }

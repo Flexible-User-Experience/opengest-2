@@ -1,27 +1,40 @@
 <?php
 
-namespace AppBundle\Admin\Sale;
+namespace AppBundle\Admin\Setting;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class SaleInvoiceSeriesAdmin.
+ * Class CityAdmin.
  *
- * @category    Admin
+ * @category Admin
  *
- * @auhtor      Rubèn Hierro <info@rubenhierro.com>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
+class CityAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Sèries factura';
-    protected $baseRoutePattern = 'administracio/series-factura';
+    protected $classnameLabel = 'Ciutat';
+    protected $baseRoutePattern = 'configuracio/ciutat';
     protected $datagridValues = array(
         '_sort_by' => 'name',
-        '_sort_order' => 'ASC',
+        '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection.
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -29,28 +42,36 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'postalCode',
+                null,
+                array(
+                    'label' => 'Codi postal',
+                )
+            )
             ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
+                )
+            )
+            ->add(
+                'province',
+                null,
+                array(
+                    'label' => 'Província',
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'prefix',
-                null,
+                'enabled',
+                CheckboxType::class,
                 array(
-                    'label' => 'Prefix',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'isDefault',
-                null,
-                array(
-                    'label' => 'Sèrie per defecte',
+                    'label' => 'Actiu',
                     'required' => false,
                 )
             )
@@ -65,6 +86,13 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'postalCode',
+                null,
+                array(
+                    'label' => 'Codi postal',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -72,17 +100,17 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'prefix',
+                'province',
                 null,
                 array(
-                    'label' => 'Prefix',
+                    'label' => 'Província',
                 )
             )
             ->add(
-                'isDefault',
+                'enabled',
                 null,
                 array(
-                    'label' => 'Sèrie per defecte',
+                    'label' => 'Actiu',
                 )
             )
         ;
@@ -96,6 +124,14 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'postalCode',
+                null,
+                array(
+                    'label' => 'Codi Postal',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -104,18 +140,22 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'prefix',
+                'province',
                 null,
                 array(
-                    'label' => 'Prefix',
+                    'label' => 'Província',
                     'editable' => true,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'province')),
                 )
             )
             ->add(
-                'isDefault',
+                'enabled',
                 null,
                 array(
-                    'label' => 'Sèrie per defecte',
+                    'label' => 'Actiu',
                     'editable' => true,
                 )
             )
@@ -126,7 +166,6 @@ class SaleInvoiceSeriesAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )

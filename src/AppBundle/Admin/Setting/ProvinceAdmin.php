@@ -1,24 +1,26 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Setting;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class CityAdmin.
+ * Class ProvinceAdmin.
  *
  * @category Admin
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class CityAdmin extends AbstractBaseAdmin
+class ProvinceAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Ciutat';
-    protected $baseRoutePattern = 'administracio/ciutat';
+    protected $classnameLabel = 'Província';
+    protected $baseRoutePattern = 'configuracio/provincia';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
@@ -43,10 +45,10 @@ class CityAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'postalCode',
+                'code',
                 null,
                 array(
-                    'label' => 'Codi postal',
+                    'label' => 'Codi',
                 )
             )
             ->add(
@@ -57,11 +59,11 @@ class CityAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'province',
-                null,
+                'country',
+                CountryType::class,
                 array(
-                    'label' => 'Província',
-                    'required' => true,
+                    'label' => 'Pais',
+                    'preferred_choices' => array('ES'),
                 )
             )
             ->end()
@@ -85,10 +87,10 @@ class CityAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'postalCode',
+                'code',
                 null,
                 array(
-                    'label' => 'Codi postal',
+                    'label' => 'Codi',
                 )
             )
             ->add(
@@ -96,13 +98,6 @@ class CityAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nom',
-                )
-            )
-            ->add(
-                'province',
-                null,
-                array(
-                    'label' => 'Província',
                 )
             )
             ->add(
@@ -123,10 +118,10 @@ class CityAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'postalCode',
+                'code',
                 null,
                 array(
-                    'label' => 'Codi Postal',
+                    'label' => 'Codi',
                     'editable' => true,
                 )
             )
@@ -139,15 +134,11 @@ class CityAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'province',
+                'country',
                 null,
                 array(
-                    'label' => 'Província',
-                    'editable' => true,
-                    'associated_property' => 'name',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'province')),
+                    'label' => 'Pais',
+                    'editable' => false,
                 )
             )
             ->add(
@@ -165,7 +156,6 @@ class CityAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-//                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
