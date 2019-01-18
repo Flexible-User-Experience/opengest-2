@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category
  **
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseHolidaysRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Enterprise\EnterpriseHolidaysRepository")
  * @ORM\Table(name="enterprise_holidays")
  */
 class EnterpriseHolidays extends AbstractBase

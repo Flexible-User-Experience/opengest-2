@@ -1,18 +1,20 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Enterprise;
 
 use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
- * Class EnterpriseTransferAccountRepository.
+ * Class EnterpriseGroupBountyRepository.
  *
+ * @category Repository
+ * 
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseTransferAccountRepository extends EntityRepository
+class EnterpriseGroupBountyRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
@@ -22,14 +24,14 @@ class EnterpriseTransferAccountRepository extends EntityRepository
         return $this->createQueryBuilder('e')
             ->where('e.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('e.name', 'ASC')
+            ->orderBy('e.group', 'ASC')
         ;
     }
 
     /**
      * @return Query
      */
-    public function getEnabledSortedByNameQ()
+    public function getEnabledSortedByNameB()
     {
         return $this->getEnabledSortedByNameQB()->getQuery();
     }
@@ -39,7 +41,7 @@ class EnterpriseTransferAccountRepository extends EntityRepository
      */
     public function getEnabledSortedByName()
     {
-        return $this->getEnabledSortedByNameQ()->getResult();
+        return $this->getEnabledSortedByNameB()->getResult();
     }
 
     /**
@@ -60,7 +62,7 @@ class EnterpriseTransferAccountRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getFilteredByEnteerpriseEnabledSortedByNameQ(Enterprise $enterprise)
+    public function getFilteredByEnterpriseEnabledSortedByNameQ(Enterprise $enterprise)
     {
         return $this->getFilteredByEnterpriseEnabledSortedByNameQB($enterprise)->getQuery();
     }
@@ -72,6 +74,6 @@ class EnterpriseTransferAccountRepository extends EntityRepository
      */
     public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterprise)
     {
-        return $this->getFilteredByEnteerpriseEnabledSortedByNameQ($enterprise)->getResult();
+        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterprise)->getResult();
     }
 }

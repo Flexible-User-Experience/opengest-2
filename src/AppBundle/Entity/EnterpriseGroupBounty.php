@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseGroupBountyRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Enterprise\EnterpriseGroupBountyRepository")
  * @ORM\Table(name="enterprise_group_bounty")
  */
 class EnterpriseGroupBounty extends AbstractBase

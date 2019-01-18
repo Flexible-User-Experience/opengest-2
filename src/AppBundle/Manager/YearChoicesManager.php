@@ -13,6 +13,8 @@ class YearChoicesManager
 
     /**
      * @return array
+     *
+     * @throws \Exception
      */
     public function getYearRange()
     {
@@ -27,6 +29,8 @@ class YearChoicesManager
 
     /**
      * @return int
+     *
+     * @throws \Exception
      */
     public function getCurrentYear()
     {
@@ -38,6 +42,8 @@ class YearChoicesManager
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function getTodayString()
     {

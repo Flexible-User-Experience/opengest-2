@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CollectionDocumentTypeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Enterprise\CollectionDocumentTypeRepository")
  * @ORM\Table(name="collection_document_type")
  */
 class CollectionDocumentType extends AbstractBase

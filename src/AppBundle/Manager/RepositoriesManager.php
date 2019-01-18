@@ -2,13 +2,13 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Repository\ActivityLineRepository;
+use AppBundle\Repository\Enterprise\ActivityLineRepository;
 use AppBundle\Repository\Setting\CityRepository;
-use AppBundle\Repository\CollectionDocumentTypeRepository;
-use AppBundle\Repository\EnterpriseGroupBountyRepository;
-use AppBundle\Repository\EnterpriseRepository;
-use AppBundle\Repository\EnterpriseTransferAccountRepository;
-use AppBundle\Repository\EnterpriseHolidaysRepository;
+use AppBundle\Repository\Enterprise\CollectionDocumentTypeRepository;
+use AppBundle\Repository\Enterprise\EnterpriseGroupBountyRepository;
+use AppBundle\Repository\Enterprise\EnterpriseRepository;
+use AppBundle\Repository\Enterprise\EnterpriseTransferAccountRepository;
+use AppBundle\Repository\Enterprise\EnterpriseHolidaysRepository;
 use AppBundle\Repository\Operator\OperatorAbsenceRepository;
 use AppBundle\Repository\Operator\OperatorAbsenceTypeRepository;
 use AppBundle\Repository\Operator\OperatorCheckingRepository;

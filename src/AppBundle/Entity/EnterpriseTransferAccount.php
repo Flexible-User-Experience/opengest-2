@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author   Rubèn Hierro <info@rubenhierro.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseTransferAccountRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Enterprise\EnterpriseTransferAccountRepository")
  * @ORM\Table(name="enterprise_transfer_account")
  */
 class EnterpriseTransferAccount extends AbstractBase

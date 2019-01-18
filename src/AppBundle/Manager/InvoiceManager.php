@@ -4,7 +4,7 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\SaleInvoiceSeries;
-use AppBundle\Repository\SaleInvoiceRepository;
+use AppBundle\Repository\Sale\SaleInvoiceRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
 /**

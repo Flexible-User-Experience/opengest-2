@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Enterprise;
 
 use AppBundle\Entity\Enterprise;
 use Doctrine\ORM\EntityRepository;
@@ -8,21 +8,23 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class CollectionDocumentTypeRepository.
+ * Class ActivityLineRepository.
  *
  * @category    Repository
+ *
+ * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class CollectionDocumentTypeRepository extends EntityRepository
+class ActivityLineRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
      */
     public function getEnabledSortedByNameQB()
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.enabled = :enabled')
+        return $this->createQueryBuilder('a')
+            ->where('a.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('c.name', 'ASC')
+            ->orderBy('a.name', 'ASC')
         ;
     }
 
@@ -50,9 +52,9 @@ class CollectionDocumentTypeRepository extends EntityRepository
     public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
     {
         return $this->getEnabledSortedByNameQB()
-            ->andWhere('c.enterprise = :enterprise')
+            ->andWhere('a.enterprise = :enterprise')
             ->setParameter('enterprise', $enterprise)
-            ;
+        ;
     }
 
     /**

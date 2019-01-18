@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author      Wils Iglesias <wiglesias83@gmail.com>
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Enterprise\EnterpriseRepository")
  * @ORM\Table(name="enterprise")
  * @Vich\Uploadable()
  * @UniqueEntity({"taxIdentificationNumber"})

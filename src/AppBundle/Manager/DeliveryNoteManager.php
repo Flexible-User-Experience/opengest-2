@@ -3,7 +3,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Enterprise;
-use AppBundle\Repository\SaleDeliveryNoteRepository;
+use AppBundle\Repository\Sale\SaleDeliveryNoteRepository;
 
 /**
  * Class DeliveryNoteManager.
