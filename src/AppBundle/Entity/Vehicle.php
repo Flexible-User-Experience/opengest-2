@@ -230,6 +230,8 @@ class Vehicle extends AbstractBase
      * @param File|null $attatchmentPDFFile
      *
      * @return Vehicle
+     *
+     * @throws \Exception
      */
     public function setAttatchmentPDFFile(File $attatchmentPDFFile = null)
     {
@@ -275,6 +277,8 @@ class Vehicle extends AbstractBase
      * @param File|null $mainImageFile
      *
      * @return Vehicle
+     *
+     * @throws \Exception
      */
     public function setMainImageFile(File $mainImageFile = null)
     {

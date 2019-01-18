@@ -7,9 +7,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Class VehicleChecking
+ * Class VehicleChecking.
  *
  * @category Entity
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Vehicle\VehicleCheckingRepository")
@@ -59,11 +60,13 @@ class VehicleChecking extends AbstractBase
 
     /**
      * @param Vehicle $vehicle
+     *
      * @return VehicleChecking
      */
     public function setVehicle($vehicle)
     {
         $this->vehicle = $vehicle;
+
         return $this;
     }
 
@@ -77,11 +80,13 @@ class VehicleChecking extends AbstractBase
 
     /**
      * @param VehicleCheckingType $type
+     *
      * @return VehicleChecking
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -137,7 +142,6 @@ class VehicleChecking extends AbstractBase
                 ->buildViolation('La data ha de ser més gran que la data d\'expedició')
                 ->atPath('end')
                 ->addViolation();
-            ;
         }
     }
 

@@ -13,7 +13,7 @@ use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Class VehicleCheckingAdmin
+ * Class VehicleCheckingAdmin.
  *
  * @category Admin
  *

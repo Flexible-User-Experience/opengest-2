@@ -213,6 +213,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string $uploaderMapping
      *
      * @return string
+     *
      * @throws \Twig\Error\Error
      */
     protected function getSmartHelper($attribute, $uploaderMapping)

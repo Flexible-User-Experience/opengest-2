@@ -2,7 +2,7 @@
 
 namespace AppBundle\Block;
 
-use AppBundle\Repository\VehicleCheckingRepository;
+use AppBundle\Repository\Vehicle\VehicleCheckingRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -11,9 +11,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
- * Class VehicleCheckingBlock
+ * Class VehicleCheckingBlock.
  *
  * @category Block
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class VehicleCheckingBlock extends AbstractBlockService
@@ -31,10 +32,10 @@ class VehicleCheckingBlock extends AbstractBlockService
     /**
      * VehicleCheckingBlock constructor.
      *
-     * @param null|string $name
-     * @param EngineInterface $templating
+     * @param null|string               $name
+     * @param EngineInterface           $templating
      * @param VehicleCheckingRepository $vcr
-     * @param TokenStorage $tss
+     * @param TokenStorage              $tss
      */
     public function __construct($name, EngineInterface $templating, VehicleCheckingRepository $vcr, TokenStorage $tss)
     {
@@ -45,7 +46,7 @@ class VehicleCheckingBlock extends AbstractBlockService
 
     /**
      * @param BlockContextInterface $blockContext
-     * @param Response|null $response
+     * @param Response|null         $response
      *
      * @return Response
      */
@@ -102,5 +103,4 @@ class VehicleCheckingBlock extends AbstractBlockService
             'template' => ':Admin/Block:vehicle_checking.html.twig',
         ]);
     }
-
 }

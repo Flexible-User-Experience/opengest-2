@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class VehicleCheckingTypeAdmin
+ * Class VehicleCheckingTypeAdmin.
  *
  * @category Admin
  *
