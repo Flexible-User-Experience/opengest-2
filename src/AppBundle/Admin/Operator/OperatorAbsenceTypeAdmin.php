@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Operator;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -10,16 +11,16 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class OperatorCheckingTypeAdmin.
+ * Class OperatorAbsenceTypeAdmin.
  *
  * @category Admin
  *
  * @author Wils Iglesias <wiglesias83@gmail.com>
  */
-class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
+class OperatorAbsenceTypeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tipus revisió';
-    protected $baseRoutePattern = 'operaris/tipus-revisio';
+    protected $classnameLabel = 'Tipus absència';
+    protected $baseRoutePattern = 'operaris/tipus-absencia';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
@@ -126,6 +127,7 @@ class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+//                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )

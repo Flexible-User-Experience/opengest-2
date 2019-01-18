@@ -19,7 +19,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class VehicleCategoryAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Categoria Vehicles';
-    protected $baseRoutePattern = 'web/categoria-vehicle';
+    protected $baseRoutePattern = 'vehicles/categoria-vehicle';
     protected $datagridValues = array(
         '_sort_by' => 'position',
         '_sort_order' => 'asc',

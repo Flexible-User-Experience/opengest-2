@@ -1,39 +1,46 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Operator;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
- * Class OperatorAbsenceAdmin.
+ * Class OperatorDigitalTachographAdmin.
  *
  * @category Admin
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author Rubèn Hierro <info@rubenhierro.com>
  */
-class OperatorAbsenceAdmin extends AbstractBaseAdmin
+class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Absències';
-    protected $baseRoutePattern = 'operaris/absencia';
+    protected $classnameLabel = 'Tacògrafs';
+    protected $baseRoutePattern = 'operaris/tacograf';
     protected $datagridValues = array(
-        '_sort_by' => 'begin',
+        '_sort_by' => 'createdAt',
         '_sort_order' => 'desc',
     );
 
     /**
+     * Configure route collection.
+     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->remove('delete')
+            ->add('download', $this->getRouterIdParameter().'/download')
+        ;
     }
 
     /**
@@ -42,7 +49,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('Arxiu', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'operator',
                 EntityType::class,
@@ -55,33 +62,15 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                null,
+                'uploadedFile',
+                FileType::class,
                 array(
-                    'label' => 'Tipus absència',
+                    'label' => 'Arxiu tacògraf',
+                    'help' => $this->getDownloadDigitalTachographButton(),
                     'required' => true,
-                    'query_builder' => $this->rm->getOperatorAbsenceTypeRepository()->getEnabledSortedByNameQB(),
+                    'disabled' => $this->id($this->getSubject()) ? true : false,
                 )
             )
-            ->add(
-                'begin',
-                DatePickerType::class,
-                array(
-                    'label' => 'Data inici',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'end',
-                DatePickerType::class,
-                array(
-                    'label' => 'Data fi',
-                    'format' => 'd/M/y',
-                    'required' => true,
-                )
-            )
-            ->end()
         ;
     }
 
@@ -99,25 +88,10 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'Tipus absència',
-                )
-            )
-            ->add(
-                'begin',
+                'createdAt',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Data inici',
-                    'field_type' => DatePickerType::class,
-                )
-            )
-            ->add(
-                'end',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'Data fi',
+                    'label' => 'Data creació',
                     'field_type' => DatePickerType::class,
                 )
             )
@@ -133,15 +107,11 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
-            ->andWhere('op.enabled = :enabled')
-            ->setParameter('enabled', true)
-        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
+                ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
                 ->andWhere('op.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
+                ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ;
         }
 
@@ -156,29 +126,20 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'status',
+                'createdAt',
+                'date',
+                array(
+                    'label' => 'Data',
+                    'format' => 'd/m/Y',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'profilePhotoImage',
                 null,
                 array(
-                    'label' => 'Estat',
-                    'template' => '::Admin/Cells/list__cell_operator_absence_status.html.twig',
-                )
-            )
-            ->add(
-                'begin',
-                'date',
-                array(
-                    'label' => 'Data inici',
-                    'format' => 'd/m/Y',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'end',
-                'date',
-                array(
-                    'label' => 'Data fi',
-                    'format' => 'd/m/Y',
-                    'editable' => true,
+                    'label' => 'Imatge',
+                    'template' => '::Admin/Cells/list__cell_tachograph_operator_profile_image_field.html.twig',
                 )
             )
             ->add(
@@ -194,28 +155,17 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'Tipus absència',
-                    'editable' => true,
-                    'associated_property' => 'name',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'type')),
-                )
-            )
-            ->add(
                 '_action',
                 'actions',
                 array(
                     'actions' => array(
-                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'download' => array('template' => '::Admin/Buttons/list__action_download_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
             )
+
         ;
     }
 }

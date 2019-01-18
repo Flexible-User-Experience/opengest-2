@@ -28,6 +28,43 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
+    # Operators group
+    app.admin.operator:
+        class: AppBundle\Admin\Operator\OperatorAdmin
+        arguments: [ ~, AppBundle\Entity\Operator, AppBundle\Controller\Admin\OperatorAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator_checking_type:
+        class: AppBundle\Admin\Operator\OperatorCheckingTypeAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator_checking:
+        class: AppBundle\Admin\Operator\OperatorCheckingAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorChecking, AppBundle\Controller\Admin\OperatorCheckingAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Revisió", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator_absence_type:
+        class: AppBundle\Admin\Operator\OperatorAbsenceTypeAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorAbsenceType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator_absence:
+        class: AppBundle\Admin\Operator\OperatorAbsenceAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorAbsence, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator.digital_tachograph:
+        class: AppBundle\Admin\Operator\OperatorDigitalTachographAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorDigitalTachograph, AppBundle\Controller\Admin\OperatorDigitalTachographAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.operator.various_amount:
+        class: AppBundle\Admin\Operator\OperatorVariousAmountAdmin
+        arguments: [ ~, AppBundle\Entity\OperatorVariousAmount, AppBundle\Controller\Admin\OperatorVariousAmountAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Imports varis", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+
 # Vehicles group
     app.admin.vehicle:
         class: AppBundle\Admin\Vehicle\VehicleAdmin
@@ -76,43 +113,6 @@ services:
         arguments: [ ~, AppBundle\Entity\SaleInvoiceSeries, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Sèries factura", group: "Administracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-
-# Operators group
-    app.admin.operator:
-        class: AppBundle\Admin\OperatorAdmin
-        arguments: [ ~, AppBundle\Entity\Operator, AppBundle\Controller\Admin\OperatorAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.operator_checking_type:
-        class: AppBundle\Admin\OperatorCheckingTypeAdmin
-        arguments: [ ~, AppBundle\Entity\OperatorCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus revisió", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.operator_checking:
-        class: AppBundle\Admin\OperatorCheckingAdmin
-        arguments: [ ~, AppBundle\Entity\OperatorChecking, AppBundle\Controller\Admin\OperatorCheckingAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Revisió", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.operator_absence_type:
-        class: AppBundle\Admin\OperatorAbsenceTypeAdmin
-        arguments: [ ~, AppBundle\Entity\OperatorAbsenceType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.operator_absence:
-        class: AppBundle\Admin\OperatorAbsenceAdmin
-        arguments: [ ~, AppBundle\Entity\OperatorAbsence, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.operator.digital_tachograph:
-        class: AppBundle\Admin\OperatorDigitalTachographAdmin
-        arguments: [ ~, AppBundle\Entity\OperatorDigitalTachograph, AppBundle\Controller\Admin\OperatorDigitalTachographAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tacògraf", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    app.admin.operator.various_amount:
-        class: AppBundle\Admin\OperatorVariousAmountAdmin
-        arguments: [ ~, AppBundle\Entity\OperatorVariousAmount, AppBundle\Controller\Admin\OperatorVariousAmountAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker"]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Imports varis", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 
 # Partner group
     app.admin.partner:

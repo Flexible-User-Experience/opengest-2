@@ -1,41 +1,51 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Operator;
 
-use AppBundle\Entity\Operator;
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Class OperatorVariousAmountAdmin.
+ * Class OperatorCheckingAdmin.
  *
  * @category Admin
  *
- * @author Rubèn Hierro <info@rubenhierro.com>
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class OperatorVariousAmountAdmin extends AbstractBaseAdmin
+class OperatorCheckingAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Imports varis';
-    protected $baseRoutePattern = 'operaris/imports-varis';
+    protected $classnameLabel = 'Revisions';
+    protected $baseRoutePattern = 'operaris/revisio';
     protected $datagridValues = array(
-        '_sort_by' => 'date',
-        '_sort_order' => 'desc',
+        '_sort_by' => 'end',
+        '_sort_order' => 'asc',
     );
 
     /**
-     * @param FormMapper $formMapper
+     * Configure route collection.
      *
-     * @throws \Exception
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
+
+    /**
+     * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'operator',
                 EntityType::class,
@@ -48,39 +58,33 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'date',
+                'type',
+                null,
+                array(
+                    'label' => 'Tipus revisió',
+                    'required' => true,
+                    'query_builder' => $this->rm->getOperatorCheckingTypeRepository()->getEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'begin',
                 DatePickerType::class,
                 array(
-                    'label' => 'Data',
-                    'required' => true,
+                    'label' => 'Data d\'expedició',
                     'format' => 'd/M/y',
-                    'dp_default_date' => (new \DateTime())->format('d/m/Y'),
+                    'required' => true,
                 )
             )
             ->add(
-                'units',
-                null,
+                'end',
+                DatePickerType::class,
                 array(
-                    'label' => 'Unitats',
-                    'required' => false,
+                    'label' => 'Data de caducitat',
+                    'format' => 'd/M/y',
+                    'required' => true,
                 )
             )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'priceUnit',
-                null,
-                array(
-                    'label' => 'Preu unitat',
-                    'required' => false,
-                )
-            )
+            ->end()
         ;
     }
 
@@ -89,56 +93,35 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $datagridMapper
-                ->add(
-                    'operator.enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $datagridMapper
             ->add(
                 'operator',
                 null,
-                array(),
-                EntityType::class,
                 array(
-                    'class' => Operator::class,
                     'label' => 'Operador',
-                    'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
-                'date',
+                'type',
+                null,
+                array(
+                    'label' => 'Tipus revisó',
+                )
+            )
+            ->add(
+                'begin',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Data',
+                    'label' => 'Data d\'expedició',
                     'field_type' => DatePickerType::class,
                 )
             )
             ->add(
-                'units',
-                null,
+                'end',
+                'doctrine_orm_date',
                 array(
-                    'label' => 'Unitats',
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
-                )
-            )
-            ->add(
-                'priceUnit',
-                null,
-                array(
-                    'label' => 'Preu unitat',
+                    'label' => 'Data caducitat',
+                    'field_type' => DatePickerType::class,
                 )
             )
         ;
@@ -153,11 +136,15 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enabled = :enabled')
+            ->setParameter('enabled', true)
+        ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
             $queryBuilder
-                ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
                 ->andWhere('op.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
+                ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
             ;
         }
 
@@ -170,25 +157,31 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $listMapper
-                ->add(
-                    'operator.enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $listMapper
             ->add(
-                'date',
+                'status',
+                null,
+                array(
+                    'label' => 'Estat',
+                    'template' => '::Admin/Cells/list__cell_operator_checking_status.html.twig',
+                )
+            )
+            ->add(
+                'begin',
                 'date',
                 array(
-                    'label' => 'Data',
+                    'label' => 'Data d\'expedició',
                     'format' => 'd/m/Y',
-                    'editable' => false,
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'end',
+                'date',
+                array(
+                    'label' => 'Data caducitat',
+                    'format' => 'd/m/Y',
+                    'editable' => true,
                 )
             )
             ->add(
@@ -204,24 +197,15 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'units',
+                'type',
                 null,
                 array(
-                    'label' => 'Unitats',
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
-                )
-            )
-            ->add(
-                'priceUnit',
-                null,
-                array(
-                    'label' => 'Preu unitat',
+                    'label' => 'Tipus revisió',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'type')),
                 )
             )
             ->add(
@@ -229,8 +213,8 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 'actions',
                 array(
                     'actions' => array(
+                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
