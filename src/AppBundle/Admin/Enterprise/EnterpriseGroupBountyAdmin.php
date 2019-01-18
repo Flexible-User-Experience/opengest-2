@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Enterprise;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\EnterpriseGroupBounty;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -13,6 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  * Class EnterpriseGroupBountyAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
@@ -30,18 +32,17 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('Grup', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'group',
-                null,
-                array(
-                    'label' => 'Grup',
-                    'required' => true,
+            ->with('Grup', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'group',
+                    null,
+                    array(
+                        'label' => 'Grup',
+                        'required' => true,
+                    )
                 )
-            )
-        ->end()
-        ->with('Hores', $this->getFormMdSuccessBoxArray(4))
+            ->end()
+            ->with('Hores', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'normalHour',
                 null,
@@ -107,7 +108,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-        ->with('Dietes i trucades', $this->getFormMdSuccessBoxArray(4))
+            ->with('Dietes i trucades', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'lunch',
                 null,
@@ -180,7 +181,7 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-        ->end()
+            ->end()
         ;
     }
 
@@ -248,7 +249,6 @@ class EnterpriseGroupBountyAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-
             ->add(
                 '_action',
                 'actions',

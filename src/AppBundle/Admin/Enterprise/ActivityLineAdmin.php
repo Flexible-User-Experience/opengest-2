@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Enterprise;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\ActivityLine;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -31,17 +32,16 @@ class ActivityLineAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('Línia d\'activitat', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Línia d\'activitat',
-                    'required' => true,
+            ->with('Línia d\'activitat', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'name',
+                    null,
+                    array(
+                        'label' => 'Línia d\'activitat',
+                        'required' => true,
+                    )
                 )
-            )
-        ->end()
+            ->end()
         ;
     }
 
@@ -80,8 +80,6 @@ class ActivityLineAdmin extends AbstractBaseAdmin
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
             ->orderBy('e.name', 'ASC')
-        ;
-        $queryBuilder
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {

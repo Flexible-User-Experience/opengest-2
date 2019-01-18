@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Enterprise;
 
+use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\EnterpriseHolidays;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
@@ -14,6 +15,7 @@ use Sonata\Form\Type\DatePickerType;
  * Class EnterpriseHolidaysAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
@@ -32,23 +34,23 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('Dies festius', $this->getFormMdSuccessBoxArray(4))
-                ->add(
-                    'day',
-                    DatePickerType::class,
-                    array(
-                        'label' => 'Dia festiu',
-                        'format' => 'd/M/y',
-                        'required' => true,
-                    )
+            ->add(
+                'day',
+                DatePickerType::class,
+                array(
+                    'label' => 'Dia festiu',
+                    'format' => 'd/M/y',
+                    'required' => true,
                 )
-                ->add(
-                    'name',
-                    null,
-                    array(
-                        'label' => 'Nom festivitat',
-                        'required' => false,
-                    )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom festivitat',
+                    'required' => false,
                 )
+            )
             ->end()
         ;
     }
@@ -96,8 +98,6 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
             ->orderBy('e.name', 'ASC')
-        ;
-        $queryBuilder
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.day', 'DESC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {

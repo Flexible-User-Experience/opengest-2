@@ -1,8 +1,9 @@
 <?php
 
-namespace AppBundle\Admin;
+namespace AppBundle\Admin\Enterprise;
 
-use AppBundle\Entity\EnterpriseTransferAccount;
+use AppBundle\Admin\AbstractBaseAdmin;
+use AppBundle\Entity\CollectionDocumentType;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -10,18 +11,19 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class EnterpriseTransferAccountAdmin.
+ * Class CollectionDocumentTypeAdmin.
  *
  * @category    Admin
+ *
  * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
-class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
+class CollectionDocumentTypeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Compte Bancari';
-    protected $baseRoutePattern = 'empreses/compte-bancari';
+    protected $classnameLabel = 'Tipus document cobrament';
+    protected $baseRoutePattern = 'empreses/tipus-document-cobrament';
     protected $datagridValues = array(
         '_sort_by' => 'name',
-        '_sort_order' => 'asc',
+        '_sort_order' => 'ASC',
     );
 
     /**
@@ -30,8 +32,7 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-
-        ->with('Nom', $this->getFormMdSuccessBoxArray(6))
+            ->with('Tipus document cobrament', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -40,57 +41,23 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-        ->end()
-        ->with('Compte Bancari', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'iban',
+                'description',
                 null,
                 array(
-                    'label' => 'IBAN',
+                    'label' => 'Descripció',
                     'required' => false,
                 )
             )
             ->add(
-                'swift',
+                'sitReference',
                 null,
                 array(
-                    'label' => 'SWIFT',
+                    'label' => 'Referència SIT',
                     'required' => false,
                 )
             )
-            ->add(
-                'bankCode',
-                null,
-                array(
-                    'label' => 'Codi Entitat',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'officeNumber',
-                null,
-                array(
-                    'label' => 'Codi Oficina',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'controlDigit',
-                null,
-                array(
-                    'label' => 'Digit de control',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'accountNumber',
-                null,
-                array(
-                    'label' => 'Número de compte',
-                    'required' => false,
-                )
-            )
-        ->end()
+            ->end()
         ;
     }
 
@@ -111,7 +78,21 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Línia d\'activitat',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                )
+            )
+            ->add(
+                'sitReference',
+                null,
+                array(
+                    'label' => 'Referència SIT',
                 )
             )
         ;
@@ -129,8 +110,6 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
             ->orderBy('e.name', 'ASC')
-        ;
-        $queryBuilder
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
         if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
@@ -165,7 +144,22 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'sitReference',
+                null,
+                array(
+                    'label' => 'Referència SIT',
+                    'editable' => true,
+                )
+            )
             ->add(
                 '_action',
                 'actions',
@@ -182,7 +176,7 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param EnterpriseTransferAccount $object
+     * @param CollectionDocumentType $object
      */
     public function prePersist($object)
     {
