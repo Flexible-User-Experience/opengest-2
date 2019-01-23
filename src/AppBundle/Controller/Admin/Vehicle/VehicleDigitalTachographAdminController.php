@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Vehicle;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\VehicleDigitalTachograph;
+use AppBundle\Entity\Vehicle\VehicleDigitalTachograph;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;

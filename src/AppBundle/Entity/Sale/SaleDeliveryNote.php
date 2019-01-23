@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Sale;
 use AppBundle\Entity\AbstractBase;
 use AppBundle\Entity\Enterprise\ActivityLine;
 use AppBundle\Entity\Enterprise\CollectionDocumentType;
+use AppBundle\Entity\Enterprise\Enterprise;
 use AppBundle\Entity\Partner\Partner;
 use AppBundle\Entity\Partner\PartnerBuildingSite;
 use AppBundle\Entity\Partner\PartnerOrder;
@@ -32,7 +33,7 @@ class SaleDeliveryNote extends AbstractBase
     private $date;
 
     /**
-     * @var string
+     * @var Enterprise
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
      */
@@ -165,7 +166,7 @@ class SaleDeliveryNote extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return Enterprise
      */
     public function getEnterprise()
     {

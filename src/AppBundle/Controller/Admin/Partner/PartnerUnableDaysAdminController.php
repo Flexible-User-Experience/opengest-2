@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Partner;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\PartnerUnableDays;
+use AppBundle\Entity\Partner\PartnerUnableDays;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

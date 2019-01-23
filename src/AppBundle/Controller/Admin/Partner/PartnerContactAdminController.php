@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Partner;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\PartnerContact;
+use AppBundle\Entity\Partner\PartnerContact;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

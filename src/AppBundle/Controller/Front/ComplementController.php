@@ -19,7 +19,7 @@ class ComplementController extends Controller
      */
     public function complementAction()
     {
-        $complements = $this->getDoctrine()->getRepository('AppBundle:Complement')->findEnabledSortedByName();
+        $complements = $this->getDoctrine()->getRepository('AppBundle:Web\Complement')->findEnabledSortedByName();
 
         return $this->render(':Frontend:complements.html.twig', [
             'complements' => $complements,
@@ -37,7 +37,7 @@ class ComplementController extends Controller
      */
     public function complementDetailAction($slug)
     {
-        $complement = $this->getDoctrine()->getRepository('AppBundle:Complement')->findOneBy(['slug' => $slug]);
+        $complement = $this->getDoctrine()->getRepository('AppBundle:Web\Complement')->findOneBy(['slug' => $slug]);
         if (!$complement) {
             throw new EntityNotFoundException();
         }

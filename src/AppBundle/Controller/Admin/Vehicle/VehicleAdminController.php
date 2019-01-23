@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Vehicle;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Vehicle\Vehicle;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Front;
 
-use AppBundle\Entity\ContactMessage;
-use AppBundle\Entity\Service;
+use AppBundle\Entity\Web\ContactMessage;
+use AppBundle\Entity\Web\Service;
 use AppBundle\Form\ContactMessageForm;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,7 +28,7 @@ class ServicesController extends Controller
      */
     public function servicesAction()
     {
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPositionAndName();
+        $services = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findEnabledSortedByPositionAndName();
         if (0 == count($services)) {
             throw new EntityNotFoundException();
         }
@@ -80,7 +80,7 @@ class ServicesController extends Controller
             }
         }
 
-        $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => $slug]);
+        $service = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => $slug]);
         if (!$service) {
             throw new EntityNotFoundException();
         }

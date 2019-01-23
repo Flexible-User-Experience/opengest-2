@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Operator;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\OperatorDigitalTachograph;
+use AppBundle\Entity\Operator\OperatorDigitalTachograph;
 use AppBundle\Service\GuardService;
 
 /**

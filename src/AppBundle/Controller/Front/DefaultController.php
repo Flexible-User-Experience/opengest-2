@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
-use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\Web\ContactMessage;
 use AppBundle\Form\ContactMessageForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,9 +22,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-de-celosia']);
-        $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
-        $servicePA = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'plataformas-aereas-sobre-camion']);
+        $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'gruas-de-celosia']);
+        $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
+        $servicePA = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'plataformas-aereas-sobre-camion']);
 
         return $this->render(':Frontend:homepage.html.twig', array(
             'serviceGC' => $serviceGC,

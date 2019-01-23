@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Sale;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\EnterpriseHolidays;
+use AppBundle\Entity\Enterprise\EnterpriseHolidays;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -57,9 +57,7 @@ class SaleTariffAdminController extends BaseAdminController
         }
 
         $serializer = $this->container->get('serializer');
-
         $serializedSaleTariff = $serializer->serialize($saleTariff, 'json', array('groups' => array('apiSaleTariff')));
-
         $response = new JsonResponse($serializedSaleTariff);
 
         return $response;

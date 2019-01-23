@@ -2,9 +2,9 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\ContactMessage;
-use AppBundle\Entity\OperatorChecking;
-use AppBundle\Entity\VehicleChecking;
+use AppBundle\Entity\Web\ContactMessage;
+use AppBundle\Entity\Operator\OperatorChecking;
+use AppBundle\Entity\Vehicle\VehicleChecking;
 
 /**
  * Class NotificationService.

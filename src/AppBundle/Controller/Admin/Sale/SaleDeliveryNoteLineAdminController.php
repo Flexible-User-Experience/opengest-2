@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Sale;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\SaleDeliveryNoteLine;
+use AppBundle\Entity\Sale\SaleDeliveryNoteLine;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

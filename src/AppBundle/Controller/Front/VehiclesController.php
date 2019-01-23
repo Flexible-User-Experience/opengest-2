@@ -2,9 +2,9 @@
 
 namespace AppBundle\Controller\Front;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\Vehicle;
-use AppBundle\Entity\VehicleCategory;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Vehicle\Vehicle;
+use AppBundle\Entity\Vehicle\VehicleCategory;
 use AppBundle\Enum\ConstantsEnum;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,7 +28,7 @@ class VehiclesController extends Controller
      */
     public function vehiclesAction()
     {
-        $categories = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findEnabledSortedByNameForWeb();
+        $categories = $this->getDoctrine()->getRepository('AppBundle:Vehicle\VehicleCategory')->findEnabledSortedByNameForWeb();
         if (0 == count($categories)) {
             throw new EntityNotFoundException();
         }
@@ -52,7 +52,7 @@ class VehiclesController extends Controller
     public function vehicleDetailAction($slug)
     {
         /** @var Vehicle|null $vehicle */
-        $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findOneBy(['slug' => $slug]);
+        $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle\Vehicle')->findOneBy(['slug' => $slug]);
         if (!$vehicle) {
             throw new EntityNotFoundException();
         }
@@ -77,11 +77,11 @@ class VehiclesController extends Controller
      */
     public function vehiclesCategoryAction($slug, $page = 1)
     {
-        $category = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findOneBy(['slug' => $slug]);
+        $category = $this->getDoctrine()->getRepository('AppBundle:Vehicle\VehicleCategory')->findOneBy(['slug' => $slug]);
         if (!$category) {
             throw new EntityNotFoundException();
         }
-        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
+        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle\Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($vehicles, $page, ConstantsEnum::FRONTEND_ITEMS_PER_PAGE_LIMIT);
 

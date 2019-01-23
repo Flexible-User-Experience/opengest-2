@@ -24,7 +24,7 @@ class WorkController extends Controller
      */
     public function listAction($page = 1)
     {
-        $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByDate();
+        $works = $this->getDoctrine()->getRepository('AppBundle:Web\Work')->findEnabledSortedByDate();
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($works, $page, ConstantsEnum::FRONTEND_ITEMS_PER_PAGE_LIMIT);
 
@@ -44,11 +44,11 @@ class WorkController extends Controller
      */
     public function detailAction($slug)
     {
-        $work = $this->getDoctrine()->getRepository('AppBundle:Work')->findOneBy(['slug' => $slug]);
+        $work = $this->getDoctrine()->getRepository('AppBundle:Web\Work')->findOneBy(['slug' => $slug]);
         if (!$work) {
             throw new EntityNotFoundException();
         }
-        $images = $this->getDoctrine()->getRepository('AppBundle:WorkImage')->findEnabledSortedByPosition($work);
+        $images = $this->getDoctrine()->getRepository('AppBundle:Web\WorkImage')->findEnabledSortedByPosition($work);
 
         return $this->render(':Frontend:work_detail.html.twig', [
             'work' => $work,

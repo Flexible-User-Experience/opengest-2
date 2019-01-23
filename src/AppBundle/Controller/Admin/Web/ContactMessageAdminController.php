@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Web;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\Web\ContactMessage;
 use AppBundle\Form\ContactMessageAnswerForm;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
