@@ -1,10 +1,13 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Vehicle;
 
+use AppBundle\Controller\Admin\BaseAdminController;
 use AppBundle\Entity\VehicleDigitalTachograph;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class VehicleDigitalTachographAdminController.
@@ -38,6 +41,11 @@ class VehicleDigitalTachographAdminController extends BaseAdminController
         return $downloadHandler->downloadObject($vehicleDigitalTachograph, 'uploadedFile');
     }
 
+    /**
+     * @param null $id
+     *
+     * @return RedirectResponse|Response
+     */
     public function editAction($id = null)
     {
         $request = $this->getRequest();

@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Partner;
 
-use AppBundle\Entity\PartnerContact;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\Partner;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class PartnerContactAdminController.
+ * Class PartnerOrderAdminController.
  */
-class PartnerContactAdminController extends BaseAdminController
+class PartnerOrderAdminController extends BaseAdminController
 {
     /**
      * @param null $id
@@ -22,14 +23,14 @@ class PartnerContactAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var PartnerContact $contact */
-        $contact = $this->admin->getObject($id);
-        if (!$contact) {
+        /** @var Partner $partner */
+        $order = $this->admin->getObject($id);
+        if (!$order) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnPartner($contact->getPartner())) {
+        if (!$guardService->isOwnPartner($order->getPartner())) {
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 

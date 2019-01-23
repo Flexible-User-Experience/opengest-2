@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Sale;
 
-use AppBundle\Entity\SaleInvoice;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\SaleRequest;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SaleInvoiceAdminController.
+ * Class SaleRequestAdminController.
  */
-class SaleInvoiceAdminController extends BaseAdminController
+class SaleRequestAdminController extends BaseAdminController
 {
     /**
      * @param int|null $id
@@ -22,14 +23,14 @@ class SaleInvoiceAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var SaleInvoice $saleInvoice */
-        $saleInvoice = $this->admin->getObject($id);
-        if (!$saleInvoice) {
+        /** @var SaleRequest $saleRequest */
+        $saleRequest = $this->admin->getObject($id);
+        if (!$saleRequest) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($saleInvoice->getPartner()->getEnterprise())) {
+        if (!$guardService->isOwnEnterprise($saleRequest->getEnterprise())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 

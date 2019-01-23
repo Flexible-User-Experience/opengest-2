@@ -1,15 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Operator;
 
-use AppBundle\Entity\Vehicle;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\OperatorChecking;
+use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class VehicleAdminController.
+ * Class OperatorCheckingAdminController.
  */
-class VehicleAdminController extends BaseAdminController
+class OperatorCheckingAdminController extends BaseAdminController
 {
     /**
      * @param null $id
@@ -21,14 +23,15 @@ class VehicleAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var Vehicle $vehicle */
-        $vehicle = $this->admin->getObject($id);
-        if (!$vehicle) {
+        /** @var OperatorChecking $operatorChecking */
+        $operatorChecking = $this->admin->getObject($id);
+        if (!$operatorChecking) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
+        /** @var GuardService $guardService */
         $guardService = $this->get('app.guard_service');
-        if (!$guardService->isOwnVehicle($vehicle)) {
+        if (!$guardService->isOwnOperatorCheking($operatorChecking)) {
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 

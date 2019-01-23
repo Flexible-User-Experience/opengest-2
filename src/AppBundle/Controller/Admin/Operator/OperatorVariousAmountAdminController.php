@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Operator;
 
-use AppBundle\Entity\Partner;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\OperatorVariousAmount;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class PartnerBuildingSiteAdminController.
+ * Class OperatorVariousAmountAdminController.
  */
-class PartnerBuildingSiteAdminController extends BaseAdminController
+class OperatorVariousAmountAdminController extends BaseAdminController
 {
     /**
      * @param null $id
@@ -22,14 +23,14 @@ class PartnerBuildingSiteAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var Partner $partner */
-        $order = $this->admin->getObject($id);
-        if (!$order) {
+        /** @var OperatorVariousAmount $operatorVariousAmount */
+        $operatorVariousAmount = $this->admin->getObject($id);
+        if (!$operatorVariousAmount) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnPartner($order->getPartner())) {
+        if (!$guardService->isOwnOperator($operatorVariousAmount->getOperator())) {
             throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 

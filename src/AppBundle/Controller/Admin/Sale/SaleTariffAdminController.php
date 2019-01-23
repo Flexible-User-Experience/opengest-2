@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Sale;
 
+use AppBundle\Controller\Admin\BaseAdminController;
 use AppBundle\Entity\EnterpriseHolidays;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\JsonResponse;

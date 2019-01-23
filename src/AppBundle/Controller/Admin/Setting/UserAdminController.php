@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Setting;
 
+use AppBundle\Controller\Admin\BaseAdminController;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserDefaultEnterpriseForm;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;

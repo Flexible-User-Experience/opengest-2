@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Operator;
 
+use AppBundle\Controller\Admin\BaseAdminController;
 use AppBundle\Entity\OperatorDigitalTachograph;
 use AppBundle\Service\GuardService;
 

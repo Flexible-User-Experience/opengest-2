@@ -1,19 +1,20 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Sale;
 
-use AppBundle\Entity\Partner;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\SaleDeliveryNoteLine;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class PartnerOrderAdminController.
+ * Class SaleDeliveryNoteLineAdminController.
  */
-class PartnerOrderAdminController extends BaseAdminController
+class SaleDeliveryNoteLineAdminController extends BaseAdminController
 {
     /**
-     * @param null $id
+     * @param int|null $id
      *
      * @return RedirectResponse|Response
      */
@@ -21,16 +22,15 @@ class PartnerOrderAdminController extends BaseAdminController
     {
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
-
-        /** @var Partner $partner */
-        $order = $this->admin->getObject($id);
-        if (!$order) {
+        /** @var SaleDeliveryNoteLine $saleDeliveryNoteLine */
+        $saleDeliveryNoteLine = $this->admin->getObject($id);
+        if (!$saleDeliveryNoteLine) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnPartner($order->getPartner())) {
-            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
+        if (!$guardService->isOwnEnterprise($saleDeliveryNoteLine->getDeliveryNote()->getEnterprise())) {
+            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 
         return parent::editAction($id);

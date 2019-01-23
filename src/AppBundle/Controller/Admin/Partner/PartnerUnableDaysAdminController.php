@@ -1,19 +1,20 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Partner;
 
-use AppBundle\Entity\SaleRequest;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\PartnerUnableDays;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SaleRequestAdminController.
+ * Class PartnerUnableDaysAdminController.
  */
-class SaleRequestAdminController extends BaseAdminController
+class PartnerUnableDaysAdminController extends BaseAdminController
 {
     /**
-     * @param int|null $id
+     * @param null $id
      *
      * @return RedirectResponse|Response
      */
@@ -22,15 +23,15 @@ class SaleRequestAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var SaleRequest $saleRequest */
-        $saleRequest = $this->admin->getObject($id);
-        if (!$saleRequest) {
+        /** @var PartnerUnableDays $partnerUnableDays */
+        $partnerUnableDays = $this->admin->getObject($id);
+        if (!$partnerUnableDays) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($saleRequest->getEnterprise())) {
-            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
+        if (!$guardService->isOwnPartner($partnerUnableDays->getPartner())) {
+            throw $this->createAccessDeniedException(sprintf('forbidden object with id: %s', $id));
         }
 
         return parent::editAction($id);
