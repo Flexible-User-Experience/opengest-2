@@ -20,6 +20,10 @@ class InvoiceManager
     private $saleInvoiceRepository;
 
     /**
+     * Methods.
+     */
+
+    /**
      * InvoiceManager constructor.
      *
      * @param SaleInvoiceRepository $saleInvoiceRepository

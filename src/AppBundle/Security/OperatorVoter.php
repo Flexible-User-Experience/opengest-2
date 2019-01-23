@@ -2,8 +2,8 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\Operator;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Operator\Operator;
+use AppBundle\Entity\Setting\User;
 use AppBundle\Security\Traits\VoteOnAttributeTrait;
 
 /**

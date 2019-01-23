@@ -2,11 +2,11 @@
 
 namespace AppBundle\Menu;
 
-use AppBundle\Entity\Complement;
-use AppBundle\Entity\Service;
-use AppBundle\Entity\Vehicle;
-use AppBundle\Entity\VehicleCategory;
-use AppBundle\Entity\Work;
+use AppBundle\Entity\Web\Complement;
+use AppBundle\Entity\Web\Service;
+use AppBundle\Entity\Vehicle\Vehicle;
+use AppBundle\Entity\Vehicle\VehicleCategory;
+use AppBundle\Entity\Web\Work;
 use AppBundle\Repository\Web\ComplementRepository;
 use AppBundle\Repository\Web\ServiceRepository;
 use AppBundle\Repository\Vehicle\VehicleCategoryRepository;

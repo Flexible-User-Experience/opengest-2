@@ -2,7 +2,7 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Setting\User;
 use AppBundle\Enum\UserRolesEnum;
 
 /**
@@ -91,6 +91,8 @@ class AppExtension extends \Twig_Extension
      * @param \DateTime $birthday
      *
      * @return int
+     *
+     * @throws \Exception
      */
     public function ageCalculate(\DateTime $birthday)
     {

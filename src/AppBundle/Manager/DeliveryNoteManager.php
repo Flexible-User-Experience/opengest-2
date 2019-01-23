@@ -18,6 +18,10 @@ class DeliveryNoteManager
     private $saleDeliveryNoteRepository;
 
     /**
+     * Methods.
+     */
+
+    /**
      * DeliveryNoteManager constructor.
      *
      * @param SaleDeliveryNoteRepository $saleDeliveryNoteRepository

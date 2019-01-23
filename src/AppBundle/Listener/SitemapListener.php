@@ -42,6 +42,8 @@ class SitemapListener implements SitemapListenerInterface
 
     /**
      * @param SitemapPopulateEvent $event
+     *
+     * @throws \Exception
      */
     public function populateSitemap(SitemapPopulateEvent $event)
     {
@@ -97,6 +99,8 @@ class SitemapListener implements SitemapListenerInterface
      * @param \DateTime|null $date
      *
      * @return UrlConcrete
+     *
+     * @throws \Exception
      */
     private function makeUrlConcrete($url, $priority = 1, $date = null)
     {

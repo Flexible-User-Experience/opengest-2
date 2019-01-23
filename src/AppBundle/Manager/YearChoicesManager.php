@@ -12,6 +12,10 @@ class YearChoicesManager
     const INITIAL_YEAR = 1980;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return array
      *
      * @throws \Exception
