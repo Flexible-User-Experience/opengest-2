@@ -3,6 +3,7 @@
 namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
+use AppBundle\Entity\Sale\SaleTariff;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -38,6 +39,8 @@ class SaleTariffAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -284,7 +287,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param $object
+     * @param SaleTariff $object
      */
     public function prePersist($object)
     {

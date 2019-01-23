@@ -65,7 +65,8 @@ class WorkImageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -94,7 +95,8 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Actiu',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -143,10 +145,10 @@ class WorkImageAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-//                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
-            );
+            )
+        ;
     }
 }

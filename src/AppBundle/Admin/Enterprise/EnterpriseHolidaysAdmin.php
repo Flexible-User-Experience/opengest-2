@@ -3,7 +3,7 @@
 namespace AppBundle\Admin\Enterprise;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\EnterpriseHolidays;
+use AppBundle\Entity\Enterprise\EnterpriseHolidays;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;

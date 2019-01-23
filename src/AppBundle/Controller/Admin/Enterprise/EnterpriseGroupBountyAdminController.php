@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Enterprise;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\EnterpriseGroupBounty;
+use AppBundle\Entity\Enterprise\EnterpriseGroupBounty;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

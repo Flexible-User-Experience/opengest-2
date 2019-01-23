@@ -3,13 +3,13 @@
 namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\ActivityLine;
-use AppBundle\Entity\CollectionDocumentType;
-use AppBundle\Entity\PartnerBuildingSite;
-use AppBundle\Entity\PartnerOrder;
-use AppBundle\Entity\SaleDeliveryNote;
-use AppBundle\Entity\SaleDeliveryNoteLine;
-use AppBundle\Entity\SaleInvoice;
+use AppBundle\Entity\Enterprise\ActivityLine;
+use AppBundle\Entity\Enterprise\CollectionDocumentType;
+use AppBundle\Entity\Partner\PartnerBuildingSite;
+use AppBundle\Entity\Partner\PartnerOrder;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
+use AppBundle\Entity\Sale\SaleDeliveryNoteLine;
+use AppBundle\Entity\Sale\SaleInvoice;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;

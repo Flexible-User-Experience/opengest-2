@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 class EnterpriseHolidays extends AbstractBase
 {
     /**
-     * @var string
+     * @var Enterprise
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseHolidays")
      */
@@ -37,7 +37,7 @@ class EnterpriseHolidays extends AbstractBase
     private $name;
 
     /**
-     * @return string
+     * @return Enterprise
      */
     public function getEnterprise()
     {

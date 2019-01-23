@@ -3,11 +3,11 @@
 namespace AppBundle\Admin\Partner;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\City;
-use AppBundle\Entity\EnterpriseTransferAccount;
-use AppBundle\Entity\Partner;
-use AppBundle\Entity\PartnerClass;
-use AppBundle\Entity\PartnerType;
+use AppBundle\Entity\Setting\City;
+use AppBundle\Entity\Enterprise\EnterpriseTransferAccount;
+use AppBundle\Entity\Partner\Partner;
+use AppBundle\Entity\Partner\PartnerClass;
+use AppBundle\Entity\Partner\PartnerType;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;

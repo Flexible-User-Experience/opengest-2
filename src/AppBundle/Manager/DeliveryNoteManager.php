@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\Enterprise\Enterprise;
 use AppBundle\Repository\Sale\SaleDeliveryNoteRepository;
 
 /**

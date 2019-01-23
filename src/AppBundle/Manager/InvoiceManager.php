@@ -2,8 +2,8 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\SaleInvoiceSeries;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\SaleInvoiceSeries;
 use AppBundle\Repository\Sale\SaleInvoiceRepository;
 use Doctrine\ORM\NonUniqueResultException;
 

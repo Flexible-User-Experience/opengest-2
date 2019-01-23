@@ -32,6 +32,10 @@ class ActivityLine extends AbstractBase
     private $name;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return Enterprise
      */
     public function getEnterprise()
@@ -41,10 +45,14 @@ class ActivityLine extends AbstractBase
 
     /**
      * @param Enterprise $enterprise
+     *
+     * @return $this
      */
-    public function setEnterprise($enterprise): void
+    public function setEnterprise($enterprise)
     {
         $this->enterprise = $enterprise;
+
+        return $this;
     }
 
     /**
@@ -57,10 +65,14 @@ class ActivityLine extends AbstractBase
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**

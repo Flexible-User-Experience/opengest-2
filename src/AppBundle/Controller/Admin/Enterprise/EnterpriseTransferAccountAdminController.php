@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Enterprise;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\EnterpriseTransferAccount;
+use AppBundle\Entity\Enterprise\EnterpriseTransferAccount;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

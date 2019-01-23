@@ -3,7 +3,7 @@
 namespace AppBundle\Admin\Vehicle;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;

@@ -3,8 +3,8 @@
 namespace AppBundle\Admin\Operator;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\EnterpriseGroupBounty;
-use AppBundle\Entity\Operator;
+use AppBundle\Entity\Enterprise\EnterpriseGroupBounty;
+use AppBundle\Entity\Operator\Operator;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;

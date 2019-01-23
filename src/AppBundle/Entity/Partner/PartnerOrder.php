@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Partner;
 
 use AppBundle\Entity\AbstractBase;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

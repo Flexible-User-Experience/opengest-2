@@ -3,9 +3,9 @@
 namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\SaleDeliveryNote;
-use AppBundle\Entity\SaleRequest;
-use AppBundle\Entity\SaleRequestHasDeliveryNote;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
+use AppBundle\Entity\Sale\SaleRequest;
+use AppBundle\Entity\Sale\SaleRequestHasDeliveryNote;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;

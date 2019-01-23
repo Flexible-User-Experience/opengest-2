@@ -7,6 +7,7 @@ use AppBundle\Entity\Enterprise\Enterprise;
 use AppBundle\Entity\Operator\Operator;
 use AppBundle\Entity\Partner\Partner;
 use AppBundle\Entity\Setting\User;
+use AppBundle\Entity\Vehicle\Vehicle;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

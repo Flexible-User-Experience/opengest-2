@@ -2,8 +2,8 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\User;
 use AppBundle\Manager\RepositoriesManager;
 use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;

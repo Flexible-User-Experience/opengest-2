@@ -3,10 +3,10 @@
 namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\Operator;
-use AppBundle\Entity\SaleRequest;
-use AppBundle\Entity\SaleTariff;
-use AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Operator\Operator;
+use AppBundle\Entity\Sale\SaleRequest;
+use AppBundle\Entity\Sale\SaleTariff;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\Vehicle;
 
 use AppBundle\Entity\AbstractBase;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Sale\SaleRequest;
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\PositionTrait;

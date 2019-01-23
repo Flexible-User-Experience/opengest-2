@@ -3,7 +3,7 @@
 namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
 use AppBundle\Enum\ConstantsEnum;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;

@@ -3,9 +3,9 @@
 namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\SaleDeliveryNote;
-use AppBundle\Entity\SaleInvoice;
-use AppBundle\Entity\SaleInvoiceSeries;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
+use AppBundle\Entity\Sale\SaleInvoice;
+use AppBundle\Entity\Setting\SaleInvoiceSeries;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;

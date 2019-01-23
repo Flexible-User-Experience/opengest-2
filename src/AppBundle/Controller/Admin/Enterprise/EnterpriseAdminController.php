@@ -3,8 +3,8 @@
 namespace AppBundle\Controller\Admin\Enterprise;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 

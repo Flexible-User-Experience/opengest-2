@@ -3,7 +3,7 @@
 namespace AppBundle\Admin\Enterprise;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Entity\EnterpriseTransferAccount;
+use AppBundle\Entity\Enterprise\EnterpriseTransferAccount;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;

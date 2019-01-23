@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin\Enterprise;
 
 use AppBundle\Controller\Admin\BaseAdminController;
-use AppBundle\Entity\ActivityLine;
+use AppBundle\Entity\Enterprise\ActivityLine;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

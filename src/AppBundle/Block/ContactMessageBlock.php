@@ -54,7 +54,7 @@ class ContactMessageBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
 
-        $pendingMessagesAmount = $this->em->getRepository('AppBundle:ContactMessage')->getPendingMessagesAmount();
+        $pendingMessagesAmount = $this->em->getRepository('AppBundle:Web\ContactMessage')->getPendingMessagesAmount();
 
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els missatges de contacte estan contestats</p>';

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\Operator;
-use AppBundle\Entity\OperatorChecking;
-use AppBundle\Entity\Partner;
-use AppBundle\Entity\Vehicle;
-use AppBundle\Entity\VehicleChecking;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Operator\Operator;
+use AppBundle\Entity\Operator\OperatorChecking;
+use AppBundle\Entity\Partner\Partner;
+use AppBundle\Entity\Vehicle\Vehicle;
+use AppBundle\Entity\Vehicle\VehicleChecking;
 use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Security\AbstractVoter;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;

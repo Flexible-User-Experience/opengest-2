@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Sale;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\SaleDeliveryNote;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
