@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Enterprise;
 
-use AppBundle\Entity\ActivityLine;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\EnterpriseHolidays;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ActivityLineAdminController.
+ * Class EnterpriseHolidaysAdminController.
  */
-class ActivityLineAdminController extends BaseAdminController
+class EnterpriseHolidaysAdminController extends BaseAdminController
 {
     /**
      * @param int|null $id
@@ -22,14 +23,14 @@ class ActivityLineAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var ActivityLine $activityLine */
-        $activityLine = $this->admin->getObject($id);
-        if (!$activityLine) {
+        /** @var EnterpriseHolidays $enterpriseHoliday */
+        $enterpriseHoliday = $this->admin->getObject($id);
+        if (!$enterpriseHoliday) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($activityLine->getEnterprise())) {
+        if (!$guardService->isOwnEnterprise($enterpriseHoliday->getEnterprise())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 

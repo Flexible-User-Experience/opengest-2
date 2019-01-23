@@ -5,13 +5,14 @@ namespace AppBundle\Controller\Front;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class ComplementController.
  *
  * @category Controller
  */
-class ComplementController extends AbstractBaseController
+class ComplementController extends Controller
 {
     /**
      * @Route("/accesorios", name="front_complement")

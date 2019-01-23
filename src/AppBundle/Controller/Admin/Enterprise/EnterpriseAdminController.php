@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Enterprise;
 
+use AppBundle\Controller\Admin\BaseAdminController;
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;

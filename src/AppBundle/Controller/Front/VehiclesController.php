@@ -5,17 +5,19 @@ namespace AppBundle\Controller\Front;
 use AppBundle\Entity\Enterprise;
 use AppBundle\Entity\Vehicle;
 use AppBundle\Entity\VehicleCategory;
+use AppBundle\Enum\ConstantsEnum;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class VehiclesController.
  *
  * @category Controller
  */
-class VehiclesController extends AbstractBaseController
+class VehiclesController extends Controller
 {
     /**
      * @Route("/vehiculos", name="front_vehicles")
@@ -81,7 +83,7 @@ class VehiclesController extends AbstractBaseController
         }
         $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
+        $pagination = $paginator->paginate($vehicles, $page, ConstantsEnum::FRONTEND_ITEMS_PER_PAGE_LIMIT);
 
         return $this->render(':Frontend:vehicles.html.twig', [
             'category' => $category,

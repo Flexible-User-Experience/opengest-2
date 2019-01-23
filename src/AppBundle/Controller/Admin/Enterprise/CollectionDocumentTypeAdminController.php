@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Enterprise;
 
-use AppBundle\Entity\EnterpriseGroupBounty;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\CollectionDocumentType;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class EnterpriseGroupBountyAdminController.
+ * Class CollectionDocumentTypeAdminController.
  */
-class EnterpriseGroupBountyAdminController extends BaseAdminController
+class CollectionDocumentTypeAdminController extends BaseAdminController
 {
     /**
      * @param int|null $id
@@ -22,14 +23,14 @@ class EnterpriseGroupBountyAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var EnterpriseGroupBounty $enterpriseGroupBounty */
-        $enterpriseGroupBounty = $this->admin->getObject($id);
-        if (!$enterpriseGroupBounty) {
+        /** @var CollectionDocumentType $collectionDocumentType */
+        $collectionDocumentType = $this->admin->getObject($id);
+        if (!$collectionDocumentType) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($enterpriseGroupBounty->getEnterprise())) {
+        if (!$guardService->isOwnEnterprise($collectionDocumentType->getEnterprise())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 

@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller\Admin\Enterprise;
 
-use AppBundle\Entity\EnterpriseTransferAccount;
+use AppBundle\Controller\Admin\BaseAdminController;
+use AppBundle\Entity\ActivityLine;
 use AppBundle\Service\GuardService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class EnterpriseTransferAccountAdminController.
+ * Class ActivityLineAdminController.
  */
-class EnterpriseTransferAccountAdminController extends BaseAdminController
+class ActivityLineAdminController extends BaseAdminController
 {
     /**
      * @param int|null $id
@@ -22,14 +23,14 @@ class EnterpriseTransferAccountAdminController extends BaseAdminController
         $request = $this->getRequest();
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var EnterpriseTransferAccount $enterpriseTransferAccount */
-        $enterpriseTransferAccount = $this->admin->getObject($id);
-        if (!$enterpriseTransferAccount) {
+        /** @var ActivityLine $activityLine */
+        $activityLine = $this->admin->getObject($id);
+        if (!$activityLine) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
         /** @var GuardService $guardService */
         $guardService = $this->container->get('app.guard_service');
-        if (!$guardService->isOwnEnterprise($enterpriseTransferAccount->getEnterprise())) {
+        if (!$guardService->isOwnEnterprise($activityLine->getEnterprise())) {
             throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
         }
 
