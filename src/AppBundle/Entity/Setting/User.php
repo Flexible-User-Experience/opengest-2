@@ -55,14 +55,14 @@ class User extends BaseUser
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise")
      */
     private $defaultEnterprise;
 
     /**
      * @var array
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Enterprise", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="users")
      * @ORM\JoinTable(name="enterprises_users")
      */
     private $enterprises;
@@ -102,6 +102,7 @@ class User extends BaseUser
      * @param File|null $mainImageFile
      *
      * @return User
+     *
      * @throws \Exception
      */
     public function setMainImageFile(File $mainImageFile = null)

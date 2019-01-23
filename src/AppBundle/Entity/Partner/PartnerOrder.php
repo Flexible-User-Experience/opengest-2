@@ -22,7 +22,7 @@ class PartnerOrder extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner", inversedBy="orders")
      */
     private $partner;
 
@@ -43,12 +43,16 @@ class PartnerOrder extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", mappedBy="order")
      */
     private $saleDeliveryNotes;
 
     /**
      * Methods.
+     */
+
+    /**
+     * PartnerOrder constructor.
      */
     public function __construct()
     {

@@ -85,14 +85,14 @@ class Operator extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise")
      */
     private $enterprise;
 
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setting\City")
      */
     private $city;
 
@@ -410,28 +410,28 @@ class Operator extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OperatorDigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Operator\OperatorDigitalTachograph", mappedBy="operator", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $operatorDigitalTachographs;
 
     /**
      * @var EnterpriseGroupBounty
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseGroupBounty", inversedBy="operators")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\EnterpriseGroupBounty", inversedBy="operators")
      */
     private $enterpriseGroupBounty;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequest", mappedBy="operator")
      */
     private $saleRequests;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\OperatorVariousAmount", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Operator\OperatorVariousAmount", mappedBy="operator")
      */
     private $operatorVariousAmount;
 
@@ -789,6 +789,7 @@ class Operator extends AbstractBase
      * @param File|null $profilePhotoImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setProfilePhotoImageFile(File $profilePhotoImageFile = null)
@@ -835,6 +836,7 @@ class Operator extends AbstractBase
      * @param File|null $taxIdentificationNumberImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setTaxIdentificationNumberImageFile(File $taxIdentificationNumberImageFile = null)
@@ -881,6 +883,7 @@ class Operator extends AbstractBase
      * @param File|null $drivingLicenseImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setDrivingLicenseImageFile(File $drivingLicenseImageFile = null)
@@ -927,6 +930,7 @@ class Operator extends AbstractBase
      * @param File|null $cranesOperatorLicenseImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setCranesOperatorLicenseImageFile(File $cranesOperatorLicenseImageFile = null)
@@ -973,6 +977,7 @@ class Operator extends AbstractBase
      * @param File|null $medicalCheckImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setMedicalCheckImageFile(File $medicalCheckImageFile = null)
@@ -1019,6 +1024,7 @@ class Operator extends AbstractBase
      * @param File|null $episImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setEpisImageFile(File $episImageFile = null)
@@ -1065,6 +1071,7 @@ class Operator extends AbstractBase
      * @param File|null $trainingDocumentImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setTrainingDocumentImageFile(File $trainingDocumentImageFile = null)
@@ -1111,6 +1118,7 @@ class Operator extends AbstractBase
      * @param File|null $informationImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setInformationImageFile(File $informationImageFile = null)
@@ -1157,6 +1165,7 @@ class Operator extends AbstractBase
      * @param File|null $useOfMachineryAuthorizationImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setUseOfMachineryAuthorizationImageFile(File $useOfMachineryAuthorizationImageFile = null)
@@ -1203,6 +1212,7 @@ class Operator extends AbstractBase
      * @param File|null $dischargeSocialSecurityImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setDischargeSocialSecurityImageFile(File $dischargeSocialSecurityImageFile = null)
@@ -1249,6 +1259,7 @@ class Operator extends AbstractBase
      * @param File|null $employmentContractImageFile
      *
      * @return Operator
+     *
      * @throws \Exception
      */
     public function setEmploymentContractImageFile(File $employmentContractImageFile = null)

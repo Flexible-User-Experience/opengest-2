@@ -22,14 +22,14 @@ class OperatorAbsence extends AbstractBase
     /**
      * @var Operator
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\Operator")
      */
     private $operator;
 
     /**
      * @var OperatorAbsenceType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OperatorAbsenceType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\OperatorAbsenceType")
      */
     private $type;
 

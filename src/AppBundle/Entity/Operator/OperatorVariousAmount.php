@@ -20,7 +20,7 @@ class OperatorVariousAmount extends AbstractBase
     /**
      * @var Operator
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator", inversedBy="operatorVariousAmount")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\Operator", inversedBy="operatorVariousAmount")
      */
     private $operator;
 
@@ -52,7 +52,7 @@ class OperatorVariousAmount extends AbstractBase
      */
     private $priceUnit;
 
-    /**d
+    /**
      * Methods.
      */
 

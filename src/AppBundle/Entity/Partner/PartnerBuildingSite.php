@@ -20,7 +20,7 @@ class PartnerBuildingSite extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="buildingSites", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner", inversedBy="buildingSites", cascade={"persist", "remove"})
      */
     private $partner;
 
@@ -51,6 +51,10 @@ class PartnerBuildingSite extends AbstractBase
      * @ORM\Column(type="string", nullable=true)
      */
     private $phone;
+
+    /**
+     * Methods.
+     */
 
     /**
      * @return Partner

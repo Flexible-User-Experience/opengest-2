@@ -28,7 +28,7 @@ class PartnerClass extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner", mappedBy="class")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\Partner", mappedBy="class")
      */
     private $partners;
 

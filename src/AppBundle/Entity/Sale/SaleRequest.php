@@ -24,14 +24,14 @@ class SaleRequest extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="saleRequests")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="saleRequests")
      */
     private $enterprise;
 
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="saleRequests")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner", inversedBy="saleRequests")
      */
     private $partner;
 
@@ -52,35 +52,35 @@ class SaleRequest extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner")
      */
     private $invoiceTo;
 
     /**
      * @var Vehicle
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle", inversedBy="saleRequests")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Vehicle", inversedBy="saleRequests")
      */
     private $vehicle;
 
     /**
      * @var Operator
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator", inversedBy="saleRequests")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\Operator", inversedBy="saleRequests")
      */
     private $operator;
 
     /**
      * @var SaleTariff
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleTariff")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleTariff")
      */
     private $tariff;
 
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setting\User")
      */
     private $attendedBy;
 
@@ -192,7 +192,7 @@ class SaleRequest extends AbstractBase
     /**
      * @var Vehicle
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Vehicle")
      */
     private $secondaryVehicle;
 
@@ -206,7 +206,7 @@ class SaleRequest extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequestHasDeliveryNote", mappedBy="saleRequest")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequestHasDeliveryNote", mappedBy="saleRequest")
      */
     private $saleRequestHasDeliveryNotes;
 

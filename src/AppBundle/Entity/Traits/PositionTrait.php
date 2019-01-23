@@ -21,6 +21,10 @@ trait PositionTrait
     private $position = 1;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return int
      */
     public function getPosition()

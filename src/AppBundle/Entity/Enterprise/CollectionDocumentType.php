@@ -20,7 +20,7 @@ class CollectionDocumentType extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="collectionDocumentTypes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="collectionDocumentTypes")
      */
     private $enterprise;
 
@@ -30,10 +30,6 @@ class CollectionDocumentType extends AbstractBase
      * @ORM\Column(type="string")
      */
     private $name;
-
-    /**
-     * @return Enterprise
-     */
 
     /**
      * @var string
@@ -50,67 +46,87 @@ class CollectionDocumentType extends AbstractBase
     private $sitReference;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return Enterprise
      */
-    public function getEnterprise()
+    public function getEnterprise(): Enterprise
     {
         return $this->enterprise;
     }
 
     /**
      * @param Enterprise $enterprise
+     *
+     * @return $this
      */
-    public function setEnterprise($enterprise): void
+    public function setEnterprise(Enterprise $enterprise): CollectionDocumentType
     {
         $this->enterprise = $enterprise;
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
-    public function setName($name): void
+    public function setName(string $name): CollectionDocumentType
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
      * @param string $description
+     *
+     * @return $this
      */
-    public function setDescription($description): void
+    public function setDescription(string $description): CollectionDocumentType
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getSitReference()
+    public function getSitReference(): string
     {
         return $this->sitReference;
     }
 
     /**
      * @param string $sitReference
+     *
+     * @return $this
      */
-    public function setSitReference($sitReference): void
+    public function setSitReference(string $sitReference): CollectionDocumentType
     {
         $this->sitReference = $sitReference;
+
+        return $this;
     }
 
     /**

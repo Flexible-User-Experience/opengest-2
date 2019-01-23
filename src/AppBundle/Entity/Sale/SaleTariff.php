@@ -21,7 +21,7 @@ class SaleTariff extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="saleTariffs")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="saleTariffs")
      */
     private $enterprise;
 

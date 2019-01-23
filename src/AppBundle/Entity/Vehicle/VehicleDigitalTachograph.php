@@ -24,7 +24,7 @@ class VehicleDigitalTachograph extends AbstractBase
     /**
      * @var Vehicle
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle", inversedBy="vehicleDigitalTachographs")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Vehicle", inversedBy="vehicleDigitalTachographs")
      */
     private $vehicle;
 

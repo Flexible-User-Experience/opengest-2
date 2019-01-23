@@ -43,28 +43,28 @@ class Partner extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="partners")
      */
     private $enterprise;
 
     /**
      * @var PartnerClass
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerClass", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\PartnerClass", inversedBy="partners")
      */
     private $class;
 
     /**
      * @var PartnerType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerType", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\PartnerType", inversedBy="partners")
      */
     private $type;
 
     /**
      * @var EnterpriseTransferAccount
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", inversedBy="partners")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\EnterpriseTransferAccount", inversedBy="partners")
      */
     private $transferAccount;
 
@@ -86,7 +86,7 @@ class Partner extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setting\City")
      * @Groups({"api"})
      */
     private $mainCity;
@@ -101,7 +101,7 @@ class Partner extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setting\City")
      */
     private $secondaryCity;
 
@@ -251,41 +251,41 @@ class Partner extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerOrder", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\PartnerOrder", mappedBy="partner")
      */
     private $orders;
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerBuildingSite", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\PartnerBuildingSite", mappedBy="partner")
      */
     private $buildingSites;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerContact", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\PartnerContact", mappedBy="partner")
      */
     private $contacts;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequest", mappedBy="partner")
      */
     private $saleRequests;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PartnerUnableDays", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\PartnerUnableDays", mappedBy="partner")
      */
     private $partnerUnableDays;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="partner")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", mappedBy="partner")
      */
     private $saleDeliveryNotes;
 

@@ -22,14 +22,14 @@ class OperatorChecking extends AbstractBase
     /**
      * @var Operator
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\Operator")
      */
     private $operator;
 
     /**
      * @var OperatorCheckingType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OperatorCheckingType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\OperatorCheckingType")
      */
     private $type;
 

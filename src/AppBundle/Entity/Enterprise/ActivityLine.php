@@ -20,7 +20,7 @@ class ActivityLine extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="activityLines")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="activityLines")
      */
     private $enterprise;
 

@@ -21,7 +21,7 @@ class VehicleCheckingType extends AbstractBase
     use NameTrait;
 
     /**
-     * Method.
+     * Methods.
      */
 
     /**

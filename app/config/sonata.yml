@@ -19,9 +19,9 @@ sonata_user:
 fos_user:
     db_driver:      orm
     firewall_name:  admin
-    user_class:     AppBundle\Entity\User
+    user_class:     AppBundle\Entity\Setting\User
     group:
-        group_class:   AppBundle\Entity\Group
+        group_class:   AppBundle\Entity\Setting\Group
         group_manager: sonata.user.orm.group_manager
     service:
         user_manager: sonata.user.orm.user_manager

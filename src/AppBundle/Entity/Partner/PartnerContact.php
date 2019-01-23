@@ -22,7 +22,7 @@ class PartnerContact extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="contacts", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner", inversedBy="contacts", cascade={"persist", "remove"})
      */
     private $partner;
 

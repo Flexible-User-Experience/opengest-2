@@ -39,14 +39,14 @@ class VehicleCategory extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\Vehicle", mappedBy="category")
      */
     private $vehicles;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Service", mappedBy="vehicleCategory")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Web\Service", mappedBy="vehicleCategory")
      */
     private $services;
 

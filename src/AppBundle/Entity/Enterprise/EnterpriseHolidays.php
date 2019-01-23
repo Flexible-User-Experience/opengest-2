@@ -18,7 +18,7 @@ class EnterpriseHolidays extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseHolidays")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="enterpriseHolidays")
      */
     private $enterprise;
 
@@ -37,16 +37,16 @@ class EnterpriseHolidays extends AbstractBase
     private $name;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return Enterprise
      */
     public function getEnterprise()
     {
         return $this->enterprise;
     }
-
-    /**
-     * Methods.
-     */
 
     /**
      * @param string $enterprise

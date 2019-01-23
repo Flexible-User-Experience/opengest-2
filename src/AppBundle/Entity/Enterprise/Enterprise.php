@@ -62,7 +62,7 @@ class Enterprise extends AbstractBase
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setting\City")
      */
     private $city;
 
@@ -545,7 +545,7 @@ class Enterprise extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="enterprises")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Setting\User", mappedBy="enterprises")
      * @ORM\JoinTable(name="enterprises_users")
      */
     private $users;
@@ -553,56 +553,56 @@ class Enterprise extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseGroupBounty", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Enterprise\EnterpriseGroupBounty", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $enterpriseGroupBounties;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseTransferAccount", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Enterprise\EnterpriseTransferAccount", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $enterpriseTransferAccounts;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner", mappedBy="enterprise")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\Partner", mappedBy="enterprise")
      */
     private $partners;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\EnterpriseHolidays", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true )
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Enterprise\EnterpriseHolidays", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true )
      */
     private $enterpriseHolidays;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleTariff", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleTariff", mappedBy="enterprise", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $saleTariffs;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="enterprise")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequest", mappedBy="enterprise")
      */
     private $saleRequests;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ActivityLine", mappedBy="enterprise")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Enterprise\ActivityLine", mappedBy="enterprise")
      */
     private $activityLines;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CollectionDocumentType", mappedBy="enterprise")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Enterprise\CollectionDocumentType", mappedBy="enterprise")
      */
     private $collectionDocumentTypes;
 
@@ -611,7 +611,7 @@ class Enterprise extends AbstractBase
      */
 
     /**
-     * constructor.
+     * Constructor.
      */
     public function __construct()
     {
@@ -858,6 +858,7 @@ class Enterprise extends AbstractBase
      * @param File|null $logoFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setLogoFile(File $logoFile = null)
@@ -904,6 +905,7 @@ class Enterprise extends AbstractBase
      * @param File|null $deedOfIncorporationFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setDeedOfIncorporationFile(File $deedOfIncorporationFile = null)
@@ -950,6 +952,7 @@ class Enterprise extends AbstractBase
      * @param File|null $taxIdentificationNumberCardFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setTaxIdentificationNumberCardFile(File $taxIdentificationNumberCardFile = null)
@@ -996,6 +999,7 @@ class Enterprise extends AbstractBase
      * @param File|null $tc1ReceiptFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setTc1ReceiptFile(File $tc1ReceiptFile = null)
@@ -1042,6 +1046,7 @@ class Enterprise extends AbstractBase
      * @param File|null $tc2ReceiptFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setTc2ReceiptFile(File $tc2ReceiptFile = null)
@@ -1088,6 +1093,7 @@ class Enterprise extends AbstractBase
      * @param File|null $ssRegistrationFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setSsRegistrationFile(File $ssRegistrationFile = null)
@@ -1134,6 +1140,7 @@ class Enterprise extends AbstractBase
      * @param File|null $ssPaymentCertificateFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setSsPaymentCertificateFile(File $ssPaymentCertificateFile = null)
@@ -1180,6 +1187,7 @@ class Enterprise extends AbstractBase
      * @param File|null $rc1InsuranceFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setRc1InsuranceFile(File $rc1InsuranceFile = null)
@@ -1226,6 +1234,7 @@ class Enterprise extends AbstractBase
      * @param File|null $rc2InsuranceFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setRc2InsuranceFile(File $rc2InsuranceFile = null)
@@ -1272,6 +1281,7 @@ class Enterprise extends AbstractBase
      * @param File|null $rcReceiptFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setRcReceiptFile(File $rcReceiptFile = null)
@@ -1318,6 +1328,7 @@ class Enterprise extends AbstractBase
      * @param File|null $preventionServiceContractFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setPreventionServiceContractFile(File $preventionServiceContractFile = null)
@@ -1364,6 +1375,7 @@ class Enterprise extends AbstractBase
      * @param File|null $preventionServiceInvoiceFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setPreventionServiceInvoiceFile(File $preventionServiceInvoiceFile = null)
@@ -1410,6 +1422,7 @@ class Enterprise extends AbstractBase
      * @param File|null $preventionServiceReceiptFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setPreventionServiceReceiptFile(File $preventionServiceReceiptFile = null)
@@ -1456,6 +1469,7 @@ class Enterprise extends AbstractBase
      * @param File|null $occupationalAccidentsInsuranceFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setOccupationalAccidentsInsuranceFile(File $occupationalAccidentsInsuranceFile = null)
@@ -1502,6 +1516,7 @@ class Enterprise extends AbstractBase
      * @param File|null $occupationalReceiptFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setOccupationalReceiptFile(File $occupationalReceiptFile = null)
@@ -1548,6 +1563,7 @@ class Enterprise extends AbstractBase
      * @param File|null $laborRiskAssessmentFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setLaborRiskAssessmentFile(File $laborRiskAssessmentFile = null)
@@ -1594,6 +1610,7 @@ class Enterprise extends AbstractBase
      * @param File|null $securityPlanFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setSecurityPlanFile(File $securityPlanFile = null)
@@ -1640,6 +1657,7 @@ class Enterprise extends AbstractBase
      * @param File|null $reaCertificateFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setReaCertificateFile(File $reaCertificateFile = null)
@@ -1686,6 +1704,7 @@ class Enterprise extends AbstractBase
      * @param File|null $oilCertificateFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setOilCertificateFile(File $oilCertificateFile = null)
@@ -1732,6 +1751,7 @@ class Enterprise extends AbstractBase
      * @param File|null $gencatPaymentCertificateFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setGencatPaymentCertificateFile(File $gencatPaymentCertificateFile = null)
@@ -1778,6 +1798,7 @@ class Enterprise extends AbstractBase
      * @param File|null $deedsOfPowersFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setDeedsOfPowersFile(File $deedsOfPowersFile = null)
@@ -1824,6 +1845,7 @@ class Enterprise extends AbstractBase
      * @param File|null $iaeRegistrationFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setIaeRegistrationFile($iaeRegistrationFile)
@@ -1870,6 +1892,7 @@ class Enterprise extends AbstractBase
      * @param File|null $iaeReceiptFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setIaeReceiptFile(File $iaeReceiptFile = null)
@@ -1916,6 +1939,7 @@ class Enterprise extends AbstractBase
      * @param File|null $mutualPartnershipFile
      *
      * @return Enterprise
+     *
      * @throws \Exception
      */
     public function setMutualPartnershipFile(File $mutualPartnershipFile = null)

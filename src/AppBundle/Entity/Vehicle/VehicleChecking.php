@@ -22,14 +22,14 @@ class VehicleChecking extends AbstractBase
     /**
      * @var Vehicle
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\Vehicle")
      */
     private $vehicle;
 
     /**
      * @var VehicleCheckingType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCheckingType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\VehicleCheckingType")
      */
     private $type;
 

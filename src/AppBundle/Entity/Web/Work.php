@@ -35,7 +35,7 @@ class Work extends AbstractBase
     /**
      * @var Service
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="works")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Web\Service", inversedBy="works")
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
      */
     private $service;
@@ -84,7 +84,7 @@ class Work extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WorkImage", mappedBy="work", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Web\WorkImage", mappedBy="work", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $images;
@@ -193,6 +193,7 @@ class Work extends AbstractBase
      * @param File|null $mainImageFile
      *
      * @return Work
+     *
      * @throws \Exception
      */
     public function setMainImageFile(File $mainImageFile = null)

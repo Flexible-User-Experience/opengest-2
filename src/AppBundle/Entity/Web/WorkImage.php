@@ -27,7 +27,7 @@ class WorkImage extends AbstractBase
     /**
      * @var Work
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Work", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Web\Work", inversedBy="images")
      * @ORM\JoinColumn(name="work_id", referencedColumnName="id")
      */
     private $work;
@@ -114,6 +114,7 @@ class WorkImage extends AbstractBase
      * @param File|null $imageFile
      *
      * @return WorkImage
+     *
      * @throws \Exception
      */
     public function setImageFile(File $imageFile = null)

@@ -24,7 +24,7 @@ class OperatorDigitalTachograph extends AbstractBase
     /**
      * @var Operator
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator", inversedBy="operatorDigitalTachographs")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Operator\Operator", inversedBy="operatorDigitalTachographs")
      */
     private $operator;
 

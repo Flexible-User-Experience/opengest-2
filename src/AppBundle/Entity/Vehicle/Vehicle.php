@@ -54,7 +54,7 @@ class Vehicle extends AbstractBase
     /**
      * @var VehicleCategory
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="vehicles")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\VehicleCategory", inversedBy="vehicles")
      * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
      */
     private $category;
@@ -114,26 +114,30 @@ class Vehicle extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise")
      */
     private $enterprise;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\VehicleDigitalTachograph", mappedBy="vehicle", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle\VehicleDigitalTachograph", mappedBy="vehicle", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $vehicleDigitalTachographs;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequest", mappedBy="vehicle")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequest", mappedBy="vehicle")
      */
     private $saleRequests;
 
     /**
      * Methods.
+     */
+
+    /**
+     * Vehicle constructor.
      */
     public function __construct()
     {

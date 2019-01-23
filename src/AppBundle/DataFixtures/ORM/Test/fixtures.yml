@@ -1,5 +1,5 @@
 # Contact messages
-AppBundle\Entity\ContactMessage:
+AppBundle\Entity\Web\ContactMessage:
   contactmessage{1..2}:
     name: <name()>
     answer: <word()>
@@ -13,7 +13,7 @@ AppBundle\Entity\ContactMessage:
     enabled: true
 
 # Service
-AppBundle\Entity\Service:
+AppBundle\Entity\Web\Service:
   service1:
     name: <name()>
     position: 1
@@ -32,7 +32,7 @@ AppBundle\Entity\Service:
     enabled: true
 
 # Work
-AppBundle\Entity\Work:
+AppBundle\Entity\Web\Work:
   work1:
     service: '@service*'
     name: my title
@@ -55,7 +55,7 @@ AppBundle\Entity\Work:
     enabled: true
 
 # WorkImage
-AppBundle\Entity\WorkImage:
+AppBundle\Entity\Web\WorkImage:
   workImage{1..2}:
     alt: <sentence()>
     position: <current()>
@@ -66,7 +66,7 @@ AppBundle\Entity\WorkImage:
     work: '@work<numberBetween(1,2)>'
 
 # VehicleCategory
-AppBundle\Entity\VehicleCategory:
+AppBundle\Entity\Vehicle\VehicleCategory:
   vehicleCategory1:
     name: my vehicle category
     position: 1
@@ -81,7 +81,7 @@ AppBundle\Entity\VehicleCategory:
     enabled: true
 
 # Vehicle
-AppBundle\Entity\Vehicle:
+AppBundle\Entity\Vehicle\Vehicle:
   vehicle1:
     vehicleRegistrationNumber: <bothify('######?')>
     category: '@vehicleCategory1'
@@ -112,7 +112,7 @@ AppBundle\Entity\Vehicle:
     enabled: true
 
 # Complement
-AppBundle\Entity\Complement:
+AppBundle\Entity\Web\Complement:
   complement1:
     name: my title
     shortDescription: <sentence()>
@@ -131,7 +131,7 @@ AppBundle\Entity\Complement:
     enabled: true
 
 # Province
-AppBundle\Entity\Province:
+AppBundle\Entity\Setting\Province:
   province{1..2}:
     code: <postcode()>
     name: <city()>
@@ -141,7 +141,7 @@ AppBundle\Entity\Province:
     enabled: true
 
 # City
-AppBundle\Entity\City:
+AppBundle\Entity\Setting\City:
   city{1..2}:
     name: <city()>
     postalCode: <postcode()>
@@ -151,7 +151,7 @@ AppBundle\Entity\City:
     enabled: true
 
 # Enterprise
-AppBundle\Entity\Enterprise:
+AppBundle\Entity\Enterprise\Enterprise:
   enterprise1:
     name: <company()>
     taxIdentificationNumber: A43030287
@@ -186,7 +186,7 @@ AppBundle\Entity\Enterprise:
     users: [ '@admin' ]
 
 # Operator
-AppBundle\Entity\Operator:
+AppBundle\Entity\Operator\Operator:
   operator{1..2}:
     taxIdentificationNumber: <bothify('######?')>
     bancAccountNumber: <creditCardNumber()>
@@ -221,7 +221,7 @@ AppBundle\Entity\Operator:
 
 
 # OperatorChekingType
-AppBundle\Entity\OperatorCheckingType:
+AppBundle\Entity\Operator\OperatorCheckingType:
   checkingType{1..2}:
     name: <name()>
     description: <paragraph()>
@@ -230,7 +230,7 @@ AppBundle\Entity\OperatorCheckingType:
     enabled: true
 
 # OperatorChecking
-AppBundle\Entity\OperatorChecking:
+AppBundle\Entity\Operator\OperatorChecking:
   operatorChecking{1..2}:
     operator: '@operator<numberBetween(1,2)>'
     type: '@checkingType*'
@@ -241,7 +241,7 @@ AppBundle\Entity\OperatorChecking:
     enabled: true
 
 # OperatorAbsenceType
-AppBundle\Entity\OperatorAbsenceType:
+AppBundle\Entity\Operator\OperatorAbsenceType:
   absenceType{1..2}:
     name: <name()>
     description: <paragraph()>
@@ -250,7 +250,7 @@ AppBundle\Entity\OperatorAbsenceType:
     enabled: true
 
 # OperatorAbsenceType
-AppBundle\Entity\OperatorAbsence:
+AppBundle\Entity\Operator\OperatorAbsence:
   operatorAbsence{1..2}:
     operator: '@operator<numberBetween(1,2)>'
     type: '@absenceType<numberBetween(1,2)>'
@@ -261,7 +261,7 @@ AppBundle\Entity\OperatorAbsence:
     enabled: true
 
 # VehicleCheckingType
-AppBundle\Entity\VehicleCheckingType:
+AppBundle\Entity\Vehicle\VehicleCheckingType:
   vehicleCheckingType{1..2}:
     name: <name()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -269,7 +269,7 @@ AppBundle\Entity\VehicleCheckingType:
     enabled: true
 
 # VehicleChecking
-AppBundle\Entity\VehicleChecking:
+AppBundle\Entity\Vehicle\VehicleChecking:
   vehicleChecking{1..2}:
     vehicle: '@vehicle1'
     type: '@vehicleCheckingType<numberBetween(1,2)>'
@@ -280,7 +280,7 @@ AppBundle\Entity\VehicleChecking:
     enabled: true
 
 # Users
-AppBundle\Entity\User:
+AppBundle\Entity\Setting\User:
     admin:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
@@ -294,13 +294,13 @@ AppBundle\Entity\User:
             - ROLE_SUPER_ADMIN
 
 # OperatorDigitalTachograph
-AppBundle\Entity\OperatorDigitalTachograph:
+AppBundle\Entity\Operator\OperatorDigitalTachograph:
     operatorDigitalTachograph{1..2}:
         operator: '@operator<numberBetween(1,2)>'
         uploadedFileName: <word()>
 
 # OperatorVariousAmount
-AppBundle\Entity\OperatorVariousAmount:
+AppBundle\Entity\Operator\OperatorVariousAmount:
     operatorVariousAmount{1..2}:
         operator: '@operator<numberBetween(1,2)>'
         date: <dateTime()>
@@ -309,13 +309,13 @@ AppBundle\Entity\OperatorVariousAmount:
         priceUnit: <randomFloat()>
 
 # VehicleDigitalTachograph
-AppBundle\Entity\VehicleDigitalTachograph:
+AppBundle\Entity\Vehicle\VehicleDigitalTachograph:
     vehicleDigitalTachograph{1..2}:
         vehicle: '@vehicle<numberBetween(1,2)>'
         uploadedFileName: <word()>
 
 # EnterpriseGroupBounty
-AppBundle\Entity\EnterpriseGroupBounty:
+AppBundle\Entity\Enterprise\EnterpriseGroupBounty:
     enterpriseGroupBounty{1..2}:
         enterprise: '@enterprise<numberBetween(1,2)>'
         group: <word()>
@@ -338,7 +338,7 @@ AppBundle\Entity\EnterpriseGroupBounty:
         carOutput: <numberBetween(10,30)>
 
 # EnterpriseTransferAccount
-AppBundle\Entity\EnterpriseTransferAccount:
+AppBundle\Entity\Enterprise\EnterpriseTransferAccount:
     enterpriseTransferAccount{1..2}:
         enterprise : '@enterprise<numberBetween(1,2)>'
         name: <word()>
@@ -350,20 +350,20 @@ AppBundle\Entity\EnterpriseTransferAccount:
         accountNumber: <bankAccountNumber()>
 
 # EnterpriseHolydays
-AppBundle\Entity\EnterpriseHolidays:
+AppBundle\Entity\Enterprise\EnterpriseHolidays:
     enterpriseHoliday{1..2}:
         enterprise : '@enterprise<numberBetween(1,2)>'
         day: <dateTimeThisYear()>
         name: <sentence(3)>
 
 # ActivityLine
-AppBundle\Entity\ActivityLine:
+AppBundle\Entity\Enterprise\ActivityLine:
     activityLine{1..2}:
         enterprise : '@enterprise<numberBetween(1,2)>'
         name: <sentence(3)>
 
 # CollectionDocumentType
-AppBundle\Entity\CollectionDocumentType:
+AppBundle\Entity\Enterprise\CollectionDocumentType:
     collectionDocumentType{1..2}:
         enterprise : '@enterprise<numberBetween(1,2)>'
         name: <sentence(3)>
@@ -371,12 +371,12 @@ AppBundle\Entity\CollectionDocumentType:
         sitReference: <sentence(3)>
 
 # PartnerClass
-AppBundle\Entity\PartnerClass:
+AppBundle\Entity\Partner\PartnerClass:
     partnerClass{1..2}:
         name: <word()>
 
 # PartnerUnableDays
-AppBundle\Entity\PartnerUnableDays:
+AppBundle\Entity\Partner\PartnerUnableDays:
     partnerUnableDays{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         begin: <dateTime()>
@@ -384,21 +384,21 @@ AppBundle\Entity\PartnerUnableDays:
 
 
 # PartnerType
-AppBundle\Entity\PartnerType:
+AppBundle\Entity\Partner\PartnerType:
     partnerType{1..2}:
         name: <word()>
         description: <sentence(6)>
         account: <word()>
 
 # PartnerOrders
-AppBundle\Entity\PartnerOrder:
+AppBundle\Entity\Partner\PartnerOrder:
     partnerOrder{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         number: <word()>
         providerReference: <word()>
 
 # PartnerBuildingSite
-AppBundle\Entity\PartnerBuildingSite:
+AppBundle\Entity\Partner\PartnerBuildingSite:
     partnerBuildingSite{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         name: <sentence(3)>
@@ -407,7 +407,7 @@ AppBundle\Entity\PartnerBuildingSite:
         phone: <phoneNumber()>
 
 # PartnerContact
-AppBundle\Entity\PartnerContact:
+AppBundle\Entity\Partner\PartnerContact:
     partnerContact{1..2}:
         partner: '@partner<numberBetween(1,2)>'
         name: <sentence(3)>
@@ -419,7 +419,7 @@ AppBundle\Entity\PartnerContact:
         notes: <text(200)>
 
 # Partner
-AppBundle\Entity\Partner:
+AppBundle\Entity\Partner\Partner:
     partner{1..2}:
       cifNif: <randomNumber(8)>
       name: <company()>
@@ -454,7 +454,7 @@ AppBundle\Entity\Partner:
       accountNumber: <bankAccountNumber()>
 
 # SaleTariff
-AppBundle\Entity\SaleTariff:
+AppBundle\Entity\Sale\SaleTariff:
     saleTariff{1..2}:
         enterprise: '@enterprise<numberBetween(1,2)>'
         year: <year()>
@@ -466,7 +466,7 @@ AppBundle\Entity\SaleTariff:
         increaseForHolidays: <randomFloat()>
 
 # SaleRequest
-AppBundle\Entity\SaleRequest:
+AppBundle\Entity\Sale\SaleRequest:
     saleRequest{1..2}:
         enterprise: '@enterprise<numberBetween(1,2)>'
         partner: '@partner<numberBetween(1,2)>'
@@ -496,7 +496,7 @@ AppBundle\Entity\SaleRequest:
         hasBeenPrinted: <boolean()>
 
 # SaleDeliveryNote
-AppBundle\Entity\SaleDeliveryNote:
+AppBundle\Entity\Sale\SaleDeliveryNote:
     saleDeliveryNote{1..2}:
         date: <dateTime()>
         enterprise: '@enterprise<numberBetween(1,2)>'
@@ -513,7 +513,7 @@ AppBundle\Entity\SaleDeliveryNote:
         saleInvoice: '@saleInvoice<numberBetween(1,2)>'
 
 # SaleDeliveryNoteLine
-AppBundle\Entity\SaleDeliveryNoteLine:
+AppBundle\Entity\Sale\SaleDeliveryNoteLine:
     saleDeliveryNoteLine{1..2}:
         deliveryNote: '@saleDeliveryNote<numberBetween(1,2)>'
         units: <randomFloat()>
@@ -526,16 +526,16 @@ AppBundle\Entity\SaleDeliveryNoteLine:
 
 
 # SaleInvoiceSeries
-AppBundle\Entity\SaleInvoiceSeries:
+AppBundle\Entity\Setting\SaleInvoiceSeries:
     saleInvoiceSeries{1..2}:
         name: <word()>
         prefix: <word()>
         isDefault: <boolean()>
 
 # SaleInvoice
-AppBundle\Entity\SaleInvoice:
+AppBundle\Entity\Sale\SaleInvoice:
     saleInvoice{1..2}:
-        deliveryNotes: [@saleDeliveryNote1, @saleDeliveryNote2]
+        deliveryNotes: [ '@saleDeliveryNote1', '@saleDeliveryNote2' ]
         date: <dateTime()>
         partner: '@partner<numberBetween(1,2)>'
         invoiceNumber: <randomNumber()>
@@ -545,7 +545,7 @@ AppBundle\Entity\SaleInvoice:
         hasBeenCounted: <boolean()>
 
 # SaleRequestHasDeliveryNote
-AppBundle\Entity\SaleRequestHasDeliveryNote:
+AppBundle\Entity\Sale\SaleRequestHasDeliveryNote:
     saleRequestHasDeliveryNote{1..2}:
         saleRequest: '@saleRequest<numberBetween(1,2)>'
         saleDeliveryNote: '@saleDeliveryNote<numberBetween(1,2)>'

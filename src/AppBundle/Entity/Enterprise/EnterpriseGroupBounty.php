@@ -22,7 +22,7 @@ class EnterpriseGroupBounty extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseGroupBounties")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="enterpriseGroupBounties")
      */
     private $enterprise;
 
@@ -36,7 +36,7 @@ class EnterpriseGroupBounty extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Operator", mappedBy="enterpriseGroupBounty")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Operator\Operator", mappedBy="enterpriseGroupBounty")
      */
     private $operators;
 
@@ -161,6 +161,10 @@ class EnterpriseGroupBounty extends AbstractBase
 
     /**
      * Methods.
+     */
+
+    /**
+     * EnterpriseGroupBounty constructor.
      */
     public function __construct()
     {

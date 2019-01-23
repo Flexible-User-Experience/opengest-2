@@ -35,28 +35,28 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise")
      */
     private $enterprise;
 
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="saleDeliveryNotes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner", inversedBy="saleDeliveryNotes")
      */
     private $partner;
 
     /**
      * @var PartnerBuildingSite
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerBuildingSite")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\PartnerBuildingSite")
      */
     private $buildingSite;
 
     /**
      * @var PartnerOrder
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PartnerOrder", inversedBy="saleDeliveryNotes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\PartnerOrder", inversedBy="saleDeliveryNotes")
      */
     private $order;
 
@@ -93,14 +93,14 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var CollectionDocumentType
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CollectionDocumentType")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\CollectionDocumentType")
      */
     private $collectionDocument;
 
     /**
      * @var ActivityLine
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ActivityLine")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\ActivityLine")
      */
     private $activityLine;
 
@@ -114,21 +114,21 @@ class SaleDeliveryNote extends AbstractBase
     /**
      * @var SaleInvoice
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleInvoice", inversedBy="deliveryNotes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleInvoice", inversedBy="deliveryNotes")
      */
     private $saleInvoice;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNoteLine", mappedBy="deliveryNote", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNoteLine", mappedBy="deliveryNote", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $saleDeliveryNoteLines;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleRequestHasDeliveryNote", mappedBy="saleDeliveryNote")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequestHasDeliveryNote", mappedBy="saleDeliveryNote")
      */
     private $saleRequestHasDeliveryNotes;
 

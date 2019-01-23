@@ -22,7 +22,7 @@ class PartnerUnableDays extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner", inversedBy="partnerUnableDays")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner", inversedBy="partnerUnableDays")
      */
     private $partner;
 

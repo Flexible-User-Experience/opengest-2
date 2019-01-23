@@ -22,7 +22,7 @@ class SaleInvoice extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SaleDeliveryNote", mappedBy="saleInvoice")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", mappedBy="saleInvoice")
      * @Groups({"api"})
      */
     private $deliveryNotes;
@@ -37,7 +37,7 @@ class SaleInvoice extends AbstractBase
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Partner\Partner")
      */
     private $partner;
 
@@ -51,7 +51,7 @@ class SaleInvoice extends AbstractBase
     /**
      * @var SaleInvoiceSeries
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleInvoiceSeries")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Setting\SaleInvoiceSeries")
      */
     private $series;
 
@@ -77,7 +77,7 @@ class SaleInvoice extends AbstractBase
     private $hasBeenCounted = false;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**

@@ -18,14 +18,14 @@ class SaleRequestHasDeliveryNote extends AbstractBase
     /**
      * @var SaleRequest
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleRequest", inversedBy="saleRequestHasDeliveryNotes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleRequest", inversedBy="saleRequestHasDeliveryNotes")
      */
     private $saleRequest;
 
     /**
      * @var SaleDeliveryNote
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SaleDeliveryNote", inversedBy="saleRequestHasDeliveryNotes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", inversedBy="saleRequestHasDeliveryNotes")
      */
     private $saleDeliveryNote;
 

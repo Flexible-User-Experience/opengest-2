@@ -23,7 +23,7 @@ class EnterpriseTransferAccount extends AbstractBase
     /**
      * @var Enterprise
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise", inversedBy="enterpriseTransferAccounts")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Enterprise\Enterprise", inversedBy="enterpriseTransferAccounts")
      */
     private $enterprise;
 
@@ -81,12 +81,16 @@ class EnterpriseTransferAccount extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner", mappedBy="transferAccount")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\Partner", mappedBy="transferAccount")
      */
     private $partners;
 
     /**
      * Methods.
+     */
+
+    /**
+     * EnterpriseTransferAccount constructor.
      */
     public function __construct()
     {

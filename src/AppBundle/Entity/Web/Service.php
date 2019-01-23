@@ -8,7 +8,6 @@ use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use AppBundle\Entity\Vehicle\VehicleCategory;
-use AppBundle\Entity\Work;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,14 +65,14 @@ class Service extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Work", mappedBy="service")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Web\Work", mappedBy="service")
      */
     private $works;
 
     /**
      * @var VehicleCategory
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VehicleCategory", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vehicle\VehicleCategory", inversedBy="services")
      * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
      */
     private $vehicleCategory;
