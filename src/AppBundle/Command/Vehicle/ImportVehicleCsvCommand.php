@@ -1,8 +1,9 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Vehicle;
 
-use AppBundle\Entity\Vehicle;
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Vehicle\Vehicle;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,12 +27,14 @@ class ImportVehicleCsvCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -43,7 +46,7 @@ class ImportVehicleCsvCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (false !== ($row = $this->readRow($fr))) {
-            $vehicle = $this->em->getRepository('AppBundle:Vehicle')->findOneBy(['name' => $this->readColumn(9, $row)]);
+            $vehicle = $this->em->getRepository('AppBundle:Vehicle\Vehicle')->findOneBy(['name' => $this->readColumn(9, $row)]);
             // new vehicle
             if (!$vehicle) {
                 $vehicle = new Vehicle();
@@ -55,7 +58,7 @@ class ImportVehicleCsvCommand extends AbstractBaseCommand
                 ->setDescription($this->readColumn(11, $row))
                 ->setShortDescription($this->readColumn(10, $row))
             ;
-            $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(26, $row)]);
+            $vehicleCategory = $this->em->getRepository('AppBundle:Vehicle\VehicleCategory')->findOneBy(['name' => $this->readColumn(26, $row)]);
             if ($vehicleCategory) {
                 $vehicle->setCategory($vehicleCategory);
             }

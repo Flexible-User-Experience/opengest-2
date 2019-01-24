@@ -2,10 +2,9 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\VehicleChecking;
+use AppBundle\Entity\Vehicle\VehicleChecking;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 /**
  * Class NotificationVehicleCheckingCommand.
@@ -31,7 +30,10 @@ class NotificationVehicleCheckingCommand extends AbstractBaseCommand
      *
      * @return int|null|void
      *
-     * @throws InvalidArgumentException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

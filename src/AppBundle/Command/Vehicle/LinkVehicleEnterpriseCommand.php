@@ -1,9 +1,10 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Vehicle;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\Vehicle;
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Vehicle\Vehicle;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,12 +30,14 @@ class LinkVehicleEnterpriseCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -44,11 +47,11 @@ class LinkVehicleEnterpriseCommand extends AbstractBaseCommand
         // Initializations
         $this->init();
 
-        $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => Enterprise::GRUAS_ROMANI_TIN]);
+        $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => Enterprise::GRUAS_ROMANI_TIN]);
         if (!$enterprise) {
             $output->writeln('<error>No enterprise found</error>');
         } else {
-            $vehicles = $this->em->getRepository('AppBundle:Vehicle')->findEnabledSortedByName();
+            $vehicles = $this->em->getRepository('AppBundle:Vehicle\Vehicle')->findEnabledSortedByName();
             /** @var Vehicle $vehicle */
             foreach ($vehicles as $vehicle) {
                 $output->writeln($vehicle->getId().' · '.$vehicle->getName());

@@ -1,10 +1,11 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Operator;
 
-use AppBundle\Entity\City;
-use AppBundle\Entity\Operator;
-use AppBundle\Entity\Province;
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Setting\City;
+use AppBundle\Entity\Operator\Operator;
+use AppBundle\Entity\Setting\Province;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,12 +33,14 @@ class ImportOperatorCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -108,9 +111,9 @@ class ImportOperatorCommand extends AbstractBaseCommand
                 $employmentContractImg = explode('/', $employmentContractImg);
             }
 
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(54, $row)]);
+            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(54, $row)]);
             if ($enterprise && $birthDate && $registrationDate) {
-                $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
+                $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
                 if (!$province) {
                     // new record
                     $province = new Province();
@@ -122,7 +125,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
                 ;
                 $this->em->persist($province);
 
-                $city = $this->em->getRepository('AppBundle:City')->findOneBy(['postalCode' => $this->readColumn(10, $row)]);
+                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy(['postalCode' => $this->readColumn(10, $row)]);
                 if (!$city) {
                     // new record
                     $city = new City();
@@ -134,7 +137,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
                 ;
                 $this->em->persist($city);
 
-                $operator = $this->em->getRepository('AppBundle:Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
+                $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
                 if (!$operator) {
                     // new record
                     $operator = new Operator();

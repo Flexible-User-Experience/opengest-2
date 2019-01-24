@@ -2,8 +2,8 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\User;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,6 +31,8 @@ class LinkUserEnterpriseCommand extends AbstractBaseCommand
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -40,11 +42,11 @@ class LinkUserEnterpriseCommand extends AbstractBaseCommand
         // Initializations
         $this->init();
 
-        $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => Enterprise::GRUAS_ROMANI_TIN]);
+        $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => Enterprise::GRUAS_ROMANI_TIN]);
         if (!$enterprise) {
             $output->writeln('<error>No enterprise found</error>');
         } else {
-            $users = $this->em->getRepository('AppBundle:User')->getEnabledSortedByName();
+            $users = $this->em->getRepository('AppBundle:Setting\User')->getEnabledSortedByName();
             /** @var User $user */
             foreach ($users as $user) {
                 $output->writeln($user->getId().' · '.$user->getFullname());

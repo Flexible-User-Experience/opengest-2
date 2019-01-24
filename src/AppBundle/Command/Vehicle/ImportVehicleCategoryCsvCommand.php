@@ -1,41 +1,40 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Vehicle;
 
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Vehicle\VehicleCategory;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use AppBundle\Entity\OperatorCheckingType;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportOperatorCheckingTypeCommand.
- *
- * @category Command
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * Class ImportVehicleCategoryCsvCommand.
  */
-class ImportOperatorCheckingTypeCommand extends AbstractBaseCommand
+class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:operator:checking:type');
-        $this->setDescription('Import operator checking type from CSV file');
+        $this->setName('app:import:vehicle:category');
+        $this->setDescription('Import vehicle category from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
 
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -47,22 +46,20 @@ class ImportOperatorCheckingTypeCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (false !== ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row));
-
-            $operatorCheckingType = $this->em->getRepository('AppBundle:OperatorCheckingType')->findOneBy(['name' => $this->readColumn(1, $row)]);
-            // new record
-            if (!$operatorCheckingType) {
-                $operatorCheckingType = new OperatorCheckingType();
+            $vehicleCategory = $this->em->getRepository('AppBundle:Vehicle\VehicleCategory')->findOneBy(['name' => $this->readColumn(4, $row)]);
+            // new vehicle category
+            if (!$vehicleCategory) {
+                $vehicleCategory = new VehicleCategory();
                 ++$newRecords;
             }
-            $operatorCheckingType
-                ->setName($this->readColumn(1, $row))
-                ->setDescription($this->readColumn(2, $row))
+            // update vehicle category
+            $vehicleCategory
+                ->setName($this->readColumn(4, $row))
             ;
-
-            $this->em->persist($operatorCheckingType);
+            $this->em->persist($vehicleCategory);
             ++$rowsRead;
         }
+
         $this->em->flush();
         $endTimestamp = new \DateTime();
         // Print totals

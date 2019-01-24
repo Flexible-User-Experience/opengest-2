@@ -1,10 +1,11 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Enterprise;
 
-use AppBundle\Entity\City;
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\Province;
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Setting\City;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\Province;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,12 +33,14 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -51,7 +54,7 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
         while (false != ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(8, $row).' · '.$this->readColumn(2, $row));
 
-            $province = $this->em->getRepository('AppBundle:Province')->findOneBy(['name' => $this->readColumn(5, $row)]);
+            $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy(['name' => $this->readColumn(5, $row)]);
             if (!$province) {
                 // new record
                 $province = new Province();
@@ -63,7 +66,7 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
             ;
             $this->em->persist($province);
 
-            $city = $this->em->getRepository('AppBundle:City')->findOneBy(['postalCode' => $this->readColumn(7, $row)]);
+            $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy(['postalCode' => $this->readColumn(7, $row)]);
             if (!$city) {
                 // new record
                 $city = new City();
@@ -75,7 +78,7 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
             ;
             $this->em->persist($city);
 
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(8, $row)]);
+            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(8, $row)]);
             if (!$enterprise) {
                 // new record
                 $enterprise = new Enterprise();

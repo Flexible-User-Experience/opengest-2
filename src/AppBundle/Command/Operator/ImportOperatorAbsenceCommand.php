@@ -1,41 +1,44 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Operator;
 
-use AppBundle\Entity\OperatorChecking;
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Operator\OperatorAbsence;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportOperatorCheckingCommand.
+ * Class ImportOperatorAbsenceCommand.
  *
  * @category Command
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class ImportOperatorCheckingCommand extends AbstractBaseCommand
+class ImportOperatorAbsenceCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:operator:checking');
-        $this->setDescription('Import operator checking from CSV file');
+        $this->setName('app:import:operator:absence');
+        $this->setDescription('Import operator absence from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
 
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -50,30 +53,30 @@ class ImportOperatorCheckingCommand extends AbstractBaseCommand
         while (false != ($row = $this->readRow($fr))) {
             $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
             $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
+            $type = $this->em->getRepository('AppBundle:Operator\OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(5, $row)]);
+            $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
 
-            $type = $this->em->getRepository('AppBundle:OperatorCheckingType')->findOneBy(['name' => $this->readColumn(5, $row)]);
-
-            $operator = $this->em->getRepository('AppBundle:Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
             if ($operator && $type && $begin && $end) {
                 $output->writeln($this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
-                $operatorChecking = $this->em->getRepository('AppBundle:OperatorChecking')->findOneBy([
+
+                $operatorAbsence = $this->em->getRepository('AppBundle:Operator\OperatorAbsence')->findOneBy([
                     'begin' => $begin,
                     'end' => $end,
                     'type' => $type,
                     'operator' => $operator,
                 ]);
-                if (!$operatorChecking) {
+                if (!$operatorAbsence) {
                     // new record
-                    $operatorChecking = new OperatorChecking();
+                    $operatorAbsence = new OperatorAbsence();
                     ++$newRecords;
                 }
-                $operatorChecking
+                $operatorAbsence
                     ->setOperator($operator)
                     ->setBegin($begin)
                     ->setEnd($end)
                     ->setType($type)
                 ;
-                $this->em->persist($operatorChecking);
+                $this->em->persist($operatorAbsence);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
                     $this->em->flush();
                 }

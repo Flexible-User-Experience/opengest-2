@@ -31,6 +31,7 @@ class ReadCsvTestCommand extends AbstractBaseCommand
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

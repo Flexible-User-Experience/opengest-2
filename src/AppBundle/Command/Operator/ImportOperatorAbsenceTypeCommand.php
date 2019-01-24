@@ -1,37 +1,44 @@
 <?php
 
-namespace AppBundle\Command;
+namespace AppBundle\Command\Operator;
 
-use AppBundle\Entity\VehicleCategory;
+use AppBundle\Command\AbstractBaseCommand;
+use AppBundle\Entity\Operator\OperatorAbsenceType;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportVehicleCategoryCsvCommand.
+ * Class ImportOperatorAbsenceTypeCommand.
+ *
+ * @category Command
+ *
+ * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
+class ImportOperatorAbsenceTypeCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:vehicle:category');
-        $this->setDescription('Import vehicle category from CSV file');
+        $this->setName('app:import:operator:absence:type');
+        $this->setDescription('Import operator absence type from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
     }
 
     /**
      * Execute.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null|void
      *
      * @throws InvalidArgumentException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -43,20 +50,21 @@ class ImportVehicleCategoryCsvCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         while (false !== ($row = $this->readRow($fr))) {
-            $vehicleCategory = $this->em->getRepository('AppBundle:VehicleCategory')->findOneBy(['name' => $this->readColumn(4, $row)]);
-            // new vehicle category
-            if (!$vehicleCategory) {
-                $vehicleCategory = new VehicleCategory();
+            $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row));
+
+            $operatorAbsenceType = $this->em->getRepository('AppBundle:Operator\OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(1, $row)]);
+            if (!$operatorAbsenceType) {
+                // new record
+                $operatorAbsenceType = new OperatorAbsenceType();
                 ++$newRecords;
             }
-            // update vehicle category
-            $vehicleCategory
-                ->setName($this->readColumn(4, $row))
+            $operatorAbsenceType
+                ->setName($this->readColumn(1, $row))
+                ->setDescription($this->readColumn(2, $row))
             ;
-            $this->em->persist($vehicleCategory);
+            $this->em->persist($operatorAbsenceType);
             ++$rowsRead;
         }
-
         $this->em->flush();
         $endTimestamp = new \DateTime();
         // Print totals

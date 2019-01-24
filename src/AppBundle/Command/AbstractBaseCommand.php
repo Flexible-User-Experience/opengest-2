@@ -82,6 +82,8 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      * Get current timestamp string with format Y/m/d H:i:s.
      *
      * @return string
+     *
+     * @throws \Exception
      */
     protected function getTimestampString()
     {
