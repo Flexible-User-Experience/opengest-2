@@ -3,6 +3,7 @@
 namespace AppBundle\Admin\Enterprise;
 
 use AppBundle\Admin\AbstractBaseAdmin;
+use AppBundle\Entity\Setting\User;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -143,7 +144,7 @@ class EnterpriseAdmin extends AbstractBaseAdmin
                     array(
                         'label' => 'Usuaris',
                         'required' => false,
-                        'class' => 'AppBundle:User',
+                        'class' => User::class,
                         'choice_label' => 'fullname',
                         'multiple' => true,
                         'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),

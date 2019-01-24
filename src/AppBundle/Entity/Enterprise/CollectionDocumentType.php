@@ -25,21 +25,21 @@ class CollectionDocumentType extends AbstractBase
     private $enterprise;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string")
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
      */
     private $description;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
      */
@@ -70,19 +70,19 @@ class CollectionDocumentType extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      *
      * @return $this
      */
-    public function setName(string $name): CollectionDocumentType
+    public function setName(?string $name): CollectionDocumentType
     {
         $this->name = $name;
 
@@ -90,19 +90,19 @@ class CollectionDocumentType extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      *
      * @return $this
      */
-    public function setDescription(string $description): CollectionDocumentType
+    public function setDescription(?string $description): CollectionDocumentType
     {
         $this->description = $description;
 
@@ -110,19 +110,19 @@ class CollectionDocumentType extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSitReference(): string
+    public function getSitReference(): ?string
     {
         return $this->sitReference;
     }
 
     /**
-     * @param string $sitReference
+     * @param string|null $sitReference
      *
      * @return $this
      */
-    public function setSitReference(string $sitReference): CollectionDocumentType
+    public function setSitReference(?string $sitReference): CollectionDocumentType
     {
         $this->sitReference = $sitReference;
 

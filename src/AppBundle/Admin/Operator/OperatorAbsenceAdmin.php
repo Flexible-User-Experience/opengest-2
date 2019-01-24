@@ -3,6 +3,7 @@
 namespace AppBundle\Admin\Operator;
 
 use AppBundle\Admin\AbstractBaseAdmin;
+use AppBundle\Entity\Operator\Operator;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -50,7 +51,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Operador',
                     'required' => true,
-                    'class' => 'AppBundle:Operator',
+                    'class' => Operator::class,
                     'choice_label' => 'fullName',
                     'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )

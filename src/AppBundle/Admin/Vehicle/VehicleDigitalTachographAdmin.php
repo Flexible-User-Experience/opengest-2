@@ -3,6 +3,7 @@
 namespace AppBundle\Admin\Vehicle;
 
 use AppBundle\Admin\AbstractBaseAdmin;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -56,7 +57,7 @@ class VehicleDigitalTachographAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Vehicle',
                     'required' => true,
-                    'class' => 'AppBundle:Vehicle',
+                    'class' => Vehicle::class,
                     'choice_label' => 'name',
                     'query_builder' => $this->rm->getVehicleRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
