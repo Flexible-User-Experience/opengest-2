@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Vehicle;
 
-use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\Enterprise\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;

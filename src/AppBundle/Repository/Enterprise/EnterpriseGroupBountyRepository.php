@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Enterprise;
 
-use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\Enterprise\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -11,7 +11,7 @@ use Doctrine\ORM\Query;
  * Class EnterpriseGroupBountyRepository.
  *
  * @category Repository
- * 
+ *
  * @author Rubèn Hierro <info@rubenhierro.com>
  */
 class EnterpriseGroupBountyRepository extends EntityRepository

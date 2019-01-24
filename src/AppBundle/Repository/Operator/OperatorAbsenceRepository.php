@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Operator;
 
-use AppBundle\Entity\Enterprise;
+use AppBundle\Entity\Enterprise\Enterprise;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -20,6 +20,7 @@ class OperatorAbsenceRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getItemsAbsenceTodayByEnterpriseAmountQB(Enterprise $enterprise)
@@ -43,6 +44,7 @@ class OperatorAbsenceRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return Query
+     *
      * @throws \Exception
      */
     public function getItemsAbsenceTodayByEnterpriseAmountQ(Enterprise $enterprise)
@@ -54,6 +56,7 @@ class OperatorAbsenceRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Exception
@@ -67,6 +70,7 @@ class OperatorAbsenceRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return QueryBuilder
+     *
      * @throws \Exception
      */
     public function getItemsToBeAbsenceTomorrowByEnterpriseAmountQB(Enterprise $enterprise)
@@ -90,6 +94,7 @@ class OperatorAbsenceRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return Query
+     *
      * @throws \Exception
      */
     public function getItemsToBeAbsenceTomorrowByEnterpriseAmountQ(Enterprise $enterprise)
@@ -101,6 +106,7 @@ class OperatorAbsenceRepository extends EntityRepository
      * @param Enterprise $enterprise
      *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Exception

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Enterprise;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Setting\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;

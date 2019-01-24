@@ -1,154 +1,154 @@
 services:
     app.service_repository:
-        class: AppBundle\Repository\ServiceRepository
+        class: AppBundle\Repository\Web\ServiceRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Service
+            - AppBundle:Web\Service
     app.vehicle_category_repository:
-        class: AppBundle\Repository\VehicleCategoryRepository
+        class: AppBundle\Repository\Vehicle\VehicleCategoryRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:VehicleCategory
+            - AppBundle:Vehicle\VehicleCategory
     app.work_repository:
-        class: AppBundle\Repository\WorkRepository
+        class: AppBundle\Repository\Web\WorkRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Work
+            - AppBundle:Web\Work
     app.complement_repository:
-        class: AppBundle\Repository\ComplementRepository
+        class: AppBundle\Repository\Web\ComplementRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Complement
+            - AppBundle:Web\Complement
     app.user_repository:
-        class: AppBundle\Repository\UserRepository
+        class: AppBundle\Repository\Setting\UserRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:User
+            - AppBundle:Setting\User
     app.operator_repository:
-        class: AppBundle\Repository\OperatorRepository
+        class: AppBundle\Repository\Operator\OperatorRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Operator
+            - AppBundle:Operator\Operator
     app.enterprise_repository:
-        class: AppBundle\Repository\EnterpriseRepository
+        class: AppBundle\Repository\Enterprise\EnterpriseRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Enterprise
+            - AppBundle:Enterprise\Enterprise
     app.enterprise_group_bounty_repository:
-        class: AppBundle\Repository\EnterpriseGroupBountyRepository
+        class: AppBundle\Repository\Enterprise\EnterpriseGroupBountyRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:EnterpriseGroupBounty
+            - AppBundle:Enterprise\EnterpriseGroupBounty
     app.enterprise_transfer_account_repository:
-        class: AppBundle\Repository\EnterpriseTransferAccountRepository
+        class: AppBundle\Repository\Enterprise\EnterpriseTransferAccountRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:EnterpriseTransferAccount
+            - AppBundle:Enterprise\EnterpriseTransferAccount
     app.enterprise_holidays_repository:
-        class: AppBundle\Repository\EnterpriseHolidaysRepository
+        class: AppBundle\Repository\Enterprise\EnterpriseHolidaysRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:EnterpriseHolidays
+            - AppBundle:Enterprise\EnterpriseHolidays
     app.operator_checking_repository:
-        class: AppBundle\Repository\OperatorCheckingRepository
+        class: AppBundle\Repository\Operator\OperatorCheckingRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:OperatorChecking
+            - AppBundle:Operator\OperatorChecking
     app.operator_checking_type_repository:
-        class: AppBundle\Repository\OperatorCheckingTypeRepository
+        class: AppBundle\Repository\Operator\OperatorCheckingTypeRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:OperatorCheckingType
+            - AppBundle:Operator\OperatorCheckingType
     app.operator_absence_repository:
-        class: AppBundle\Repository\OperatorAbsenceRepository
+        class: AppBundle\Repository\Operator\OperatorAbsenceRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:OperatorAbsence
+            - AppBundle:Operator\OperatorAbsence
     app.operator_absence_type_repository:
-        class: AppBundle\Repository\OperatorAbsenceTypeRepository
+        class: AppBundle\Repository\Operator\OperatorAbsenceTypeRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:OperatorAbsenceType
+            - AppBundle:Operator\OperatorAbsenceType
     app.vehicle_repository:
-        class: AppBundle\Repository\VehicleRepository
+        class: AppBundle\Repository\Vehicle\VehicleRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Vehicle
+            - AppBundle:Vehicle\Vehicle
     app.vehicle_checking_type_repository:
-        class: AppBundle\Repository\VehicleCheckingTypeRepository
+        class: AppBundle\Repository\Vehicle\VehicleCheckingTypeRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:VehicleCheckingType
+            - AppBundle:Vehicle\VehicleCheckingType
     app.vehicle_checking_repository:
-        class: AppBundle\Repository\VehicleCheckingRepository
+        class: AppBundle\Repository\Vehicle\VehicleCheckingRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:VehicleChecking
+            - AppBundle:Vehicle\VehicleChecking
     app.partner_repository:
-        class: AppBundle\Repository\PartnerRepository
+        class: AppBundle\Repository\Partner\PartnerRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Partner
+            - AppBundle:Partner\Partner
     app.partner_class_repository:
-        class: AppBundle\Repository\PartnerClassRepository
+        class: AppBundle\Repository\Partner\PartnerClassRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:PartnerClass
+            - AppBundle:Partner\PartnerClass
     app.partner_type_repository:
-        class: AppBundle\Repository\PartnerTypeRepository
+        class: AppBundle\Repository\Partner\PartnerTypeRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:PartnerType
+            - AppBundle:Partner\PartnerType
     app.partner_building_site_repository:
-        class: AppBundle\Repository\PartnerBuildingSiteRepository
+        class: AppBundle\Repository\Partner\PartnerBuildingSiteRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:PartnerBuildingSite
+            - AppBundle:Partner\PartnerBuildingSite
     app.partner_order_repository:
-        class: AppBundle\Repository\PartnerOrderRepository
+        class: AppBundle\Repository\Partner\PartnerOrderRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:PartnerOrder
+            - AppBundle:Partner\PartnerOrder
     app.city_repository:
-        class: AppBundle\Repository\CityRepository
+        class: AppBundle\Repository\Setting\CityRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:City
+            - AppBundle:Setting\City
     app.sale_tariff_repository:
-        class: AppBundle\Repository\SaleTariffRepository
+        class: AppBundle\Repository\Sale\SaleTariffRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:SaleTariff
+            - AppBundle:Sale\SaleTariff
     app.collection_document_type_repository:
-        class: AppBundle\Repository\CollectionDocumentTypeRepository
+        class: AppBundle\Repository\Enterprise\CollectionDocumentTypeRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:CollectionDocumentType
+            - AppBundle:Enterprise\CollectionDocumentType
     app.activity_line_repository:
-        class: AppBundle\Repository\ActivityLineRepository
+        class: AppBundle\Repository\Enterprise\ActivityLineRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:ActivityLine
+            - AppBundle:Enterprise\ActivityLine
     app.sale_invoice_series_repository:
-        class: AppBundle\Repository\SaleInvoiceSeriesRepository
+        class: AppBundle\Repository\Setting\SaleInvoiceSeriesRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:SaleInvoiceSeries
+            - AppBundle:Setting\SaleInvoiceSeries
     app.sale_invoice_repository:
-        class: AppBundle\Repository\SaleInvoiceRepository
+        class: AppBundle\Repository\Sale\SaleInvoiceRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:SaleInvoice
+            - AppBundle:Sale\SaleInvoice
     app.sale_request_repository:
-        class: AppBundle\Repository\SaleRequestRepository
+        class: AppBundle\Repository\Sale\SaleRequestRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:SaleRequest
+            - AppBundle:Sale\SaleRequest
     app.sale_delivery_note_repository:
-        class: AppBundle\Repository\SaleDeliveryNoteRepository
+        class: AppBundle\Repository\Sale\SaleDeliveryNoteRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:SaleDeliveryNote
+            - AppBundle:Sale\SaleDeliveryNote
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
@@ -179,4 +179,3 @@ services:
             - "@app.sale_invoice_series_repository"
             - "@app.sale_request_repository"
             - "@app.sale_delivery_note_repository"
-

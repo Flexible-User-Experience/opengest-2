@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Web;
 
-use AppBundle\Entity\Work;
+use AppBundle\Entity\Web\Work;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
