@@ -9,6 +9,11 @@
       shell: "php app/console app:import:enterprise app/csv/enterprises.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise activity lines CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:activity:line app/csv/enterprise_activity_lines.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
     - name: execute operator CSV import to local database
       delegate_to: mother
       shell: "php app/console app:import:operator app/csv/operators.csv"
