@@ -10,26 +10,9 @@
             <div class="icon">
                 <i class="fa fa-envelope-o"></i>
             </div>
-            <a href="{{ path('admin_app_contactmessage_list') }}" class="small-box-footer">
+            <a href="{{ path('admin_app_web_contactmessage_list') }}" class="small-box-footer">
                 Anar al llistat <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
-
-        {#<div class="box{% if pendingMessages > 0 %} box-danger{% endif %}">#}
-            {#<div class="box-header">#}
-                {#<h3 class="box-title">#}
-                    {#<i class="fa fa-envelope-o" aria-hidden="true"></i>#}
-                    {#{% if pendingMessages > 0 %}#}
-                        {#{% if pendingMessages == 1 %}#}
-                            {#{{ pendingMessages }} missatge de contacte pendent de llegir#}
-                        {#{% else %}#}
-                            {#{{ pendingMessages }} missatges de contacte pendents de llegir#}
-                        {#{% endif %}#}
-                    {#{% else %}#}
-                        {#no tens cap missatge pendent de llegir#}
-                    {#{% endif %}#}
-                {#</h3>#}
-            {#</div>#}
-        {#</div>#}
     {% endif %}
 {% endblock %}

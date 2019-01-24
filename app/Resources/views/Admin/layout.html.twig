@@ -21,7 +21,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 {% for enterprise in app.user.enterprises %}
                     <li>
-                        <a href="{{ path('admin_app_enterprise_change', {id: enterprise.id}) }}">
+                        <a href="{{ path('admin_app_enterprise_enterprise_change', {id: enterprise.id}) }}">
                             {% if enterprise.logo is not null %}
                                 <img src="{{ vich_uploader_asset(enterprise, 'logoFile') | imagine_filter('220x54') }}" alt="{{ enterprise.name }}">
                             {% else %}
@@ -48,7 +48,7 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
             <li><a><strong>{{ admin_brand_title }}</strong></a></li>
-            <li><a href="{{ path('admin_app_user_profile') }}">{% if app.user.mainImage %}<img class="profile-img" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('32x32') }}" alt="profile image"> {% endif %}{{ app.user.naturalName }}</a></li>
+            <li><a href="{{ path('admin_app_setting_user_profile') }}">{% if app.user.mainImage %}<img class="profile-img" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('32x32') }}" alt="profile image"> {% endif %}{{ app.user.naturalName }}</a></li>
             <li><a href="{{ path('front_homepage') }}"><i class="fa fa-globe"></i></a></li>
             <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
         </ul>

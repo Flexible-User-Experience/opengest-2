@@ -76,8 +76,6 @@
                });
             });
 
-
-
             //on load Partner
             {% if form.partner.vars.data is not null %}
                 jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: {{ form.partner.vars.data.id }} }), function() {
@@ -115,8 +113,6 @@
                 selectContactPersonNode.removeClass('hidden');
                 selectContactPersonName.select2({data: partnerContacts});
             }
-
-
 
             //on load Tariff
             {% if form.tariff.vars.data is not null %}
