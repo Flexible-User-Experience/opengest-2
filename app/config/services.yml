@@ -2,6 +2,10 @@ imports:
     - { resource: services/admins/admin.yml }
 
 services:
+# Pdf
+    app.pdf_engine:
+        class: AppBundle\Service\PdfEngineService
+        arguments: [ "%mailer_url_base%", "%project_admin_title%" ]
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
