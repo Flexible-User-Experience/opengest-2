@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,6 +35,15 @@ class SaleRequestAdmin extends AbstractBaseAdmin
         '_sort_by' => 'requestDate',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * @param RouteCollection $collection
+     */
+    public function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->add('pdf', $this->getRouterIdParameter().'/pdf');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -619,6 +629,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
