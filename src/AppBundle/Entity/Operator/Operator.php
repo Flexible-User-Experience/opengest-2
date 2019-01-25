@@ -600,6 +600,14 @@ class Operator extends AbstractBase
     /**
      * @return string
      */
+    public function getShortFullName()
+    {
+        return $this->surname1.', '.$this->name;
+    }
+
+    /**
+     * @return string
+     */
     public function getAddress()
     {
         return $this->address;

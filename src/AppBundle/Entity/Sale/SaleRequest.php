@@ -611,6 +611,14 @@ class SaleRequest extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getServiceDateString()
+    {
+        return $this->getServiceDate()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $serviceDate
      *
      * @return $this

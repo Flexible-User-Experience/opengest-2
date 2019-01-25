@@ -73,21 +73,17 @@ class PdfEngineService
         $this->engine->SetSubject($this->subject);
         $this->engine->SetKeywords('TCPDF, PDF, '.$this->author);
 
-        // set default header data
-        $this->engine->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0, 64, 255), array(0, 64, 128));
-        $this->engine->setFooterData(array(0, 64, 0), array(0, 64, 128));
-
-        // set header and footer fonts
-        $this->engine->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        $this->engine->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
         // set default monospaced font
         $this->engine->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
         // set margins
-        $this->engine->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $this->engine->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $this->engine->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $this->engine->SetMargins(0, 0, 0);
+        $this->engine->SetHeaderMargin(0);
+        $this->engine->SetFooterMargin(0);
+
+        // set headers
+        $this->engine->setPrintHeader(false);
+        $this->engine->setPrintFooter(false);
 
         // set auto page breaks
         $this->engine->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
@@ -112,6 +108,19 @@ class PdfEngineService
     public function initDefaultPageEngineWithTitle($title)
     {
         $this->initPageEngine($title);
+
+        return $this->engine;
+    }
+
+    /**
+     * @param string $style
+     * @param int    $size
+     *
+     * @return \TCPDF
+     */
+    public function setStyleSize($style = '', $size = 8)
+    {
+        $this->engine->SetFont(ConstantsEnum::PDF_DEFAULT_FONT, $style, $size);
 
         return $this->engine;
     }

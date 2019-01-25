@@ -23,7 +23,10 @@ class ConstantsEnum
     /**
      * PDF.
      */
+    const PDF_DEFAULT_FONT = 'FreeSerif';
     const PDF_PORTRAIT_PAGE_ORIENTATION = 'P';
     const PDF_LANDSCAPE_PAGE_ORIENTATION = 'L';
     const PDF_PAGE_UNITS = 'mm';
+    const PDF_PAGE_A4 = 'A4';
+    const PDF_PAGE_A5 = 'A5';
 }
