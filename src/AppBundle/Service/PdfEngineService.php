@@ -101,7 +101,7 @@ class PdfEngineService
         $this->engine->setPrintFooter(false);
 
         // set auto page breaks
-        $this->engine->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
+        $this->engine->SetAutoPageBreak(true, 0);
 
         // set image scale factor
         $this->engine->setImageScale(PDF_IMAGE_SCALE_RATIO);
