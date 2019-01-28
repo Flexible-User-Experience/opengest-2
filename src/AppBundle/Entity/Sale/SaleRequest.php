@@ -639,6 +639,14 @@ class SaleRequest extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getServiceTimeString()
+    {
+        return $this->getServiceTime()->format('h:i');
+    }
+
+    /**
      * @param \DateTime $serviceTime
      *
      * @return $this

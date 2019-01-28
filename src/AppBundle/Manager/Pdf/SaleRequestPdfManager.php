@@ -44,7 +44,7 @@ class SaleRequestPdfManager
 
         // add start page
         $pdf->AddPage(ConstantsEnum::PDF_PORTRAIT_PAGE_ORIENTATION, ConstantsEnum::PDF_PAGE_A5);
-        $pdf->SetFont('FreeSerif', 'I', 9);
+        $pdf->SetFont(ConstantsEnum::PDF_DEFAULT_FONT, '', 9);
 
         $height_cell = 6;
         $margin_left = 10;
@@ -71,13 +71,15 @@ class SaleRequestPdfManager
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(40, $height_cell, $saleRequest->getOperator()->getShortFullName(), 0, 1, 'L');
 
+        $pdf->Ln($height_cell);
         $pdf->setX($margin_left);
-        $this->pdfEngineService->setStyleSize('B', 10);
+        $this->pdfEngineService->setStyleSize('B', 14);
         $pdf->Cell(20, $height_cell, 'PETICIÓN DE SERVICIO', 0, 1, 'L');
 
+        $pdf->Ln($height_cell);
         $pdf->setX($margin_left);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, $height_cell, 'Fecha:', 0, 0, 'L');
+        $pdf->Cell(20, $height_cell, 'FECHA', 0, 0, 'L');
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(40, $height_cell, $saleRequest->getServiceDateString(), 0, 1, 'L');
 
@@ -101,7 +103,7 @@ class SaleRequestPdfManager
 
         $pdf->setX($margin_left + $width + 20);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(10, $height_cell, 'TELF', 0, 0, 'L');
+        $pdf->Cell(10, $height_cell, 'TELF.', 0, 0, 'L');
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(40, $height_cell, $saleRequest->getPartner()->getPhoneNumber1(), 0, 1, 'L');
 
@@ -123,15 +125,14 @@ class SaleRequestPdfManager
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(40, $height_cell, $saleRequest->getPartner()->getClass()->getName(), 0, 1, 'L'); // TODO not reading properly attribute
 
-        $pdf->setX($margin_left);
-        $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, $height_cell, 'BANCO', 0, 0, 'L');
-        $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(40, $height_cell, '', 0, 1, 'L');
+//        $pdf->setX($margin_left);
+//        $this->pdfEngineService->setStyleSize('B', 9);
+//        $pdf->Cell(20, $height_cell, 'BANCO', 0, 0, 'L');
+//        $this->pdfEngineService->setStyleSize('', 9);
+//        $pdf->Cell(40, $height_cell, '', 0, 1, 'L');
 
-        $pdf->ln(4);
-        $pdf->Line($margin_left, $pdf->getY(), $margin_left + $width + 60, $pdf->getY());
-        $pdf->ln(4);
+        // draw horitzontal line separator
+        $this->drawHoritzontalLineSeparator($pdf);
 
         $pdf->setX($margin_left);
         $this->pdfEngineService->setStyleSize('B', 9);
@@ -169,6 +170,56 @@ class SaleRequestPdfManager
         $pdf->MultiCell($total + 50, $height_cell, $saleRequest->getPlace(), 0, 'L');
         $pdf->setY($y + 3 * $height_cell);
 
+        // draw horitzontal line separator
+        $this->drawHoritzontalLineSeparator($pdf);
+
+        $pdf->setX($margin_left);
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(13, $height_cell, 'HORA', 0, 0, 'L');
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(17, $height_cell, $saleRequest->getServiceTimeString(), 0, 0, 'L');
+
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(10, $height_cell, 'DIA', 0, 0, 'L');
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(20, $height_cell, $saleRequest->getServiceDateString(), 0, 0, 'L');
+
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(20, $height_cell, 'MÍNIMO H.', 0, 0, 'L');
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(15, $height_cell, $saleRequest->getMiniumHours(), 0, 0, 'L');
+
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(15, $height_cell, 'PRECIO H.', 0, 0, 'L');
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(15, $height_cell, $saleRequest->getHourPrice(), 0, 1, 'L');
+
+        $pdf->setX($margin_left);
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(35, $height_cell, 'DESPLAZAMIENTO', 0, 0, 'L');
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(5, $height_cell, $saleRequest->getDisplacement(), 0, 0, 'L');
+
+        $pdf->setX($margin_left + $width + 5);
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(35, $height_cell, 'ATENDIDO POR', 0, 0, 'L');
+        $user = $saleRequest->getAttendedBy();
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(15, $height_cell, strtoupper($user->getUsername()), 0, 1, 'L');
+
+        $pdf->setX($margin_left);
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(40, $height_cell, 'OBSERVACIONES', 0, 1, 'L');
+
+        $this->pdfEngineService->setStyleSize('', 9);
+        if ($saleRequest->getUtensils()) {
+            $pdf->setX($margin_left);
+            $pdf->Cell($total + 50, $height_cell, $saleRequest->getUtensils(), 0, 1, 'L');
+        }
+
+        $pdf->setX($margin_left);
+        $pdf->MultiCell($margin_left + $width + 50, $height_cell, $saleRequest->getObservations(), 0, 'L');
+
         return $pdf;
     }
 
@@ -182,5 +233,17 @@ class SaleRequestPdfManager
         $pdf = $this->build($saleRequest);
 
         return $pdf->Output('peticion_'.$saleRequest->getId().'.pdf', 'I');
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     * @param int    $marginLeft
+     * @param int    $width
+     */
+    private function drawHoritzontalLineSeparator(\TCPDF $pdf, $marginLeft = 10, $width = 70)
+    {
+        $pdf->ln(4);
+        $pdf->Line($marginLeft, $pdf->getY(), $marginLeft + $width + 60, $pdf->getY());
+        $pdf->ln(4);
     }
 }
