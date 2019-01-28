@@ -19,6 +19,11 @@ class PdfEngineService
     private $engine;
 
     /**
+     * @var SmartAssetsHelperService
+     */
+    private $sahs;
+
+    /**
      * @var string
      */
     private $author;
@@ -35,12 +40,14 @@ class PdfEngineService
     /**
      * Constructor.
      *
-     * @param string $author
-     * @param string $subject
+     * @param SmartAssetsHelperService $sahs
+     * @param string                   $author
+     * @param string                   $subject
      */
-    public function __construct($author, $subject)
+    public function __construct(SmartAssetsHelperService $sahs, $author, $subject)
     {
         $this->engine = new \TCPDF();
+        $this->sahs = $sahs;
         $this->author = $author;
         $this->subject = $subject;
     }
@@ -51,6 +58,14 @@ class PdfEngineService
     public function getEngine(): \TCPDF
     {
         return $this->engine;
+    }
+
+    /**
+     * @return SmartAssetsHelperService|null
+     */
+    public function getSmartAssetsHelper(): SmartAssetsHelperService
+    {
+        return $this->sahs;
     }
 
     /**
@@ -97,8 +112,15 @@ class PdfEngineService
         // set font
         $this->engine->SetFont('dejavusans', '', 14, '', true);
 
-        // set cell white background
-        $this->engine->SetFillColor(255);
+        // set cell settings
+        if ($this->sahs->isDevelEnvironment()) {
+            $this->engine->SetFillColor(128);
+        } else {
+            $this->engine->SetFillColor(255);
+        }
+
+        $this->engine->setCellMargins(0, 0, 0, 0);
+        $this->engine->SetCellPadding(0);
 
         return $this->engine;
     }

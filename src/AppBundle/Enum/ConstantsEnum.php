@@ -38,4 +38,5 @@ class ConstantsEnum
      */
     const HTTP_PROTOCOL = 'https://';
     const PHP_SERVER_API_CLI_CONTEXT = 'cli';
+    const SYMFONY_DEV_ENVIRONMENT = 'dev';
 }

@@ -45,6 +45,16 @@ class SmartAssetsHelperService
      *
      * @return bool
      */
+    public function isDevelEnvironment()
+    {
+        return ConstantsEnum::SYMFONY_DEV_ENVIRONMENT === $this->kernel->getEnvironment();
+    }
+
+    /**
+     * Determine if this PHP script is executed under a CLI context.
+     *
+     * @return bool
+     */
     public function isCliContext()
     {
         return ConstantsEnum::PHP_SERVER_API_CLI_CONTEXT === php_sapi_name();
