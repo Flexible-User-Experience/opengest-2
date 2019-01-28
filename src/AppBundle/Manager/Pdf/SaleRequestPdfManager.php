@@ -146,17 +146,17 @@ class SaleRequestPdfManager
 
         $pdf->setX($margin_left);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, $height_cell, 'ALTURA', 0, 0, 'L');
+        $pdf->Cell(15, $height_cell, 'ALTURA', 0, 0, 'L');
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(20, $height_cell, $saleRequest->getHeight(), 0, 0, 'L');
+        $pdf->Cell(35, $height_cell, $saleRequest->getHeightString(), 0, 0, 'L');
 
         $this->pdfEngineService->setStyleSize('B', 9);
         $pdf->Cell(20, $height_cell, 'DISTANCIA', 0, 0, 'L');
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(20, $height_cell, $saleRequest->getDistance(), 0, 0, 'L');
+        $pdf->Cell(20, $height_cell, $saleRequest->getDistanceString(), 0, 0, 'L');
 
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, $height_cell, 'PESO', 0, 0, 'L');
+        $pdf->Cell(10, $height_cell, 'PESO', 0, 0, 'L');
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(20, $height_cell, $saleRequest->getWeight(), 0, 1, 'L');
 
@@ -190,7 +190,7 @@ class SaleRequestPdfManager
         $pdf->Cell(15, $height_cell, $saleRequest->getMiniumHours(), 0, 0, 'L');
 
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(15, $height_cell, 'PRECIO H.', 0, 0, 'L');
+        $pdf->Cell(20, $height_cell, 'PRECIO H.', 0, 0, 'L');
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(15, $height_cell, $saleRequest->getHourPrice(), 0, 1, 'L');
 
@@ -200,9 +200,9 @@ class SaleRequestPdfManager
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(5, $height_cell, $saleRequest->getDisplacement(), 0, 0, 'L');
 
-        $pdf->setX($margin_left + $width + 5);
+        $pdf->setX($margin_left + $width + 16);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(35, $height_cell, 'ATENDIDO POR', 0, 0, 'L');
+        $pdf->Cell(25, $height_cell, 'ATENDIDO POR', 0, 0, 'L');
         $user = $saleRequest->getAttendedBy();
         $this->pdfEngineService->setStyleSize('', 9);
         $pdf->Cell(15, $height_cell, strtoupper($user->getUsername()), 0, 1, 'L');
@@ -238,12 +238,11 @@ class SaleRequestPdfManager
     /**
      * @param \TCPDF $pdf
      * @param int    $marginLeft
-     * @param int    $width
      */
-    private function drawHoritzontalLineSeparator(\TCPDF $pdf, $marginLeft = 10, $width = 70)
+    private function drawHoritzontalLineSeparator(\TCPDF $pdf, $marginLeft = 10)
     {
         $pdf->ln(4);
-        $pdf->Line($marginLeft, $pdf->getY(), $marginLeft + $width + 60, $pdf->getY());
+        $pdf->Line($marginLeft, $pdf->getY(), 149 - $marginLeft, $pdf->getY());
         $pdf->ln(4);
     }
 }

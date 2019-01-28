@@ -391,6 +391,14 @@ class SaleRequest extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getHeightString()
+    {
+        return number_format($this->getHeight(), 0, ',', '.').'m';
+    }
+
+    /**
      * @param int $height
      *
      * @return $this
@@ -408,6 +416,14 @@ class SaleRequest extends AbstractBase
     public function getDistance()
     {
         return $this->distance;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDistanceString()
+    {
+        return number_format($this->getDistance(), 0, ',', '.').'m';
     }
 
     /**
