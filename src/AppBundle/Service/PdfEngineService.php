@@ -97,6 +97,9 @@ class PdfEngineService
         // set font
         $this->engine->SetFont('dejavusans', '', 14, '', true);
 
+        // set cell white background
+        $this->engine->SetFillColor(255);
+
         return $this->engine;
     }
 
