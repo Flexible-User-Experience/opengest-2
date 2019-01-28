@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
@@ -258,7 +259,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'height',
-                null,
+                NumberType::class,
                 array(
                     'label' => 'Alçada',
                     'required' => false,
@@ -266,7 +267,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'distance',
-                null,
+                NumberType::class,
                 array(
                     'label' => 'Distància',
                     'required' => false,
@@ -274,7 +275,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'weight',
-                null,
+                NumberType::class,
                 array(
                     'label' => 'Pes',
                     'required' => false,

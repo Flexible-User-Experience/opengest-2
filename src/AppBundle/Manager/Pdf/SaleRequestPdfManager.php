@@ -57,7 +57,7 @@ class SaleRequestPdfManager
         $this->pdfEngineService->setStyleSize('B', 9);
         $pdf->Cell(15, ConstantsEnum::PDF_CELL_HEIGHT, 'GRUA Nº', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(44, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getVehicle(), 0, 0, 'L', true);
+        $pdf->Cell(44, ConstantsEnum::PDF_CELL_HEIGHT, strtoupper($saleRequest->getVehicle()), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX($total);
@@ -130,7 +130,7 @@ class SaleRequestPdfManager
         $this->pdfEngineService->setStyleSize('B', 9);
         $pdf->Cell(14, ConstantsEnum::PDF_CELL_HEIGHT, 'F.PAGO', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(25, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getClass()->getName(), 0, 0, 'L', true); // TODO not reading properly attribute
+        $pdf->Cell(25, ConstantsEnum::PDF_CELL_HEIGHT, strtoupper($saleRequest->getPartner()->getClass()->getName()), 0, 0, 'L', true); // TODO not reading properly attribute
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         // draw horitzontal line separator
@@ -159,7 +159,7 @@ class SaleRequestPdfManager
         $this->pdfEngineService->setStyleSize('B', 9);
         $pdf->Cell(11, ConstantsEnum::PDF_CELL_HEIGHT, 'PESO', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(28, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getWeight(), 0, 0, 'L', true);
+        $pdf->Cell(28, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getWeightString(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);

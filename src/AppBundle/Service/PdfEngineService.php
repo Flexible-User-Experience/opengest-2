@@ -114,7 +114,7 @@ class PdfEngineService
 
         // set cell settings
         if ($this->sahs->isDevelEnvironment()) {
-            $this->engine->SetFillColor(128);
+            $this->engine->SetFillColor(255);
         } else {
             $this->engine->SetFillColor(255);
         }

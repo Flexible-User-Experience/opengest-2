@@ -395,7 +395,7 @@ class SaleRequest extends AbstractBase
      */
     public function getHeightString()
     {
-        return number_format($this->getHeight(), 0, ',', '.').'m';
+        return number_format($this->getHeight(), 0, ',', '.').' m';
     }
 
     /**
@@ -423,7 +423,7 @@ class SaleRequest extends AbstractBase
      */
     public function getDistanceString()
     {
-        return number_format($this->getDistance(), 0, ',', '.').'m';
+        return number_format($this->getDistance(), 0, ',', '.').' m';
     }
 
     /**
@@ -444,6 +444,14 @@ class SaleRequest extends AbstractBase
     public function getWeight()
     {
         return $this->weight;
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeightString()
+    {
+        return number_format($this->getWeight(), 0, ',', '.').' kg';
     }
 
     /**
