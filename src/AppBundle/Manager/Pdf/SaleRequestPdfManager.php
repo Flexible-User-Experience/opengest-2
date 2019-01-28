@@ -47,118 +47,113 @@ class SaleRequestPdfManager
         $pdf->SetFont(ConstantsEnum::PDF_DEFAULT_FONT, '', 9);
         $width = 70;
         $total = $width + ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT;
+        $availableHoritzontalSpace = 149 - (ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT * 2);
 
         // logo
         $pdf->Image($this->pdfEngineService->getSmartAssetsHelper()->getAbsoluteAssetFilePath('/bundles/app/img/logo_romani.png'), ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, 5, 30); // TODO replace by enterprise image if defined
 
-        // operator
+        // operator section
         $pdf->setXY($total, 5);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(16, ConstantsEnum::PDF_CELL_HEIGHT, 'GRUA Nº', 0, 0, 'L');
+        $pdf->Cell(15, ConstantsEnum::PDF_CELL_HEIGHT, 'GRUA Nº', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(43, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getVehicle(), 0, 0, 'L');
+        $pdf->Cell(44, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getVehicle(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX($total);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(16, ConstantsEnum::PDF_CELL_HEIGHT, 'TM', 0, 0, 'L');
+        $pdf->Cell(15, ConstantsEnum::PDF_CELL_HEIGHT, 'TM', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(43, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getTariff()->getTonnage(), 0, 0, 'L');
+        $pdf->Cell(44, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getTariff()->getTonnage(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX($total);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(16, ConstantsEnum::PDF_CELL_HEIGHT, 'CHOFER', 0, 0, 'L');
+        $pdf->Cell(15, ConstantsEnum::PDF_CELL_HEIGHT, 'CHOFER', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(43, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getOperator()->getFullName(), 0, 0, 'L');
+        $pdf->Cell(44, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getOperator()->getShortFullName(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         // heading title
         $pdf->Ln(ConstantsEnum::PDF_CELL_HEIGHT);
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 14);
-        $pdf->Cell(168, ConstantsEnum::PDF_CELL_HEIGHT, 'PETICIÓN DE SERVICIO', 0, 1, 'L');
+        $pdf->Cell($availableHoritzontalSpace, ConstantsEnum::PDF_CELL_HEIGHT, 'PETICIÓN DE SERVICIO', 0, 1, 'L', true);
         $pdf->Ln(ConstantsEnum::PDF_CELL_HEIGHT);
 
-        // customer
+        // customer section
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(22, ConstantsEnum::PDF_CELL_HEIGHT, 'FECHA', 0, 0, 'L');
+        $pdf->Cell(21, ConstantsEnum::PDF_CELL_HEIGHT, 'FECHA', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(106, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getServiceDateString(), 0, 0, 'L');
+        $pdf->Cell(108, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getServiceDateString(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(22, ConstantsEnum::PDF_CELL_HEIGHT, 'EMPRESA', 0, 0, 'L');
+        $pdf->Cell(21, ConstantsEnum::PDF_CELL_HEIGHT, 'EMPRESA', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(40, ConstantsEnum::PDF_CELL_HEIGHT, substr($saleRequest->getPartner()->getName(), 0, 34), 0, 0, 'L');
+        $pdf->Cell(67, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getName(), 0, 0, 'L', true);
+        $pdf->setX($pdf->GetX() + 2);
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(10, ConstantsEnum::PDF_CELL_HEIGHT, 'SR.', 0, 0, 'L', true);
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(29, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getMainContactName(), 0, 0, 'L', true);
+        $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
+
+        $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
+        $this->pdfEngineService->setStyleSize('B', 9);
+        $pdf->Cell(21, ConstantsEnum::PDF_CELL_HEIGHT, 'POBLACIÓN', 0, 0, 'L', true);
+        $this->pdfEngineService->setStyleSize('', 9);
+        $pdf->Cell(67, ConstantsEnum::PDF_CELL_HEIGHT, substr($saleRequest->getPartner()->getMainCityName(), 0, 30), 0, 0, 'L', true);
+        $pdf->setX($pdf->GetX() + 2);
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT + $width + 20);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(12, ConstantsEnum::PDF_CELL_HEIGHT, 'SR.', 0, 0, 'L');
+        $pdf->Cell(10, ConstantsEnum::PDF_CELL_HEIGHT, 'TELF.', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(26, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getContactPersonName(), 0, 0, 'L');
+        $pdf->Cell(29, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getPhoneNumber1(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(22, ConstantsEnum::PDF_CELL_HEIGHT, 'POBLACIÓN', 0, 0, 'L');
+        $pdf->Cell(21, ConstantsEnum::PDF_CELL_HEIGHT, 'DIRECCIÓN', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(40, ConstantsEnum::PDF_CELL_HEIGHT, substr($saleRequest->getPartner()->getMainCityName(), 0, 30), 0, 0, 'L');
-        $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT + $width + 20);
-        $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(12, ConstantsEnum::PDF_CELL_HEIGHT, 'TELF.', 0, 0, 'L');
-        $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(26, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getPhoneNumber1(), 0, 0, 'L');
+        $pdf->Cell(108, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getMainAddress(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, 'DIRECCIÓN', 0, 0, 'L');
+        $pdf->Cell(21, ConstantsEnum::PDF_CELL_HEIGHT, 'C.I.F.', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(40, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getMainAddress(), 0, 1, 'L');
-
-        $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
+        $pdf->Cell(67, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getCifNif(), 0, 0, 'L', true);
+        $pdf->setX($pdf->GetX() + 2);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, 'C.I.F.', 0, 0, 'L');
+        $pdf->Cell(14, ConstantsEnum::PDF_CELL_HEIGHT, 'F.PAGO', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT + $width - 20, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getCifNif(), 0, 0, 'L');
-
-        $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT + $width);
-        $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, 'F.PAGO', 0, 0, 'L');
-        $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(40, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getClass()->getName(), 0, 1, 'L'); // TODO not reading properly attribute
-
-//        $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
-//        $this->pdfEngineService->setStyleSize('B', 9);
-//        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, 'BANCO', 0, 0, 'L');
-//        $this->pdfEngineService->setStyleSize('', 9);
-//        $pdf->Cell(40, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L');
+        $pdf->Cell(25, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getPartner()->getClass()->getName(), 0, 0, 'L', true); // TODO not reading properly attribute
+        $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
         // draw horitzontal line separator
-        $this->drawHoritzontalLineSeparator($pdf);
+        $this->drawHoritzontalLineSeparator($pdf, $availableHoritzontalSpace);
 
+        // work section
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(40, ConstantsEnum::PDF_CELL_HEIGHT, 'TRABAJO A REALIZAR', 0, 1, 'L');
+        $pdf->Cell($availableHoritzontalSpace, ConstantsEnum::PDF_CELL_HEIGHT, 'TRABAJO A REALIZAR', 0, 1, 'L', true);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('', 9);
-        $y = $pdf->GetY();
-        $pdf->MultiCell($total + 50, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getServiceDescription(), 0, 'L');
-        $pdf->setY($y + 6 * ConstantsEnum::PDF_CELL_HEIGHT);
+        $pdf->MultiCell($availableHoritzontalSpace, 6 * ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getServiceDescription(), 0, 'L', true, 1, '', '', true, 0, false, true, 6 * ConstantsEnum::PDF_CELL_HEIGHT);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(15, ConstantsEnum::PDF_CELL_HEIGHT, 'ALTURA', 0, 0, 'L');
+        $pdf->Cell(15, ConstantsEnum::PDF_CELL_HEIGHT, 'ALTURA', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(35, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getHeightString(), 0, 0, 'L');
-
+        $pdf->Cell(35, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getHeightString(), 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('B', 9);
-        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, 'DISTANCIA', 0, 0, 'L');
+        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, 'DISTANCIA', 0, 0, 'L', true);
         $this->pdfEngineService->setStyleSize('', 9);
-        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getDistanceString(), 0, 0, 'L');
+        $pdf->Cell(20, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getDistanceString(), 0, 0, 'L', true);
 
         $this->pdfEngineService->setStyleSize('B', 9);
         $pdf->Cell(10, ConstantsEnum::PDF_CELL_HEIGHT, 'PESO', 0, 0, 'L');
@@ -176,7 +171,7 @@ class SaleRequestPdfManager
         $pdf->setY($y + 3 * ConstantsEnum::PDF_CELL_HEIGHT);
 
         // draw horitzontal line separator
-        $this->drawHoritzontalLineSeparator($pdf);
+        $this->drawHoritzontalLineSeparator($pdf, $availableHoritzontalSpace);
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
@@ -242,12 +237,12 @@ class SaleRequestPdfManager
 
     /**
      * @param \TCPDF $pdf
-     * @param int    $marginLeft
+     * @param int    $availableHoritzontalSpace
      */
-    private function drawHoritzontalLineSeparator(\TCPDF $pdf, $marginLeft = 10)
+    private function drawHoritzontalLineSeparator(\TCPDF $pdf, $availableHoritzontalSpace)
     {
         $pdf->ln(4);
-        $pdf->Line($marginLeft, $pdf->getY(), 149 - $marginLeft, $pdf->getY());
+        $pdf->Line(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, $pdf->getY(), $availableHoritzontalSpace + ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, $pdf->getY());
         $pdf->ln(4);
     }
 }
