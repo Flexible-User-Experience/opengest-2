@@ -56,6 +56,14 @@ ON OAT.id = OA.tipo_ausencia_id
 JOIN opengest.Operarios O
 ON O.id = OA.operario_id;
 
+SELECT TacO.*
+INTO OUTFILE '/tmp/operator_digital_tachographs.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Tacografos_operarios TacO;
+
 SELECT *
 INTO OUTFILE '/tmp/vehicles_checking_type.csv'
 FIELDS TERMINATED BY ','
