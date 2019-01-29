@@ -113,10 +113,9 @@ class PdfEngineService
         $this->engine->SetFont('dejavusans', '', 14, '', true);
 
         // set cell settings
+        $this->engine->SetFillColor(255);
         if ($this->sahs->isDevelEnvironment()) {
-            $this->engine->SetFillColor(255);
-        } else {
-            $this->engine->SetFillColor(255);
+            $this->engine->SetFillColor(200);
         }
 
         $this->engine->setCellMargins(0, 0, 0, 0);

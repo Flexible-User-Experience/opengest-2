@@ -64,6 +64,6 @@ class SaleRequestAdminController extends BaseAdminController
         /** @var SaleRequestPdfManager $rps */
         $rps = $this->container->get('app.sale_request_pdf_manager');
 
-        return new Response($rps->output($saleRequest), 200, array('Content-type' => 'application/pdf'));
+        return new Response($rps->outputSingle($saleRequest), 200, array('Content-type' => 'application/pdf'));
     }
 }

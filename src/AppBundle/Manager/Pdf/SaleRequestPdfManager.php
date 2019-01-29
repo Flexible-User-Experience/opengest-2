@@ -5,6 +5,7 @@ namespace AppBundle\Manager\Pdf;
 use AppBundle\Entity\Sale\SaleRequest;
 use AppBundle\Enum\ConstantsEnum;
 use AppBundle\Service\PdfEngineService;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class SaleRequestPdfManager.
@@ -37,11 +38,63 @@ class SaleRequestPdfManager
      *
      * @return \TCPDF
      */
-    public function build(SaleRequest $saleRequest)
+    public function buildSingle(SaleRequest $saleRequest)
     {
-        $this->pdfEngineService->initDefaultPageEngineWithTitle($saleRequest);
+        $this->pdfEngineService->initDefaultPageEngineWithTitle('Petición de servicio '.$saleRequest);
         $pdf = $this->pdfEngineService->getEngine();
 
+        return $this->buildOneSaleRequestPerPage($saleRequest, $pdf);
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return string
+     */
+    public function outputSingle(SaleRequest $saleRequest)
+    {
+        $pdf = $this->buildSingle($saleRequest);
+
+        return $pdf->Output('peticion_'.$saleRequest->getId().'.pdf', 'I');
+    }
+
+    /**
+     * @param SaleRequest[]|ArrayCollection|array $saleRequests
+     *
+     * @return \TCPDF
+     */
+    public function buildCollection($saleRequests)
+    {
+        $this->pdfEngineService->initDefaultPageEngineWithTitle('Grupo de peticiones de servicio');
+        $pdf = $this->pdfEngineService->getEngine();
+        /** @var SaleRequest $saleRequest */
+        foreach ($saleRequests as $saleRequest) {
+            $pdf = $this->buildOneSaleRequestPerPage($saleRequest, $pdf);
+        }
+
+        return $pdf;
+    }
+
+    /**
+     * @param SaleRequest[]|ArrayCollection|array $saleRequests
+     *
+     * @return string
+     */
+    public function outputCollection($saleRequests)
+    {
+        $pdf = $this->buildCollection($saleRequests);
+
+        return $pdf->Output('grupo_peticiones_servicio.pdf', 'I');
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     * @param \TCPDF      $pdf
+     *
+     * @return \TCPDF
+     */
+    private function buildOneSaleRequestPerPage(SaleRequest $saleRequest, \TCPDF $pdf)
+    {
         // add start page
         $pdf->AddPage(ConstantsEnum::PDF_PORTRAIT_PAGE_ORIENTATION, ConstantsEnum::PDF_PAGE_A5);
         $pdf->SetFont(ConstantsEnum::PDF_DEFAULT_FONT, '', 9);
@@ -162,6 +215,9 @@ class SaleRequestPdfManager
         $pdf->Cell(28, ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getWeightString(), 0, 0, 'L', true);
         $pdf->Cell(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT, ConstantsEnum::PDF_CELL_HEIGHT, '', 0, 1, 'L', true);
 
+        // draw horitzontal line separator
+        $this->drawHoritzontalLineSeparator($pdf, $availableHoritzontalSpace);
+
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
         $this->pdfEngineService->setStyleSize('B', 9);
         $pdf->Cell($availableHoritzontalSpace, ConstantsEnum::PDF_CELL_HEIGHT, 'LUGAR DE TRABAJO', 0, 1, 'L', true);
@@ -221,21 +277,9 @@ class SaleRequestPdfManager
         }
 
         $pdf->setX(ConstantsEnum::PDF_PAGE_A5_MARGIN_LEFT);
-        $pdf->MultiCell($availableHoritzontalSpace, 3 * ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getObservations(), 0, 'L', true, 1, '', '', true, 0, false, true, 3 * ConstantsEnum::PDF_CELL_HEIGHT);
+        $pdf->MultiCell($availableHoritzontalSpace, 2 * ConstantsEnum::PDF_CELL_HEIGHT, $saleRequest->getObservations(), 0, 'L', true, 1, '', '', true, 0, false, true, 2 * ConstantsEnum::PDF_CELL_HEIGHT);
 
         return $pdf;
-    }
-
-    /**
-     * @param SaleRequest $saleRequest
-     *
-     * @return string
-     */
-    public function output(SaleRequest $saleRequest)
-    {
-        $pdf = $this->build($saleRequest);
-
-        return $pdf->Output('peticion_'.$saleRequest->getId().'.pdf', 'I');
     }
 
     /**
