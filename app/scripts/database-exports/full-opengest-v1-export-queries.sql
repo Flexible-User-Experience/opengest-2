@@ -83,3 +83,11 @@ OPTIONALLY ENCLOSED BY '"'
 ESCAPED BY '\\'
 LINES TERMINATED BY "\n"
 FROM opengest.Lineas_actividad LA;
+
+SELECT TDC.*
+INTO OUTFILE '/tmp/collection_document_types.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Tipos_documentos_cobro TDC;
