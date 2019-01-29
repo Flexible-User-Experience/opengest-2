@@ -99,3 +99,11 @@ OPTIONALLY ENCLOSED BY '"'
 ESCAPED BY '\\'
 LINES TERMINATED BY "\n"
 FROM opengest.Grupos_primas EGB;
+
+SELECT EH.*
+INTO OUTFILE '/tmp/enterprise_holidays.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Dias_festivos EH;
