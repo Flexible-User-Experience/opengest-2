@@ -1045,6 +1045,19 @@ class Partner extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getMainContactName()
+    {
+        $result = '';
+        if (count($this->getContacts()) > 0) {
+            $result = $this->getContacts()[0]->getName();
+        }
+
+        return $result;
+    }
+
+    /**
      * @param ArrayCollection $contacts
      *
      * @return $this

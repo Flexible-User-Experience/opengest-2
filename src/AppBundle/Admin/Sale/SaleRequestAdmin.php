@@ -14,8 +14,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
@@ -34,6 +36,35 @@ class SaleRequestAdmin extends AbstractBaseAdmin
         '_sort_by' => 'requestDate',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * @param RouteCollection $collection
+     */
+    public function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->remove('show')
+            ->add('pdf', $this->getRouterIdParameter().'/pdf')
+        ;
+    }
+
+    /**
+     * @param array $actions
+     *
+     * @return array
+     */
+    public function configureBatchActions($actions)
+    {
+        if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatepdfs'] = array(
+                'label' => 'Imprimir peticions marcades',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
+        }
+
+        return $actions;
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -248,7 +279,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'height',
-                null,
+                NumberType::class,
                 array(
                     'label' => 'Alçada',
                     'required' => false,
@@ -256,7 +287,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'distance',
-                null,
+                NumberType::class,
                 array(
                     'label' => 'Distància',
                     'required' => false,
@@ -264,7 +295,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'weight',
-                null,
+                NumberType::class,
                 array(
                     'label' => 'Pes',
                     'required' => false,
@@ -619,6 +650,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
