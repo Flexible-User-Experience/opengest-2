@@ -5,7 +5,7 @@ services:
 # Pdf
     app.pdf_engine:
         class: AppBundle\Service\PdfEngineService
-        arguments: [ "%mailer_url_base%", "%project_admin_title%" ]
+        arguments: [ "@app.smart_assets_helper_service", "%mailer_url_base%", "%project_admin_title%" ]
     app.sale_request_pdf_manager:
         class: AppBundle\Manager\Pdf\SaleRequestPdfManager
         arguments: [ "@app.pdf_engine" ]
@@ -86,6 +86,9 @@ services:
     app.file_service:
         class: AppBundle\Service\FileService
         arguments: [ "@vich_uploader.templating.helper.uploader_helper", "%kernel.root_dir%" ]
+    app.smart_assets_helper_service:
+        class: AppBundle\Service\SmartAssetsHelperService
+        arguments: [ "@kernel", "%mailer_url_base%" ]
 # Guard
     app.guard_service:
         class: AppBundle\Service\GuardService

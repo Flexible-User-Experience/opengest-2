@@ -30,4 +30,13 @@ class ConstantsEnum
     const PDF_PAGE_UNITS = 'mm';
     const PDF_PAGE_A4 = 'A4';
     const PDF_PAGE_A5 = 'A5';
+    const PDF_PAGE_A5_MARGIN_LEFT = 10;
+    const PDF_CELL_HEIGHT = 6;
+
+    /**
+     * Http.
+     */
+    const HTTP_PROTOCOL = 'https://';
+    const PHP_SERVER_API_CLI_CONTEXT = 'cli';
+    const SYMFONY_DEV_ENVIRONMENT = 'dev';
 }
