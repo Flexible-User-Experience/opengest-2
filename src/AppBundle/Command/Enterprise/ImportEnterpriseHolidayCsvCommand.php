@@ -54,8 +54,8 @@ class ImportEnterpriseHolidayCsvCommand extends AbstractBaseCommand
             $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
             /** @var Enterprise $enterprise */
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['id' => $this->readColumn(1, $row)]);
-            if ($enterprise) {
-                $date = $this->readColumn(2, $row);
+            $date = $this->readColumn(2, $row);
+            if ($enterprise && '0000-00-00' != $date) {
                 $date = explode('-', $date);
                 $day = new \DateTime();
                 $day->setDate($date[0], $date[1], $date[2]);
