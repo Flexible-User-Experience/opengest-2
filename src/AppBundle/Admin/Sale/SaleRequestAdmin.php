@@ -42,8 +42,28 @@ class SaleRequestAdmin extends AbstractBaseAdmin
      */
     public function configureRoutes(RouteCollection $collection)
     {
-        parent::configureRoutes($collection);
-        $collection->add('pdf', $this->getRouterIdParameter().'/pdf');
+        $collection
+            ->remove('show')
+            ->add('pdf', $this->getRouterIdParameter().'/pdf')
+        ;
+    }
+
+    /**
+     * @param array $actions
+     *
+     * @return array
+     */
+    public function configureBatchActions($actions)
+    {
+        if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatepdfs'] = array(
+                'label' => 'Imprimir peticions marcades',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
+        }
+
+        return $actions;
     }
 
     /**

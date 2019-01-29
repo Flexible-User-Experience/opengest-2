@@ -306,7 +306,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/tarifa/1/show'),
             array('/admin/vendes/tarifa/batch'),
             array('/admin/vendes/peticio/1/show'),
-            array('/admin/vendes/peticio/batch'),
             array('/admin/vendes/albara/1/show'),
             array('/admin/vendes/albara/batch'),
             array('/admin/vendes/albara-linia/1/show'),

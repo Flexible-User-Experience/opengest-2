@@ -6,6 +6,8 @@ use AppBundle\Controller\Admin\BaseAdminController;
 use AppBundle\Entity\Sale\SaleRequest;
 use AppBundle\Manager\Pdf\SaleRequestPdfManager;
 use AppBundle\Service\GuardService;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,5 +67,21 @@ class SaleRequestAdminController extends BaseAdminController
         $rps = $this->container->get('app.sale_request_pdf_manager');
 
         return new Response($rps->outputSingle($saleRequest), 200, array('Content-type' => 'application/pdf'));
+    }
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     *
+     * @return Response|RedirectResponse
+     */
+    public function batchActionGeneratepdfs(ProxyQueryInterface $selectedModelQuery)
+    {
+        $this->admin->checkAccess('edit');
+        $selectedModels = $selectedModelQuery->execute();
+
+        /** @var SaleRequestPdfManager $rps */
+        $rps = $this->container->get('app.sale_request_pdf_manager');
+
+        return new Response($rps->outputCollection($selectedModels), 200, array('Content-type' => 'application/pdf'));
     }
 }
