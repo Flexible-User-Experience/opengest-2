@@ -19,6 +19,11 @@
       shell: "php app/console app:import:enterprise:collection:document:type app/csv/collection_document_types.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise group bountys CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:group:bounty app/csv/enterprise_group_bountys.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
     - name: execute operator CSV import to local database
       delegate_to: mother
       shell: "php app/console app:import:operator app/csv/operators.csv"

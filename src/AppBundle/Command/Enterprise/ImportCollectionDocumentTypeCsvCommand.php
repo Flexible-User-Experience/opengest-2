@@ -77,6 +77,7 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
             }
             ++$rowsRead;
         }
+        $this->em->flush();
         $endTimestamp = new \DateTime();
         // Print totals
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);

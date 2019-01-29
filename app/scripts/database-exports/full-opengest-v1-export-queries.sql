@@ -91,3 +91,11 @@ OPTIONALLY ENCLOSED BY '"'
 ESCAPED BY '\\'
 LINES TERMINATED BY "\n"
 FROM opengest.Tipos_documentos_cobro TDC;
+
+SELECT EGB.*
+INTO OUTFILE '/tmp/enterprise_group_bountys.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Grupos_primas EGB;
