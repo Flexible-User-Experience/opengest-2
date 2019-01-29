@@ -107,3 +107,11 @@ OPTIONALLY ENCLOSED BY '"'
 ESCAPED BY '\\'
 LINES TERMINATED BY "\n"
 FROM opengest.Dias_festivos EH;
+
+SELECT CT.*
+INTO OUTFILE '/tmp/enterprise_transfer_accounts.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Cuentas_transferencia CT;

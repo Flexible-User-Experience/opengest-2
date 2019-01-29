@@ -29,6 +29,11 @@
       shell: "php app/console app:import:enterprise:holiday app/csv/enterprise_holidays.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise transfer accounts CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:transfer:account app/csv/enterprise_transfer_accounts.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
     - name: execute operator CSV import to local database
       delegate_to: mother
       shell: "php app/console app:import:operator app/csv/operators.csv"
