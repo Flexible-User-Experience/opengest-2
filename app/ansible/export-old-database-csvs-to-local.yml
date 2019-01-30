@@ -10,4 +10,4 @@
     - name: move exported CSV files to import directory
       delegate_to: mother
       become: true
-      shell: "chown {{ local_system_user }} /tmp/*.csv && chgrp {{ local_system_group }} /tmp/*.csv && chmod 644 /tmp/*.csv && mv /tmp/*.csv {{ playbook_dir }}/../csv/"
+      shell: "sudo chown {{ local_system_user }} /tmp/*.csv && sudo chgrp {{ local_system_group }} /tmp/*.csv && chmod 644 /tmp/*.csv && mv /tmp/*.csv {{ playbook_dir }}/../csv/"

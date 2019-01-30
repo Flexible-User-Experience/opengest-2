@@ -41,7 +41,7 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 'operator',
                 EntityType::class,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'required' => true,
                     'class' => Operator::class,
                     'choice_label' => 'fullName',
@@ -109,7 +109,7 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => Operator::class,
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
@@ -196,7 +196,7 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                 'operator',
                 null,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'editable' => false,
                     'associated_property' => 'fullName',
                     'sortable' => true,

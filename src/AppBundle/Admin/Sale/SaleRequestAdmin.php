@@ -215,13 +215,13 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Operador', $this->getFormMdSuccessBoxArray(3))
+            ->with('Operari', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'operator',
                 EntityType::class,
                 array(
                     'class' => Operator::class,
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'required' => true,
                     'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
@@ -451,7 +451,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => Operator::class,
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'query_builder' => $this->rm->getOperatorRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
                 )
             )
@@ -633,7 +633,7 @@ class SaleRequestAdmin extends AbstractBaseAdmin
                 'operator',
                 null,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                 )
             )
             ->add(

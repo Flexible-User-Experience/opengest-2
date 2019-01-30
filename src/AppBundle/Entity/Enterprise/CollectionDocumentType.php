@@ -52,17 +52,17 @@ class CollectionDocumentType extends AbstractBase
     /**
      * @return Enterprise
      */
-    public function getEnterprise(): Enterprise
+    public function getEnterprise()
     {
         return $this->enterprise;
     }
 
     /**
-     * @param Enterprise $enterprise
+     * @param Enterprise|null $enterprise
      *
      * @return $this
      */
-    public function setEnterprise(Enterprise $enterprise): CollectionDocumentType
+    public function setEnterprise($enterprise)
     {
         $this->enterprise = $enterprise;
 
@@ -72,7 +72,7 @@ class CollectionDocumentType extends AbstractBase
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -82,7 +82,7 @@ class CollectionDocumentType extends AbstractBase
      *
      * @return $this
      */
-    public function setName(?string $name): CollectionDocumentType
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -92,7 +92,7 @@ class CollectionDocumentType extends AbstractBase
     /**
      * @return string|null
      */
-    public function getDescription(): ?string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -102,7 +102,7 @@ class CollectionDocumentType extends AbstractBase
      *
      * @return $this
      */
-    public function setDescription(?string $description): CollectionDocumentType
+    public function setDescription($description)
     {
         $this->description = $description;
 
@@ -112,7 +112,7 @@ class CollectionDocumentType extends AbstractBase
     /**
      * @return string|null
      */
-    public function getSitReference(): ?string
+    public function getSitReference()
     {
         return $this->sitReference;
     }
@@ -122,7 +122,7 @@ class CollectionDocumentType extends AbstractBase
      *
      * @return $this
      */
-    public function setSitReference(?string $sitReference): CollectionDocumentType
+    public function setSitReference($sitReference)
     {
         $this->sitReference = $sitReference;
 
