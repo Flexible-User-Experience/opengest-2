@@ -24,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class OperatorAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Operadors';
-    protected $baseRoutePattern = 'operaris/operador';
+    protected $baseRoutePattern = 'operaris/operari';
     protected $datagridValues = array(
         '_sort_by' => 'surname1',
         '_sort_order' => 'asc',
@@ -387,7 +387,7 @@ class OperatorAdmin extends AbstractBaseAdmin
                         'cranesOperatorLicenseImageFile',
                         FileType::class,
                         array(
-                            'label' => 'Llicència d\'operador',
+                            'label' => 'Llicència d\'operari',
                             'help' => $this->getSmartHelper('getCranesOperatorLicenseImage', 'cranesOperatorLicenseImageFile'),
                             'required' => false,
                         )

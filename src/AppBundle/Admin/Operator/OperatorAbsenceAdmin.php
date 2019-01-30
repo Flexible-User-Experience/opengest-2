@@ -49,7 +49,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'operator',
                 EntityType::class,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'required' => true,
                     'class' => Operator::class,
                     'choice_label' => 'fullName',
@@ -97,7 +97,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'operator',
                 null,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                 )
             )
             ->add(
@@ -187,7 +187,7 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                 'operator',
                 null,
                 array(
-                    'label' => 'Operador',
+                    'label' => 'Operari',
                     'editable' => false,
                     'associated_property' => 'fullName',
                     'sortable' => true,

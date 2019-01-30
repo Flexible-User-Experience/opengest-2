@@ -33,7 +33,7 @@ services:
         class: AppBundle\Admin\Operator\OperatorAdmin
         arguments: [ ~, AppBundle\Entity\Operator\Operator, AppBundle\Controller\Admin\Operator\OperatorAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Operador", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+            - { name: sonata.admin, manager_type: orm, label: "Operari", group: "Operaris", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     app.admin.operator_checking_type:
         class: AppBundle\Admin\Operator\OperatorCheckingTypeAdmin
         arguments: [ ~, AppBundle\Entity\Operator\OperatorCheckingType, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
