@@ -186,6 +186,14 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'operator.profilePhotoImage',
+                null,
+                array(
+                    'label' => 'Imatge',
+                    'template' => '::Admin/Cells/list__cell_operator_profile_image_field.html.twig',
+                )
+            )
+            ->add(
                 'operator',
                 null,
                 array(
