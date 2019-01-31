@@ -4,7 +4,6 @@ namespace AppBundle\Admin\Operator;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Operator\Operator;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -137,15 +136,11 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enterprise = :enterprise')
             ->andWhere('op.enabled = :enabled')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ->setParameter('enabled', true)
         ;
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere('op.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->ts->getToken()->getUser()->getDefaultEnterprise())
-            ;
-        }
 
         return $queryBuilder;
     }
@@ -181,6 +176,14 @@ class OperatorAbsenceAdmin extends AbstractBaseAdmin
                     'label' => 'Data fi',
                     'format' => 'd/m/Y',
                     'editable' => true,
+                )
+            )
+            ->add(
+                'operator.profilePhotoImage',
+                null,
+                array(
+                    'label' => 'Imatge',
+                    'template' => '::Admin/Cells/list__cell_operator_profile_image_field.html.twig',
                 )
             )
             ->add(

@@ -4,7 +4,6 @@ namespace AppBundle\Admin\Operator;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Operator\Operator;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -108,13 +107,13 @@ class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
-                ->andWhere('op.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enterprise = :enterprise')
+            ->andWhere('op.enabled = :enabled')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ->setParameter('enabled', true)
+        ;
 
         return $queryBuilder;
     }
@@ -136,11 +135,11 @@ class OperatorDigitalTachographAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'profilePhotoImage',
+                'operator.profilePhotoImage',
                 null,
                 array(
                     'label' => 'Imatge',
-                    'template' => '::Admin/Cells/list__cell_tachograph_operator_profile_image_field.html.twig',
+                    'template' => '::Admin/Cells/list__cell_operator_profile_image_field.html.twig',
                 )
             )
             ->add(

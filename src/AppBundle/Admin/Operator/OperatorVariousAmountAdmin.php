@@ -154,13 +154,13 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
-                ->andWhere('op.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
+        $queryBuilder
+            ->join($queryBuilder->getRootAliases()[0].'.operator', 'op')
+            ->andWhere('op.enterprise = :enterprise')
+            ->andWhere('op.enabled = :enabled')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
+            ->setParameter('enabled', true)
+        ;
 
         return $queryBuilder;
     }
@@ -171,17 +171,6 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $listMapper
-                ->add(
-                    'operator.enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $listMapper
             ->add(
                 'date',
@@ -190,6 +179,14 @@ class OperatorVariousAmountAdmin extends AbstractBaseAdmin
                     'label' => 'Data',
                     'format' => 'd/m/Y',
                     'editable' => false,
+                )
+            )
+            ->add(
+                'operator.profilePhotoImage',
+                null,
+                array(
+                    'label' => 'Imatge',
+                    'template' => '::Admin/Cells/list__cell_operator_profile_image_field.html.twig',
                 )
             )
             ->add(
