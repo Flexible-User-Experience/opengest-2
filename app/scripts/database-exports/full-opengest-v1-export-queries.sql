@@ -64,6 +64,14 @@ ESCAPED BY '\\'
 LINES TERMINATED BY "\n"
 FROM opengest.Tacografos_operarios TacO;
 
+SELECT OVA.*
+INTO OUTFILE '/tmp/operator_various_amounts.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Importes_varios OVA;
+
 SELECT *
 INTO OUTFILE '/tmp/vehicles_checking_type.csv'
 FIELDS TERMINATED BY ','
