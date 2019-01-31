@@ -298,7 +298,15 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      */
     protected function getUserLogedEnterprise()
     {
-        return $this->ts->getToken()->getUser()->getLoggedEnterprise();
+        return $this->getUser()->getLoggedEnterprise();
+    }
+
+    /**
+     * @return int
+     */
+    protected function getUserLogedId()
+    {
+        return $this->getUser()->getId();
     }
 
     /**

@@ -4,7 +4,6 @@ namespace AppBundle\Admin\Enterprise;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Enterprise\EnterpriseHolidays;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -62,13 +61,6 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'day',
                 'doctrine_orm_date',
                 array(
@@ -97,15 +89,11 @@ class EnterpriseHolidaysAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ->orderBy('e.name', 'ASC')
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.day', 'DESC')
         ;
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
 
         return $queryBuilder;
     }

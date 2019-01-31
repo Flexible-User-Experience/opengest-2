@@ -4,7 +4,6 @@ namespace AppBundle\Admin\Enterprise;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Enterprise\EnterpriseTransferAccount;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -102,13 +101,6 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'enterprise',
-                null,
-                array(
-                    'label' => 'Empresa',
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
@@ -129,15 +121,11 @@ class EnterpriseTransferAccountAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ->orderBy('e.name', 'ASC')
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
 
         return $queryBuilder;
     }
