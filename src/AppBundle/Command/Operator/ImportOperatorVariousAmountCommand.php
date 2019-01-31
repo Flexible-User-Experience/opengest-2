@@ -3,7 +3,7 @@
 namespace AppBundle\Command\Operator;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Operator\OperatorDigitalTachograph;
+use AppBundle\Entity\Operator\OperatorVariousAmount;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -52,24 +52,28 @@ class ImportOperatorVariousAmountCommand extends AbstractBaseCommand
         $errors = 0;
         while (false != ($row = $this->readRow($fr))) {
             $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['id' => $this->readColumn(1, $row)]);
-            $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->readColumn(2, $row));
-            if ($operator && $date) {
+            $date = \DateTime::createFromFormat('Y-m-d', $this->readColumn(2, $row));
+            $description = $this->readColumn(3, $row);
+            if ($operator && $date && $description) {
                 $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row).' · '.$this->readColumn(3, $row));
-                $digitalTachograph = $this->em->getRepository('AppBundle:Operator\OperatorDigitalTachograph')->findOneBy([
+                $variousAmount = $this->em->getRepository('AppBundle:Operator\OperatorVariousAmount')->findOneBy([
                     'operator' => $operator,
-                    'createdAt' => $date,
+                    'date' => $date,
+                    'description' => $description,
                 ]);
-                if (!$digitalTachograph) {
+                if (!$variousAmount) {
                     // new record
                     ++$newRecords;
-                    $digitalTachograph = new OperatorDigitalTachograph();
+                    $variousAmount = new OperatorVariousAmount();
                 }
-                $digitalTachograph
+                $variousAmount
                     ->setOperator($operator)
-                    ->setCreatedAt($date)
-                    ->setUploadedFileName($this->readColumn(3, $row))
+                    ->setDate($date)
+                    ->setDescription($description)
+                    ->setPriceUnit($this->readColumn(4, $row))
+                    ->setUnits($this->readColumn(5, $row))
                 ;
-                $this->em->persist($digitalTachograph);
+                $this->em->persist($variousAmount);
                 $this->em->flush();
             } else {
                 ++$errors;
