@@ -9,6 +9,31 @@
       shell: "php app/console app:import:enterprise app/csv/enterprises.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise activity lines CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:activity:line app/csv/enterprise_activity_lines.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise collection document types CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:collection:document:type app/csv/collection_document_types.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise group bountys CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:group:bounty app/csv/enterprise_group_bountys.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise holidays CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:holiday app/csv/enterprise_holidays.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute enterprise transfer accounts CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:enterprise:transfer:account app/csv/enterprise_transfer_accounts.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
     - name: execute operator CSV import to local database
       delegate_to: mother
       shell: "php app/console app:import:operator app/csv/operators.csv"
@@ -32,5 +57,15 @@
     - name: execute operator absence CSV import to local database
       delegate_to: mother
       shell: "php app/console app:import:operator:absence app/csv/operators_absence.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator digital tachographs CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator:digital:tachograph app/csv/operator_digital_tachographs.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute operator various amount CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:operator:various:amount app/csv/operator_various_amounts.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"

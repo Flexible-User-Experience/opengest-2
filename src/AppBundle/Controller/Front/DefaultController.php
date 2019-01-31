@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
-use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\Web\ContactMessage;
 use AppBundle\Form\ContactMessageForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * Class DefaultController.
+ *
+ * @category Controller
+ */
 class DefaultController extends Controller
 {
     /**
@@ -17,9 +22,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-de-celosia']);
-        $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
-        $servicePA = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => 'plataformas-aereas-sobre-camion']);
+        $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'gruas-de-celosia']);
+        $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
+        $servicePA = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'plataformas-aereas-sobre-camion']);
 
         return $this->render(':Frontend:homepage.html.twig', array(
             'serviceGC' => $serviceGC,
@@ -34,6 +39,10 @@ class DefaultController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function companyAction(Request $request)
     {
@@ -56,7 +65,7 @@ class DefaultController extends Controller
             $messenger->sendCommonUserNotification($contactMessage);
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form in production envioronment
-            if ($this->get('kernel')->getEnvironment() == 'prod') {
+            if ('prod' == $this->get('kernel')->getEnvironment()) {
                 $contactMessage = new ContactMessage();
                 $form = $this->createForm(ContactMessageForm::class, $contactMessage);
             }
@@ -97,15 +106,14 @@ class DefaultController extends Controller
      * @return Response
      *
      * @throws HttpException
+     * @throws \Exception
      */
     public function testEmailAction()
     {
-        if ($this->get('kernel')->getEnvironment() == 'prod') {
+        if ('prod' == $this->get('kernel')->getEnvironment()) {
             throw new HttpException(403);
         }
-
         $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
-
 //        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
 
         return $this->render(':Mails:vehicles_checking_invalid_admin_notification.html.twig', array(

@@ -42,11 +42,13 @@ class SitemapListener implements SitemapListenerInterface
 
     /**
      * @param SitemapPopulateEvent $event
+     *
+     * @throws \Exception
      */
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $section = $event->getSection();
-        if (is_null($section) || $section == 'default') {
+        if (is_null($section) || 'default' == $section) {
             $sitemap = $this->menuBuilder->createSitemapMenu();
             /** @var MenuItem $item */
             foreach ($sitemap->getIterator() as $item) {
@@ -97,12 +99,14 @@ class SitemapListener implements SitemapListenerInterface
      * @param \DateTime|null $date
      *
      * @return UrlConcrete
+     *
+     * @throws \Exception
      */
     private function makeUrlConcrete($url, $priority = 1, $date = null)
     {
         return new UrlConcrete(
             $url,
-            $date === null ? new \DateTime() : $date,
+            null === $date ? new \DateTime() : $date,
             UrlConcrete::CHANGEFREQ_WEEKLY,
             $priority
         );

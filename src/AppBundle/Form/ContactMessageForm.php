@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Web\ContactMessage;
 use Beelab\Recaptcha2Bundle\Form\Type\RecaptchaType;
 use Beelab\Recaptcha2Bundle\Validator\Constraints\Recaptcha2;
 use Symfony\Component\Form\AbstractType;
@@ -19,6 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ContactMessageForm extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -81,7 +86,6 @@ class ContactMessageForm extends AbstractType
                     ),
                 )
             )
-
             ->add(
                 'privacy',
                 CheckboxType::class,
@@ -111,7 +115,8 @@ class ContactMessageForm extends AbstractType
                         'style' => 'margin-bottom: -15px',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -121,7 +126,7 @@ class ContactMessageForm extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\ContactMessage',
+                'data_class' => ContactMessage::class,
             )
         );
     }

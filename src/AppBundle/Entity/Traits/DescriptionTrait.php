@@ -21,8 +21,10 @@ trait DescriptionTrait
     private $description;
 
     /**
-     * Set description.
-     *
+     * Methods.
+     */
+
+    /**
      * @param string $description
      *
      * @return $this
@@ -35,8 +37,6 @@ trait DescriptionTrait
     }
 
     /**
-     * Get description.
-     *
      * @return string
      */
     public function getDescription()

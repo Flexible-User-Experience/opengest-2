@@ -21,6 +21,10 @@ trait NameTrait
     private $name;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return string
      */
     public function getName()

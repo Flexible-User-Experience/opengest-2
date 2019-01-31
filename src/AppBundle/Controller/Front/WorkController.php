@@ -2,11 +2,18 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Enum\ConstantsEnum;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class WorkController extends AbstractBaseController
+/**
+ * Class WorkController.
+ *
+ * @category Controller
+ */
+class WorkController extends Controller
 {
     /**
      * @Route("/trabajos/{page}", name="front_works")
@@ -17,10 +24,9 @@ class WorkController extends AbstractBaseController
      */
     public function listAction($page = 1)
     {
-        $works = $this->getDoctrine()->getRepository('AppBundle:Work')->findEnabledSortedByDate();
-
+        $works = $this->getDoctrine()->getRepository('AppBundle:Web\Work')->findEnabledSortedByDate();
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($works, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
+        $pagination = $paginator->paginate($works, $page, ConstantsEnum::FRONTEND_ITEMS_PER_PAGE_LIMIT);
 
         return $this->render(':Frontend:works.html.twig', [
             'pagination' => $pagination,
@@ -38,13 +44,11 @@ class WorkController extends AbstractBaseController
      */
     public function detailAction($slug)
     {
-        $work = $this->getDoctrine()->getRepository('AppBundle:Work')->findOneBy(['slug' => $slug]);
-
+        $work = $this->getDoctrine()->getRepository('AppBundle:Web\Work')->findOneBy(['slug' => $slug]);
         if (!$work) {
             throw new EntityNotFoundException();
         }
-
-        $images = $this->getDoctrine()->getRepository('AppBundle:WorkImage')->findEnabledSortedByPosition($work);
+        $images = $this->getDoctrine()->getRepository('AppBundle:Web\WorkImage')->findEnabledSortedByPosition($work);
 
         return $this->render(':Frontend:work_detail.html.twig', [
             'work' => $work,

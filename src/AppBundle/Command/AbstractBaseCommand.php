@@ -63,7 +63,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
             throw new \Exception('Column index '.$index.' doesn\'t exists');
         }
 
-        return $row[$index] != '\\N' ? $row[$index] : null;
+        return '\\N' != $row[$index] ? $row[$index] : null;
     }
 
     /**
@@ -82,6 +82,8 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      * Get current timestamp string with format Y/m/d H:i:s.
      *
      * @return string
+     *
+     * @throws \Exception
      */
     protected function getTimestampString()
     {

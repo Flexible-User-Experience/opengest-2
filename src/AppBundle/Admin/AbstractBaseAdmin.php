@@ -2,8 +2,8 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\User;
 use AppBundle\Manager\RepositoriesManager;
 use AppBundle\Service\FileService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -213,6 +213,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string $uploaderMapping
      *
      * @return string
+     *
      * @throws \Twig\Error\Error
      */
     protected function getSmartHelper($attribute, $uploaderMapping)
@@ -297,7 +298,15 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      */
     protected function getUserLogedEnterprise()
     {
-        return $this->ts->getToken()->getUser()->getLoggedEnterprise();
+        return $this->getUser()->getLoggedEnterprise();
+    }
+
+    /**
+     * @return int
+     */
+    protected function getUserLogedId()
+    {
+        return $this->getUser()->getId();
     }
 
     /**

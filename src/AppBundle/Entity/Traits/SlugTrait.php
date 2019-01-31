@@ -12,8 +12,6 @@ namespace AppBundle\Entity\Traits;
 trait SlugTrait
 {
     /**
-     * Set slug.
-     *
      * @param string $slug
      *
      * @return $this
@@ -26,8 +24,6 @@ trait SlugTrait
     }
 
     /**
-     * Get slug.
-     *
      * @return string
      */
     public function getSlug()

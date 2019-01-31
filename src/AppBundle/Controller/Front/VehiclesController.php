@@ -2,18 +2,22 @@
 
 namespace AppBundle\Controller\Front;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\Vehicle;
-use AppBundle\Entity\VehicleCategory;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Vehicle\Vehicle;
+use AppBundle\Entity\Vehicle\VehicleCategory;
+use AppBundle\Enum\ConstantsEnum;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class VehiclesController.
+ *
+ * @category Controller
  */
-class VehiclesController extends AbstractBaseController
+class VehiclesController extends Controller
 {
     /**
      * @Route("/vehiculos", name="front_vehicles")
@@ -24,8 +28,8 @@ class VehiclesController extends AbstractBaseController
      */
     public function vehiclesAction()
     {
-        $categories = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findEnabledSortedByNameForWeb();
-        if (count($categories) == 0) {
+        $categories = $this->getDoctrine()->getRepository('AppBundle:Vehicle\VehicleCategory')->findEnabledSortedByNameForWeb();
+        if (0 == count($categories)) {
             throw new EntityNotFoundException();
         }
         /** @var VehicleCategory $categoria */
@@ -48,13 +52,11 @@ class VehiclesController extends AbstractBaseController
     public function vehicleDetailAction($slug)
     {
         /** @var Vehicle|null $vehicle */
-        $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findOneBy(['slug' => $slug]);
-
+        $vehicle = $this->getDoctrine()->getRepository('AppBundle:Vehicle\Vehicle')->findOneBy(['slug' => $slug]);
         if (!$vehicle) {
             throw new EntityNotFoundException();
         }
-
-        if ($vehicle->getEnterprise()->getTaxIdentificationNumber() != Enterprise::GRUAS_ROMANI_TIN) {
+        if (Enterprise::GRUAS_ROMANI_TIN != $vehicle->getEnterprise()->getTaxIdentificationNumber()) {
             throw new EntityNotFoundException();
         }
 
@@ -75,15 +77,13 @@ class VehiclesController extends AbstractBaseController
      */
     public function vehiclesCategoryAction($slug, $page = 1)
     {
-        $category = $this->getDoctrine()->getRepository('AppBundle:VehicleCategory')->findOneBy(['slug' => $slug]);
-
+        $category = $this->getDoctrine()->getRepository('AppBundle:Vehicle\VehicleCategory')->findOneBy(['slug' => $slug]);
         if (!$category) {
             throw new EntityNotFoundException();
         }
-
-        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
+        $vehicles = $this->getDoctrine()->getRepository('AppBundle:Vehicle\Vehicle')->findEnabledSortedByPositionAndNameForWeb($category);
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($vehicles, $page, AbstractBaseController::DEFAULT_PAGE_LIMIT);
+        $pagination = $paginator->paginate($vehicles, $page, ConstantsEnum::FRONTEND_ITEMS_PER_PAGE_LIMIT);
 
         return $this->render(':Frontend:vehicles.html.twig', [
             'category' => $category,

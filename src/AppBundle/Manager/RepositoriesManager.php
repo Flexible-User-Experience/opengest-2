@@ -2,33 +2,33 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Repository\ActivityLineRepository;
-use AppBundle\Repository\CityRepository;
-use AppBundle\Repository\CollectionDocumentTypeRepository;
-use AppBundle\Repository\EnterpriseGroupBountyRepository;
-use AppBundle\Repository\EnterpriseRepository;
-use AppBundle\Repository\EnterpriseTransferAccountRepository;
-use AppBundle\Repository\EnterpriseHolidaysRepository;
-use AppBundle\Repository\OperatorAbsenceRepository;
-use AppBundle\Repository\OperatorAbsenceTypeRepository;
-use AppBundle\Repository\OperatorCheckingRepository;
-use AppBundle\Repository\OperatorCheckingTypeRepository;
-use AppBundle\Repository\OperatorRepository;
-use AppBundle\Repository\PartnerBuildingSiteRepository;
-use AppBundle\Repository\PartnerClassRepository;
-use AppBundle\Repository\PartnerOrderRepository;
-use AppBundle\Repository\PartnerRepository;
-use AppBundle\Repository\PartnerTypeRepository;
-use AppBundle\Repository\SaleDeliveryNoteRepository;
-use AppBundle\Repository\SaleInvoiceSeriesRepository;
-use AppBundle\Repository\SaleRequestRepository;
-use AppBundle\Repository\SaleTariffRepository;
-use AppBundle\Repository\ServiceRepository;
-use AppBundle\Repository\UserRepository;
-use AppBundle\Repository\VehicleCategoryRepository;
-use AppBundle\Repository\VehicleCheckingRepository;
-use AppBundle\Repository\VehicleCheckingTypeRepository;
-use AppBundle\Repository\VehicleRepository;
+use AppBundle\Repository\Enterprise\ActivityLineRepository;
+use AppBundle\Repository\Setting\CityRepository;
+use AppBundle\Repository\Enterprise\CollectionDocumentTypeRepository;
+use AppBundle\Repository\Enterprise\EnterpriseGroupBountyRepository;
+use AppBundle\Repository\Enterprise\EnterpriseRepository;
+use AppBundle\Repository\Enterprise\EnterpriseTransferAccountRepository;
+use AppBundle\Repository\Enterprise\EnterpriseHolidaysRepository;
+use AppBundle\Repository\Operator\OperatorAbsenceRepository;
+use AppBundle\Repository\Operator\OperatorAbsenceTypeRepository;
+use AppBundle\Repository\Operator\OperatorCheckingRepository;
+use AppBundle\Repository\Operator\OperatorCheckingTypeRepository;
+use AppBundle\Repository\Operator\OperatorRepository;
+use AppBundle\Repository\Partner\PartnerBuildingSiteRepository;
+use AppBundle\Repository\Partner\PartnerClassRepository;
+use AppBundle\Repository\Partner\PartnerOrderRepository;
+use AppBundle\Repository\Partner\PartnerRepository;
+use AppBundle\Repository\Partner\PartnerTypeRepository;
+use AppBundle\Repository\Sale\SaleDeliveryNoteRepository;
+use AppBundle\Repository\Setting\SaleInvoiceSeriesRepository;
+use AppBundle\Repository\Sale\SaleRequestRepository;
+use AppBundle\Repository\Sale\SaleTariffRepository;
+use AppBundle\Repository\Web\ServiceRepository;
+use AppBundle\Repository\Setting\UserRepository;
+use AppBundle\Repository\Vehicle\VehicleCategoryRepository;
+use AppBundle\Repository\Vehicle\VehicleCheckingRepository;
+use AppBundle\Repository\Vehicle\VehicleCheckingTypeRepository;
+use AppBundle\Repository\Vehicle\VehicleRepository;
 
 /**
  * Class RepositoriesManager.

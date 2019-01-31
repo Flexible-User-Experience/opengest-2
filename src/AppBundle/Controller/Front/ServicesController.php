@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller\Front;
 
-use AppBundle\Entity\ContactMessage;
-use AppBundle\Entity\Service;
+use AppBundle\Entity\Web\ContactMessage;
+use AppBundle\Entity\Web\Service;
 use AppBundle\Form\ContactMessageForm;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ServicesController.
+ *
+ * @category Controller
+ */
 class ServicesController extends Controller
 {
     /**
@@ -23,8 +28,8 @@ class ServicesController extends Controller
      */
     public function servicesAction()
     {
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findEnabledSortedByPositionAndName();
-        if (count($services) == 0) {
+        $services = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findEnabledSortedByPositionAndName();
+        if (0 == count($services)) {
             throw new EntityNotFoundException();
         }
         /** @var Service $service */
@@ -44,6 +49,9 @@ class ServicesController extends Controller
      * @return Response
      *
      * @throws EntityNotFoundException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function detailServiceAction(Request $request, $slug)
     {
@@ -66,14 +74,13 @@ class ServicesController extends Controller
             $messenger->sendCommonUserNotification($contactMessage);
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form in production eviorament
-            if ($this->get('kernel')->getEnvironment() == 'prod') {
+            if ('prod' == $this->get('kernel')->getEnvironment()) {
                 $contactMessage = new ContactMessage();
                 $form = $this->createForm(ContactMessageForm::class, $contactMessage);
             }
         }
 
-        $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneBy(['slug' => $slug]);
-
+        $service = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => $slug]);
         if (!$service) {
             throw new EntityNotFoundException();
         }

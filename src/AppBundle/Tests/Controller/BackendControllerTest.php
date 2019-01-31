@@ -59,29 +59,16 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/imatge-treball/create'),
             array('/admin/web/imatge-treball/1/edit'),
             array('/admin/web/imatge-treball/1/delete'),
-            array('/admin/web/categoria-vehicle/list'),
-            array('/admin/web/categoria-vehicle/create'),
-            array('/admin/web/categoria-vehicle/1/edit'),
             array('/admin/web/accesori/list'),
             array('/admin/web/accesori/create'),
             array('/admin/web/accesori/1/edit'),
-            // Administration
-            array('/admin/administracio/provincia/list'),
-            array('/admin/administracio/provincia/create'),
-            array('/admin/administracio/provincia/1/edit'),
-            array('/admin/administracio/ciutat/list'),
-            array('/admin/administracio/ciutat/create'),
-            array('/admin/administracio/ciutat/1/edit'),
-            array('/admin/administracio/usuari/list'),
-            array('/admin/administracio/usuari/create'),
-            array('/admin/administracio/usuari/1/edit'),
-            array('/admin/administracio/usuari/1/delete'),
-            array('/admin/administracio/series-factura/1/edit'),
-            array('/admin/administracio/series-factura/1/delete'),
-            // Operators
-            array('/admin/operaris/operador/list'),
-            array('/admin/operaris/operador/create'),
-            array('/admin/operaris/operador/1/edit'),
+            array('/admin/web/missatge-contacte/list'),
+            array('/admin/web/missatge-contacte/1/show'),
+            array('/admin/web/missatge-contacte/1/answer'),
+            // Operator
+            array('/admin/operaris/operari/list'),
+            array('/admin/operaris/operari/create'),
+            array('/admin/operaris/operari/1/edit'),
             array('/admin/operaris/tipus-revisio/list'),
             array('/admin/operaris/tipus-revisio/create'),
             array('/admin/operaris/tipus-revisio/1/edit'),
@@ -100,53 +87,44 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/imports-varis/list'),
             array('/admin/operaris/imports-varis/create'),
             array('/admin/operaris/imports-varis/1/edit'),
-            // Vehicles
+            // Vehicle
             array('/admin/vehicles/vehicle/list'),
             array('/admin/vehicles/vehicle/create'),
             array('/admin/vehicles/vehicle/1/edit'),
+            array('/admin/vehicles/categoria-vehicle/list'),
+            array('/admin/vehicles/categoria-vehicle/create'),
+            array('/admin/vehicles/categoria-vehicle/1/edit'),
+            array('/admin/vehicles/revisio/list'),
+            array('/admin/vehicles/revisio/create'),
+            array('/admin/vehicles/revisio/1/edit'),
+            array('/admin/vehicles/tipus-revisio/list'),
+            array('/admin/vehicles/tipus-revisio/create'),
+            array('/admin/vehicles/tipus-revisio/1/edit'),
             array('/admin/vehicles/tacograf/list'),
             array('/admin/vehicles/tacograf/create'),
             array('/admin/vehicles/tacograf/1/edit'),
-            // Contacts
-            array('/admin/contactes/missatge-contacte/list'),
-            array('/admin/contactes/missatge-contacte/1/show'),
-            array('/admin/contactes/missatge-contacte/1/answer'),
-            // Enterprises
-            array('/admin/empreses/empresa/list'),
-            array('/admin/empreses/empresa/create'),
-            array('/admin/empreses/empresa/1/edit'),
-            array('/admin/empreses/grup-prima/list'),
-            array('/admin/empreses/grup-prima/create'),
-            array('/admin/empreses/grup-prima/1/edit'),
-            array('/admin/empreses/grup-prima/1/delete'),
-            array('/admin/empreses/compte-bancari/create'),
-            array('/admin/empreses/compte-bancari/1/edit'),
-            array('/admin/empreses/compte-bancari/1/delete'),
-            array('/admin/empreses/dies-festius/create'),
-            array('/admin/empreses/dies-festius/1/edit'),
-            array('/admin/empreses/dies-festius/1/delete'),
-            array('/admin/empreses/linies-activitat/create'),
-            array('/admin/empreses/linies-activitat/1/edit'),
-            array('/admin/empreses/linies-activitat/1/delete'),
-            array('/admin/empreses/tipus-document-cobrament/create'),
-            array('/admin/empreses/tipus-document-cobrament/1/edit'),
-            array('/admin/empreses/tipus-document-cobrament/1/delete'),
-            // Partners
+            // Partner
+            array('/admin/tercers/classe/list'),
             array('/admin/tercers/classe/create'),
             array('/admin/tercers/classe/1/edit'),
             array('/admin/tercers/classe/1/delete'),
+            array('/admin/tercers/tipus/list'),
             array('/admin/tercers/tipus/create'),
             array('/admin/tercers/tipus/1/edit'),
             array('/admin/tercers/tipus/1/delete'),
+            array('/admin/tercers/tercer/list'),
             array('/admin/tercers/tercer/create'),
             array('/admin/tercers/tercer/1/edit'),
             array('/admin/tercers/tercer/1/delete'),
+            array('/admin/tercers/comandes/list'),
             array('/admin/tercers/comandes/create'),
             array('/admin/tercers/comandes/1/edit'),
             array('/admin/tercers/comandes/1/delete'),
+            array('/admin/tercers/obres/list'),
             array('/admin/tercers/obres/create'),
             array('/admin/tercers/obres/1/edit'),
             array('/admin/tercers/obres/1/delete'),
+            array('/admin/tercers/contacte/list'),
             array('/admin/tercers/contacte/create'),
             array('/admin/tercers/contacte/1/edit'),
             array('/admin/tercers/contacte/1/delete'),
@@ -154,25 +132,69 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/dies-inhabils/create'),
             array('/admin/tercers/dies-inhabils/1/edit'),
             array('/admin/tercers/dies-inhabils/1/delete'),
+            // Enterprise
+            array('/admin/empreses/empresa/list'),
+            array('/admin/empreses/empresa/create'),
+            array('/admin/empreses/empresa/1/edit'),
+            array('/admin/empreses/grup-prima/list'),
+            array('/admin/empreses/grup-prima/create'),
+            array('/admin/empreses/grup-prima/1/edit'),
+            array('/admin/empreses/grup-prima/1/delete'),
+            array('/admin/empreses/compte-bancari/list'),
+            array('/admin/empreses/compte-bancari/create'),
+            array('/admin/empreses/compte-bancari/1/edit'),
+            array('/admin/empreses/compte-bancari/1/delete'),
+            array('/admin/empreses/dies-festius/list'),
+            array('/admin/empreses/dies-festius/create'),
+            array('/admin/empreses/dies-festius/1/edit'),
+            array('/admin/empreses/dies-festius/1/delete'),
+            array('/admin/empreses/linies-activitat/list'),
+            array('/admin/empreses/linies-activitat/create'),
+            array('/admin/empreses/linies-activitat/1/edit'),
+            array('/admin/empreses/linies-activitat/1/delete'),
+            array('/admin/empreses/tipus-document-cobrament/list'),
+            array('/admin/empreses/tipus-document-cobrament/create'),
+            array('/admin/empreses/tipus-document-cobrament/1/edit'),
+            array('/admin/empreses/tipus-document-cobrament/1/delete'),
             // Sale
+            array('/admin/vendes/tarifa/list'),
             array('/admin/vendes/tarifa/create'),
             array('/admin/vendes/tarifa/1/edit'),
             array('/admin/vendes/tarifa/1/delete'),
+            array('/admin/vendes/peticio/list'),
             array('/admin/vendes/peticio/create'),
             array('/admin/vendes/peticio/1/edit'),
             array('/admin/vendes/peticio/1/delete'),
+            array('/admin/vendes/albara/list'),
             array('/admin/vendes/albara/create'),
             array('/admin/vendes/albara/1/edit'),
             array('/admin/vendes/albara/1/delete'),
             array('/admin/vendes/albara-linia/create'),
             array('/admin/vendes/albara-linia/1/edit'),
             array('/admin/vendes/albara-linia/1/delete'),
+            array('/admin/vendes/factura/list'),
             array('/admin/vendes/factura/create'),
             array('/admin/vendes/factura/1/edit'),
             array('/admin/vendes/factura/1/delete'),
+            array('/admin/vendes/valoracio-peticio-albara/list'),
             array('/admin/vendes/valoracio-peticio-albara/create'),
             array('/admin/vendes/valoracio-peticio-albara/1/edit'),
             array('/admin/vendes/valoracio-peticio-albara/1/delete'),
+            // Setting
+            array('/admin/configuracio/provincia/list'),
+            array('/admin/configuracio/provincia/create'),
+            array('/admin/configuracio/provincia/1/edit'),
+            array('/admin/configuracio/ciutat/list'),
+            array('/admin/configuracio/ciutat/create'),
+            array('/admin/configuracio/ciutat/1/edit'),
+            array('/admin/configuracio/usuari/list'),
+            array('/admin/configuracio/usuari/create'),
+            array('/admin/configuracio/usuari/1/edit'),
+            array('/admin/configuracio/usuari/1/delete'),
+            array('/admin/configuracio/series-factura/list'),
+            array('/admin/configuracio/series-factura/create'),
+            array('/admin/configuracio/series-factura/1/edit'),
+            array('/admin/configuracio/series-factura/1/delete'),
         );
     }
 
@@ -206,30 +228,18 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/web/treball/1/show'),
             array('/admin/web/treball/batch'),
             array('/admin/web/treball/1/delete'),
-            array('/admin/web/categoria-vehicle/1/show'),
-            array('/admin/web/categoria-vehicle/batch'),
-            array('/admin/web/categoria-vehicle/1/delete'),
-            array('/admin/web/vehicle/1/show'),
-            array('/admin/web/vehicle/batch'),
-            array('/admin/web/vehicle/1/delete'),
+            array('/admin/web/imatge-treball/1/show'),
+            array('/admin/web/imatge-treball/batch'),
             array('/admin/web/accesori/1/show'),
             array('/admin/web/accesori/batch'),
             array('/admin/web/accesori/1/delete'),
-            // Administrator
-            array('/admin/administracio/provincia/1/show'),
-            array('/admin/administracio/provincia/batch'),
-            array('/admin/administracio/provincia/1/delete'),
-            array('/admin/administracio/ciutat/1/show'),
-            array('/admin/administracio/ciutat/batch'),
-            array('/admin/administracio/ciutat/1/delete'),
-            array('/admin/administracio/usuari/1/show'),
-            array('/admin/administracio/usuari/batch'),
-            array('/admin/administracio/series-factura/1/show'),
-            array('/admin/administracio/series-factura/batch'),
-            // Operators
-            array('/admin/operaris/operador/1/delete'),
-            array('/admin/operaris/operador/1/show'),
-            array('/admin/operaris/operador/batch'),
+            array('/admin/web/missatge-contacte/create'),
+            array('/admin/web/missatge-contacte/1/edit'),
+            array('/admin/web/missatge-contacte/1/delete'),
+            // Operator
+            array('/admin/operaris/operari/1/delete'),
+            array('/admin/operaris/operari/1/show'),
+            array('/admin/operaris/operari/batch'),
             array('/admin/operaris/tipus-revisio/1/delete'),
             array('/admin/operaris/tipus-revisio/1/show'),
             array('/admin/operaris/tipus-revisio/batch'),
@@ -247,29 +257,23 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/operaris/tacograf/batch'),
             array('/admin/operaris/imports-varis/1/show'),
             array('/admin/operaris/imports-varis/batch'),
-            // Vehicles
+            // Vehicle
+            array('/admin/vehicles/vehicle/1/show'),
+            array('/admin/vehicles/vehicle/batch'),
+            array('/admin/vehicles/vehicle/1/delete'),
+            array('/admin/vehicles/categoria-vehicle/1/show'),
+            array('/admin/vehicles/categoria-vehicle/batch'),
+            array('/admin/vehicles/categoria-vehicle/1/delete'),
+            array('/admin/vehicles/revisio/1/delete'),
+            array('/admin/vehicles/revisio/1/show'),
+            array('/admin/vehicles/revisio/batch'),
+            array('/admin/vehicles/tipus-revisio/1/delete'),
+            array('/admin/vehicles/tipus-revisio/1/show'),
+            array('/admin/vehicles/tipus-revisio/batch'),
             array('/admin/vehicles/tacograf/delete'),
             array('/admin/vehicles/tacograf/show'),
             array('/admin/vehicles/tacograf/1/batch'),
-            // Contacts
-            array('/admin/contactes/missatge-contacte/create'),
-            array('/admin/contactes/missatge-contacte/1/edit'),
-            array('/admin/contactes/missatge-contacte/1/delete'),
-            // Enterprises
-            array('/admin/empreses/empresa/1/show'),
-            array('/admin/empreses/empresa/batch'),
-            array('/admin/empreses/empresa/1/delete'),
-            array('/admin/empreses/grup-prima/1/show'),
-            array('/admin/empreses/grup-prima/batch'),
-            array('/admin/empreses/compte-bancari/1/show'),
-            array('/admin/empreses/compte-bancari/batch'),
-            array('/admin/empreses/dies-festius/1/show'),
-            array('/admin/empreses/dies-festius/batch'),
-            array('/admin/empreses/linies-activitat/1/show'),
-            array('/admin/empreses/linies-activitat/batch'),
-            array('/admin/empreses/tipus-document-cobrament/1/show'),
-            array('/admin/empreses/tipus-document-cobrament/batch'),
-            // Partners
+            // Partner
             array('/admin/tercers/classe/1/show'),
             array('/admin/tercers/classe/batch'),
             array('/admin/tercers/tipus/1/show'),
@@ -284,11 +288,24 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/tercers/contacte/batch'),
             array('/admin/tercers/dies-inhabils/1/show'),
             array('/admin/tercers/dies-inhabils/batch'),
+            // Enterprise
+            array('/admin/empreses/empresa/1/show'),
+            array('/admin/empreses/empresa/batch'),
+            array('/admin/empreses/empresa/1/delete'),
+            array('/admin/empreses/grup-prima/1/show'),
+            array('/admin/empreses/grup-prima/batch'),
+            array('/admin/empreses/compte-bancari/1/show'),
+            array('/admin/empreses/compte-bancari/batch'),
+            array('/admin/empreses/dies-festius/1/show'),
+            array('/admin/empreses/dies-festius/batch'),
+            array('/admin/empreses/linies-activitat/1/show'),
+            array('/admin/empreses/linies-activitat/batch'),
+            array('/admin/empreses/tipus-document-cobrament/1/show'),
+            array('/admin/empreses/tipus-document-cobrament/batch'),
             // Sale
             array('/admin/vendes/tarifa/1/show'),
             array('/admin/vendes/tarifa/batch'),
             array('/admin/vendes/peticio/1/show'),
-            array('/admin/vendes/peticio/batch'),
             array('/admin/vendes/albara/1/show'),
             array('/admin/vendes/albara/batch'),
             array('/admin/vendes/albara-linia/1/show'),
@@ -297,35 +314,48 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/vendes/factura/batch'),
             array('/admin/vendes/valoracio-peticio-albara/1/show'),
             array('/admin/vendes/valoracio-peticio-albara/batch'),
+            // Setting
+            array('/admin/configuracio/provincia/1/show'),
+            array('/admin/configuracio/provincia/batch'),
+            array('/admin/configuracio/provincia/1/delete'),
+            array('/admin/configuracio/ciutat/1/show'),
+            array('/admin/configuracio/ciutat/batch'),
+            array('/admin/configuracio/ciutat/1/delete'),
+            array('/admin/configuracio/usuari/1/show'),
+            array('/admin/configuracio/usuari/batch'),
+            array('/admin/configuracio/series-factura/1/show'),
+            array('/admin/configuracio/series-factura/batch'),
         );
     }
 
-    /**
+    /*
      * Test HTTP request is redirection.
      *
-     * @dataProvider provideRedirectionUrls
+     * dataProvider provideRedirectionUrls
      *
-     * @param string $url
-     */
-//    public function testAdminPagesAreRedirection($url)
-//    {
-//        $client = $this->makeClient(true);         // authenticated user
-//        $client->request('GET', $url);
-//
-//        $this->assertStatusCode(302, $client);
-//    }
+     * param string $url
+     *
+    public function testAdminPagesAreRedirection($url)
+    {
+        $client = $this->makeClient(true);         // authenticated user
+        $client->request('GET', $url);
 
-    /**
+        $this->assertStatusCode(302, $client);
+    }
+    */
+
+    /*
      * Not found Urls provider.
      *
      * @return array
-     */
+     *
     public function provideRedirectionUrls()
     {
         return array(
-//            array('/admin/coworkers/coworker/1/show'),
-//            array('/admin/activitats/activitat/1/show'),
-//            array('/admin/web/post/1/show'),
+            array('/admin/coworkers/coworker/1/show'),
+            array('/admin/activitats/activitat/1/show'),
+            array('/admin/web/post/1/show'),
         );
     }
+    */
 }

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Repository\SaleDeliveryNoteRepository;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Repository\Sale\SaleDeliveryNoteRepository;
 
 /**
  * Class DeliveryNoteManager.
@@ -16,6 +16,10 @@ class DeliveryNoteManager
      * @var SaleDeliveryNoteRepository
      */
     private $saleDeliveryNoteRepository;
+
+    /**
+     * Methods.
+     */
 
     /**
      * DeliveryNoteManager constructor.

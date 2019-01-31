@@ -28,8 +28,6 @@ class FileService
      */
 
     /**
-     * Constructor.
-     *
      * @param UploaderHelper $uhs
      * @param string         $krd
      */
@@ -71,7 +69,7 @@ class FileService
      */
     public function isImage($entity, $attribute)
     {
-        if ($this->getMimeType($entity, $attribute) == 'image/jpg' || $this->getMimeType($entity, $attribute) == 'image/jpeg' || $this->getMimeType($entity, $attribute) == 'image/png' || $this->getMimeType($entity, $attribute) == 'image/gif') {
+        if ('image/jpg' == $this->getMimeType($entity, $attribute) || 'image/jpeg' == $this->getMimeType($entity, $attribute) || 'image/png' == $this->getMimeType($entity, $attribute) || 'image/gif' == $this->getMimeType($entity, $attribute)) {
             return true;
         }
 
@@ -86,7 +84,7 @@ class FileService
      */
     public function isPdf($entity, $attribute)
     {
-        if ($this->getMimeType($entity, $attribute) == 'application/pdf' || $this->getMimeType($entity, $attribute) == 'application/x-pdf') {
+        if ('application/pdf' == $this->getMimeType($entity, $attribute) || 'application/x-pdf' == $this->getMimeType($entity, $attribute)) {
             return true;
         }
 

@@ -28,9 +28,7 @@ class ContactMessageBlock extends AbstractBlockService
      */
 
     /**
-     * Constructor.
-     *
-     * @param $name
+     * @param string          $name
      * @param EngineInterface $templating
      * @param EntityManager   $em
      */
@@ -47,20 +45,23 @@ class ContactMessageBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         // merge settings
         $settings = $blockContext->getSettings();
 
-        $pendingMessagesAmount = $this->em->getRepository('AppBundle:ContactMessage')->getPendingMessagesAmount();
+        $pendingMessagesAmount = $this->em->getRepository('AppBundle:Web\ContactMessage')->getPendingMessagesAmount();
 
         $backgroundColor = 'bg-green';
         $content = '<h3><i class="fa fa-check-circle-o" aria-hidden="true"></i></h3><p>Tots els missatges de contacte estan contestats</p>';
 
         if ($pendingMessagesAmount > 0) {
             $backgroundColor = 'bg-red';
-            if ($pendingMessagesAmount == 1) {
+            if (1 == $pendingMessagesAmount) {
                 $content = '<h3>'.$pendingMessagesAmount.'</h3><p>Missatge de contacte pendent de contestar</p>';
             } else {
                 $content = '<h3>'.$pendingMessagesAmount.'</h3><p>Missatges de contacte pendents de contestar</p>';
@@ -81,8 +82,6 @@ class ContactMessageBlock extends AbstractBlockService
     }
 
     /**
-     * Get name.
-     *
      * @return string
      */
     public function getName()

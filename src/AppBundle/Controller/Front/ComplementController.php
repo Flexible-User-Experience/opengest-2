@@ -5,18 +5,21 @@ namespace AppBundle\Controller\Front;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class ComplementController.
+ *
+ * @category Controller
  */
-class ComplementController extends AbstractBaseController
+class ComplementController extends Controller
 {
     /**
      * @Route("/accesorios", name="front_complement")
      */
     public function complementAction()
     {
-        $complements = $this->getDoctrine()->getRepository('AppBundle:Complement')->findEnabledSortedByName();
+        $complements = $this->getDoctrine()->getRepository('AppBundle:Web\Complement')->findEnabledSortedByName();
 
         return $this->render(':Frontend:complements.html.twig', [
             'complements' => $complements,
@@ -34,8 +37,7 @@ class ComplementController extends AbstractBaseController
      */
     public function complementDetailAction($slug)
     {
-        $complement = $this->getDoctrine()->getRepository('AppBundle:Complement')->findOneBy(['slug' => $slug]);
-
+        $complement = $this->getDoctrine()->getRepository('AppBundle:Web\Complement')->findOneBy(['slug' => $slug]);
         if (!$complement) {
             throw new EntityNotFoundException();
         }

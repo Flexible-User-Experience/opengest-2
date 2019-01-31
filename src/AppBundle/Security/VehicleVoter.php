@@ -2,8 +2,8 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\Vehicle;
+use AppBundle\Entity\Setting\User;
+use AppBundle\Entity\Vehicle\Vehicle;
 use AppBundle\Security\Traits\VoteOnAttributeTrait;
 
 /**

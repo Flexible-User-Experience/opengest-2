@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Setting\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,6 +28,10 @@ class UserDefaultEnterpriseForm extends AbstractType
      * @var TokenStorage
      */
     private $ts;
+
+    /**
+     * Methods.
+     */
 
     /**
      * UserDefaultEnterpriseForm constructor.
@@ -63,14 +68,6 @@ class UserDefaultEnterpriseForm extends AbstractType
                     'disabled' => true,
                 )
             )
-//            ->add(
-//                'plainPassword',
-//                PasswordType::class,
-//                array(
-//                    'label' => 'Contrasenya',
-//                    'required' => false,
-//                )
-//            )
             ->add(
                 'firstname',
                 TextType::class,
@@ -93,7 +90,7 @@ class UserDefaultEnterpriseForm extends AbstractType
                 array(
                     'label' => 'Empresa',
                     'class' => 'AppBundle:Enterprise',
-                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise')->getEnterprisesByUserQB($this->ts->getToken()->getUser()),
+                    'query_builder' => $this->em->getRepository('AppBundle:Enterprise\Enterprise')->getEnterprisesByUserQB($this->ts->getToken()->getUser()),
                     'choice_label' => 'name',
                 )
             )
@@ -125,7 +122,7 @@ class UserDefaultEnterpriseForm extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\User',
+                'data_class' => User::class,
             )
         );
     }

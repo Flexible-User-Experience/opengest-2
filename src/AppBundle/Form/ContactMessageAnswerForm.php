@@ -42,7 +42,8 @@ class ContactMessageAnswerForm extends ContactMessageForm
                         'class' => 'btn-primary',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**

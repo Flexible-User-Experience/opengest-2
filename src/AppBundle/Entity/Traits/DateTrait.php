@@ -21,8 +21,10 @@ trait DateTrait
     private $date;
 
     /**
-     * Set Date.
-     *
+     * Methods.
+     */
+
+    /**
      * @param \DateTime $date
      *
      * @return $this
@@ -35,8 +37,6 @@ trait DateTrait
     }
 
     /**
-     * Get Date.
-     *
      * @return \DateTime
      */
     public function getDate()
@@ -45,8 +45,6 @@ trait DateTrait
     }
 
     /**
-     * Get Date.
-     *
      * @return string
      */
     public function getDateString()

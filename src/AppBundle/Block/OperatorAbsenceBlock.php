@@ -2,7 +2,7 @@
 
 namespace AppBundle\Block;
 
-use AppBundle\Repository\OperatorAbsenceRepository;
+use AppBundle\Repository\Operator\OperatorAbsenceRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -34,8 +34,6 @@ class OperatorAbsenceBlock extends AbstractBlockService
      */
 
     /**
-     * OperatorAbsenceBlock constructor.
-     *
      * @param null|string               $name
      * @param EngineInterface           $templating
      * @param OperatorAbsenceRepository $oar
@@ -53,6 +51,9 @@ class OperatorAbsenceBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
@@ -68,10 +69,10 @@ class OperatorAbsenceBlock extends AbstractBlockService
         if ($operatorsBeforeAbsent > 0 && $operatorsAbsentAmount > 0) {
             $backgroundColor = 'bg-red';
             $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>Operaris avui no estan disponibles</p><p>'.$operatorsBeforeAbsent.' operaris demà no estaran disponibles</p>';
-        } elseif ($operatorsAbsentAmount > 0 && $operatorsBeforeAbsent == 0) {
+        } elseif ($operatorsAbsentAmount > 0 && 0 == $operatorsBeforeAbsent) {
             $backgroundColor = 'bg-red';
             $content = '<h3>'.$operatorsAbsentAmount.'</h3><p>Operaris avui no estan disponibles</p>';
-        } elseif ($operatorsAbsentAmount == 0 && $operatorsBeforeAbsent > 0) {
+        } elseif (0 == $operatorsAbsentAmount && $operatorsBeforeAbsent > 0) {
             $backgroundColor = 'bg-yellow';
             $content = '<h3>'.$operatorsBeforeAbsent.'</h3><p>Operaris demà no estaran disponibles</p>';
         }

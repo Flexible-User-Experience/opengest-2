@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Entity\Enterprise;
-use AppBundle\Entity\SaleInvoiceSeries;
-use AppBundle\Repository\SaleInvoiceRepository;
+use AppBundle\Entity\Enterprise\Enterprise;
+use AppBundle\Entity\Setting\SaleInvoiceSeries;
+use AppBundle\Repository\Sale\SaleInvoiceRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
 /**
@@ -18,6 +18,10 @@ class InvoiceManager
      * @var SaleInvoiceRepository
      */
     private $saleInvoiceRepository;
+
+    /**
+     * Methods.
+     */
 
     /**
      * InvoiceManager constructor.

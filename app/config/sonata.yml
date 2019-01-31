@@ -17,11 +17,11 @@ sonata_user:
 
 # FOS User
 fos_user:
-    db_driver:      orm
-    firewall_name:  admin
-    user_class:     AppBundle\Entity\User
+    db_driver:     orm
+    firewall_name: admin
+    user_class:    AppBundle\Entity\Setting\User
     group:
-        group_class:   AppBundle\Entity\Group
+        group_class:   AppBundle\Entity\Setting\Group
         group_manager: sonata.user.orm.group_manager
     service:
         user_manager: sonata.user.orm.user_manager
@@ -41,13 +41,10 @@ sonata_admin:
     templates:
         layout: "::Admin/layout.html.twig"
         edit:   "::Admin/edit.html.twig"
-#        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
             Web:
                 icon: "<i class='fa fa-chrome'></i>"
-            Contactes:
-                icon: "<i class='fa fa-envelope'></i>"
             Operaris:
                 icon: "<i class='fa fa-users'></i>"
             Vehicles:
@@ -58,10 +55,9 @@ sonata_admin:
                 icon: "<i class='fa fa-building'></i>"
             Vendes:
                 icon: "<i class='fa fa-eur'></i>"
-            Administracio:
-                label: "Administració"
+            Configuracio:
+                label: "Configuració"
                 icon: "<i class='fa fa-briefcase'></i>"
-
         blocks:
             -
                 position: top
@@ -97,19 +93,19 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Contactes, Vehicles ]
+                    groups: [ Operaris, Vehicles ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Operaris ]
+                    groups: [ Tercers, Empreses ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-3"
                 settings:
-                    groups: [ Empreses, Administracio ]
+                    groups: [ Vendes, Configuracio ]
             -
                 position: bottom
                 type: sonata.block.service.text

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Block;
 
-use AppBundle\Repository\OperatorCheckingRepository;
+use AppBundle\Repository\Operator\OperatorCheckingRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -34,8 +34,6 @@ class OperatorCheckingBlock extends AbstractBlockService
      */
 
     /**
-     * OperatorCheckingBlock constructor.
-     *
      * @param null|string                $name
      * @param EngineInterface            $templating
      * @param OperatorCheckingRepository $ocr
@@ -53,6 +51,9 @@ class OperatorCheckingBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
@@ -90,8 +91,6 @@ class OperatorCheckingBlock extends AbstractBlockService
     }
 
     /**
-     * Get name.
-     *
      * @return string
      */
     public function getName()

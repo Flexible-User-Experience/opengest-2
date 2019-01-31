@@ -12,7 +12,13 @@ class YearChoicesManager
     const INITIAL_YEAR = 1980;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return array
+     *
+     * @throws \Exception
      */
     public function getYearRange()
     {
@@ -27,6 +33,8 @@ class YearChoicesManager
 
     /**
      * @return int
+     *
+     * @throws \Exception
      */
     public function getCurrentYear()
     {
@@ -38,6 +46,8 @@ class YearChoicesManager
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function getTodayString()
     {
