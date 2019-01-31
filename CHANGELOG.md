@@ -1,6 +1,12 @@
 Changelog
 =========
 
+##### Version 1.1.07 (2019-02-01)
+ * improve admin dashboard view
+ * refactor project folder structure (entities, repositories, admins)
+ * add more commands to import old database records
+ * define a PDF print service
+
 ##### Version 1.1.06 (2019-01-03)
  * fix minor textarea resize bug
  * fix minor invalid Doctrine mapping
