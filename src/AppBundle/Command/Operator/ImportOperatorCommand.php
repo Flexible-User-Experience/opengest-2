@@ -47,6 +47,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
 
         // Import CSV rows
         $beginTimestamp = new \DateTime();
+        $notFoundDate = \DateTime::createFromFormat('Y-m-d H:i:s', '2000-01-01 00:00:00');
         $rowsRead = 1;
         $newRecords = 0;
         $errors = 0;

@@ -47,14 +47,15 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
 
         // Import CSV rows
         $beginTimestamp = new \DateTime();
-        $rowsRead = 0;
+        $rowsRead = 1;
         $newRecords = 0;
         $errors = 0;
         while (false != ($row = $this->readRow($fr))) {
             $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['id' => $this->readColumn(1, $row)]);
             $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->readColumn(2, $row));
-            if ($operator && $date) {
-                $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row).' · '.$this->readColumn(3, $row));
+            $file = $this->readColumn(3, $row);
+            if ($operator && $date && $file) {
+                $output->writeln('#'.$rowsRead.' · '.$operator->getShortFullName().' · '.$date->format('Y-m-d H:i:s').' · '.$file);
                 $digitalTachograph = $this->em->getRepository('AppBundle:Operator\OperatorDigitalTachograph')->findOneBy([
                     'operator' => $operator,
                     'createdAt' => $date,
@@ -67,19 +68,29 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
                 $digitalTachograph
                     ->setOperator($operator)
                     ->setCreatedAt($date)
-                    ->setUploadedFileName($this->readColumn(3, $row))
+                    ->setUploadedFileName($file)
                 ;
                 $this->em->persist($digitalTachograph);
                 $this->em->flush();
             } else {
                 ++$errors;
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->write('<error>#'.$rowsRead);
+                if (!$operator) {
+                    $output->write(' · no operator found');
+                }
+                if (!$date) {
+                    $output->write(' · no date found');
+                }
+                if (!$file) {
+                    $output->write(' · no file found');
+                }
+                $output->writeln('</error>');
             }
             ++$rowsRead;
             $this->em->flush();
         }
         $endTimestamp = new \DateTime();
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead - 1, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }
