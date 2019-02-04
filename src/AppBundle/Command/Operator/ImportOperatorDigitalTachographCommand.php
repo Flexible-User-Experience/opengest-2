@@ -51,7 +51,7 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
         $newRecords = 0;
         $errors = 0;
         while (false != ($row = $this->readRow($fr))) {
-            $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['id' => $this->readColumn(1, $row)]);
+            $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
             $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->readColumn(2, $row));
             $file = $this->readColumn(3, $row);
             if ($operator && $date && $file) {
