@@ -51,7 +51,7 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
         $newRecords = 0;
         while (false != ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['id' => $this->readColumn(1, $row)]);
+            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(3, $row)]);
             if ($enterprise) {
                 $name = $this->readColumn(2, $row);
                 $activityLine = $this->em->getRepository('AppBundle:Enterprise\ActivityLine')->findOneBy(['name' => $name, 'enterprise' => $enterprise]);
