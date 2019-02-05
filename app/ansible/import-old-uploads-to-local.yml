@@ -106,9 +106,24 @@
     - name: copy enterprise logos
       delegate_to: mother
       shell: "cp {{ local_old_uploads_folder }}/logos/* {{ local_new_uploads_folder }}/images/enterprise/"
-    - name: copy operator profile photos 1
+    - name: copy operator bulk resources
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/operarios/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator profile photos
       delegate_to: mother
       shell: "cp {{ local_old_uploads_folder }}/fotografia/* {{ local_new_uploads_folder }}/images/operator/"
-    - name: copy operator profile photos 2
+    - name: copy operator dni images
       delegate_to: mother
-      shell: "cp {{ local_old_uploads_folder }}/operarios/fotografia* {{ local_new_uploads_folder }}/images/operator/"
+      shell: "cp {{ local_old_uploads_folder }}/imagen_dni/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator social security images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/alta_seguridad_social/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator medical check images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/imagen_revision_medica/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator epis images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/imagen_epis/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy learning document images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/doc_formacion/* {{ local_new_uploads_folder }}/images/operator/"

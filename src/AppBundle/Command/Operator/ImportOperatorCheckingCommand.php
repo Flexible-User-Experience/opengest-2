@@ -31,7 +31,7 @@ class ImportOperatorCheckingCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int|null|void
@@ -53,15 +53,11 @@ class ImportOperatorCheckingCommand extends AbstractBaseCommand
         while (false != ($row = $this->readRow($fr))) {
             $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
             $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
-
             $type = $this->em->getRepository('AppBundle:Operator\OperatorCheckingType')->findOneBy(['name' => $this->readColumn(5, $row)]);
-
             $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
             if ($operator && $type && $begin && $end) {
                 $output->writeln($this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
                 $operatorChecking = $this->em->getRepository('AppBundle:Operator\OperatorChecking')->findOneBy([
-                    'begin' => $begin,
-                    'end' => $end,
                     'type' => $type,
                     'operator' => $operator,
                 ]);

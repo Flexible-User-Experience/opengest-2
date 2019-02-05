@@ -12,6 +12,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
+use Sonata\Form\Type\BooleanType;
+use Sonata\Form\Type\EqualType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -446,6 +448,17 @@ class OperatorAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param array $filterValues
+     */
+    protected function configureDefaultFilterValues(array &$filterValues)
+    {
+        $filterValues['enabled'] = array(
+            'type' => EqualType::TYPE_IS_EQUAL,
+            'value' => BooleanType::TYPE_YES,
+        );
     }
 
     /**
