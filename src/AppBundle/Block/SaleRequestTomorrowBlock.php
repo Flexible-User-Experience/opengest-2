@@ -26,8 +26,8 @@ class SaleRequestTomorrowBlock extends AbstractBlockService
     {
         // merge settings
         $settings = $blockContext->getSettings();
-        $backgroundColor = 'bg-black';
-        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i></h3><p>Llistat de peticions pendents para demà</p>';
+        $backgroundColor = 'bg-light-blue';
+        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i> Demà</h3><p>Llistat de peticions pendents para demà<br><br>(...)</p>';
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [

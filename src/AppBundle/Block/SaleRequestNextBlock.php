@@ -26,8 +26,8 @@ class SaleRequestNextBlock extends AbstractBlockService
     {
         // merge settings
         $settings = $blockContext->getSettings();
-        $backgroundColor = 'bg-black';
-        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i></h3><p>Llistat de peticions pendents</p>';
+        $backgroundColor = 'bg-light-blue';
+        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i> Següents</h3><p>Llistat de peticions pendents<br><br>(...)</p>';
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [
