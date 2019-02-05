@@ -7,6 +7,7 @@ use AppBundle\Entity\Operator\Operator;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\DoctrineORMAdminBundle\Filter\DateFilter;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
@@ -110,18 +111,30 @@ class OperatorCheckingAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'begin',
-                'doctrine_orm_date',
+                DateFilter::class,
                 array(
                     'label' => 'Data d\'expedició',
                     'field_type' => DatePickerType::class,
+                    'format' => 'd/m/Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add(
                 'end',
-                'doctrine_orm_date',
+                DateFilter::class,
                 array(
                     'label' => 'Data caducitat',
                     'field_type' => DatePickerType::class,
+                    'format' => 'd/m/Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
         ;

@@ -53,7 +53,7 @@ class ImportEnterpriseTransferAccountCsvCommand extends AbstractBaseCommand
         while (false != ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
             /** @var Enterprise $enterprise */
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['id' => $this->readColumn(1, $row)]);
+            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(9, $row)]);
             $name = $this->readColumn(2, $row);
             if ($enterprise) {
                 /** @var EnterpriseTransferAccount $transferAccount */

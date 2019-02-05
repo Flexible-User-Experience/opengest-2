@@ -3,9 +3,7 @@
 namespace AppBundle\Command\Operator;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Setting\City;
 use AppBundle\Entity\Operator\Operator;
-use AppBundle\Entity\Setting\Province;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,7 +31,7 @@ class ImportOperatorCommand extends AbstractBaseCommand
     /**
      * Execute.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int|null|void
@@ -49,7 +47,8 @@ class ImportOperatorCommand extends AbstractBaseCommand
 
         // Import CSV rows
         $beginTimestamp = new \DateTime();
-        $rowsRead = 0;
+        $notFoundDate = \DateTime::createFromFormat('Y-m-d H:i:s', '2000-01-01 00:00:00');
+        $rowsRead = 1;
         $newRecords = 0;
         $errors = 0;
         while (false != ($row = $this->readRow($fr))) {
@@ -112,31 +111,10 @@ class ImportOperatorCommand extends AbstractBaseCommand
             }
 
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(54, $row)]);
-            if ($enterprise && $birthDate && $registrationDate) {
-                $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
-                if (!$province) {
-                    // new record
-                    $province = new Province();
-                }
-                $province
-                    ->setName($this->readColumn(12, $row))
-                    ->setCode(strtoupper(substr($this->readColumn(12, $row), 0, 1)))
-                    ->setCountry('ES')
-                ;
-                $this->em->persist($province);
+            $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy(['name' => $this->readColumn(12, $row)]);
+            $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy(['postalCode' => $this->readColumn(10, $row)]);
 
-                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy(['postalCode' => $this->readColumn(10, $row)]);
-                if (!$city) {
-                    // new record
-                    $city = new City();
-                }
-                $city
-                    ->setName($this->readColumn(11, $row))
-                    ->setProvince($province)
-                    ->setPostalCode($this->readColumn(10, $row))
-                ;
-                $this->em->persist($city);
-
+            if ($enterprise && $birthDate && $registrationDate && $province && $city) {
                 $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
                 if (!$operator) {
                     // new record
@@ -188,10 +166,26 @@ class ImportOperatorCommand extends AbstractBaseCommand
 
                 $this->em->persist($operator);
 
-                $output->writeln($this->readColumn(4, $row).' · '.$this->readColumn(5, $row).' · '.$this->readColumn(52, $row).'-'.$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row).' · '.$this->readColumn(16, $row).' · '.$this->readColumn(17, $row));
+                $output->writeln('#'.$rowsRead.' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row).' '.$this->readColumn(6, $row).' · '.$this->readColumn(52, $row).'-'.$this->readColumn(33, $row).'-'.$this->readColumn(34, $row).'-'.$this->readColumn(35, $row).'-'.$this->readColumn(36, $row).' · '.$this->readColumn(16, $row).' · '.$this->readColumn(17, $row));
             } else {
                 ++$errors;
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->write('<error>#'.$rowsRead.' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row).' '.$this->readColumn(6, $row));
+                if (!$enterprise) {
+                    $output->write(' · no enterprise found');
+                }
+                if (!$birthDate) {
+                    $output->write(' · no birth date found');
+                }
+                if (!$registrationDate) {
+                    $output->write(' · no registration date found');
+                }
+                if (!$province) {
+                    $output->write(' · no province found');
+                }
+                if (!$city) {
+                    $output->write(' · no city found');
+                }
+                $output->writeln('</error>');
             }
 
             ++$rowsRead;
@@ -200,6 +194,6 @@ class ImportOperatorCommand extends AbstractBaseCommand
 
         $endTimestamp = new \DateTime();
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead - 1, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }

@@ -186,16 +186,6 @@ vich_uploader:
             uri_prefix:         /uploads/images/vehicle
             upload_destination: "%kernel.root_dir%/../web/uploads/images/vehicle"
             namer:              vich_uploader.namer_uniqid
-        document_vehicle:
-            uri_prefix:         /uploads/documents/vehicle
-            upload_destination: '%kernel.root_dir%/../web/uploads/documents/vehicle'
-            namer:              vich_uploader.namer_uniqid
-        digital_tachograph_operator:
-            uri_prefix:         /uploads/digital_tachograph/operator
-            upload_destination: '%kernel.root_dir%/../web/uploads/digital_tachograph/operator'
-        digital_tachograph_vehicle:
-            uri_prefix:         /uploads/digital_tachograph/vehicle
-            upload_destination: '%kernel.root_dir%/../web/uploads/digital_tachograph/vehicle'
         complement:
             uri_prefix:         /uploads/images/complement
             upload_destination: "%kernel.root_dir%/../web/uploads/images/complement"
@@ -212,3 +202,13 @@ vich_uploader:
             uri_prefix:         /uploads/images/user
             upload_destination: "%kernel.root_dir%/../web/uploads/images/user"
             namer:              vich_uploader.namer_uniqid
+        document_vehicle:
+            uri_prefix:         /uploads/documents/vehicle
+            upload_destination: '%kernel.root_dir%/../web/uploads/documents/vehicle'
+            namer:              vich_uploader.namer_uniqid
+        digital_tachograph_operator:
+            uri_prefix:         /uploads/digital_tachograph/operator
+            upload_destination: '%kernel.root_dir%/../web/uploads/digital_tachograph/operator'
+        digital_tachograph_vehicle:
+            uri_prefix:         /uploads/digital_tachograph/vehicle
+            upload_destination: '%kernel.root_dir%/../web/uploads/digital_tachograph/vehicle'

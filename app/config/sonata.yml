@@ -2,13 +2,16 @@
 sonata_block:
     default_contexts: [ cms ]
     blocks:
-        sonata.admin.block.admin_list:  ~
-        sonata.user.block.menu:         ~
-        sonata.block.service.text:      ~
-        app.block.contact_message:      ~
-        app.block.operator_checking:    ~
-        app.block.operator_absence:     ~
-        app.block.vehicle_checking:     ~
+        sonata.admin.block.admin_list:   ~
+        sonata.user.block.menu:          ~
+        sonata.block.service.text:       ~
+        app.block.contact_message:       ~
+        app.block.operator_checking:     ~
+        app.block.operator_absence:      ~
+        app.block.vehicle_checking:      ~
+        app.block.sale_request_today:    ~
+        app.block.sale_request_tomorrow: ~
+        app.block.sale_request_next:     ~
 
 # Sonata User
 sonata_user:
@@ -84,28 +87,16 @@ sonata_admin:
                         <hr style="margin-bottom:0">
             -
                 position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-3"
-                settings:
-                    groups: [ Web ]
+                type: app.block.sale_request_today
+                class: "col-md-4"
             -
                 position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-3"
-                settings:
-                    groups: [ Operaris, Vehicles ]
+                type: app.block.sale_request_tomorrow
+                class: "col-md-4"
             -
                 position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-3"
-                settings:
-                    groups: [ Tercers, Empreses ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-3"
-                settings:
-                    groups: [ Vendes, Configuracio ]
+                type: app.block.sale_request_next
+                class: "col-md-4"
             -
                 position: bottom
                 type: sonata.block.service.text
