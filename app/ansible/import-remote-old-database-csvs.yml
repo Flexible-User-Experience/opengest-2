@@ -1,0 +1,58 @@
+---
+- hosts: s6
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/config.yml"
+  tasks:
+    - name: execute enterprise CSV import to local database
+      shell: "php app/console --env=prod app:import:enterprise app/csv/enterprises.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+    - name: execute enterprise activity lines CSV import to local database
+      shell: "php app/console --env=prod app:import:enterprise:activity:line app/csv/enterprise_activity_lines.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+    - name: execute enterprise collection document types CSV import to local database
+      shell: "php app/console --env=prod app:import:enterprise:collection:document:type app/csv/enterprise_collection_document_types.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+    - name: execute enterprise group bountys CSV import to local database
+      shell: "php app/console --env=prod app:import:enterprise:group:bounty app/csv/enterprise_group_bountys.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+    - name: execute enterprise holidays CSV import to local database
+      shell: "php app/console --env=prod app:import:enterprise:holiday app/csv/enterprise_holidays.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+#    - name: execute enterprise transfer accounts CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:enterprise:transfer:account {{ vhost_path }}/current/app/csv/enterprise_transfer_accounts.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator {{ vhost_path }}/current/app/csv/operators.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator checking type CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:checking:type {{ vhost_path }}/current/app/csv/operator_checking_types.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator checking CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:checking {{ vhost_path }}/current/app/csv/operator_checkings.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator absence type CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:absence:type {{ vhost_path }}/current/app/csv/operator_absence_types.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator absence CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:absence {{ vhost_path }}/current/app/csv/operator_absences.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator digital tachographs CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:digital:tachograph {{ vhost_path }}/current/app/csv/operator_digital_tachographs.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
+#    - name: execute operator various amount CSV import to local database
+#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:various:amount {{ vhost_path }}/current/app/csv/operator_various_amounts.csv"
+#      args:
+#        chdir: "{{ vhost_path}}/current/"
