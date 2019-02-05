@@ -4,8 +4,111 @@
   vars_files:
     - "{{ playbook_dir }}/vars/config.yml"
   tasks:
-    - name: coopy old uploads to new local directory
+    - name: creates image services directory
       delegate_to: mother
-      shell: "php app/console app:import:enterprise app/csv/enterprises.csv"
-      args:
-        chdir: "{{ playbook_dir}}/../../"
+      file:
+        path: "{{ local_new_uploads_folder }}/images/service"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image works directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/work"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image work images directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/work_image"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image vehicles directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/vehicle"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image complements directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/complement"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image enterprises directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/enterprise"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image operators directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/operator"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates image users directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/images/user"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates document vehicles directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/documents/vehicle"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates digital tachograph operators directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/digital_tachograph/operator"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: creates digital tachograph vehicles directory
+      delegate_to: mother
+      file:
+        path: "{{ local_new_uploads_folder }}/digital_tachograph/vehicle"
+        state: directory
+        owner: "{{ local_system_user }}"
+        group: "{{ local_system_group }}"
+        mode: 0775
+        recurse: yes
+    - name: copy enterprise logos
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/logos/* {{ local_new_uploads_folder }}/images/enterprise/"
+    - name: copy operator profile photos 1
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/fotografia/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator profile photos 2
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/operarios/fotografia* {{ local_new_uploads_folder }}/images/operator/"
