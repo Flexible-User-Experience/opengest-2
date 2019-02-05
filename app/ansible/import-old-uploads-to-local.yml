@@ -124,6 +124,18 @@
     - name: copy operator epis images
       delegate_to: mother
       shell: "cp {{ local_old_uploads_folder }}/imagen_epis/* {{ local_new_uploads_folder }}/images/operator/"
-    - name: copy learning document images
+    - name: copy operator learning document images
       delegate_to: mother
       shell: "cp {{ local_old_uploads_folder }}/doc_formacion/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator crane license images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/imagen_carnet_grua/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator drive machinery authorization images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/autorizacion_uso_maquinaria/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator work contract images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/contrato_trabajo/* {{ local_new_uploads_folder }}/images/operator/"
+    - name: copy operator driving license images
+      delegate_to: mother
+      shell: "cp {{ local_old_uploads_folder }}/imagen_carnet_conducir/* {{ local_new_uploads_folder }}/images/operator/"
