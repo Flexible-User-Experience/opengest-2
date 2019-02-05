@@ -32,7 +32,7 @@ fos_user:
 # Admin
 sonata_admin:
     title:      "%project_web_title%"
-    title_logo: "/bundles/app/img/logo_romani_horizontal.png"
+    title_logo: "/bundles/app/img/logo_romani.png"
     options:
         html5_validate: true
         confirm_exit:   true
