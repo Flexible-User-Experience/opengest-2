@@ -16,7 +16,7 @@
         chdir: "{{ playbook_dir}}/../../"
     - name: execute enterprise collection document types CSV import to local database
       delegate_to: mother
-      shell: "php app/console app:import:enterprise:collection:document:type app/csv/collection_document_types.csv"
+      shell: "php app/console app:import:enterprise:collection:document:type app/csv/enterprise_collection_document_types.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute enterprise group bountys CSV import to local database
@@ -41,22 +41,22 @@
         chdir: "{{ playbook_dir}}/../../"
     - name: execute operator checking type CSV import to local database
       delegate_to: mother
-      shell: "php app/console app:import:operator:checking:type app/csv/operators_checking_type.csv"
+      shell: "php app/console app:import:operator:checking:type app/csv/operator_checking_types.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute operator checking CSV import to local database
       delegate_to: mother
-      shell: "php app/console app:import:operator:checking app/csv/operators_checking.csv"
+      shell: "php app/console app:import:operator:checking app/csv/operator_checkings.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute operator absence type CSV import to local database
       delegate_to: mother
-      shell: "php app/console app:import:operator:absence:type app/csv/operators_absence_type.csv"
+      shell: "php app/console app:import:operator:absence:type app/csv/operator_absence_types.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute operator absence CSV import to local database
       delegate_to: mother
-      shell: "php app/console app:import:operator:absence app/csv/operators_absence.csv"
+      shell: "php app/console app:import:operator:absence app/csv/operator_absences.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute operator digital tachographs CSV import to local database

@@ -1,0 +1,13 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    {#<!-- small box -->#}
+    <div class="small-box {{ background }}">
+        <div class="inner">
+            {{ content | raw }}
+        </div>
+        {#<div class="icon">#}
+            {#<i class="fa fa-truck"></i>#}
+        {#</div>#}
+    </div>
+{% endblock %}

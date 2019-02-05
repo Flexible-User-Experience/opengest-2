@@ -83,6 +83,21 @@ services:
         arguments: [ "app.block.operator_absence", "@templating", "@app.operator_absence_repository", "@security.token_storage" ]
         tags:
             - { name: sonata.block }
+    app.block.sale_request_today:
+        class: AppBundle\Block\SaleRequestTodayBlock
+        arguments: [ "app.block.sale_request_today", "@templating" ]
+        tags:
+            - { name: sonata.block }
+    app.block.sale_request_tomorrow:
+        class: AppBundle\Block\SaleRequestTomorrowBlock
+        arguments: [ "app.block.sale_request_tomorrow", "@templating" ]
+        tags:
+            - { name: sonata.block }
+    app.block.sale_request_next:
+        class: AppBundle\Block\SaleRequestNextBlock
+        arguments: [ "app.block.sale_request_next", "@templating" ]
+        tags:
+            - { name: sonata.block }
 # File
     app.file_service:
         class: AppBundle\Service\FileService
