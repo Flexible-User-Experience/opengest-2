@@ -56,3 +56,11 @@
       shell: "php app/console --env=prod app:import:operator:various:amount app/csv/operator_various_amounts.csv"
       args:
         chdir: "{{ vhost_path}}/current/"
+    - name: execute partner class CSV import to local database
+      shell: "php app/console --env=prod app:import:partner:class app/csv/partner_classes.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+    - name: execute partner type CSV import to local database
+      shell: "php app/console --env=prod app:import:partner:type app/csv/partner_types.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"

@@ -119,6 +119,22 @@ JOIN opengest.Operarios O ON O.id = IV.operario_id;
 
 -- Partner
 
+SELECT CT.*
+INTO OUTFILE '/var/lib/mysql-files/partner_classes.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Clases_terceros CT;
+
+SELECT TT.*
+INTO OUTFILE '/var/lib/mysql-files/partner_types.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY "\n"
+FROM opengest.Tipos_terceros TT;
+
 -- Sale
 
 -- Setting
