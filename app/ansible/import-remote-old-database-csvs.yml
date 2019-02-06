@@ -24,14 +24,14 @@
       shell: "php app/console --env=prod app:import:enterprise:holiday app/csv/enterprise_holidays.csv"
       args:
         chdir: "{{ vhost_path}}/current/"
-#    - name: execute enterprise transfer accounts CSV import to local database
-#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:enterprise:transfer:account {{ vhost_path }}/current/app/csv/enterprise_transfer_accounts.csv"
-#      args:
-#        chdir: "{{ vhost_path}}/current/"
-#    - name: execute operator CSV import to local database
-#      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator {{ vhost_path }}/current/app/csv/operators.csv"
-#      args:
-#        chdir: "{{ vhost_path}}/current/"
+    - name: execute enterprise transfer accounts CSV import to local database
+      shell: "php app/console --env=prod app:import:enterprise:transfer:account app/csv/enterprise_transfer_accounts.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
+    - name: execute operator CSV import to local database
+      shell: "php app/console --env=prod app:import:operator app/csv/operators.csv"
+      args:
+        chdir: "{{ vhost_path}}/current/"
 #    - name: execute operator checking type CSV import to local database
 #      shell: "php {{ vhost_path }}/current/app/console  --env=prod app:import:operator:checking:type {{ vhost_path }}/current/app/csv/operator_checking_types.csv"
 #      args:
