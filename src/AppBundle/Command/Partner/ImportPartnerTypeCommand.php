@@ -3,7 +3,7 @@
 namespace AppBundle\Command\Partner;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Operator\OperatorAbsence;
+use AppBundle\Entity\Partner\PartnerType;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -47,39 +47,28 @@ class ImportPartnerTypeCommand extends AbstractBaseCommand
 
         // Import CSV rows
         $beginTimestamp = new \DateTime();
-        $rowsRead = 0;
+        $rowsRead = 1;
         $newRecords = 0;
         $errors = 0;
         while (false != ($row = $this->readRow($fr))) {
-            $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
-            $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
-            $type = $this->em->getRepository('AppBundle:Operator\OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(5, $row)]);
-            $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
-
-            if ($operator && $type && $begin && $end) {
-                $output->writeln($this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
-
-                $operatorAbsence = $this->em->getRepository('AppBundle:Operator\OperatorAbsence')->findOneBy([
-                    'begin' => $begin,
-                    'end' => $end,
-                    'type' => $type,
-                    'operator' => $operator,
-                ]);
-                if (!$operatorAbsence) {
+            $name = $this->readColumn(1, $row);
+            $description = $this->readColumn(2, $row);
+            $account = $this->readColumn(3, $row);
+            if ($name && $account) {
+                $output->writeln('#'.$rowsRead.' · '.$name.' · '.$description.' · '.$account);
+                $partnerType = $this->em->getRepository('AppBundle:Partner\PartnerType')->findOneBy(['name' => $name]);
+                if (!$partnerType) {
                     // new record
-                    $operatorAbsence = new OperatorAbsence();
+                    $partnerType = new PartnerType();
                     ++$newRecords;
                 }
-                $operatorAbsence
-                    ->setOperator($operator)
-                    ->setBegin($begin)
-                    ->setEnd($end)
-                    ->setType($type)
+                $partnerType
+                    ->setName($name)
+                    ->setDescription(($description ? $description : '---'))
+                    ->setAccount($account)
                 ;
-                $this->em->persist($operatorAbsence);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
-                    $this->em->flush();
-                }
+                $this->em->persist($partnerType);
+                $this->em->flush();
             } else {
                 ++$errors;
                 $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
@@ -89,6 +78,6 @@ class ImportPartnerTypeCommand extends AbstractBaseCommand
         }
         $endTimestamp = new \DateTime();
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead - 1, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }
