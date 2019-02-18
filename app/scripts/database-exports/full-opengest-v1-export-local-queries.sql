@@ -136,7 +136,7 @@ LINES TERMINATED BY '\n'
 FROM opengest.Tipos_terceros TT;
 
 SELECT T.*, E.cif_nif AS E_cif_nif, TT.nombre AS TT_nombre, CT.nombre AS CT_nombre, CUTR.nombre AS CUTR_nombre
-INTO OUTFILE '/tmp/partner.csv'
+INTO OUTFILE '/tmp/partners.csv'
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
 ESCAPED BY '\\'

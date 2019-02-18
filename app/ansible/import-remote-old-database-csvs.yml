@@ -64,3 +64,7 @@
       shell: "php app/console --env=prod app:import:partner:type app/csv/partner_types.csv"
       args:
         chdir: "{{ vhost_path}}/current/"
+    - name: execute partner CSV import to local database
+      shell: "php app/console --env=prod app:import:partner app/csv/partners.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"

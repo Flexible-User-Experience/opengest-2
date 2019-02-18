@@ -79,3 +79,8 @@
       shell: "php app/console app:import:partner:type app/csv/partner_types.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute partner CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:partner app/csv/partners.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
