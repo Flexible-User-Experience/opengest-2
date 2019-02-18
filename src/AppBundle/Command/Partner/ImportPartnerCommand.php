@@ -63,13 +63,13 @@ class ImportPartnerCommand extends AbstractBaseCommand
                 $enterpriseTransferAccount = $this->em->getRepository('AppBundle:Enterprise\EnterpriseTransferAccount')->findOneBy(['name' => $enterpriseTransferAccount]);
                 if ($enterprise && $partnerType && $partnerClass && $enterpriseTransferAccount) {
                     $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
-                        'taxIdentificationNumber' => $partnerTaxIdentificationNumber,
+                        'cifNif' => $partnerTaxIdentificationNumber,
                         'enterprise' => $enterprise,
                         'type' => $partnerType,
                         'class' => $partnerClass,
                         'transferAccount' => $enterpriseTransferAccount,
                     ]);
-                    $name = $partnerClass = $this->readColumn(5, $row);
+                    $name = $this->readColumn(5, $row);
                     $output->writeln('#'.$rowsRead.' · '.$partnerTaxIdentificationNumber.' · '.$name.' · '.$enterprise->getName());
                     if (!$partner) {
                         // new record
@@ -82,6 +82,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setType($partnerType)
                         ->setClass($partnerClass)
                         ->setTransferAccount($enterpriseTransferAccount)
+                        ->setName($name)
                     ;
                     $this->em->persist($partner);
                     // TODO $this->em->flush();
