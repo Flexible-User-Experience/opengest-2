@@ -47,7 +47,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
 
         // Import CSV rows
         $beginTimestamp = new \DateTime();
-        $rowsRead = 1;
+        $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
         while (false != ($row = $this->readRow($fr))) {
@@ -85,7 +85,9 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setName($name)
                     ;
                     $this->em->persist($partner);
-                    // TODO $this->em->flush();
+                    if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                        $this->em->flush();
+                    }
                 }
             } else {
                 ++$errors;
@@ -96,6 +98,6 @@ class ImportPartnerCommand extends AbstractBaseCommand
         }
         $endTimestamp = new \DateTime();
         // Print totals
-        $this->printTotals($output, $rowsRead - 1, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }
