@@ -78,7 +78,7 @@ class ImportProvinceCommand extends AbstractBaseCommand
                 }
                 $province
                     ->setName($name)
-                    ->setCode($countryCode.' · '.strtoupper(substr($name, 0, 3)))
+                    ->setCode($countryCode.' · '.substr($name, 0, 4))
                     ->setCountry($countryCode)
                 ;
                 $this->em->persist($province);

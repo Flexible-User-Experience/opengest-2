@@ -60,7 +60,9 @@ class ImportCityCommand extends AbstractBaseCommand
             $postalCode = $this->readColumn($input->getArgument('zip'), $row);
             $provinceName = $this->readColumn($input->getArgument('province'), $row);
             $country = $this->readColumn($input->getArgument('country'), $row);
-            if (0 == strlen($name)) {
+            if (strlen($name) > 0) {
+                $name = $this->lts->cityNameCleaner($name);
+            } else {
                 $name = '---';
             }
             if (0 == strlen($postalCode)) {
@@ -80,7 +82,7 @@ class ImportCityCommand extends AbstractBaseCommand
                 'name' => $provinceName,
                 'country' => $countryCode,
             ]);
-            if (!$province) {
+            if ($province) {
                 $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
                     'postalCode' => $postalCode,
                 ]);

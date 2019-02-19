@@ -94,16 +94,35 @@ class LocationsTransformer
         if (' ' == substr($name, 0, 1)) {
             $name = substr($name, 1);
         }
-        if ('ALMERÍA' == $name) {
+        if ('ALMERÍA' == $name || 'ALMERíA' == $name) {
             $name = 'ALMERIA';
-        } elseif ('CASTELLO' == $name || 'CASTELLÓN' == $name) {
+        } elseif ('CASTELLO' == $name || 'CASTELLÓ' == $name || 'CASTELLó' == $name || 'CASTELLÓN' == $name || 'CASTELLóN' == $name) {
             $name = 'CASTELLON';
-        } elseif ('CORUÑA, LA' == $name || 'LA CORUÑA' == $name) {
-            $name = 'CASTELLON';
-        } elseif ('LLEIDA' == $name || 'LÉRIDA' == $name) {
+        } elseif ('CORUÑA, LA' == $name || 'CORUñA, LA' == $name || 'A CORUÑA' == $name || 'A CORUñA' == $name) {
+            $name = 'LA CORUÑA';
+        } elseif ('LLEIDA' == $name || 'LéRIDA' == $name || 'LÉRIDA' == $name) {
             $name = 'LERIDA';
+        } elseif ('MÚRCIA' == $name || 'MúRCIA' == $name) {
+            $name = 'MURCIA';
+        } elseif ('GIRONA' == $name) {
+            $name = 'GERONA';
         }
 
-        return $name;
+        return strtoupper($name);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function cityNameCleaner($name)
+    {
+        // remove first blank character from string
+        if (' ' == substr($name, 0, 1)) {
+            $name = substr($name, 1);
+        }
+
+        return strtoupper($name);
     }
 }
