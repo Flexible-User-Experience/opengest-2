@@ -88,7 +88,7 @@ class LocationsTransformer
      *
      * @return string
      */
-    public function cityNameCleaner($name)
+    public function provinceNameCleaner($name)
     {
         // remove first blank character from string
         if (' ' == substr($name, 0, 1)) {

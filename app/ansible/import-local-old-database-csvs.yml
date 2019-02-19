@@ -14,6 +14,16 @@
       shell: "php app/console app:import:province app/csv/enterprises.csv 5 6"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute city CSV import by partner to local database
+      delegate_to: mother
+      shell: "php app/console app:import:city app/csv/partners.csv 8 6 9 10"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute city CSV import by enterprise to local database
+      delegate_to: mother
+      shell: "php app/console app:import:city app/csv/enterprises.csv 4 7 5 6"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
     - name: execute enterprise CSV import to local database
       delegate_to: mother
       shell: "php app/console app:import:enterprise app/csv/enterprises.csv"

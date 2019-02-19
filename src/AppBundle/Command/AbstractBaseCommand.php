@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Transformer\LocationsTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Filesystem\Filesystem;
@@ -30,6 +31,11 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected $fss;
 
     /**
+     * @var LocationsTransformer
+     */
+    protected $lts;
+
+    /**
      * Methods.
      */
 
@@ -43,6 +49,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         ini_set('auto_detect_line_endings', true);
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->fss = $this->getContainer()->get('filesystem');
+        $this->lts = $this->getContainer()->get('app.locations_transformer');
 
         return $this;
     }

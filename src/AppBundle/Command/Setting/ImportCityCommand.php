@@ -3,30 +3,32 @@
 namespace AppBundle\Command\Setting;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Setting\Province;
+use AppBundle\Entity\Setting\City;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportProvinceCommand.
+ * Class ImportCityCommand.
  *
  * @category Command
  *
  * @author   David Romaní <david@flux.cat>
  */
-class ImportProvinceCommand extends AbstractBaseCommand
+class ImportCityCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:province');
-        $this->setDescription('Import province from CSV file by index');
+        $this->setName('app:import:city');
+        $this->setDescription('Import city from CSV file by index');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
-        $this->addArgument('name', InputArgument::REQUIRED, 'province name column index');
+        $this->addArgument('name', InputArgument::REQUIRED, 'city name column index');
+        $this->addArgument('zip', InputArgument::REQUIRED, 'postal code column index');
+        $this->addArgument('province', InputArgument::REQUIRED, 'province name column index');
         $this->addArgument('country', InputArgument::REQUIRED, 'country name column index');
     }
 
@@ -55,33 +57,44 @@ class ImportProvinceCommand extends AbstractBaseCommand
 
         while (false != ($row = $this->readRow($fr))) {
             $name = $this->readColumn($input->getArgument('name'), $row);
+            $postalCode = $this->readColumn($input->getArgument('zip'), $row);
+            $provinceName = $this->readColumn($input->getArgument('province'), $row);
             $country = $this->readColumn($input->getArgument('country'), $row);
-            if (strlen($name) > 0) {
-                $name = $this->lts->provinceNameCleaner($name);
-            } else {
+            if (0 == strlen($name)) {
                 $name = '---';
+            }
+            if (0 == strlen($postalCode)) {
+                $postalCode = '---';
+            }
+            if (strlen($provinceName) > 0) {
+                $provinceName = $this->lts->provinceNameCleaner($provinceName);
+            } else {
+                $provinceName = '---';
             }
             if (0 == strlen($country)) {
                 $country = '---';
             }
-            $output->writeln('#'.$rowsRead.' · '.$name.' · '.$country);
-            if ($country) {
-                $countryCode = $this->lts->countryToCode($country);
-                $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy([
-                    'name' => $name,
-                    'country' => $countryCode,
+            $output->writeln('#'.$rowsRead.' · '.$name.' · '.$postalCode.' · '.$provinceName.' · '.$country);
+            $countryCode = $this->lts->countryToCode($country);
+            $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy([
+                'name' => $provinceName,
+                'country' => $countryCode,
+            ]);
+            if (!$province) {
+                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
+                    'postalCode' => $postalCode,
                 ]);
-                if (!$province) {
+                if (!$city) {
                     // new record
-                    $province = new Province();
+                    $city = new City();
                     ++$newRecords;
                 }
-                $province
+                $city
                     ->setName($name)
-                    ->setCode($countryCode.' · '.strtoupper(substr($name, 0, 3)))
-                    ->setCountry($countryCode)
+                    ->setPostalCode($postalCode)
+                    ->setProvince($province)
                 ;
-                $this->em->persist($province);
+                $this->em->persist($city);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
                     $this->em->flush();
                 }
