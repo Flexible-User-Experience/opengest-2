@@ -78,11 +78,43 @@ class ImportPartnerCommand extends AbstractBaseCommand
                     }
                     $partner
                         ->setCifNif($partnerTaxIdentificationNumber)
-                        ->setEnterprise($enterprise)
-                        ->setType($partnerType)
-                        ->setClass($partnerClass)
-                        ->setTransferAccount($enterpriseTransferAccount)
                         ->setName($name)
+                        ->setEnterprise($enterprise)
+                        ->setClass($partnerClass)
+                        ->setType($partnerType)
+                        ->setTransferAccount($enterpriseTransferAccount)
+                        ->setEnabled('1' == $this->readColumn(3, $row) ? true : false)
+                        ->setNotes($this->readColumn(4, $row))
+                        ->setMainAddress($this->readColumn(7, $row))
+                        // TODO main postal code 6
+                        // TODO main city 8
+                        // TODO main province 9
+                        // TODO main country 10
+                        ->setSecondaryAddress($this->readColumn(16, $row))
+                        // TODO secondary postal code 17
+                        // TODO secondary city 18
+                        // TODO secondary province 19
+                        // TODO secondary country 20
+                        ->setPhoneNumber1($this->readColumn(12, $row))
+                        ->setPhoneNumber2($this->readColumn(13, $row))
+                        ->setPhoneNumber3($this->readColumn(23, $row))
+                        ->setPhoneNumber4($this->readColumn(22, $row))
+                        ->setPhoneNumber5($this->readColumn(23, $row))
+                        ->setFaxNumber1($this->readColumn(14, $row))
+                        ->setFaxNumber2($this->readColumn(24, $row))
+                        ->setEmail($this->readColumn(25, $row))
+                        ->setWww($this->readColumn(26, $row))
+                        ->setDiscount($this->readColumn(31, $row))
+                        ->setCode($this->readColumn(33, $row))
+                        ->setProviderReference($this->readColumn(36, $row))
+                        ->setReference($this->readColumn(34, $row))
+                        ->setIvaTaxFree('1' == $this->readColumn(32, $row) ? true : false)
+                        ->setIban($this->readColumn(37, $row))
+                        ->setSwift($this->readColumn(38, $row))
+                        ->setBankCode($this->readColumn(27, $row))
+                        ->setOfficeNumber($this->readColumn(28, $row))
+                        ->setControlDigit($this->readColumn(29, $row))
+                        ->setAccountNumber($this->readColumn(30, $row))
                     ;
                     $this->em->persist($partner);
                     if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
