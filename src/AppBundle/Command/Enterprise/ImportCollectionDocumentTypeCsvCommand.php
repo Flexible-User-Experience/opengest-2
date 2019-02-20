@@ -55,7 +55,7 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(1, $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(1, $row));
             /** @var Enterprise $enterprise */
             foreach ($enterprises as $enterprise) {
                 /** @var CollectionDocumentType $searchedCollectionDocumentType */
@@ -81,8 +81,9 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
             ++$rowsRead;
         }
         $this->em->flush();
-        $endTimestamp = new \DateTime();
+
         // Print totals
+        $endTimestamp = new \DateTime();
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }

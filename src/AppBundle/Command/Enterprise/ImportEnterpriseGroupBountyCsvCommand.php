@@ -46,22 +46,28 @@ class ImportEnterpriseGroupBountyCsvCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
+        $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
+            $name = $this->readColumn(2, $row);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(21, $row).' · '.$name);
             /** @var Enterprise $enterprise */
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(21, $row)]);
             if ($enterprise) {
-                $name = $this->readColumn(2, $row);
                 /** @var EnterpriseGroupBounty $groupBounty */
-                $groupBounty = $this->em->getRepository('AppBundle:Enterprise\EnterpriseGroupBounty')->findOneBy(['group' => $name, 'enterprise' => $enterprise]);
+                $groupBounty = $this->em->getRepository('AppBundle:Enterprise\EnterpriseGroupBounty')->findOneBy([
+                    'group' => $name,
+                    'enterprise' => $enterprise,
+                ]);
                 if (!$groupBounty) {
                     // new record
-                    ++$newRecords;
                     $groupBounty = new EnterpriseGroupBounty();
+                    ++$newRecords;
                 }
                 $groupBounty
                     ->setEnterprise($enterprise)
@@ -82,16 +88,21 @@ class ImportEnterpriseGroupBountyCsvCommand extends AbstractBaseCommand
                     ->setInternationalDinner($this->readColumn(16, $row))
                     ->setTruckOutput($this->readColumn(18, $row))
                     ->setCarOutput($this->readColumn(19, $row))
-                    ->setTransferHour($this->readColumn(20, $row))
-                ;
-                ++$rowsRead;
+                    ->setTransferHour($this->readColumn(20, $row));
                 $this->em->persist($groupBounty);
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                    $this->em->flush();
+                }
+            } else {
+                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
+            ++$rowsRead;
         }
         $this->em->flush();
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }

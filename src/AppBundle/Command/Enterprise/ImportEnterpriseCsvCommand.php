@@ -4,7 +4,6 @@ namespace AppBundle\Command\Enterprise;
 
 use AppBundle\Command\AbstractBaseCommand;
 use AppBundle\Entity\Enterprise\Enterprise;
-use AppBundle\Entity\Setting\Province;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,31 +53,12 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(8, $row).' · '.$this->readColumn(2, $row));
-
-//            $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy(['name' => $this->readColumn(5, $row)]);
-//            if (!$province) {
-//                // new record
-//                $province = new Province();
-//            }
-//            $province
-//                ->setName($this->readColumn(5, $row))
-//                ->setCode(strtoupper(substr($this->readColumn(5, $row), 0, 1)))
-//                ->setCountry('ES')
-//            ;
-//            $this->em->persist($province);
-            $cityName = $this->readColumn(4, $row);
-            $postalCode = $this->readColumn(7, $row);
-            if (strlen($cityName) > 0) {
-                $cityName = $this->lts->cityNameCleaner($cityName);
-            } else {
-                $cityName = '---';
-            }
-            if (0 == strlen($postalCode)) {
-                $postalCode = '---';
-            }
+            $cityName = $this->lts->cityNameCleaner($this->readColumn(4, $row));
+            $postalCode = $this->lts->postalCodeCleaner($this->readColumn(7, $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$cityName.' · '.$postalCode.' · '.$this->readColumn(8, $row).' · '.$this->readColumn(2, $row));
             $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
-                'postalCode' => $this->readColumn(7, $row),
+                'postalCode' => $postalCode,
+                'name' => $cityName,
             ]);
             if ($city) {
                 $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(8, $row)]);
@@ -133,18 +113,12 @@ class ImportEnterpriseCsvCommand extends AbstractBaseCommand
                 $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
                 ++$errors;
             }
-//            $city
-//                ->setName($this->readColumn(4, $row))
-//                ->setProvince($province)
-//                ->setPostalCode($this->readColumn(7, $row))
-//            ;
-//            $this->em->persist($city);
-
             ++$rowsRead;
         }
         $this->em->flush();
-        $endTimestamp = new \DateTime();
+
         // Print totals
+        $endTimestamp = new \DateTime();
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }

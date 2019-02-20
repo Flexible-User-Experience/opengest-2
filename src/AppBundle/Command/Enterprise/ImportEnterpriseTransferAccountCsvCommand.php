@@ -46,22 +46,25 @@ class ImportEnterpriseTransferAccountCsvCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
+        $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
+            $name = $this->readColumn(2, $row);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name);
             /** @var Enterprise $enterprise */
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(9, $row)]);
-            $name = $this->readColumn(2, $row);
             if ($enterprise) {
                 /** @var EnterpriseTransferAccount $transferAccount */
                 $transferAccount = $this->em->getRepository('AppBundle:Enterprise\EnterpriseTransferAccount')->findOneBy(['name' => $name, 'enterprise' => $enterprise]);
                 if (!$transferAccount) {
                     // new record
-                    ++$newRecords;
                     $transferAccount = new EnterpriseTransferAccount();
+                    ++$newRecords;
                 }
                 $transferAccount
                     ->setEnterprise($enterprise)
@@ -73,14 +76,20 @@ class ImportEnterpriseTransferAccountCsvCommand extends AbstractBaseCommand
                     ->setControlDigit($this->readColumn(7, $row))
                     ->setAccountNumber($this->readColumn(8, $row))
                 ;
-                ++$rowsRead;
                 $this->em->persist($transferAccount);
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                    $this->em->flush();
+                }
+            } else {
+                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
+            ++$rowsRead;
         }
         $this->em->flush();
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }
