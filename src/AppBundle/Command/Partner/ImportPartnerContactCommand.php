@@ -84,7 +84,17 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
                     $this->em->flush();
                 }
             } else {
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->write('<error>Error a la fila: '.$rowsRead);
+                if (!$name) {
+                    $output->write(' · no name found');
+                }
+                if (!$partner) {
+                    $output->write(' · no partner found');
+                }
+                if (!$enterprise) {
+                    $output->write(' · no enterprise found');
+                }
+                $output->writeln('</error>');
                 ++$errors;
             }
             ++$rowsRead;

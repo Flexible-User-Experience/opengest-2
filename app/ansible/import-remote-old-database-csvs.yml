@@ -100,3 +100,7 @@
       shell: "php app/console --env=prod app:import:partner app/csv/partners.csv"
       args:
         chdir: "{{ vhost_path }}/current/"
+    - name: execute partner contact CSV import to local database
+      shell: "php app/console --env=prod app:import:partner:contact app/csv/partner_contacts.csv"
+      args:
+        chdir: "{{ vhost_path }}/current/"
