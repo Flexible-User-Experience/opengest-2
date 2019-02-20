@@ -7,6 +7,7 @@ use AppBundle\Entity\Setting\Province;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -28,6 +29,7 @@ class ImportProvinceCommand extends AbstractBaseCommand
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
         $this->addArgument('name', InputArgument::REQUIRED, 'province name column index');
         $this->addArgument('country', InputArgument::REQUIRED, 'country name column index');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -47,24 +49,17 @@ class ImportProvinceCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
 
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $name = $this->readColumn($input->getArgument('name'), $row);
-            $country = $this->readColumn($input->getArgument('country'), $row);
-            if (strlen($name) > 0) {
-                $name = $this->lts->provinceNameCleaner($name);
-            } else {
-                $name = '---';
-            }
-            if (0 == strlen($country)) {
-                $country = '---';
-            }
-            $output->writeln('#'.$rowsRead.' · '.$name.' · '.$country);
+            $name = $this->lts->provinceNameCleaner($this->readColumn($input->getArgument('name'), $row));
+            $country = $this->lts->countryNameCleaner($this->readColumn($input->getArgument('country'), $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$country);
             if ($country) {
                 $countryCode = $this->lts->countryToCode($country);
                 $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy([
@@ -82,18 +77,21 @@ class ImportProvinceCommand extends AbstractBaseCommand
                     ->setCountry($countryCode)
                 ;
                 $this->em->persist($province);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
-                ++$errors;
                 $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
             ++$rowsRead;
+        }
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

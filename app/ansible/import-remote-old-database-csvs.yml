@@ -12,12 +12,20 @@
       shell: "php app/console --env=prod app:import:province app/csv/enterprises.csv 5 6"
       args:
         chdir: "{{ vhost_path }}/current/"
+    - name: execute province CSV import by operator to local database
+      shell: "php app/console --env=prod app:import:province app/csv/operators.csv 12 12"
+      args:
+        chdir: "{{ vhost_path }}/current/"
     - name: execute city CSV import by partner to local database
       shell: "php app/console --env=prod app:import:city app/csv/partners.csv 8 6 9 10"
       args:
         chdir: "{{ vhost_path }}/current/"
     - name: execute city CSV import by enterprise to local database
       shell: "php app/console --env=prod app:import:city app/csv/enterprises.csv 4 7 5 6"
+      args:
+        chdir: "{{ vhost_path }}/current/"
+    - name: execute city CSV import by operator to local database
+      shell: "php app/console --env=prod app:import:city app/csv/operators.csv 11 10 12 12"
       args:
         chdir: "{{ vhost_path }}/current/"
     - name: execute enterprise CSV import to local database
