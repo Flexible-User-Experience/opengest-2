@@ -7,6 +7,7 @@ use AppBundle\Entity\Partner\Partner;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,6 +27,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
         $this->setName('app:import:partner');
         $this->setDescription('Import partner class from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -45,18 +47,28 @@ class ImportPartnerCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $enterprise = $this->readColumn(40, $row);
             $partnerType = $this->readColumn(41, $row);
             $partnerClass = $this->readColumn(42, $row);
+            $partnerTaxIdentificationNumber = $this->readColumn(11, $row);
             $enterpriseTransferAccount = $this->readColumn(43, $row);
-            if ($enterprise && $partnerType && $partnerClass && $enterpriseTransferAccount) {
-                $partnerTaxIdentificationNumber = $this->readColumn(11, $row);
+            $name = $this->readColumn(5, $row);
+            $cityName = $this->lts->cityNameCleaner($this->readColumn(8, $row));
+            $postalCode = $this->lts->postalCodeCleaner($this->readColumn(6, $row));
+            $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
+                'postalCode' => $postalCode,
+                'name' => $cityName,
+            ]);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$partnerTaxIdentificationNumber.' · '.$name.' · '.$enterprise);
+            if ($enterprise && $partnerType && $partnerClass && $enterpriseTransferAccount && $city) {
                 $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterprise]);
                 $partnerType = $this->em->getRepository('AppBundle:Partner\PartnerType')->findOneBy(['name' => $partnerType]);
                 $partnerClass = $this->em->getRepository('AppBundle:Partner\PartnerClass')->findOneBy(['name' => $partnerClass]);
@@ -69,8 +81,6 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         'class' => $partnerClass,
                         'transferAccount' => $enterpriseTransferAccount,
                     ]);
-                    $name = $this->readColumn(5, $row);
-                    $output->writeln('#'.$rowsRead.' · '.$partnerTaxIdentificationNumber.' · '.$name.' · '.$enterprise->getName());
                     if (!$partner) {
                         // new record
                         $partner = new Partner();
@@ -86,10 +96,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setEnabled('1' == $this->readColumn(3, $row) ? true : false)
                         ->setNotes($this->readColumn(4, $row))
                         ->setMainAddress($this->readColumn(7, $row))
-                        // TODO main postal code 6
-                        // TODO main city 8
-                        // TODO main province 9
-                        // TODO main country 10
+                        ->setMainCity($city)
                         ->setSecondaryAddress($this->readColumn(16, $row))
                         // TODO secondary postal code 17
                         // TODO secondary city 18
@@ -117,19 +124,22 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setAccountNumber($this->readColumn(30, $row))
                     ;
                     $this->em->persist($partner);
-                    if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                    if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                         $this->em->flush();
                     }
                 }
             } else {
-                ++$errors;
                 $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
             ++$rowsRead;
+        }
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

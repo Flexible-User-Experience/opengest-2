@@ -7,6 +7,7 @@ use AppBundle\Entity\Partner\PartnerClass;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,6 +27,7 @@ class ImportPartnerClassCommand extends AbstractBaseCommand
         $this->setName('app:import:partner:class');
         $this->setDescription('Import partner class from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -45,15 +47,17 @@ class ImportPartnerClassCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
-        $rowsRead = 1;
+        $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $name = $this->readColumn(1, $row);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name);
             if ($name) {
-                $output->writeln('#'.$rowsRead.' · '.$name);
                 $partnerClass = $this->em->getRepository('AppBundle:Partner\PartnerClass')->findOneBy(['name' => $name]);
                 if (!$partnerClass) {
                     // new record
@@ -62,16 +66,21 @@ class ImportPartnerClassCommand extends AbstractBaseCommand
                 }
                 $partnerClass->setName($name);
                 $this->em->persist($partnerClass);
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
+                    $this->em->flush();
+                }
             } else {
-                ++$errors;
                 $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
             ++$rowsRead;
+        }
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead - 1, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }
