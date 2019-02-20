@@ -8,6 +8,7 @@ use AppBundle\Entity\Enterprise\Enterprise;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -27,6 +28,7 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:collection:document:type');
         $this->setDescription('Import enterprise collection document types from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'don\'t persist changes into database');
     }
 
     /**
@@ -76,14 +78,18 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
                         ->setSitReference($this->readColumn(3, $row))
                     ;
                 }
-                $this->em->flush();
+                if (!$input->hasOption('dry-run')) {
+                    $this->em->flush();
+                }
             }
             ++$rowsRead;
         }
-        $this->em->flush();
+        if (!$input->hasOption('dry-run')) {
+            $this->em->flush();
+        }
 
         // Print totals
         $endTimestamp = new \DateTime();
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->hasOption('dry-run'));
     }
 }

@@ -8,6 +8,7 @@ use AppBundle\Entity\Enterprise\EnterpriseTransferAccount;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -27,6 +28,7 @@ class ImportEnterpriseTransferAccountCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:transfer:account');
         $this->setDescription('Import enterprise transfer accounts from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'don\'t persist changes into database');
     }
 
     /**
@@ -77,7 +79,7 @@ class ImportEnterpriseTransferAccountCsvCommand extends AbstractBaseCommand
                     ->setAccountNumber($this->readColumn(8, $row))
                 ;
                 $this->em->persist($transferAccount);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->hasOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
@@ -86,10 +88,12 @@ class ImportEnterpriseTransferAccountCsvCommand extends AbstractBaseCommand
             }
             ++$rowsRead;
         }
-        $this->em->flush();
+        if (!$input->hasOption('dry-run')) {
+            $this->em->flush();
+        }
 
         // Print totals
         $endTimestamp = new \DateTime();
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->hasOption('dry-run'));
     }
 }

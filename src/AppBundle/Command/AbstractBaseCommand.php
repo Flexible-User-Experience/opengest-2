@@ -139,10 +139,14 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      * @param \DateTime       $beginTimestamp
      * @param \DateTime       $endTimestamp
      * @param int             $errors
+     * @param bool            $isDryRunModeEnabled
      */
-    protected function printTotals(OutputInterface $output, $rowsRead, $newRecords, \DateTime $beginTimestamp, \DateTime $endTimestamp, $errors = 0)
+    protected function printTotals(OutputInterface $output, $rowsRead, $newRecords, \DateTime $beginTimestamp, \DateTime $endTimestamp, $errors = 0, $isDryRunModeEnabled = false)
     {
         // Print totals
+        if ($isDryRunModeEnabled) {
+            $output->writeln('<comment>*** --dry-run mode enabled (nothing changes in database)</comment>');
+        }
         $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
         $output->writeln('<comment>'.$newRecords.' new records.</comment>');
         $output->writeln('<comment>'.($rowsRead - $newRecords - $errors).' updated records.</comment>');

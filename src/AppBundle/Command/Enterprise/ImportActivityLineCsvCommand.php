@@ -5,6 +5,7 @@ namespace AppBundle\Command\Enterprise;
 use AppBundle\Command\AbstractBaseCommand;
 use AppBundle\Entity\Enterprise\ActivityLine;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,6 +27,7 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:activity:line');
         $this->setDescription('Import enterprise activity lines from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'don\'t persist changes into database');
     }
 
     /**
@@ -68,7 +70,7 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
                     ->setName($name)
                 ;
                 $this->em->persist($activityLine);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->hasOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
@@ -77,10 +79,12 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
             }
             ++$rowsRead;
         }
-        $this->em->flush();
+        if (!$input->hasOption('dry-run')) {
+            $this->em->flush();
+        }
 
         // Print totals
         $endTimestamp = new \DateTime();
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->hasOption('dry-run'));
     }
 }

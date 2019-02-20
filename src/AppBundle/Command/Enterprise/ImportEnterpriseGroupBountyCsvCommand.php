@@ -8,6 +8,7 @@ use AppBundle\Entity\Enterprise\EnterpriseGroupBounty;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -27,6 +28,7 @@ class ImportEnterpriseGroupBountyCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:group:bounty');
         $this->setDescription('Import enterprise group bountys from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'don\'t persist changes into database');
     }
 
     /**
@@ -90,7 +92,7 @@ class ImportEnterpriseGroupBountyCsvCommand extends AbstractBaseCommand
                     ->setCarOutput($this->readColumn(19, $row))
                     ->setTransferHour($this->readColumn(20, $row));
                 $this->em->persist($groupBounty);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->hasOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
@@ -99,10 +101,12 @@ class ImportEnterpriseGroupBountyCsvCommand extends AbstractBaseCommand
             }
             ++$rowsRead;
         }
-        $this->em->flush();
+        if (!$input->hasOption('dry-run')) {
+            $this->em->flush();
+        }
 
         // Print totals
         $endTimestamp = new \DateTime();
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->hasOption('dry-run'));
     }
 }
