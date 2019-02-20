@@ -70,7 +70,10 @@ class ImportCityCommand extends AbstractBaseCommand
                 'country' => $countryCode,
             ]);
             if ($province) {
-                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy(['postalCode' => $postalCode]);
+                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
+                    'postalCode' => $postalCode,
+                    'name' => $name,
+                ]);
                 if (!$city) {
                     // new record
                     $city = new City();

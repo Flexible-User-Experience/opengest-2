@@ -67,7 +67,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
                 'postalCode' => $postalCode,
                 'name' => $cityName,
             ]);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$partnerTaxIdentificationNumber.' · '.$name.' · '.$enterprise);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$partnerTaxIdentificationNumber.' · '.$name.' · '.$enterprise.' · '.$this->readColumn(8, $row).' · '.$this->readColumn(6, $row));
             if ($enterprise && $partnerType && $partnerClass && $enterpriseTransferAccount && $city) {
                 $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterprise]);
                 $partnerType = $this->em->getRepository('AppBundle:Partner\PartnerType')->findOneBy(['name' => $partnerType]);
@@ -129,7 +129,23 @@ class ImportPartnerCommand extends AbstractBaseCommand
                     }
                 }
             } else {
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->write('<error>Error a la fila: '.$rowsRead);
+                if (!$enterprise) {
+                    $output->write(' · no enterprise found');
+                }
+                if (!$partnerType) {
+                    $output->write(' · no partner type found');
+                }
+                if (!$partnerClass) {
+                    $output->write(' · no partner class found');
+                }
+                if (!$enterpriseTransferAccount) {
+                    $output->write(' · no enterprise transfer account found');
+                }
+                if (!$city) {
+                    $output->write(' · no city '.$cityName.' with postal code '.$postalCode.' found');
+                }
+                $output->writeln('</error>');
                 ++$errors;
             }
             ++$rowsRead;
