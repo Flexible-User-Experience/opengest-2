@@ -7,6 +7,7 @@ use AppBundle\Entity\Operator\OperatorDigitalTachograph;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,6 +27,7 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
         $this->setName('app:import:operator:digital:tachograph');
         $this->setDescription('Import operator digital tachographs from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -45,25 +47,27 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 1;
         $newRecords = 0;
         $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
             $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->readColumn(2, $row));
             $file = $this->readColumn(3, $row);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(4, $row).' · '.$date->format('Y-m-d H:i:s').' · '.$file);
             if ($operator && $date && $file) {
-                $output->writeln('#'.$rowsRead.' · '.$operator->getShortFullName().' · '.$date->format('Y-m-d H:i:s').' · '.$file);
                 $digitalTachograph = $this->em->getRepository('AppBundle:Operator\OperatorDigitalTachograph')->findOneBy([
                     'operator' => $operator,
                     'createdAt' => $date,
                 ]);
                 if (!$digitalTachograph) {
                     // new record
-                    ++$newRecords;
                     $digitalTachograph = new OperatorDigitalTachograph();
+                    ++$newRecords;
                 }
                 $digitalTachograph
                     ->setOperator($operator)
@@ -71,9 +75,10 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
                     ->setUploadedFileName($file)
                 ;
                 $this->em->persist($digitalTachograph);
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
+                    $this->em->flush();
+                }
             } else {
-                ++$errors;
                 $output->write('<error>#'.$rowsRead);
                 if (!$operator) {
                     $output->write(' · no operator found');
@@ -85,12 +90,16 @@ class ImportOperatorDigitalTachographCommand extends AbstractBaseCommand
                     $output->write(' · no file found');
                 }
                 $output->writeln('</error>');
+                ++$errors;
             }
             ++$rowsRead;
+        }
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead - 1, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

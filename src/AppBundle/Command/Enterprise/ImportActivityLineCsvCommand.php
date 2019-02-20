@@ -27,7 +27,7 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:activity:line');
         $this->setDescription('Import enterprise activity lines from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
-        $this->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'don\'t persist changes into database');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -70,7 +70,7 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
                     ->setName($name)
                 ;
                 $this->em->persist($activityLine);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->hasOption('dry-run')) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
@@ -79,12 +79,12 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
             }
             ++$rowsRead;
         }
-        if (!$input->hasOption('dry-run')) {
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
 
         // Print totals
         $endTimestamp = new \DateTime();
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->hasOption('dry-run'));
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

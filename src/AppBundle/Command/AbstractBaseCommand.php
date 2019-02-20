@@ -145,7 +145,9 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     {
         // Print totals
         if ($isDryRunModeEnabled) {
-            $output->writeln('<comment>*** --dry-run mode enabled (nothing changes in database)</comment>');
+            $output->writeln('<comment>********************************************************</comment>');
+            $output->writeln('<comment>* --dry-run mode enabled (nothing changes in database) *</comment>');
+            $output->writeln('<comment>********************************************************</comment>');
         }
         $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
         $output->writeln('<comment>'.$newRecords.' new records.</comment>');

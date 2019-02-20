@@ -28,7 +28,7 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:collection:document:type');
         $this->setDescription('Import enterprise collection document types from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
-        $this->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'don\'t persist changes into database');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -78,18 +78,18 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
                         ->setSitReference($this->readColumn(3, $row))
                     ;
                 }
-                if (!$input->hasOption('dry-run')) {
+                if (!$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             }
             ++$rowsRead;
         }
-        if (!$input->hasOption('dry-run')) {
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
 
         // Print totals
         $endTimestamp = new \DateTime();
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->hasOption('dry-run'));
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

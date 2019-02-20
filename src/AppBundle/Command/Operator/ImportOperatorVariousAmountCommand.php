@@ -7,6 +7,7 @@ use AppBundle\Entity\Operator\OperatorVariousAmount;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,6 +27,7 @@ class ImportOperatorVariousAmountCommand extends AbstractBaseCommand
         $this->setName('app:import:operator:various:amount');
         $this->setDescription('Import operator various amounts from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -50,12 +52,14 @@ class ImportOperatorVariousAmountCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
             $date = \DateTime::createFromFormat('Y-m-d', $this->readColumn(2, $row));
             $description = $this->readColumn(3, $row);
+            $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row).' · '.$this->readColumn(3, $row));
             if ($operator && $date && $description) {
-                $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row).' · '.$this->readColumn(3, $row));
                 $variousAmount = $this->em->getRepository('AppBundle:Operator\OperatorVariousAmount')->findOneBy([
                     'operator' => $operator,
                     'date' => $date,
@@ -63,8 +67,8 @@ class ImportOperatorVariousAmountCommand extends AbstractBaseCommand
                 ]);
                 if (!$variousAmount) {
                     // new record
-                    ++$newRecords;
                     $variousAmount = new OperatorVariousAmount();
+                    ++$newRecords;
                 }
                 $variousAmount
                     ->setOperator($operator)
@@ -74,16 +78,21 @@ class ImportOperatorVariousAmountCommand extends AbstractBaseCommand
                     ->setUnits($this->readColumn(5, $row))
                 ;
                 $this->em->persist($variousAmount);
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
+                    $this->em->flush();
+                }
             } else {
-                ++$errors;
                 $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
             ++$rowsRead;
+        }
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }
