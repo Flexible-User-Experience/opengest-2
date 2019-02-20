@@ -4,9 +4,14 @@
   vars_files:
     - "{{ playbook_dir }}/vars/config.yml"
   tasks:
-    - name: execute province CSV import by partner to local database
+    - name: execute province CSV import by partner primary address to local database
       delegate_to: mother
       shell: "php app/console app:import:province app/csv/partners.csv 9 10"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute province CSV import by partner secondary address to local database
+      delegate_to: mother
+      shell: "php app/console app:import:province app/csv/partners.csv 19 20"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute province CSV import by enterprise to local database
@@ -19,9 +24,14 @@
       shell: "php app/console app:import:province app/csv/operators.csv 12 12"
       args:
         chdir: "{{ playbook_dir}}/../../"
-    - name: execute city CSV import by partner to local database
+    - name: execute city CSV import by partner primary address to local database
       delegate_to: mother
       shell: "php app/console app:import:city app/csv/partners.csv 8 6 9 10"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
+    - name: execute city CSV import by partner secondary address to local database
+      delegate_to: mother
+      shell: "php app/console app:import:city app/csv/partners.csv 18 17 19 20"
       args:
         chdir: "{{ playbook_dir}}/../../"
     - name: execute city CSV import by enterprise to local database

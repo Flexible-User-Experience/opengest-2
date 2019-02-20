@@ -98,10 +98,6 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setMainAddress($this->readColumn(7, $row))
                         ->setMainCity($city)
                         ->setSecondaryAddress($this->readColumn(16, $row))
-                        // TODO secondary postal code 17
-                        // TODO secondary city 18
-                        // TODO secondary province 19
-                        // TODO secondary country 20
                         ->setPhoneNumber1($this->readColumn(12, $row))
                         ->setPhoneNumber2($this->readColumn(13, $row))
                         ->setPhoneNumber3($this->readColumn(23, $row))
@@ -123,6 +119,15 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setControlDigit($this->readColumn(29, $row))
                         ->setAccountNumber($this->readColumn(30, $row))
                     ;
+                    $secondaryCityName = $this->lts->cityNameCleaner($this->readColumn(18, $row));
+                    $secondaryPostalCode = $this->lts->postalCodeCleaner($this->readColumn(17, $row));
+                    $secondaryCity = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
+                        'postalCode' => $secondaryPostalCode,
+                        'name' => $secondaryCityName,
+                    ]);
+                    if ($secondaryCity) {
+                        $partner->setSecondaryCity($secondaryCity);
+                    }
                     $this->em->persist($partner);
                     if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                         $this->em->flush();
