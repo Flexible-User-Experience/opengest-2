@@ -46,11 +46,14 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
+        $enterprises = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findAll();
         $rowsRead = 0;
         $newRecords = 0;
-        $enterprises = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findAll();
+        $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(1, $row));
             /** @var Enterprise $enterprise */
@@ -80,6 +83,6 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
         $this->em->flush();
         $endTimestamp = new \DateTime();
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }

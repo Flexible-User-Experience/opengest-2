@@ -20,7 +20,6 @@ class LocationsTransformer
      */
     public function countryToCode($country)
     {
-        $country = strtoupper($country);
         if ('ALEMANIA' == $country || 'GERMANY' == $country) {
             $result = 'DE';
         } elseif ('BELGICA' == $country || 'BELGIUM' == $country) {
@@ -84,28 +83,42 @@ class LocationsTransformer
     }
 
     /**
+     * @param string $countryName
+     *
+     * @return string
+     */
+    public function countryNameCleaner($countryName)
+    {
+        return $this->commonNameCleaner($countryName);
+    }
+
+    /**
      * @param string $name
      *
      * @return string
      */
     public function provinceNameCleaner($name)
     {
-        // remove first blank character from string
-        if (' ' == substr($name, 0, 1)) {
-            $name = substr($name, 1);
-        }
-        if ('ALMERÍA' == $name || 'ALMERíA' == $name) {
-            $name = 'ALMERIA';
-        } elseif ('CASTELLO' == $name || 'CASTELLÓ' == $name || 'CASTELLó' == $name || 'CASTELLÓN' == $name || 'CASTELLóN' == $name) {
-            $name = 'CASTELLON';
-        } elseif ('CORUÑA, LA' == $name || 'CORUñA, LA' == $name || 'A CORUÑA' == $name || 'A CORUñA' == $name) {
-            $name = 'LA CORUÑA';
-        } elseif ('LLEIDA' == $name || 'LéRIDA' == $name || 'LÉRIDA' == $name) {
-            $name = 'LERIDA';
-        } elseif ('MÚRCIA' == $name || 'MúRCIA' == $name) {
-            $name = 'MURCIA';
-        } elseif ('GIRONA' == $name) {
-            $name = 'GERONA';
+        if (strlen($name) > 0) {
+            // remove first blank character from string
+            if (' ' == substr($name, 0, 1)) {
+                $name = substr($name, 1);
+            }
+            if ('ALMERÍA' == $name || 'ALMERíA' == $name) {
+                $name = 'ALMERIA';
+            } elseif ('CASTELLO' == $name || 'CASTELLÓ' == $name || 'CASTELLó' == $name || 'CASTELLÓN' == $name || 'CASTELLóN' == $name) {
+                $name = 'CASTELLON';
+            } elseif ('CORUÑA, LA' == $name || 'CORUñA, LA' == $name || 'A CORUÑA' == $name || 'A CORUñA' == $name) {
+                $name = 'LA CORUÑA';
+            } elseif ('LLEIDA' == $name || 'LéRIDA' == $name || 'LÉRIDA' == $name) {
+                $name = 'LERIDA';
+            } elseif ('MÚRCIA' == $name || 'MúRCIA' == $name) {
+                $name = 'MURCIA';
+            } elseif ('GIRONA' == $name) {
+                $name = 'GERONA';
+            }
+        } else {
+            $name = '---';
         }
 
         return strtoupper($name);
@@ -118,9 +131,34 @@ class LocationsTransformer
      */
     public function cityNameCleaner($name)
     {
-        // remove first blank character from string
-        if (' ' == substr($name, 0, 1)) {
-            $name = substr($name, 1);
+        return $this->commonNameCleaner($name);
+    }
+
+    /**
+     * @param string $postalCode
+     *
+     * @return string
+     */
+    public function postalCodeCleaner($postalCode)
+    {
+        return $this->commonNameCleaner($postalCode);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    private function commonNameCleaner($name)
+    {
+        if (strlen($name) > 0) {
+            // remove first blank character from string
+            if (' ' == substr($name, 0, 1)) {
+                $name = substr($name, 1);
+            }
+        } else {
+            // set blank mark
+            $name = '---';
         }
 
         return strtoupper($name);

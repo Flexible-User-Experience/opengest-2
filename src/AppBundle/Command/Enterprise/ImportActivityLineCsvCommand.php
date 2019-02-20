@@ -45,10 +45,13 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
+        $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(3, $row)]);
@@ -65,13 +68,18 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
                     ->setName($name)
                 ;
                 $this->em->persist($activityLine);
-                ++$rowsRead;
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                    $this->em->flush();
+                }
+            } else {
+                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                ++$errors;
             }
-            $this->em->flush();
+            ++$rowsRead;
         }
+        $this->em->flush();
         $endTimestamp = new \DateTime();
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
     }
 }

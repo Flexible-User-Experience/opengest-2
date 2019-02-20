@@ -56,36 +56,18 @@ class ImportCityCommand extends AbstractBaseCommand
         $errors = 0;
 
         while (false != ($row = $this->readRow($fr))) {
-            $name = $this->readColumn($input->getArgument('name'), $row);
-            $postalCode = $this->readColumn($input->getArgument('zip'), $row);
-            $provinceName = $this->readColumn($input->getArgument('province'), $row);
-            $country = $this->readColumn($input->getArgument('country'), $row);
-            if (strlen($name) > 0) {
-                $name = $this->lts->cityNameCleaner($name);
-            } else {
-                $name = '---';
-            }
-            if (0 == strlen($postalCode)) {
-                $postalCode = '---';
-            }
-            if (strlen($provinceName) > 0) {
-                $provinceName = $this->lts->provinceNameCleaner($provinceName);
-            } else {
-                $provinceName = '---';
-            }
-            if (0 == strlen($country)) {
-                $country = '---';
-            }
-            $output->writeln('#'.$rowsRead.' · '.$name.' · '.$postalCode.' · '.$provinceName.' · '.$country);
-            $countryCode = $this->lts->countryToCode($country);
+            $name = $this->lts->cityNameCleaner($this->readColumn($input->getArgument('name'), $row));
+            $postalCode = $this->lts->postalCodeCleaner($this->readColumn($input->getArgument('zip'), $row));
+            $provinceName = $this->lts->provinceNameCleaner($this->readColumn($input->getArgument('province'), $row));
+            $countryName = $this->lts->countryNameCleaner($this->readColumn($input->getArgument('country'), $row));
+            $output->writeln('#'.$rowsRead.' · '.$name.' · '.$postalCode.' · '.$provinceName.' · '.$countryName);
+            $countryCode = $this->lts->countryToCode($countryName);
             $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy([
                 'name' => $provinceName,
                 'country' => $countryCode,
             ]);
             if ($province) {
-                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
-                    'postalCode' => $postalCode,
-                ]);
+                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy(['postalCode' => $postalCode]);
                 if (!$city) {
                     // new record
                     $city = new City();
