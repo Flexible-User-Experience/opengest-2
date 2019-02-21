@@ -68,12 +68,14 @@ class ImportPartnerCommand extends AbstractBaseCommand
                 'name' => $cityName,
             ]);
             $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$partnerTaxIdentificationNumber.' · '.$name.' · '.$enterprise.' · '.$this->readColumn(8, $row).' · '.$this->readColumn(6, $row));
-            if ($enterprise && $partnerType && $partnerClass && $enterpriseTransferAccount && $city) {
+            if ($enterprise && $partnerType && $partnerClass && $city) {
                 $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterprise]);
                 $partnerType = $this->em->getRepository('AppBundle:Partner\PartnerType')->findOneBy(['name' => $partnerType]);
                 $partnerClass = $this->em->getRepository('AppBundle:Partner\PartnerClass')->findOneBy(['name' => $partnerClass]);
-                $enterpriseTransferAccount = $this->em->getRepository('AppBundle:Enterprise\EnterpriseTransferAccount')->findOneBy(['name' => $enterpriseTransferAccount]);
-                if ($enterprise && $partnerType && $partnerClass && $enterpriseTransferAccount) {
+                if ($enterpriseTransferAccount) {
+                    $enterpriseTransferAccount = $this->em->getRepository('AppBundle:Enterprise\EnterpriseTransferAccount')->findOneBy(['name' => $enterpriseTransferAccount]);
+                }
+                if ($enterprise && $partnerType && $partnerClass) {
                     $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
                         'cifNif' => $partnerTaxIdentificationNumber,
                         'enterprise' => $enterprise,
@@ -92,7 +94,6 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setEnterprise($enterprise)
                         ->setClass($partnerClass)
                         ->setType($partnerType)
-                        ->setTransferAccount($enterpriseTransferAccount)
                         ->setEnabled('1' == $this->readColumn(3, $row) ? true : false)
                         ->setNotes($this->readColumn(4, $row))
                         ->setMainAddress($this->readColumn(7, $row))
@@ -119,6 +120,9 @@ class ImportPartnerCommand extends AbstractBaseCommand
                         ->setControlDigit($this->readColumn(29, $row))
                         ->setAccountNumber($this->readColumn(30, $row))
                     ;
+                    if ($enterpriseTransferAccount) {
+                        $partner->setTransferAccount($enterpriseTransferAccount);
+                    }
                     $secondaryCityName = $this->lts->cityNameCleaner($this->readColumn(18, $row));
                     $secondaryPostalCode = $this->lts->postalCodeCleaner($this->readColumn(17, $row));
                     $secondaryCity = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([

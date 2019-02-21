@@ -145,7 +145,7 @@ FROM opengest.Terceros T
 JOIN opengest.Empresas E ON E.id = T.empresa_id
 JOIN opengest.Tipos_terceros TT ON TT.id = T.tipo_tercero_id
 JOIN opengest.Clases_terceros CT ON CT.id = T.clase_tercero_id
-JOIN opengest.Cuentas_transferencia CUTR ON CUTR.id = T.cuenta_transferencia_id;
+LEFT JOIN opengest.Cuentas_transferencia CUTR ON CUTR.id = T.cuenta_transferencia_id;
 
 SELECT C.*, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif
 INTO OUTFILE '/var/lib/mysql-files/partner_contacts.csv'

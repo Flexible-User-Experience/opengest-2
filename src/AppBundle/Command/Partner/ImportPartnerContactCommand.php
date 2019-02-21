@@ -55,15 +55,15 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $name = $this->readColumn(1, $row);
-            $care = $this->readColumn(2, $row);
+            $name = $this->readColumn(2, $row);
+            $care = $this->readColumn(3, $row);
             $email = $this->readColumn(7, $row);
             $partnerTaxIdentificationNumber = $this->readColumn(9, $row);
             $enterpriseTaxIdentificationNumber = $this->readColumn(10, $row);
             $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$care.' · '.$email.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
             $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy(['cifNif' => $partnerTaxIdentificationNumber]);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
-            if ($name && $partner && $enterprise) {
+            if ($name && $partner && $enterprise && $partner->getEnterprise()->getId() == $enterprise->getId()) {
                 $partnerContact = $this->em->getRepository('AppBundle:Partner\PartnerContact')->findOneBy(['name' => $name]);
                 if (!$partnerContact) {
                     // new record
@@ -71,6 +71,7 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
                     ++$newRecords;
                 }
                 $partnerContact
+                    ->setPartner($partner)
                     ->setName($name)
                     ->setCare($care)
                     ->setPhone($this->readColumn(4, $row))
@@ -93,6 +94,9 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
                 }
                 if (!$enterprise) {
                     $output->write(' · no enterprise found');
+                }
+                if ($partner && $enterprise && $partner->getEnterprise()->getId() != $enterprise->getId()) {
+                    $output->write(' · partner + enterprise mismatch');
                 }
                 $output->writeln('</error>');
                 ++$errors;
