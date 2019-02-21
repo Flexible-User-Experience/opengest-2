@@ -82,7 +82,7 @@ class ImportEnterpriseHolidayCsvCommand extends AbstractBaseCommand
                     $this->em->flush();
                 }
             } else {
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->writeln('<error>Error at row number #'.$rowsRead.'</error>');
                 ++$errors;
             }
             ++$rowsRead;

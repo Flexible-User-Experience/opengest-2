@@ -138,7 +138,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
                     }
                 }
             } else {
-                $output->write('<error>Error a la fila: '.$rowsRead);
+                $output->write('<error>Error at row number #'.$rowsRead);
                 if (!$enterprise) {
                     $output->write(' · no enterprise found');
                 }

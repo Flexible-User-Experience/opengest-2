@@ -84,7 +84,7 @@ class ImportOperatorAbsenceCommand extends AbstractBaseCommand
                 }
             } else {
                 ++$errors;
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->writeln('<error>Error at row number #'.$rowsRead.'</error>');
             }
             ++$rowsRead;
         }

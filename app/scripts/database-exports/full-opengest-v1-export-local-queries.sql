@@ -157,6 +157,16 @@ FROM opengest.Contactos C
 JOIN opengest.Terceros T ON T.id = C.tercero_id
 JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
+SELECT DI.*, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif
+INTO OUTFILE '/tmp/partner_unabled_days.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Dias_inhabiles DI
+JOIN opengest.Terceros T ON T.id = DI.tercero_id
+JOIN opengest.Empresas E ON E.id = T.empresa_id;
+
 -- Sale
 
 -- Setting

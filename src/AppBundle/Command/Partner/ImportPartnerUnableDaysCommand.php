@@ -3,7 +3,7 @@
 namespace AppBundle\Command\Partner;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Partner\PartnerContact;
+use AppBundle\Entity\Partner\PartnerUnableDays;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,21 +11,21 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportPartnerContactCommand.
+ * Class ImportPartnerUnableDaysCommand.
  *
  * @category Command
  *
  * @author   David Romaní <david@flux.cat>
  */
-class ImportPartnerContactCommand extends AbstractBaseCommand
+class ImportPartnerUnableDaysCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:partner:contact');
-        $this->setDescription('Import partner contact from CSV file');
+        $this->setName('app:import:partner:unable:days');
+        $this->setDescription('Import partner unable days from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
@@ -55,45 +55,43 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $name = $this->readColumn(2, $row);
-            $care = $this->readColumn(3, $row);
-            $email = $this->readColumn(7, $row);
-            $partnerTaxIdentificationNumber = $this->readColumn(9, $row);
-            $enterpriseTaxIdentificationNumber = $this->readColumn(10, $row);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$care.' · '.$email.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
+            $begin = $this->readColumn(2, $row);
+            $end = $this->readColumn(3, $row);
+            $partnerTaxIdentificationNumber = $this->readColumn(4, $row);
+            $enterpriseTaxIdentificationNumber = $this->readColumn(5, $row);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$begin.' · '.$end.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
             $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
                 'cifNif' => $partnerTaxIdentificationNumber,
                 'enterprise' => $enterprise,
             ]);
-            if ($name && $partner && $enterprise) {
-                $partnerContact = $this->em->getRepository('AppBundle:Partner\PartnerContact')->findOneBy([
-                    'name' => $name,
+            if ($begin && $end && $partner && $enterprise) {
+                $partnerUnableDays = $this->em->getRepository('AppBundle:Partner\PartnerUnableDays')->findOneBy([
+                    'begin' => $begin,
+                    'end' => $end,
                     'partner' => $partner,
                 ]);
-                if (!$partnerContact) {
+                if (!$partnerUnableDays) {
                     // new record
-                    $partnerContact = new PartnerContact();
+                    $partnerUnableDays = new PartnerUnableDays();
                     ++$newRecords;
                 }
-                $partnerContact
+                $partnerUnableDays
                     ->setPartner($partner)
-                    ->setName($name)
-                    ->setCare($care)
-                    ->setPhone($this->readColumn(4, $row))
-                    ->setMobile($this->readColumn(5, $row))
-                    ->setFax($this->readColumn(6, $row))
-                    ->setEmail($email)
-                    ->setNotes($this->readColumn(8, $row))
+                    ->setBegin($begin) // TODO apply converter
+                    ->setEnd($end)
                 ;
-                $this->em->persist($partnerContact);
+                $this->em->persist($partnerUnableDays);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
                 $output->write('<error>Error at row number #'.$rowsRead);
-                if (!$name) {
-                    $output->write(' · no name found');
+                if (!$begin) {
+                    $output->write(' · no begin found');
+                }
+                if (!$end) {
+                    $output->write(' · no end found');
                 }
                 if (!$partner) {
                     $output->write(' · no partner found');
