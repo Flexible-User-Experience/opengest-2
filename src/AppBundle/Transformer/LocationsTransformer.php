@@ -145,6 +145,16 @@ class LocationsTransformer
     }
 
     /**
+     * @param string $taxIdentificationNumber
+     *
+     * @return string
+     */
+    public function taxIdentificationNumberCleaner($taxIdentificationNumber)
+    {
+        return $this->commonNameCleaner($taxIdentificationNumber);
+    }
+
+    /**
      * @param string $name
      *
      * @return string

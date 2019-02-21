@@ -61,10 +61,16 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
             $partnerTaxIdentificationNumber = $this->readColumn(9, $row);
             $enterpriseTaxIdentificationNumber = $this->readColumn(10, $row);
             $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$care.' · '.$email.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
-            $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy(['cifNif' => $partnerTaxIdentificationNumber]);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
-            if ($name && $partner && $enterprise && $partner->getEnterprise()->getId() == $enterprise->getId()) {
-                $partnerContact = $this->em->getRepository('AppBundle:Partner\PartnerContact')->findOneBy(['name' => $name]);
+            $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
+                'cifNif' => $partnerTaxIdentificationNumber,
+                'enterprise' => $enterprise,
+            ]);
+            if ($name && $partner && $enterprise) {
+                $partnerContact = $this->em->getRepository('AppBundle:Partner\PartnerContact')->findOneBy([
+                    'name' => $name,
+                    'partner' => $partner,
+                ]);
                 if (!$partnerContact) {
                     // new record
                     $partnerContact = new PartnerContact();
@@ -94,9 +100,6 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
                 }
                 if (!$enterprise) {
                     $output->write(' · no enterprise found');
-                }
-                if ($partner && $enterprise && $partner->getEnterprise()->getId() != $enterprise->getId()) {
-                    $output->write(' · partner + enterprise mismatch');
                 }
                 $output->writeln('</error>');
                 ++$errors;

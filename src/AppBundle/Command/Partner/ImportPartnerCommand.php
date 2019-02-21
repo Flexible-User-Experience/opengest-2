@@ -58,7 +58,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
             $enterprise = $this->readColumn(40, $row);
             $partnerType = $this->readColumn(41, $row);
             $partnerClass = $this->readColumn(42, $row);
-            $partnerTaxIdentificationNumber = $this->readColumn(11, $row);
+            $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(11, $row));
             $enterpriseTransferAccount = $this->readColumn(43, $row);
             $name = $this->readColumn(5, $row);
             $cityName = $this->lts->cityNameCleaner($this->readColumn(8, $row));
