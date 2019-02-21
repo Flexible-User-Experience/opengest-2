@@ -78,7 +78,7 @@ class ImportPartnerUnableDaysCommand extends AbstractBaseCommand
                 }
                 $partnerUnableDays
                     ->setPartner($partner)
-                    ->setBegin($begin) // TODO apply converter
+                    ->setBegin($begin)
                     ->setEnd($end)
                 ;
                 $this->em->persist($partnerUnableDays);

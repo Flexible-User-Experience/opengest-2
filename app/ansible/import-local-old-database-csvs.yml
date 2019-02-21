@@ -129,3 +129,8 @@
       shell: "php app/console app:import:partner:contact app/csv/partner_contacts.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute partner unable days CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:partner:unable:days app/csv/partner_unabled_days.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"

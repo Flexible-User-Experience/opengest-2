@@ -24,10 +24,10 @@ class DatesTransformer
         if (2 != count($date)) {
             throw new \Exception('Expected DD/MM format');
         }
-        if (is_numeric($date[0])) {
+        if (!is_numeric($date[0])) {
             throw new \Exception('Expected numeric day format');
         }
-        if (is_numeric($date[1])) {
+        if (!is_numeric($date[1])) {
             throw new \Exception('Expected numeric month format');
         }
         $day = new \DateTime();
