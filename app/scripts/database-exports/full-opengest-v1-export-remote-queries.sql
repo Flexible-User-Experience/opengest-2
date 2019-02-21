@@ -167,6 +167,16 @@ FROM opengest.Dias_inhabiles DI
 JOIN opengest.Terceros T ON T.id = DI.tercero_id
 JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
+SELECT O.*, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif
+INTO OUTFILE '/var/lib/mysql-files/partner_building_sites.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Obras O
+JOIN opengest.Terceros T ON T.id = O.tercero_id
+JOIN opengest.Empresas E ON E.id = T.empresa_id;
+
 -- Sale
 
 -- Setting
