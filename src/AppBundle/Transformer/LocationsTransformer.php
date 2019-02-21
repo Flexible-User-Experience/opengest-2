@@ -159,6 +159,16 @@ class LocationsTransformer
      *
      * @return string
      */
+    public function nameCleaner($name)
+    {
+        return $this->commonNameCleaner($name);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
     private function commonNameCleaner($name)
     {
         if (strlen($name) > 0) {
