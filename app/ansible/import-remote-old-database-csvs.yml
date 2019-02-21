@@ -108,3 +108,7 @@
       shell: "php app/console --env=prod app:import:partner:unable:days app/csv/partner_unabled_days.csv"
       args:
         chdir: "{{ vhost_path }}/current/"
+    - name: execute partner building site CSV import to local database
+      shell: "php app/console --env=prod app:import:partner:building:site app/csv/partner_building_sites.csv"
+      args:
+        chdir: "{{ vhost_path }}/current/"

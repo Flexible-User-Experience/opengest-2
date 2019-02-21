@@ -55,7 +55,7 @@ class ImportPartnerContactCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $name = $this->readColumn(2, $row);
+            $name = $this->lts->nameCleaner($this->readColumn(2, $row));
             $care = $this->readColumn(3, $row);
             $email = $this->readColumn(7, $row);
             $partnerTaxIdentificationNumber = $this->readColumn(9, $row);
