@@ -55,11 +55,11 @@ class ImportPartnerUnableDaysCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $begin = $this->readColumn(2, $row);
-            $end = $this->readColumn(3, $row);
+            $begin = $this->dts->convertStringWithDayAndMonthToDateTime($this->readColumn(2, $row));
+            $end = $this->dts->convertStringWithDayAndMonthToDateTime($this->readColumn(3, $row));
             $partnerTaxIdentificationNumber = $this->readColumn(4, $row);
             $enterpriseTaxIdentificationNumber = $this->readColumn(5, $row);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$begin.' · '.$end.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$begin->format('d/m').' · '.$end->format('d/m').' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
             $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
                 'cifNif' => $partnerTaxIdentificationNumber,

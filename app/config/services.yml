@@ -158,3 +158,5 @@ services:
 # Transformers
     app.locations_transformer:
         class: AppBundle\Transformer\LocationsTransformer
+    app.dates_transformer:
+        class: AppBundle\Transformer\DatesTransformer

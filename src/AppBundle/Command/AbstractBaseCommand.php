@@ -3,6 +3,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Transformer\LocationsTransformer;
+use AppBundle\Transformer\DatesTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Filesystem\Filesystem;
@@ -36,6 +37,11 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected $lts;
 
     /**
+     * @var DatesTransformer
+     */
+    protected $dts;
+
+    /**
      * Methods.
      */
 
@@ -50,6 +56,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->fss = $this->getContainer()->get('filesystem');
         $this->lts = $this->getContainer()->get('app.locations_transformer');
+        $this->dts = $this->getContainer()->get('app.dates_transformer');
 
         return $this;
     }
