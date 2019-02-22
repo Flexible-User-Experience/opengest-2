@@ -78,7 +78,7 @@ class ImportPartnerOrderCommand extends AbstractBaseCommand
                 $partnerOrder
                     ->setPartner($partner)
                     ->setNumber($number)
-                    ->serProviderReference($code)
+                    ->setProviderReference($code)
                 ;
                 $this->em->persist($partnerOrder);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
