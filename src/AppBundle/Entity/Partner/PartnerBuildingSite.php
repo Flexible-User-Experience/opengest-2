@@ -66,10 +66,14 @@ class PartnerBuildingSite extends AbstractBase
 
     /**
      * @param Partner $partner
+     *
+     * @return $this
      */
-    public function setPartner($partner): void
+    public function setPartner($partner)
     {
         $this->partner = $partner;
+
+        return $this;
     }
 
     /**
@@ -82,10 +86,14 @@ class PartnerBuildingSite extends AbstractBase
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -98,10 +106,14 @@ class PartnerBuildingSite extends AbstractBase
 
     /**
      * @param string $number
+     *
+     * @return $this
      */
-    public function setNumber($number): void
+    public function setNumber($number)
     {
         $this->number = $number;
+
+        return $this;
     }
 
     /**
@@ -114,10 +126,14 @@ class PartnerBuildingSite extends AbstractBase
 
     /**
      * @param string $address
+     *
+     * @return $this
      */
-    public function setAddress($address): void
+    public function setAddress($address)
     {
         $this->address = $address;
+
+        return $this;
     }
 
     /**
@@ -130,10 +146,14 @@ class PartnerBuildingSite extends AbstractBase
 
     /**
      * @param string $phone
+     *
+     * @return $this
      */
-    public function setPhone($phone): void
+    public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Transformer\LocationsTransformer;
+use AppBundle\Transformer\DatesTransformer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Filesystem\Filesystem;
@@ -30,6 +32,16 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected $fss;
 
     /**
+     * @var LocationsTransformer
+     */
+    protected $lts;
+
+    /**
+     * @var DatesTransformer
+     */
+    protected $dts;
+
+    /**
      * Methods.
      */
 
@@ -43,6 +55,8 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         ini_set('auto_detect_line_endings', true);
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->fss = $this->getContainer()->get('filesystem');
+        $this->lts = $this->getContainer()->get('app.locations_transformer');
+        $this->dts = $this->getContainer()->get('app.dates_transformer');
 
         return $this;
     }
@@ -132,10 +146,16 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      * @param \DateTime       $beginTimestamp
      * @param \DateTime       $endTimestamp
      * @param int             $errors
+     * @param bool            $isDryRunModeEnabled
      */
-    protected function printTotals(OutputInterface $output, $rowsRead, $newRecords, \DateTime $beginTimestamp, \DateTime $endTimestamp, $errors = 0)
+    protected function printTotals(OutputInterface $output, $rowsRead, $newRecords, \DateTime $beginTimestamp, \DateTime $endTimestamp, $errors = 0, $isDryRunModeEnabled = false)
     {
         // Print totals
+        if ($isDryRunModeEnabled) {
+            $output->writeln('<comment>********************************************************</comment>');
+            $output->writeln('<comment>* --dry-run mode enabled (nothing changes in database) *</comment>');
+            $output->writeln('<comment>********************************************************</comment>');
+        }
         $output->writeln('<comment>'.$rowsRead.' rows read.</comment>');
         $output->writeln('<comment>'.$newRecords.' new records.</comment>');
         $output->writeln('<comment>'.($rowsRead - $newRecords - $errors).' updated records.</comment>');

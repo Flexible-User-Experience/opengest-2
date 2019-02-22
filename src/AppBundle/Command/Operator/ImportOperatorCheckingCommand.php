@@ -7,6 +7,7 @@ use AppBundle\Entity\Operator\OperatorChecking;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,6 +27,7 @@ class ImportOperatorCheckingCommand extends AbstractBaseCommand
         $this->setName('app:import:operator:checking');
         $this->setDescription('Import operator checking from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -45,18 +47,20 @@ class ImportOperatorCheckingCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
             $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
             $type = $this->em->getRepository('AppBundle:Operator\OperatorCheckingType')->findOneBy(['name' => $this->readColumn(5, $row)]);
             $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
             if ($operator && $type && $begin && $end) {
-                $output->writeln($this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
                 $operatorChecking = $this->em->getRepository('AppBundle:Operator\OperatorChecking')->findOneBy([
                     'type' => $type,
                     'operator' => $operator,
@@ -73,18 +77,21 @@ class ImportOperatorCheckingCommand extends AbstractBaseCommand
                     ->setType($type)
                 ;
                 $this->em->persist($operatorChecking);
-                if (0 == $rowsRead % self::CSV_BATCH_WINDOW) {
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
                 ++$errors;
-                $output->writeln('<error>Error a la fila: '.$rowsRead.'</error>');
+                $output->writeln('<error>Error at row number #'.$rowsRead.'</error>');
             }
             ++$rowsRead;
+        }
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
         }
-        $endTimestamp = new \DateTime();
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

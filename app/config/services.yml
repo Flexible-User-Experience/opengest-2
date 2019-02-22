@@ -155,4 +155,8 @@ services:
     app.delivery_note_manager:
         class: AppBundle\Manager\DeliveryNoteManager
         arguments: [ "@app.sale_delivery_note_repository"]
-
+# Transformers
+    app.locations_transformer:
+        class: AppBundle\Transformer\LocationsTransformer
+    app.dates_transformer:
+        class: AppBundle\Transformer\DatesTransformer

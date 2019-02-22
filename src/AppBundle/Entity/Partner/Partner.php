@@ -254,6 +254,7 @@ class Partner extends AbstractBase
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Partner\PartnerOrder", mappedBy="partner")
      */
     private $orders;
+
     /**
      * @var ArrayCollection
      *

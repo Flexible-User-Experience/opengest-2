@@ -14,6 +14,8 @@ class ConstantsEnum
      */
     const IVA = 21;
     const IRPF = 0;
+    const DEFAULT_COUNTRY_CODE_SPAIN = 'ES';
+    const DEFAULT_COUNTRY_SPAIN = 'ESPAÑA';
 
     /**
      * Frontend.

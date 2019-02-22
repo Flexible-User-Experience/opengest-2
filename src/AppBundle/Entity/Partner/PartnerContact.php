@@ -93,10 +93,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param Partner $partner
+     *
+     * @return $this
      */
-    public function setPartner($partner): void
+    public function setPartner($partner)
     {
         $this->partner = $partner;
+
+        return $this;
     }
 
     /**
@@ -109,10 +113,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -125,10 +133,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $care
+     *
+     * @return $this
      */
-    public function setCare($care): void
+    public function setCare($care)
     {
         $this->care = $care;
+
+        return $this;
     }
 
     /**
@@ -141,10 +153,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $phone
+     *
+     * @return $this
      */
-    public function setPhone($phone): void
+    public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
     }
 
     /**
@@ -157,10 +173,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $mobile
+     *
+     * @return $this
      */
-    public function setMobile($mobile): void
+    public function setMobile($mobile)
     {
         $this->mobile = $mobile;
+
+        return $this;
     }
 
     /**
@@ -173,10 +193,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $fax
+     *
+     * @return $this
      */
-    public function setFax($fax): void
+    public function setFax($fax)
     {
         $this->fax = $fax;
+
+        return $this;
     }
 
     /**
@@ -189,10 +213,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $email
+     *
+     * @return $this
      */
-    public function setEmail($email): void
+    public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -205,10 +233,14 @@ class PartnerContact extends AbstractBase
 
     /**
      * @param string $notes
+     *
+     * @return $this
      */
-    public function setNotes($notes): void
+    public function setNotes($notes)
     {
         $this->notes = $notes;
+
+        return $this;
     }
 
     /**

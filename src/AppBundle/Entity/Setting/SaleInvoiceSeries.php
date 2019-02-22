@@ -37,7 +37,7 @@ class SaleInvoiceSeries extends AbstractBase
     private $isDefault = false;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -50,10 +50,14 @@ class SaleInvoiceSeries extends AbstractBase
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -66,10 +70,14 @@ class SaleInvoiceSeries extends AbstractBase
 
     /**
      * @param string $prefix
+     *
+     * @return $this
      */
-    public function setPrefix($prefix): void
+    public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
+
+        return $this;
     }
 
     /**
@@ -82,10 +90,14 @@ class SaleInvoiceSeries extends AbstractBase
 
     /**
      * @param bool $isDefault
+     *
+     * @return $this
      */
-    public function setIsDefault($isDefault): void
+    public function setIsDefault($isDefault)
     {
         $this->isDefault = $isDefault;
+
+        return $this;
     }
 
     /**

@@ -54,10 +54,14 @@ class PartnerUnableDays extends AbstractBase
 
     /**
      * @param Partner $partner
+     *
+     * @return $this
      */
-    public function setPartner($partner): void
+    public function setPartner($partner)
     {
         $this->partner = $partner;
+
+        return $this;
     }
 
     /**
@@ -70,10 +74,14 @@ class PartnerUnableDays extends AbstractBase
 
     /**
      * @param \DateTime $begin
+     *
+     * @return $this
      */
-    public function setBegin($begin): void
+    public function setBegin($begin)
     {
         $this->begin = $begin;
+
+        return $this;
     }
 
     /**
@@ -86,10 +94,14 @@ class PartnerUnableDays extends AbstractBase
 
     /**
      * @param \DateTime $end
+     *
+     * @return $this
      */
-    public function setEnd($end): void
+    public function setEnd($end)
     {
         $this->end = $end;
+
+        return $this;
     }
 
     /**

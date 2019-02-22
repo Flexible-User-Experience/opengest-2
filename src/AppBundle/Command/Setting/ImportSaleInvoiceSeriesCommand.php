@@ -1,31 +1,31 @@
 <?php
 
-namespace AppBundle\Command\Enterprise;
+namespace AppBundle\Command\Setting;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Enterprise\ActivityLine;
+use AppBundle\Entity\Setting\SaleInvoiceSeries;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportEnterpriseCsvCommand.
+ * Class ImportSaleInvoiceSeriesCommand.
  *
  * @category Command
  *
  * @author   David Romaní <david@flux.cat>
  */
-class ImportActivityLineCsvCommand extends AbstractBaseCommand
+class ImportSaleInvoiceSeriesCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:enterprise:activity:line');
-        $this->setDescription('Import enterprise activity lines from CSV file');
+        $this->setName('app:import:sale:invoice:series');
+        $this->setDescription('Import sale invoice serires from CSV');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
@@ -55,27 +55,31 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(3, $row)]);
-            if ($enterprise) {
-                $name = $this->readColumn(2, $row);
-                $activityLine = $this->em->getRepository('AppBundle:Enterprise\ActivityLine')->findOneBy(['name' => $name, 'enterprise' => $enterprise]);
-                if (!$activityLine) {
+            $name = $this->lts->nameCleaner($this->readColumn(1, $row));
+            $prefix = $this->lts->nameCleaner($this->readColumn(2, $row));
+            $isDefault = '1' == $this->readColumn(3, $row) ? true : false;
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$prefix.' · '.$this->readColumn(3, $row));
+            if ($name) {
+                $saleInvoiceSeries = $this->em->getRepository('AppBundle:Setting\SaleInvoiceSeries')->findOneBy([
+                    'name' => $name,
+                ]);
+                if (!$saleInvoiceSeries) {
                     // new record
-                    $activityLine = new ActivityLine();
+                    $saleInvoiceSeries = new SaleInvoiceSeries();
                     ++$newRecords;
                 }
-                $activityLine
-                    ->setEnterprise($enterprise)
+                $saleInvoiceSeries
                     ->setName($name)
+                    ->setPrefix($prefix)
+                    ->setIsDefault($isDefault)
                 ;
-                $this->em->persist($activityLine);
+                $this->em->persist($saleInvoiceSeries);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
-                $output->writeln('<error>Error at row number #'.$rowsRead.'</error>');
                 ++$errors;
+                $output->writeln('<error>Error at row number #'.$rowsRead.'</error>');
             }
             ++$rowsRead;
         }
