@@ -1,0 +1,118 @@
+---
+- hosts: s6
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/config.yml"
+  tasks:
+    - name: creates image services directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/service"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image works directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/work"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image work images directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/work_image"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image vehicles directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/vehicle"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image complements directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/complement"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image enterprises directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/enterprise"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image operators directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/operator"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates image users directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/images/user"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates document vehicles directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/documents/vehicle"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates digital tachograph operators directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/digital_tachograph/operator"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: creates digital tachograph vehicles directory
+      file:
+        path: "{{ remote_new_uploads_folder }}/digital_tachograph/vehicle"
+        state: directory
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"
+        mode: 0755
+        recurse: no
+    - name: copy enterprise logos
+      shell: "cp {{ remote_old_uploads_folder }}/logos/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy operator bulk resources
+      shell: "cp {{ remote_old_uploads_folder }}/operarios/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator profile photos
+      shell: "cp {{ remote_old_uploads_folder }}/fotografia/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator dni images
+      shell: "cp {{ remote_old_uploads_folder }}/imagen_dni/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator social security images
+      shell: "cp {{ remote_old_uploads_folder }}/alta_seguridad_social/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator medical check images
+      shell: "cp {{ remote_old_uploads_folder }}/imagen_revision_medica/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator epis images
+      shell: "cp {{ remote_old_uploads_folder }}/imagen_epis/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator learning document images
+      shell: "cp {{ remote_old_uploads_folder }}/doc_formacion/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator crane license images
+      shell: "cp {{ remote_old_uploads_folder }}/imagen_carnet_grua/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator drive machinery authorization images
+      shell: "cp {{ remote_old_uploads_folder }}/autorizacion_uso_maquinaria/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator work contract images
+      shell: "cp {{ remote_old_uploads_folder }}/contrato_trabajo/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator driving license images
+      shell: "cp {{ remote_old_uploads_folder }}/imagen_carnet_conducir/* {{ remote_new_uploads_folder }}/images/operator/"

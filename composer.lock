@@ -776,16 +776,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.10.1",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "98551d71f515692c2278073e0d483763ac70b341"
+                "reference": "1f99e6645030542079c57d4680601a4a8778a1bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/98551d71f515692c2278073e0d483763ac70b341",
-                "reference": "98551d71f515692c2278073e0d483763ac70b341",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/1f99e6645030542079c57d4680601a4a8778a1bd",
+                "reference": "1f99e6645030542079c57d4680601a4a8778a1bd",
                 "shasum": ""
             },
             "require": {
@@ -857,7 +857,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2019-01-07T15:31:08+00:00"
+            "time": "2019-02-06T13:18:04+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -3473,16 +3473,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.45.1",
+            "version": "3.45.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "ba9c5dcbfe0412859d63f3319606ae006591ac85"
+                "reference": "b75183f7004b87378a5d3e7d6af03ec784787e67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/ba9c5dcbfe0412859d63f3319606ae006591ac85",
-                "reference": "ba9c5dcbfe0412859d63f3319606ae006591ac85",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/b75183f7004b87378a5d3e7d6af03ec784787e67",
+                "reference": "b75183f7004b87378a5d3e7d6af03ec784787e67",
                 "shasum": ""
             },
             "require": {
@@ -3537,6 +3537,7 @@
             "suggest": {
                 "jms/di-extra-bundle": "Annotations for Admin definition",
                 "jms/translation-bundle": "Extract message keys from Admins",
+                "kunicmarko/sonata-auto-configure-bundle": "Auto configures Admin classes",
                 "sensio/generator-bundle": "Add sonata:admin:generate command",
                 "sonata-project/intl-bundle": "Add localized date and number into the list"
             },
@@ -3574,7 +3575,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2019-01-14T22:05:25+00:00"
+            "time": "2019-02-14T22:46:27+00:00"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3734,16 +3735,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.15.1",
+            "version": "3.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "30f5d1201aab91c493b2f15d91f6514fe4ad2daf"
+                "reference": "3789031c679cef8cdefcfabc743e4957ea6e6b13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/30f5d1201aab91c493b2f15d91f6514fe4ad2daf",
-                "reference": "30f5d1201aab91c493b2f15d91f6514fe4ad2daf",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/3789031c679cef8cdefcfabc743e4957ea6e6b13",
+                "reference": "3789031c679cef8cdefcfabc743e4957ea6e6b13",
                 "shasum": ""
             },
             "require": {
@@ -3814,7 +3815,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2019-01-26T22:34:20+00:00"
+            "time": "2019-02-16T18:52:42+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -5441,16 +5442,16 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v3.4.0",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "4c547f2175b9a05aa43551f6927da83fe249ce42"
+                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/4c547f2175b9a05aa43551f6927da83fe249ce42",
-                "reference": "4c547f2175b9a05aa43551f6927da83fe249ce42",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/68b0d231a13201eb14acd3dc84e51543d16e5f7e",
+                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e",
                 "shasum": ""
             },
             "replace": {
@@ -5488,7 +5489,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2018-12-13T23:45:51+00:00"
+            "time": "2019-02-13T15:55:38+00:00"
         },
         {
             "name": "twig/extensions",

@@ -8,6 +8,7 @@ use AppBundle\Entity\Enterprise\Enterprise;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -27,6 +28,7 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:collection:document:type');
         $this->setDescription('Import enterprise collection document types from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -46,13 +48,16 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
+        $enterprises = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findAll();
         $rowsRead = 0;
         $newRecords = 0;
-        $enterprises = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findAll();
+        $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(1, $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(1, $row));
             /** @var Enterprise $enterprise */
             foreach ($enterprises as $enterprise) {
                 /** @var CollectionDocumentType $searchedCollectionDocumentType */
@@ -73,13 +78,18 @@ class ImportCollectionDocumentTypeCsvCommand extends AbstractBaseCommand
                         ->setSitReference($this->readColumn(3, $row))
                     ;
                 }
-                $this->em->flush();
+                if (!$input->getOption('dry-run')) {
+                    $this->em->flush();
+                }
             }
             ++$rowsRead;
         }
-        $this->em->flush();
-        $endTimestamp = new \DateTime();
+        if (!$input->getOption('dry-run')) {
+            $this->em->flush();
+        }
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

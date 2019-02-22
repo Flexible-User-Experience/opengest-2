@@ -7,6 +7,7 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
 use AppBundle\Entity\Operator\OperatorCheckingType;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,12 +27,13 @@ class ImportOperatorCheckingTypeCommand extends AbstractBaseCommand
         $this->setName('app:import:operator:checking:type');
         $this->setDescription('Import operator checking type from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
      * Execute.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int|null|void
@@ -45,13 +47,15 @@ class ImportOperatorCheckingTypeCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
-        while (false !== ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(1, $row).' · '.$this->readColumn(2, $row));
+        $errors = 0;
 
+        // Import CSV rows
+        while (false !== ($row = $this->readRow($fr))) {
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(1, $row).' · '.$this->readColumn(2, $row));
             $operatorCheckingType = $this->em->getRepository('AppBundle:Operator\OperatorCheckingType')->findOneBy(['name' => $this->readColumn(1, $row)]);
             // new record
             if (!$operatorCheckingType) {
@@ -62,13 +66,18 @@ class ImportOperatorCheckingTypeCommand extends AbstractBaseCommand
                 ->setName($this->readColumn(1, $row))
                 ->setDescription($this->readColumn(2, $row))
             ;
-
             $this->em->persist($operatorCheckingType);
+            if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
+                $this->em->flush();
+            }
             ++$rowsRead;
         }
-        $this->em->flush();
-        $endTimestamp = new \DateTime();
+        if (!$input->getOption('dry-run')) {
+            $this->em->flush();
+        }
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

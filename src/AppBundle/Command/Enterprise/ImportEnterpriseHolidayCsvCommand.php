@@ -8,6 +8,7 @@ use AppBundle\Entity\Enterprise\EnterpriseHolidays;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -27,6 +28,7 @@ class ImportEnterpriseHolidayCsvCommand extends AbstractBaseCommand
         $this->setName('app:import:enterprise:holiday');
         $this->setDescription('Import enterprise holidays from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
     /**
@@ -46,12 +48,15 @@ class ImportEnterpriseHolidayCsvCommand extends AbstractBaseCommand
         // Welcome & Initialization & File validations
         $fr = $this->initialValidation($input, $output);
 
-        // Import CSV rows
+        // Set counters
         $beginTimestamp = new \DateTime();
         $rowsRead = 0;
         $newRecords = 0;
+        $errors = 0;
+
+        // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln($this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
             /** @var Enterprise $enterprise */
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(4, $row)]);
             $date = $this->readColumn(2, $row);
@@ -64,22 +69,30 @@ class ImportEnterpriseHolidayCsvCommand extends AbstractBaseCommand
                 $enterpriseHolidays = $this->em->getRepository('AppBundle:Enterprise\EnterpriseHolidays')->findOneBy(['day' => $day, 'enterprise' => $enterprise]);
                 if (!$enterpriseHolidays) {
                     // new record
-                    ++$newRecords;
                     $enterpriseHolidays = new EnterpriseHolidays();
+                    ++$newRecords;
                 }
                 $enterpriseHolidays
                     ->setEnterprise($enterprise)
                     ->setDay($day)
                     ->setName($this->readColumn(3, $row))
                 ;
-                ++$rowsRead;
                 $this->em->persist($enterpriseHolidays);
-                $this->em->flush();
+                if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
+                    $this->em->flush();
+                }
+            } else {
+                $output->writeln('<error>Error at row number #'.$rowsRead.'</error>');
+                ++$errors;
             }
+            ++$rowsRead;
         }
-        $this->em->flush();
-        $endTimestamp = new \DateTime();
+        if (!$input->getOption('dry-run')) {
+            $this->em->flush();
+        }
+
         // Print totals
-        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp);
+        $endTimestamp = new \DateTime();
+        $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }

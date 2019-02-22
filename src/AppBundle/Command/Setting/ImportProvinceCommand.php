@@ -1,32 +1,34 @@
 <?php
 
-namespace AppBundle\Command\Enterprise;
+namespace AppBundle\Command\Setting;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Enterprise\ActivityLine;
+use AppBundle\Entity\Setting\Province;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportEnterpriseCsvCommand.
+ * Class ImportProvinceCommand.
  *
  * @category Command
  *
  * @author   David Romaní <david@flux.cat>
  */
-class ImportActivityLineCsvCommand extends AbstractBaseCommand
+class ImportProvinceCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:enterprise:activity:line');
-        $this->setDescription('Import enterprise activity lines from CSV file');
+        $this->setName('app:import:province');
+        $this->setDescription('Import province from CSV file by index');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addArgument('name', InputArgument::REQUIRED, 'province name column index');
+        $this->addArgument('country', InputArgument::REQUIRED, 'country name column index');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
@@ -55,21 +57,26 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(3, $row)]);
-            if ($enterprise) {
-                $name = $this->readColumn(2, $row);
-                $activityLine = $this->em->getRepository('AppBundle:Enterprise\ActivityLine')->findOneBy(['name' => $name, 'enterprise' => $enterprise]);
-                if (!$activityLine) {
+            $name = $this->lts->provinceNameCleaner($this->readColumn($input->getArgument('name'), $row));
+            $country = $this->lts->countryNameCleaner($this->readColumn($input->getArgument('country'), $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$country);
+            if ($country) {
+                $countryCode = $this->lts->countryToCode($country);
+                $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy([
+                    'name' => $name,
+                    'country' => $countryCode,
+                ]);
+                if (!$province) {
                     // new record
-                    $activityLine = new ActivityLine();
+                    $province = new Province();
                     ++$newRecords;
                 }
-                $activityLine
-                    ->setEnterprise($enterprise)
+                $province
                     ->setName($name)
+                    ->setCode($countryCode.' · '.substr($name, 0, 4))
+                    ->setCountry($countryCode)
                 ;
-                $this->em->persist($activityLine);
+                $this->em->persist($province);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }

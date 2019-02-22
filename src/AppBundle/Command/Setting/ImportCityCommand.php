@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Command\Operator;
+namespace AppBundle\Command\Setting;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Operator\OperatorAbsence;
+use AppBundle\Entity\Setting\City;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,22 +11,26 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportOperatorAbsenceCommand.
+ * Class ImportCityCommand.
  *
  * @category Command
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
-class ImportOperatorAbsenceCommand extends AbstractBaseCommand
+class ImportCityCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:operator:absence');
-        $this->setDescription('Import operator absence from CSV file');
+        $this->setName('app:import:city');
+        $this->setDescription('Import city from CSV file by index');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
+        $this->addArgument('name', InputArgument::REQUIRED, 'city name column index');
+        $this->addArgument('zip', InputArgument::REQUIRED, 'postal code column index');
+        $this->addArgument('province', InputArgument::REQUIRED, 'province name column index');
+        $this->addArgument('country', InputArgument::REQUIRED, 'country name column index');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
 
@@ -55,30 +59,32 @@ class ImportOperatorAbsenceCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $begin = \DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
-            $end = \DateTime::createFromFormat('Y-m-d', $this->readColumn(4, $row));
-            $type = $this->em->getRepository('AppBundle:Operator\OperatorAbsenceType')->findOneBy(['name' => $this->readColumn(5, $row)]);
-            $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $this->readColumn(6, $row)]);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(6, $row).' · '.$this->readColumn(3, $row).' · '.$this->readColumn(4, $row).' · '.$this->readColumn(5, $row));
-            if ($operator && $type && $begin && $end) {
-                $operatorAbsence = $this->em->getRepository('AppBundle:Operator\OperatorAbsence')->findOneBy([
-                    'begin' => $begin,
-                    'end' => $end,
-                    'type' => $type,
-                    'operator' => $operator,
+            $name = $this->lts->cityNameCleaner($this->readColumn($input->getArgument('name'), $row));
+            $postalCode = $this->lts->postalCodeCleaner($this->readColumn($input->getArgument('zip'), $row));
+            $provinceName = $this->lts->provinceNameCleaner($this->readColumn($input->getArgument('province'), $row));
+            $countryName = $this->lts->countryNameCleaner($this->readColumn($input->getArgument('country'), $row));
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$postalCode.' · '.$provinceName.' · '.$countryName);
+            $countryCode = $this->lts->countryToCode($countryName);
+            $province = $this->em->getRepository('AppBundle:Setting\Province')->findOneBy([
+                'name' => $provinceName,
+                'country' => $countryCode,
+            ]);
+            if ($province) {
+                $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([
+                    'postalCode' => $postalCode,
+                    'name' => $name,
                 ]);
-                if (!$operatorAbsence) {
+                if (!$city) {
                     // new record
-                    $operatorAbsence = new OperatorAbsence();
+                    $city = new City();
                     ++$newRecords;
                 }
-                $operatorAbsence
-                    ->setOperator($operator)
-                    ->setBegin($begin)
-                    ->setEnd($end)
-                    ->setType($type)
+                $city
+                    ->setName($name)
+                    ->setPostalCode($postalCode)
+                    ->setProvince($province)
                 ;
-                $this->em->persist($operatorAbsence);
+                $this->em->persist($city);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }

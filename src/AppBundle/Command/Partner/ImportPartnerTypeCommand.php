@@ -1,31 +1,31 @@
 <?php
 
-namespace AppBundle\Command\Enterprise;
+namespace AppBundle\Command\Partner;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Enterprise\ActivityLine;
+use AppBundle\Entity\Partner\PartnerType;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportEnterpriseCsvCommand.
+ * Class ImportPartnerTypeCommand.
  *
  * @category Command
  *
  * @author   David Romaní <david@flux.cat>
  */
-class ImportActivityLineCsvCommand extends AbstractBaseCommand
+class ImportPartnerTypeCommand extends AbstractBaseCommand
 {
     /**
      * Configure.
      */
     protected function configure()
     {
-        $this->setName('app:import:enterprise:activity:line');
-        $this->setDescription('Import enterprise activity lines from CSV file');
+        $this->setName('app:import:partner:type');
+        $this->setDescription('Import partner class from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
@@ -55,21 +55,23 @@ class ImportActivityLineCsvCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$this->readColumn(2, $row));
-            $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $this->readColumn(3, $row)]);
-            if ($enterprise) {
-                $name = $this->readColumn(2, $row);
-                $activityLine = $this->em->getRepository('AppBundle:Enterprise\ActivityLine')->findOneBy(['name' => $name, 'enterprise' => $enterprise]);
-                if (!$activityLine) {
+            $name = $this->readColumn(1, $row);
+            $description = $this->readColumn(2, $row);
+            $account = $this->readColumn(3, $row);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$name.' · '.$description.' · '.$account);
+            if ($name && $account) {
+                $partnerType = $this->em->getRepository('AppBundle:Partner\PartnerType')->findOneBy(['name' => $name]);
+                if (!$partnerType) {
                     // new record
-                    $activityLine = new ActivityLine();
+                    $partnerType = new PartnerType();
                     ++$newRecords;
                 }
-                $activityLine
-                    ->setEnterprise($enterprise)
+                $partnerType
                     ->setName($name)
+                    ->setDescription(($description ? $description : '---'))
+                    ->setAccount($account)
                 ;
-                $this->em->persist($activityLine);
+                $this->em->persist($partnerType);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
