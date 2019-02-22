@@ -191,6 +191,14 @@ JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
 -- Setting
 
+SELECT S.*
+INTO OUTFILE '/var/lib/mysql-files/setting_sale_invoice_series.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Serie S;
+
 -- Vehicle
 
 SELECT TR.*
