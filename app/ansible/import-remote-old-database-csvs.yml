@@ -116,3 +116,7 @@
       shell: "php app/console --env=prod app:import:partner:order app/csv/partner_orders.csv"
       args:
         chdir: "{{ vhost_path }}/current/"
+    - name: execute setting sale invoice series CSV import to local database
+      shell: "php app/console --env=prod app:import:sale:invoice:series app/csv/setting_sale_invoice_series.csv"
+      args:
+        chdir: "{{ vhost_path }}/current/"
