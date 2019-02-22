@@ -177,6 +177,16 @@ FROM opengest.Obras O
 JOIN opengest.Terceros T ON T.id = O.tercero_id
 JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
+SELECT P.*, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif
+INTO OUTFILE '/var/lib/mysql-files/partner_orders.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Pedidos P
+JOIN opengest.Terceros T ON T.id = P.tercero_id
+JOIN opengest.Empresas E ON E.id = T.empresa_id;
+
 -- Sale
 
 -- Setting
