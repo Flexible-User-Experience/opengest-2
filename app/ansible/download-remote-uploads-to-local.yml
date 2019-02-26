@@ -15,7 +15,7 @@
     - name: fix ownership in downloaded files locally
       delegate_to: mother
       file:
-        path: "{{ playbook_dir }}/../../web"
+        path: "{{ playbook_dir }}/../../web/uploads"
         recurse: yes
         follow: yes
         owner: "{{ local_system_user }}"
