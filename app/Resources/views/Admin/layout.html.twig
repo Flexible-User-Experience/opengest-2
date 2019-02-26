@@ -7,7 +7,7 @@
 {% block logo %}
     {% spaceless %}
         <a class="logo" href="{{ path('sonata_admin_dashboard') }}" style="background-color:#2c3b41;">
-            <span style="color:#FFF;text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);">{{ admin_brand_title }}</span>
+            <span style="color:#FFF;text-shadow: 0 1px 5px rgba(0, 0, 0, 0.95);">{{ admin_brand_title }}</span>
         </a>
         {#<div class="logo">#}
             {#<div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">#}
@@ -51,22 +51,24 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="#">
-                    {% if app.user.defaultEnterprise.logo is null %}
-                        <img src="{{ vich_uploader_asset(app.user.defaultEnterprise, 'logoFile') | imagine_filter('231x54') }}" alt="{{ app.user.defaultEnterprise.name }}">
+                <a href="#" style="padding:5px">
+                    {% if app.user.defaultEnterprise.logo is not null %}
+                        <img src="{{ vich_uploader_asset(app.user.defaultEnterprise, 'logoFile') | imagine_filter('140x40') }}" alt="{{ app.user.defaultEnterprise.name }}">
                     {% else %}
-                        <img src="//via.placeholder.com/140x30?text={{ app.user.defaultEnterprise.name }}" alt="logo">
+                        <img src="//via.placeholder.com/140x40?text={{ app.user.defaultEnterprise.name }}" alt="logo">
                     {% endif %}
                 </a>
             </li>
             <li>
-                <a href="{{ path('admin_app_setting_user_profile') }}">
-                    {% if app.user.mainImage %}
-                        <img class="profile-img" src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('32x32') }}" alt="profile image">
-                    {% else %}
+                {% if not app.user.mainImage %}
+                    <a href="{{ path('admin_app_setting_user_profile') }}" style="padding:5px" title="{{ app.user.naturalName }}">
+                        <img src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('40x40') }}" alt="profile image">
+                    </a>
+                {% else %}
+                    <a href="{{ path('admin_app_setting_user_profile') }}">
                         <i class="fa fa-user"></i> {{ app.user.naturalName }}
-                    {% endif %}
-                </a>
+                    </a>
+                {% endif %}
             </li>
             <li><a href="{{ path('front_homepage') }}"><i class="fa fa-globe"></i></a></li>
             <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
