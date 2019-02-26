@@ -18,8 +18,6 @@ use Symfony\Bundle\TwigBundle\TwigEngine;
  * Class BaseAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
@@ -100,7 +98,8 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     {
         $collection
             ->remove('show')
-            ->remove('batch');
+            ->remove('batch')
+        ;
     }
 
     /**
@@ -164,7 +163,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         return ($this->getSubject() ? $this->getSubject()->getMainImage() ? '<img src="'.$this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'mainImageFile'),
                 '480xY'
-            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 1200px (màx. 10MB amb JPG o PNG)</span>';
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<p style="width:100%;display:block;margin-top:10px">* imatge amplada mínima 1.200 píxels<br>* arxiu pes màxim 10MB<br>* format JPG o PNG</p>';
     }
 
     /**
