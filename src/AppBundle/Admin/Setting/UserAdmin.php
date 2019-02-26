@@ -2,12 +2,14 @@
 
 namespace AppBundle\Admin\Setting;
 
+use AppBundle\Entity\Enterprise\Enterprise;
 use AppBundle\Enum\UserRolesEnum;
 use Sonata\UserBundle\Admin\Model\UserAdmin as ParentUserAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
@@ -133,8 +135,9 @@ class UserAdmin extends ParentUserAdmin
             )
             ->add(
                 'defaultEnterprise',
-                null,
+                EntityType::class,
                 array(
+                    'class' => Enterprise::class,
                     'label' => 'Enpresa principal',
                     'required' => true,
                 )
