@@ -15,11 +15,10 @@ use Sonata\AdminBundle\Route\RouteCollection;
  * Class ServiceAdmin.
  *
  * @category Admin
- *
- * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class ServiceAdmin extends AbstractBaseAdmin
 {
+    protected $translationDomain = 'admin';
     protected $classnameLabel = 'Servei';
     protected $baseRoutePattern = 'web/servei';
     protected $datagridValues = array(
@@ -44,39 +43,41 @@ class ServiceAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Servei', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.with.service', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'description',
                 CKEditorType::class,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'admin.label.description',
                     'config_name' => 'my_config',
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('admin.with.images', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'mainImageFile',
                 FileType::class,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.image',
                     'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.with.controls', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'vehicleCategory',
                 null,
                 array(
-                    'label' => 'Categoria vehicle',
+                    'label' => 'admin.label.vehicle_category',
                     'required' => false,
                     'query_builder' => $this->rm->getVehicleCategoryRepository()->findEnabledSortedByNameQB(),
                 )
@@ -85,14 +86,14 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'admin.label.position',
                 )
             )
             ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                     'required' => false,
                 )
             )
@@ -110,28 +111,28 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'vehicleCategory',
                 null,
                 array(
-                    'label' => 'Categoria vehicle',
+                    'label' => 'admin.label.vehicle_category',
                 )
             )
             ->add(
                 'description',
                 null,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'admin.label.description',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                 )
             )
         ;
@@ -145,10 +146,10 @@ class ServiceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'mainImage',
+                'fakeMainImage',
                 null,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.image',
                     'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
                 )
             )
@@ -156,7 +157,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                     'editable' => true,
                 )
             )
@@ -164,7 +165,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'vehicleCategory',
                 null,
                 array(
-                    'label' => 'Categoria vehicle',
+                    'label' => 'admin.label.vehicle_category',
                     'editable' => false,
                     'associated_property' => 'name',
                     'sortable' => true,
@@ -176,7 +177,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'admin.label.position',
                     'editable' => true,
                 )
             )
@@ -184,7 +185,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                     'editable' => true,
                 )
             )
@@ -196,7 +197,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;
