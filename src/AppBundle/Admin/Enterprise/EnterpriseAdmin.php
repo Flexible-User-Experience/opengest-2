@@ -4,6 +4,7 @@ namespace AppBundle\Admin\Enterprise;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Setting\User;
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -439,11 +440,13 @@ class EnterpriseAdmin extends AbstractBaseAdmin
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = parent::createQuery($context);
-        $queryBuilder
-            ->join($queryBuilder->getRootAliases()[0].'.users', 'u')
-            ->andWhere('u.id = :id')
-            ->setParameter('id', $this->getUserLogedId())
-        ;
+        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $queryBuilder
+                ->join($queryBuilder->getRootAliases()[0].'.users', 'u')
+                ->andWhere('u.id = :id')
+                ->setParameter('id', $this->getUserLogedId())
+            ;
+        }
 
         return $queryBuilder;
     }
