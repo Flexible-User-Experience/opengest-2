@@ -11,15 +11,13 @@ use Doctrine\ORM\QueryBuilder;
  * Class SaleRequestRepository.
  *
  * @category    Repository
- *
- * @author Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleRequestRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder
      */
-    public function getEnabledSortedByNameQB()
+    public function getEnabledSortedByRequestDateQB()
     {
         return $this->createQueryBuilder('s')
             ->where('s.enabled = :enabled')
@@ -31,17 +29,17 @@ class SaleRequestRepository extends EntityRepository
     /**
      * @return Query
      */
-    public function getEnabledSortedByNameQ()
+    public function getEnabledSortedByRequestDateQ()
     {
-        return $this->getEnabledSortedByNameQB()->getQuery();
+        return $this->getEnabledSortedByRequestDateQB()->getQuery();
     }
 
     /**
      * @return array
      */
-    public function getEnabledSortedByName()
+    public function getEnabledSortedByRequestDate()
     {
-        return $this->getEnabledSortedByNameQ()->getResult();
+        return $this->getEnabledSortedByRequestDateQ()->getResult();
     }
 
     /**
@@ -49,9 +47,9 @@ class SaleRequestRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getFilteredByEnterpriseEnabledSortedByNameQB(Enterprise $enterprise)
+    public function getFilteredByEnterpriseEnabledSortedByRequestDateQB(Enterprise $enterprise)
     {
-        return $this->getEnabledSortedByNameQB()
+        return $this->getEnabledSortedByRequestDateQB()
             ->andWhere('s.enterprise = :enterprise')
             ->setParameter('enterprise', $enterprise)
         ;
@@ -62,9 +60,9 @@ class SaleRequestRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getFilteredByEnterpriseEnabledSortedByNameQ(Enterprise $enterprise)
+    public function getFilteredByEnterpriseEnabledSortedByRequestDateQ(Enterprise $enterprise)
     {
-        return $this->getFilteredByEnterpriseEnabledSortedByNameQB($enterprise)->getQuery();
+        return $this->getFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)->getQuery();
     }
 
     /**
@@ -72,8 +70,62 @@ class SaleRequestRepository extends EntityRepository
      *
      * @return array
      */
-    public function getFilteredByEnterpriseEnabledSortedByName(Enterprise $enterprise)
+    public function getFilteredByEnterpriseEnabledSortedByRequestDate(Enterprise $enterprise)
     {
-        return $this->getFilteredByEnterpriseEnabledSortedByNameQ($enterprise)->getResult();
+        return $this->getFilteredByEnterpriseEnabledSortedByRequestDateQ($enterprise)->getResult();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     *
+     * @throws \Exception
+     */
+    public function getTodayFilteredByEnterpriseEnabledSortedByRequestDateQB(Enterprise $enterprise)
+    {
+        $moment = new \DateTime();
+
+        return $this->commonGetTimeFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise, $moment);
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     *
+     * @throws \Exception
+     */
+    public function getTodayFilteredByEnterpriseEnabledSortedByRequestDateQ(Enterprise $enterprise)
+    {
+        return $this->getTodayFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    public function getTodayFilteredByEnterpriseEnabledSortedByRequestDate(Enterprise $enterprise)
+    {
+        return $this->getTodayFilteredByEnterpriseEnabledSortedByRequestDateQ($enterprise)->getResult();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     * @param \DateTime  $moment
+     *
+     * @return QueryBuilder
+     */
+    private function commonGetTimeFilteredByEnterpriseEnabledSortedByRequestDateQB(Enterprise $enterprise, \DateTime $moment)
+    {
+        $qb = $this->getFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)
+            ->andWhere('DATE(s.requestDate) = DATE(:moment)')
+            ->setParameter('moment', $moment)
+        ;
+
+        return $qb;
     }
 }
