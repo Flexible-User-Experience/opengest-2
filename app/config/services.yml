@@ -85,17 +85,17 @@ services:
             - { name: sonata.block }
     app.block.sale_request_today:
         class: AppBundle\Block\SaleRequestTodayBlock
-        arguments: [ "app.block.sale_request_today", "@templating" ]
+        arguments: [ "app.block.sale_request_today", "@templating", "@app.partner_order_repository" ]
         tags:
             - { name: sonata.block }
     app.block.sale_request_tomorrow:
         class: AppBundle\Block\SaleRequestTomorrowBlock
-        arguments: [ "app.block.sale_request_tomorrow", "@templating" ]
+        arguments: [ "app.block.sale_request_tomorrow", "@templating", "@app.partner_order_repository" ]
         tags:
             - { name: sonata.block }
     app.block.sale_request_next:
         class: AppBundle\Block\SaleRequestNextBlock
-        arguments: [ "app.block.sale_request_next", "@templating" ]
+        arguments: [ "app.block.sale_request_next", "@templating", "@app.partner_order_repository" ]
         tags:
             - { name: sonata.block }
 # File

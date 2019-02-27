@@ -14,8 +14,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
  * Class VehicleCheckingBlock.
  *
  * @category Block
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class VehicleCheckingBlock extends AbstractBlockService
 {

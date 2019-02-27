@@ -13,8 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class ContactMessageBlock.
  *
  * @category Block
- *
- * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class ContactMessageBlock extends AbstractBlockService
 {
