@@ -113,6 +113,9 @@ class SaleRequestRepository extends EntityRepository
         return $this->getTodayFilteredByEnterpriseEnabledSortedByRequestDateQ($enterprise)->getResult();
     }
 
+    // TODO getTomorrowFilteredByEnterpriseEnabledSortedByRequestDate
+    // TODO getNextFilteredByEnterpriseEnabledSortedByRequestDate
+
     /**
      * @param Enterprise $enterprise
      * @param \DateTime  $moment

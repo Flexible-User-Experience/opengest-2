@@ -49,12 +49,15 @@ class SaleRequestTodayBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         // merge settings
         $settings = $blockContext->getSettings();
         $backgroundColor = 'bg-light-blue';
+        $todaySaleRequests = $this->srr->getTodayFilteredByEnterpriseEnabledSortedByRequestDate($this->tss->getToken()->getUser()->getDefaultEnterprise());
         $content = '<h3><i class="fa fa-list" aria-hidden="true"></i> Avui</h3><p>Llistat de peticions en curs durant el dia d\'avui<br><br>(...)</p>';
 
         return $this->renderResponse(
