@@ -2,12 +2,13 @@
 
 namespace AppBundle\Block;
 
-use AppBundle\Repository\Partner\PartnerOrderRepository;
+use AppBundle\Repository\Sale\SaleRequestRepository;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class SaleRequestTodayBlock.
@@ -17,23 +18,30 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 class SaleRequestTodayBlock extends AbstractBlockService
 {
     /**
-     * @var PartnerOrderRepository
+     * @var SaleRequestRepository
      */
-    private $por;
+    private $srr;
+
+    /**
+     * @var TokenStorage
+     */
+    private $tss;
 
     /**
      * Methods.
      */
 
     /**
-     * @param null|string            $name
-     * @param EngineInterface        $templating
-     * @param PartnerOrderRepository $por
+     * @param null|string           $name
+     * @param EngineInterface       $templating
+     * @param SaleRequestRepository $srr
+     * @param TokenStorage          $tss
      */
-    public function __construct($name, EngineInterface $templating, PartnerOrderRepository $por)
+    public function __construct($name, EngineInterface $templating, SaleRequestRepository $srr, TokenStorage $tss)
     {
         parent::__construct($name, $templating);
-        $this->por = $por;
+        $this->srr = $srr;
+        $this->tss = $tss;
     }
 
     /**
