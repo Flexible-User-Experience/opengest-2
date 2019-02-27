@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @category Entity
  *
- * @author Wils Iglesias <wiglesias83@gmail.com>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Web\ServiceRepository")
  * @ORM\Table(name="service")
  * @Vich\Uploadable

@@ -94,6 +94,52 @@
         recurse: no
     - name: copy enterprise logos
       shell: "cp {{ remote_old_uploads_folder }}/logos/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 1
+      shell: "cp {{ remote_old_uploads_folder }}/recibos_tc1/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 2
+      shell: "cp {{ remote_old_uploads_folder }}/recibos_tc2/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 3
+      shell: "cp {{ remote_old_uploads_folder }}/alta_seguridad_social/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 4
+      shell: "cp {{ remote_old_uploads_folder }}/certificados_pago_ss/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 5
+      shell: "cp {{ remote_old_uploads_folder }}/seguros_rc1/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 6
+      shell: "cp {{ remote_old_uploads_folder }}/seguros_rc2/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 6
+      shell: "cp {{ remote_old_uploads_folder }}/recibos_rc/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 7
+      shell: "cp {{ remote_old_uploads_folder }}/contratos_sp/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 8
+      shell: "cp {{ remote_old_uploads_folder }}/facturas_sp/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 9
+      shell: "cp {{ remote_old_uploads_folder }}/recibos_sp/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 10
+      shell: "cp {{ remote_old_uploads_folder }}/seguro_at/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 11
+      shell: "cp {{ remote_old_uploads_folder }}/recibos_at/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 12
+      shell: "cp {{ remote_old_uploads_folder }}/evaluacion_riesgos/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 13
+      shell: "cp {{ remote_old_uploads_folder }}/plan_seguridad/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 14
+      shell: "cp {{ remote_old_uploads_folder }}/alta_iae/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 15
+      shell: "cp {{ remote_old_uploads_folder }}/recibo_iae/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 16
+      shell: "cp {{ remote_old_uploads_folder }}/escrituras/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 17
+      shell: "cp {{ remote_old_uploads_folder }}/cartas_cif/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 18
+      shell: "cp {{ remote_old_uploads_folder }}/certificado_rea/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 19
+      shell: "cp {{ remote_old_uploads_folder }}/certificado_aceite/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 20
+      shell: "cp {{ remote_old_uploads_folder }}/certificado_pago_generalitat/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 21
+      shell: "cp {{ remote_old_uploads_folder }}/escritura_poderes/* {{ remote_new_uploads_folder }}/images/enterprise/"
+    - name: copy enterprise docs 22
+      shell: "cp {{ remote_old_uploads_folder }}/documento_asociacion_mutua/* {{ remote_new_uploads_folder }}/images/enterprise/"
     - name: copy operator bulk resources
       shell: "cp {{ remote_old_uploads_folder }}/operarios/* {{ remote_new_uploads_folder }}/images/operator/"
     - name: copy operator profile photos
@@ -116,3 +162,16 @@
       shell: "cp {{ remote_old_uploads_folder }}/contrato_trabajo/* {{ remote_new_uploads_folder }}/images/operator/"
     - name: copy operator driving license images
       shell: "cp {{ remote_old_uploads_folder }}/imagen_carnet_conducir/* {{ remote_new_uploads_folder }}/images/operator/"
+    - name: copy operator digital tachographs
+      shell: "cp {{ remote_old_uploads_folder }}/tacografos/C_* {{ remote_new_uploads_folder }}/digital_tachograph/operator/"
+    - name: copy vehicle digital tachographs 1
+      shell: "cp {{ remote_old_uploads_folder }}/tacografos/S_* {{ remote_new_uploads_folder }}/digital_tachograph/vehicle/"
+    - name: copy vehicle digital tachographs 2
+      shell: "cp {{ remote_old_uploads_folder }}/tacografos/V_* {{ remote_new_uploads_folder }}/digital_tachograph/vehicle/"
+    - name: fix ownership to copied files
+      file:
+        path: "{{ remote_new_uploads_folder }}"
+        recurse: yes
+        follow: yes
+        owner: "{{ remote_system_user }}"
+        group: "{{ remote_system_group }}"

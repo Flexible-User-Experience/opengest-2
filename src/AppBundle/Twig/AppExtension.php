@@ -5,6 +5,7 @@ namespace AppBundle\Twig;
 use AppBundle\Entity\Operator\Operator;
 use AppBundle\Entity\Setting\User;
 use AppBundle\Enum\UserRolesEnum;
+use AppBundle\Repository\Web\ContactMessageRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
@@ -12,8 +13,6 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  * Class AppExtension.
  *
  * @category Twig
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class AppExtension extends \Twig_Extension
 {
@@ -28,19 +27,26 @@ class AppExtension extends \Twig_Extension
     private $licms;
 
     /**
+     * @var ContactMessageRepository
+     */
+    private $cmrs;
+
+    /**
      * Methods.
      */
 
     /**
      * AppExtension constructor.
      *
-     * @param UploaderHelper $vuhs
-     * @param CacheManager   $licms
+     * @param UploaderHelper           $vuhs
+     * @param CacheManager             $licms
+     * @param ContactMessageRepository $cmrs
      */
-    public function __construct(UploaderHelper $vuhs, CacheManager $licms)
+    public function __construct(UploaderHelper $vuhs, CacheManager $licms, ContactMessageRepository $cmrs)
     {
         $this->vuhs = $vuhs;
         $this->licms = $licms;
+        $this->cmrs = $cmrs;
     }
 
     /**
@@ -54,6 +60,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('randomErrorText', array($this, 'randomErrorTextFunction')),
+            new \Twig_SimpleFunction('showUnreadMessages', array($this, 'showUnreadMessages')),
         );
     }
 
@@ -71,6 +78,21 @@ class AppExtension extends \Twig_Extension
         $chrRepeatMax = 30; // maximum times to repeat the seed string
 
         return substr(str_shuffle(str_repeat($chrList, mt_rand($chrRepeatMin, $chrRepeatMax))), 1, $length);
+    }
+
+    /**
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function showUnreadMessages()
+    {
+        $result = '';
+        if ($this->cmrs->getReadPendingMessagesAmount() > 0) {
+            $result = '<li><a href="#"><i class="fa fa-envelope text-danger"></i> <span class="text-danger">'.$this->cmrs->getReadPendingMessagesAmount().'</span></a></li>';
+        }
+
+        return $result;
     }
 
     /**

@@ -1,0 +1,16 @@
+admin:
+    label:
+        position: "Posició"
+        enabled_male: "Actiu"
+        enabled_female: "Activa"
+        name: "Nom"
+        description: "Descripció"
+        image: "Imatge"
+        vehicle_category: "Categoria vehicle"
+    with:
+        images: "Imatges"
+        controls: "Controls"
+        service: "Servei"
+    actions: "Accions"
+Servei_list: "Serveis"
+Servei: "Servei"

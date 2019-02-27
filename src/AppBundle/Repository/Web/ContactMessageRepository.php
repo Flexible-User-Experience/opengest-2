@@ -45,4 +45,35 @@ class ContactMessageRepository extends EntityRepository
     {
         return $this->getPendingMessagesAmountQ()->getSingleScalarResult();
     }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getReadPendingMessagesAmountQB()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->where('c.checked = :checked')
+            ->setParameter('checked', false)
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getReadPendingMessagesAmountQ()
+    {
+        return $this->getReadPendingMessagesAmountQB()->getQuery();
+    }
+
+    /**
+     * @return int|array
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getReadPendingMessagesAmount()
+    {
+        return $this->getReadPendingMessagesAmountQ()->getSingleScalarResult();
+    }
 }
