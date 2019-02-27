@@ -59,7 +59,7 @@ services:
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
         public: false
-        arguments: [ "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.contact_message_repository" ]
         tags:
             - { name: twig.extension }
 # Block

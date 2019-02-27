@@ -149,6 +149,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Sale\SaleDeliveryNote
+    app.contact_message_repository:
+        class: AppBundle\Repository\Web\ContactMessageRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Web\ContactMessage
     app.repositories_manager:
         class: AppBundle\Manager\RepositoriesManager
         arguments:
