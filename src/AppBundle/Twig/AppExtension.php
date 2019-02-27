@@ -88,8 +88,8 @@ class AppExtension extends \Twig_Extension
     public function showUnreadMessages()
     {
         $result = '';
-        if ($this->cmrs->getPendingMessagesAmount()) {
-            $result = '<li><a href="#"><i class="fa fa-envelope text-danger"></i> <span class="text-danger">'.$this->cmrs->getPendingMessagesAmount().'</span></a></li>';
+        if ($this->cmrs->getReadPendingMessagesAmount() > 0) {
+            $result = '<li><a href="#"><i class="fa fa-envelope text-danger"></i> <span class="text-danger">'.$this->cmrs->getReadPendingMessagesAmount().'</span></a></li>';
         }
 
         return $result;
