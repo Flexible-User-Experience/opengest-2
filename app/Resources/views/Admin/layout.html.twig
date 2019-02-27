@@ -24,7 +24,7 @@
 {% block sonata_top_nav_menu %}
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
-            <div class="logo">
+            <div id="enterprise-logo">
                 <div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     {% if app.user.defaultEnterprise.logo is not null %}
                         <img src="{{ vich_uploader_asset(app.user.defaultEnterprise, 'logoFile') | imagine_filter('140x40') }}" alt="{{ app.user.defaultEnterprise.name }}">
@@ -32,7 +32,7 @@
                         <img src="//via.placeholder.com/140x40?text={{ app.user.defaultEnterprise.name }}" alt="logo">
                     {% endif %}
                 </div>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="right:197px;">
                     {% for enterprise in app.user.enterprises %}
                         <li>
                             <a href="{{ path('admin_app_enterprise_enterprise_change', {id: enterprise.id}) }}">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <li>
-                {% if not app.user.mainImage %}
+                {% if app.user.mainImage %}
                     <a href="{{ path('admin_app_setting_user_profile') }}" style="padding:5px" title="{{ app.user.naturalName }}">
                         <img src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('40x40') }}" alt="profile image">
                     </a>
