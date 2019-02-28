@@ -58,16 +58,14 @@ class SaleRequestTodayBlock extends AbstractBlockService
         $settings = $blockContext->getSettings();
         $backgroundColor = 'bg-light-blue';
         $todaySaleRequests = $this->srr->getTodayFilteredByEnterpriseEnabledSortedByRequestDate($this->tss->getToken()->getUser()->getDefaultEnterprise());
-        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i> Avui</h3><p>Llistat de peticions en curs durant el dia d\'avui<br><br>(...)</p>';
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
-                'title' => 'Today',
+                'title' => 'admin.dashboard.today',
                 'background' => $backgroundColor,
-                'content' => $content,
-                'items' => $todaySaleRequests,
+                'content' => $todaySaleRequests,
             ],
             $response
         );
@@ -87,7 +85,7 @@ class SaleRequestTodayBlock extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'title' => 'Today',
+            'title' => 'admin.dashboard.today',
             'content' => 'Default content',
             'template' => ':Admin/Block:sale_requests.html.twig',
         ]);

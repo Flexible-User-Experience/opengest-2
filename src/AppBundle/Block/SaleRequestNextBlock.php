@@ -55,15 +55,15 @@ class SaleRequestNextBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
         $backgroundColor = 'bg-light-blue';
-        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i> Següents</h3><p>Llistat de peticions pendents<br><br>(...)</p>';
+        $nextSaleRequests = array(); // TODO
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [
             'block' => $blockContext->getBlock(),
             'settings' => $settings,
-            'title' => 'Next',
+            'title' => 'admin.dashboard.next',
             'background' => $backgroundColor,
-            'content' => $content,
+            'content' => $nextSaleRequests,
         ],
             $response
         );
@@ -83,7 +83,7 @@ class SaleRequestNextBlock extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'title' => 'Next',
+            'title' => 'admin.dashboard.next',
             'content' => 'Default content',
             'template' => ':Admin/Block:sale_requests.html.twig',
         ]);

@@ -1,12 +1,15 @@
 {% extends sonata_block.templates.block_base %}
 
+{% trans_default_domain "admin" %}
+
 {% block block %}
-    {#<!-- small box -->#}
     <div class="small-box {{ background }}">
         <div class="inner">
-            {{ content | raw }}
-            <h3><i class="fa fa-list" aria-hidden="true"></i> Avui</h3>
-
+            <h3><i class="fa fa-list" aria-hidden="true"></i> {{ title | trans }}</h3>
+            {% if content | length > 0 %}
+            {% else %}
+                <p><i class="fa fa-warning"></i> {{ 'admin.dashboard.empty' | trans }}</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

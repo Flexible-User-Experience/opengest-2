@@ -55,15 +55,15 @@ class SaleRequestTomorrowBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
         $backgroundColor = 'bg-light-blue';
-        $content = '<h3><i class="fa fa-list" aria-hidden="true"></i> Demà</h3><p>Llistat de peticions pendents para demà<br><br>(...)</p>';
+        $tomorroySaleRequests = array(); // TODO
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [
             'block' => $blockContext->getBlock(),
             'settings' => $settings,
-            'title' => 'Tomorrow',
+            'title' => 'admin.dashboard.tomorrow',
             'background' => $backgroundColor,
-            'content' => $content,
+            'content' => $tomorroySaleRequests,
         ],
             $response
         );
@@ -83,7 +83,7 @@ class SaleRequestTomorrowBlock extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'title' => 'Tomorrow',
+            'title' => 'admin.dashboard.tomorrow',
             'content' => 'Default content',
             'template' => ':Admin/Block:sale_requests.html.twig',
         ]);

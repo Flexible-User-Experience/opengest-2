@@ -1,4 +1,9 @@
 admin:
+    dashboard:
+        today: "Avui"
+        tomorrow: "Demà"
+        next: "Següents"
+        today_empty: "no hi ha peticions en curs durant el dia d'avui"
     label:
         position: "Posició"
         enabled_male: "Actiu"
@@ -32,6 +37,7 @@ admin:
         service: "Servei"
         work: "Treball"
         complement: "Accesori"
+        operator_checking_type: "Tipus revisió"
     actions: "Accions"
 Servei_list: "Serveis"
 Servei_create: "Crear"
@@ -49,3 +55,7 @@ Missatge de contacte_list: "Missatges de contacte"
 Missatge de contacte_create: "Creat"
 Missatge de contacte_delete: "Esborrar"
 Missatge de contacte: "Missatge de contacte"
+Tipus revisió_list: "Tipus de revisions"
+Tipus revisió_create: "Creat"
+Tipus revisió_delete: "Esborrar"
+Tipus revisió: "Tipus de revisió"

@@ -1,4 +1,9 @@
 admin:
+    dashboard:
+        today: "Avui"
+        tomorrow: "Demà"
+        next: "Següents"
+        empty: "no hi han peticions pendents"
     label:
         position: "Posició"
         enabled_male: "Actiu"
