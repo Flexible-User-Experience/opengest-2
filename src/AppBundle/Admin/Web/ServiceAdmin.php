@@ -61,12 +61,12 @@ class ServiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.with.images', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.image', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'mainImageFile',
                 FileType::class,
                 array(
-                    'label' => 'admin.label.image',
+                    'label' => 'admin.label.file',
                     'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
