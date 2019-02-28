@@ -43,7 +43,7 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                     'class' => SaleRequest::class,
                     'label' => 'Petició',
                     'required' => true,
-                    'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                    'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByRequestDateQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(
@@ -225,7 +225,7 @@ class SaleRequestHasDeliveryNoteAdmin extends AbstractBaseAdmin
                 array(
                     'class' => SaleRequest::class,
                     'label' => 'Petició',
-                    'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByNameQB($this->getUserLogedEnterprise()),
+                    'query_builder' => $this->rm->getSaleRequestRepository()->getFilteredByEnterpriseEnabledSortedByRequestDateQB($this->getUserLogedEnterprise()),
                 )
             )
             ->add(

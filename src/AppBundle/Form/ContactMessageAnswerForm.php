@@ -26,7 +26,8 @@ class ContactMessageAnswerForm extends ContactMessageForm
                 'answer',
                 TextareaType::class,
                 array(
-                    'label' => 'Respuesta',
+                    'label' => 'admin.label.answer',
+                    'translation_domain' => 'admin',
                     'required' => true,
                     'attr' => array(
                         'rows' => 6,
@@ -37,7 +38,8 @@ class ContactMessageAnswerForm extends ContactMessageForm
                 'send',
                 SubmitType::class,
                 array(
-                    'label' => 'Enviar',
+                    'label' => 'admin.label.send',
+                    'translation_domain' => 'admin',
                     'attr' => array(
                         'class' => 'btn-primary',
                     ),

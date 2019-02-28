@@ -57,6 +57,20 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $acs;
 
     /**
+     * @var array
+     */
+    protected $perPageOptions = array(25, 50, 100, 200);
+
+    /**
+     * @var int
+     */
+    protected $maxPerPage = 25;
+
+    /**
+     * Methods.
+     */
+
+    /**
      * @param string               $code
      * @param string               $class
      * @param string               $baseControllerName
@@ -80,18 +94,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * @var array
-     */
-    protected $perPageOptions = array(25, 50, 100, 200);
-
-    /**
-     * @var int
-     */
-    protected $maxPerPage = 25;
-
-    /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -103,8 +105,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * Remove batch action list view first column.
-     *
      * @return array
      */
     public function getBatchActions()
@@ -116,8 +116,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * Get export formats.
-     *
      * @return array
      */
     public function getExportFormats()

@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Operator.
  *
- * @author Wils Iglesias <wiglesias83@gmail.com>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Operator\OperatorRepository")
  * @ORM\Table(name="operator")
  * @Vich\Uploadable()

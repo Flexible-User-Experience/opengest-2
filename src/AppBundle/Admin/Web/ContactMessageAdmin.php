@@ -14,17 +14,35 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  * Class ContactMessageAdmin.
  *
  * @category    Admin
- *
- * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class ContactMessageAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
+    protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Missatge de contacte';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/missatge-contacte';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'createdAt',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param RouteCollection $collection
@@ -50,50 +68,55 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'checked',
                 null,
                 array(
-                    'label' => 'Llegit',
+                    'label' => 'admin.label.checked',
                 )
             )
             ->add(
                 'createdAt',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Data creació',
+                    'label' => 'admin.label.date',
                     'field_type' => DatePickerType::class,
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'Email',
-                )
-            )
-            ->add(
-                'answer',
-                null,
-                array(
-                    'label' => 'Resposta',
+                    'label' => 'admin.label.email',
                 )
             )
             ->add(
                 'message',
                 null,
                 array(
-                    'label' => 'Missatge',
+                    'label' => 'admin.label.message',
+                )
+            )
+            ->add(
+                'answer',
+                null,
+                array(
+                    'label' => 'admin.label.answer',
                 )
             )
             ->add(
                 'answered',
                 null,
                 array(
-                    'label' => 'Contestat',
+                    'label' => 'admin.label.answered',
                 )
             )
         ;
@@ -109,14 +132,14 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'checked',
                 null,
                 array(
-                    'label' => 'Llegit',
+                    'label' => 'admin.label.checked',
                 )
             )
             ->add(
                 'createdAt',
                 'date',
                 array(
-                    'label' => 'Data creació',
+                    'label' => 'admin.label.date',
                     'format' => 'd/m/Y H:i',
                 )
             )
@@ -124,28 +147,28 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'Email',
+                    'label' => 'admin.label.email',
                 )
             )
             ->add(
                 'message',
                 TextareaType::class,
                 array(
-                    'label' => 'Missatge',
+                    'label' => 'admin.label.message',
                 )
             )
             ->add(
                 'answered',
                 null,
                 array(
-                    'label' => 'Contestat',
+                    'label' => 'admin.label.answered',
                 )
             )
         ;
@@ -155,7 +178,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                     'answer',
                     'textarea',
                     array(
-                        'label' => 'Resposta',
+                        'label' => 'admin.label.answer',
                     )
                 )
             ;
@@ -173,14 +196,14 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'checked',
                 null,
                 array(
-                    'label' => 'Llegit',
+                    'label' => 'admin.label.checked',
                 )
             )
             ->add(
                 'createdAt',
                 'date',
                 array(
-                    'label' => 'Data creació',
+                    'label' => 'admin.label.date',
                     'format' => 'd/m/Y',
                 )
             )
@@ -188,21 +211,22 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'Email',
+                    'label' => 'admin.label.email',
                 )
             )
             ->add(
                 'answered',
                 null,
                 array(
-                    'label' => 'Contestat',
+                    'label' => 'admin.label.answered',
+                    'editable' => true,
                 )
             )
             ->add(
@@ -217,7 +241,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                             'template' => '::Admin/Cells/list__action_answer.html.twig',
                         ),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;

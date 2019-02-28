@@ -17,17 +17,35 @@ use Sonata\AdminBundle\Route\RouteCollection;
  * Class WorkAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class WorkAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
+    protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Treball';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/treball';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'date',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param RouteCollection $collection
@@ -44,46 +62,48 @@ class WorkAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.with.work', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'admin.label.short_description',
                 )
             )
             ->add(
                 'description',
                 CKEditorType::class,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'admin.label.description',
                     'config_name' => 'my_config',
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('admin.with.image', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'mainImageFile',
                 FileType::class,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.file',
                     'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.with.controls', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'date',
                 DatePickerType::class,
                 array(
-                    'label' => 'Data',
+                    'label' => 'admin.label.date',
                     'format' => 'd/M/y',
                     'required' => true,
                 )
@@ -92,7 +112,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'service',
                 null,
                 array(
-                    'label' => 'Servei',
+                    'label' => 'admin.label.service',
                     'required' => false,
                     'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
                 )
@@ -101,7 +121,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'enabled',
                 CheckboxType::class,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                     'required' => false,
                 )
             )
@@ -109,12 +129,12 @@ class WorkAdmin extends AbstractBaseAdmin
         ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
-                ->with('Imatges', $this->getFormMdSuccessBoxArray(12))
+                ->with('admin.with.secondary_images', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'images',
                     CollectionType::class,
                     array(
-                        'label' => 'Imatges',
+                        'label' => 'admin.label.files',
                         'required' => true,
                         'cascade_validation' => true,
                         'error_bubbling' => true,
@@ -141,43 +161,52 @@ class WorkAdmin extends AbstractBaseAdmin
                 'date',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Data',
+                    'label' => 'admin.label.date',
                     'field_type' => DatePickerType::class,
-                )
-            )
-            ->add(
-                'service',
+                ),
                 null,
                 array(
-                    'label' => 'Servei',
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'admin.label.short_description',
                 )
             )
             ->add(
                 'description',
                 null,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'admin.label.description',
+                )
+            )
+            ->add(
+                'service',
+                null,
+                array(
+                    'label' => 'admin.label.service',
+                ),
+                null,
+                array(
+                    'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                 )
             )
         ;
@@ -194,7 +223,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'mainImage',
                 null,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.image',
                     'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
                 )
             )
@@ -202,7 +231,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'date',
                 'date',
                 array(
-                    'label' => 'Data',
+                    'label' => 'admin.label.date',
                     'format' => 'd/m/Y',
                     'editable' => true,
                 )
@@ -211,7 +240,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                     'editable' => true,
                 )
             )
@@ -219,7 +248,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'admin.label.short_description',
                     'editable' => true,
                 )
             )
@@ -227,7 +256,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'service',
                 null,
                 array(
-                    'label' => 'Servei',
+                    'label' => 'admin.label.service',
                     'editable' => false,
                     'associated_property' => 'name',
                     'sortable' => true,
@@ -238,7 +267,7 @@ class WorkAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                     'editable' => true,
                 )
             )
@@ -250,7 +279,7 @@ class WorkAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;

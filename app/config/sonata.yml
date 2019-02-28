@@ -44,6 +44,7 @@ sonata_admin:
     templates:
         layout: "::Admin/layout.html.twig"
         edit:   "::Admin/edit.html.twig"
+        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
             Web:

@@ -18,17 +18,34 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class ServiceAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
     protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Servei';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/servei';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection.
-     *
+     * Methods.
+     */
+
+    /**
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -61,12 +78,12 @@ class ServiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.with.images', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.image', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'mainImageFile',
                 FileType::class,
                 array(
-                    'label' => 'admin.label.image',
+                    'label' => 'admin.label.file',
                     'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
@@ -119,6 +136,10 @@ class ServiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.vehicle_category',
+                ),
+                null,
+                array(
+                    'query_builder' => $this->rm->getVehicleCategoryRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
