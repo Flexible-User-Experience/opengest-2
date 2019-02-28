@@ -7,6 +7,7 @@ use AppBundle\Entity\Setting\User;
 use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Repository\Web\ContactMessageRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\Routing\RouterInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
@@ -16,6 +17,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 class AppExtension extends \Twig_Extension
 {
+    /**
+     * @var RouterInterface
+     */
+    private $rs;
+
     /**
      * @var UploaderHelper
      */
@@ -38,12 +44,14 @@ class AppExtension extends \Twig_Extension
     /**
      * AppExtension constructor.
      *
+     * @param RouterInterface          $rs
      * @param UploaderHelper           $vuhs
      * @param CacheManager             $licms
      * @param ContactMessageRepository $cmrs
      */
-    public function __construct(UploaderHelper $vuhs, CacheManager $licms, ContactMessageRepository $cmrs)
+    public function __construct(RouterInterface $rs, UploaderHelper $vuhs, CacheManager $licms, ContactMessageRepository $cmrs)
     {
+        $this->rs = $rs;
         $this->vuhs = $vuhs;
         $this->licms = $licms;
         $this->cmrs = $cmrs;
@@ -89,7 +97,7 @@ class AppExtension extends \Twig_Extension
     {
         $result = '';
         if ($this->cmrs->getReadPendingMessagesAmount() > 0) {
-            $result = '<li><a href="#"><i class="fa fa-envelope text-danger"></i> <span class="text-danger">'.$this->cmrs->getReadPendingMessagesAmount().'</span></a></li>';
+            $result = '<li class="messages-menu"><a href="'.$this->rs->generate('admin_app_web_contactmessage_list').'"><i class="fa fa-envelope-o"></i><span class="label label-danger">'.$this->cmrs->getReadPendingMessagesAmount().'</span></a></li>';
         }
 
         return $result;

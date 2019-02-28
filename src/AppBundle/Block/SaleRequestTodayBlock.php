@@ -67,6 +67,7 @@ class SaleRequestTodayBlock extends AbstractBlockService
                 'title' => 'Today',
                 'background' => $backgroundColor,
                 'content' => $content,
+                'items' => $todaySaleRequests,
             ],
             $response
         );
