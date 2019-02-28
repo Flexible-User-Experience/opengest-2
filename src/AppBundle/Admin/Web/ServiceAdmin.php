@@ -119,6 +119,10 @@ class ServiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.vehicle_category',
+                ),
+                null,
+                array(
+                    'query_builder' => $this->rm->getVehicleCategoryRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(

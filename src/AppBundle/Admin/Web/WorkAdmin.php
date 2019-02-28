@@ -144,13 +144,11 @@ class WorkAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.label.date',
                     'field_type' => DatePickerType::class,
-                )
-            )
-            ->add(
-                'service',
+                ),
                 null,
                 array(
-                    'label' => 'admin.label.service',
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add(
@@ -172,6 +170,17 @@ class WorkAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.description',
+                )
+            )
+            ->add(
+                'service',
+                null,
+                array(
+                    'label' => 'admin.label.service',
+                ),
+                null,
+                array(
+                    'query_builder' => $this->rm->getServiceRepository()->findEnabledSortedByNameQB(),
                 )
             )
             ->add(
