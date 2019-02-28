@@ -49,13 +49,15 @@ class SaleRequestTomorrowBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
         // merge settings
         $settings = $blockContext->getSettings();
         $backgroundColor = 'bg-light-blue';
-        $tomorroySaleRequests = array(); // TODO
+        $tomorroySaleRequests = $this->srr->getTomorrowFilteredByEnterpriseEnabledSortedByServiceDate($this->tss->getToken()->getUser()->getDefaultEnterprise());
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [

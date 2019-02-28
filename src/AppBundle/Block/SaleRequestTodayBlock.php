@@ -57,7 +57,7 @@ class SaleRequestTodayBlock extends AbstractBlockService
         // merge settings
         $settings = $blockContext->getSettings();
         $backgroundColor = 'bg-light-blue';
-        $todaySaleRequests = $this->srr->getTodayFilteredByEnterpriseEnabledSortedByRequestDate($this->tss->getToken()->getUser()->getDefaultEnterprise());
+        $todaySaleRequests = $this->srr->getTodayFilteredByEnterpriseEnabledSortedByServiceDate($this->tss->getToken()->getUser()->getDefaultEnterprise());
 
         return $this->renderResponse(
             $blockContext->getTemplate(), [

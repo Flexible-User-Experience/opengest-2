@@ -82,11 +82,11 @@ class SaleRequestRepository extends EntityRepository
      *
      * @throws \Exception
      */
-    public function getTodayFilteredByEnterpriseEnabledSortedByRequestDateQB(Enterprise $enterprise)
+    public function getTodayFilteredByEnterpriseEnabledSortedByServiceDateQB(Enterprise $enterprise)
     {
         $moment = new \DateTime();
 
-        return $this->commonGetTimeFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise, $moment);
+        return $this->commonGetTimeFilteredByEnterpriseEnabledSortedByServiceDateQB($enterprise, $moment);
     }
 
     /**
@@ -96,9 +96,9 @@ class SaleRequestRepository extends EntityRepository
      *
      * @throws \Exception
      */
-    public function getTodayFilteredByEnterpriseEnabledSortedByRequestDateQ(Enterprise $enterprise)
+    public function getTodayFilteredByEnterpriseEnabledSortedByServiceDateQ(Enterprise $enterprise)
     {
-        return $this->getTodayFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)->getQuery();
+        return $this->getTodayFilteredByEnterpriseEnabledSortedByServiceDateQB($enterprise)->getQuery();
     }
 
     /**
@@ -108,12 +108,49 @@ class SaleRequestRepository extends EntityRepository
      *
      * @throws \Exception
      */
-    public function getTodayFilteredByEnterpriseEnabledSortedByRequestDate(Enterprise $enterprise)
+    public function getTodayFilteredByEnterpriseEnabledSortedByServiceDate(Enterprise $enterprise)
     {
-        return $this->getTodayFilteredByEnterpriseEnabledSortedByRequestDateQ($enterprise)->getResult();
+        return $this->getTodayFilteredByEnterpriseEnabledSortedByServiceDateQ($enterprise)->getResult();
     }
 
-    // TODO getTomorrowFilteredByEnterpriseEnabledSortedByRequestDate
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     *
+     * @throws \Exception
+     */
+    public function getTomorrowFilteredByEnterpriseEnabledSortedByServiceDateQB(Enterprise $enterprise)
+    {
+        $moment = new \DateTime('tomorrow');
+
+        return $this->commonGetTimeFilteredByEnterpriseEnabledSortedByServiceDateQB($enterprise, $moment);
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     *
+     * @throws \Exception
+     */
+    public function getTomorrowFilteredByEnterpriseEnabledSortedByServiceDateQ(Enterprise $enterprise)
+    {
+        return $this->getTomorrowFilteredByEnterpriseEnabledSortedByServiceDateQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    public function getTomorrowFilteredByEnterpriseEnabledSortedByServiceDate(Enterprise $enterprise)
+    {
+        return $this->getTomorrowFilteredByEnterpriseEnabledSortedByServiceDateQ($enterprise)->getResult();
+    }
+
     // TODO getNextFilteredByEnterpriseEnabledSortedByRequestDate
 
     /**
@@ -122,11 +159,12 @@ class SaleRequestRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    private function commonGetTimeFilteredByEnterpriseEnabledSortedByRequestDateQB(Enterprise $enterprise, \DateTime $moment)
+    private function commonGetTimeFilteredByEnterpriseEnabledSortedByServiceDateQB(Enterprise $enterprise, \DateTime $moment)
     {
         $qb = $this->getFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)
-            ->andWhere('DATE(s.requestDate) = DATE(:moment)')
+            ->andWhere('DATE(s.serviceDate) = DATE(:moment)')
             ->setParameter('moment', $moment)
+            ->addOrderBy('s.serviceTime', 'ASC')
         ;
 
         return $qb;
