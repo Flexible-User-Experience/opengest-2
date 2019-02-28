@@ -16,6 +16,7 @@ admin:
         answer: "Resposta"
         answered: "Contestat"
         message: "Missatge"
+        alt: "Text alternatiu"
         vehicle_category: "Categoria vehicle"
         service: "Servei"
     with:
