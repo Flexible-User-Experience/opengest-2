@@ -3,7 +3,7 @@ admin:
         today: "Avui"
         tomorrow: "Demà"
         next: "Següents"
-        today_empty: "no hi ha peticions en curs durant el dia d'avui"
+        empty: "no hi han peticions pendents"
     label:
         position: "Posició"
         enabled_male: "Actiu"
