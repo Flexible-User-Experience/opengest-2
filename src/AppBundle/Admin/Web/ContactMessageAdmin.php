@@ -58,6 +58,11 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.label.date',
                     'field_type' => DatePickerType::class,
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add(
@@ -75,17 +80,17 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'answer',
-                null,
-                array(
-                    'label' => 'admin.label.answer',
-                )
-            )
-            ->add(
                 'message',
                 null,
                 array(
                     'label' => 'admin.label.message',
+                )
+            )
+            ->add(
+                'answer',
+                null,
+                array(
+                    'label' => 'admin.label.answer',
                 )
             )
             ->add(
