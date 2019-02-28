@@ -169,8 +169,12 @@ liip_imagine:
             quality: 95
             filters:
                 thumbnail: { size: [ 30, 30 ], mode: outbound }
+        25x25:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 25, 25 ], mode: outbound }
         19x19:
-            quality: 95
+            quality: 100
             filters:
                 thumbnail: { size: [ 19, 19 ], mode: outbound }
 
