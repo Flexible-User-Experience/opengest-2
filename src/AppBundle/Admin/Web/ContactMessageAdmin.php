@@ -203,6 +203,7 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Contestat',
+                    'editable' => true,
                 )
             )
             ->add(
