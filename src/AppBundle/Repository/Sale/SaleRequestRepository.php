@@ -151,7 +151,48 @@ class SaleRequestRepository extends EntityRepository
         return $this->getTomorrowFilteredByEnterpriseEnabledSortedByServiceDateQ($enterprise)->getResult();
     }
 
-    // TODO getNextFilteredByEnterpriseEnabledSortedByRequestDate
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return QueryBuilder
+     *
+     * @throws \Exception
+     */
+    public function getNextFilteredByEnterpriseEnabledSortedByServiceDateQB(Enterprise $enterprise)
+    {
+        $moment = new \DateTime('tomorrow');
+        $qb = $this->getFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)
+            ->andWhere('DATE(s.serviceDate) > DATE(:moment)')
+            ->setParameter('moment', $moment)
+            ->addOrderBy('s.serviceTime', 'ASC')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return Query
+     *
+     * @throws \Exception
+     */
+    public function getNextFilteredByEnterpriseEnabledSortedByServiceDateQ(Enterprise $enterprise)
+    {
+        return $this->getNextFilteredByEnterpriseEnabledSortedByServiceDateQB($enterprise)->getQuery();
+    }
+
+    /**
+     * @param Enterprise $enterprise
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    public function getNextFilteredByEnterpriseEnabledSortedByServiceDate(Enterprise $enterprise)
+    {
+        return $this->getNextFilteredByEnterpriseEnabledSortedByServiceDateQ($enterprise)->getResult();
+    }
 
     /**
      * @param Enterprise $enterprise
