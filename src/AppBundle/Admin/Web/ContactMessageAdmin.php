@@ -17,13 +17,32 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  */
 class ContactMessageAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
     protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Missatge de contacte';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/missatge-contacte';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'createdAt',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param RouteCollection $collection

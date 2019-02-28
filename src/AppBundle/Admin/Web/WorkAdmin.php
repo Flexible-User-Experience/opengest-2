@@ -20,13 +20,32 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class WorkAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
     protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Treball';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/treball';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'date',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param RouteCollection $collection

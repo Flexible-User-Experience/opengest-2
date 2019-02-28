@@ -18,17 +18,34 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class ServiceAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
     protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Servei';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/servei';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection.
-     *
+     * Methods.
+     */
+
+    /**
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)

@@ -15,13 +15,32 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  */
 class WorkImageAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
     protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Imatge Treball';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/imatge-treball';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param FormMapper $formMapper

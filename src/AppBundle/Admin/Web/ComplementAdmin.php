@@ -18,17 +18,34 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  */
 class ComplementAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
     protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Accesori';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/accesori';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection.
-     *
+     * Methods.
+     */
+
+    /**
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
