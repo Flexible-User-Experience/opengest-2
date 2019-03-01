@@ -63,7 +63,7 @@
                         {% if app.user.mainImage %}
                             <img src="{{ vich_uploader_asset(app.user, 'mainImageFile') | imagine_filter('160x160') }}" class="img-circle" alt="User Image">
                         {% else %}
-                            <img src="//via.placeholder.com/160x160" class="img-circle" alt="User Image">
+                            <img src="//via.placeholder.com/160x160?text=?" class="img-circle" alt="User Image">
                         {% endif %}
                         <p>
                             {{ app.user.naturalName }}
