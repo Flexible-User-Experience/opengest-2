@@ -66,15 +66,10 @@ class ImportSaleTariffCommand extends AbstractBaseCommand
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
             $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$year.' · '.$tonnage.' · '.$priceHour.' · '.$miniumHours.' · '.$miniumHolidayHours.' · '.$displacement.' · '.$increaseForHolidays.' · '.$enterpriseTaxIdentificationNumber);
 
-            if ($year && $tonnage && $priceHour && $miniumHours && $miniumHolidayHours && $displacement && $increaseForHolidays && $enterprise) {
+            if ($year && $tonnage && $enterprise) {
                 $saleTariff = $this->em->getRepository('AppBundle:Sale\SaleTariff')->findOneBy([
                     'year' => $year,
                     'tonnage' => $tonnage,
-                    'priceHour' => $priceHour,
-                    'miniumHours' => $miniumHours,
-                    'miniumHolidayHours' => $miniumHolidayHours,
-                    'displacement' => $displacement,
-                    'increaseForHolidays' => $increaseForHolidays,
                     'enterprise' => $enterprise,
                 ]);
                 if (!$saleTariff) {
@@ -104,25 +99,6 @@ class ImportSaleTariffCommand extends AbstractBaseCommand
                 if (!$tonnage) {
                     $output->write(' · no tonnage found');
                 }
-                if (!$priceHour) {
-                    $output->write(' · no price hour found');
-                }
-                if (!$miniumHours) {
-                    $output->write(' · no minium hours found');
-                }
-
-                if (!$miniumHolidayHours) {
-                    $output->write(' · no minium holiday hours found');
-                }
-
-                if (!$displacement) {
-                    $output->write(' · no displacement found');
-                }
-
-                if (!$increaseForHolidays) {
-                    $output->write(' · no increase for holidays found');
-                }
-
                 if (!$enterprise) {
                     $output->write(' · no enterprise found');
                 }
