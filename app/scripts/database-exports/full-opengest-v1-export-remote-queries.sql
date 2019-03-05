@@ -189,6 +189,15 @@ JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
 -- Sale
 
+SELECT T.*, E.cif_nif AS E_cif_nif
+INTO OUTFILE '/var/lib/mysql-files/sale_tariff.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Tarifas T
+JOIN opengest.Empresas E ON E.id = T.empresa_id;
+
 -- Setting
 
 SELECT S.*
