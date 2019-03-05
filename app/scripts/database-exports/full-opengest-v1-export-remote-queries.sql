@@ -198,6 +198,17 @@ LINES TERMINATED BY '\n'
 FROM opengest.Tarifas T
 JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
+SELECT F.*, S.nombre AS S_nombre, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif
+INTO OUTFILE '/var/lib/mysql-files/sale_invoice.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Facturas F
+JOIN opengest.Serie S ON S.id = F.serie_id
+JOIN opengest.Terceros T ON T.id = F.tercero_id
+JOIN opengest.Empresas E ON E.id = T.empresa_id;
+
 -- Setting
 
 SELECT S.*
