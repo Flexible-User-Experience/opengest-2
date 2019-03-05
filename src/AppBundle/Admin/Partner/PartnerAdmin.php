@@ -8,7 +8,6 @@ use AppBundle\Entity\Enterprise\EnterpriseTransferAccount;
 use AppBundle\Entity\Partner\Partner;
 use AppBundle\Entity\Partner\PartnerClass;
 use AppBundle\Entity\Partner\PartnerType;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -21,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * Class PartnerAdmin.
  *
  * @category Admin
- *
- * @author   Rubèn Hierro <info@rubenhierro.com>
  */
 class PartnerAdmin extends AbstractBaseAdmin
 {
@@ -304,17 +301,6 @@ class PartnerAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $datagridMapper
-                ->add(
-                    'enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $datagridMapper
             ->add(
                 'cifNif',
@@ -365,16 +351,11 @@ class PartnerAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ->orderBy('e.name', 'ASC')
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.name', 'ASC')
         ;
-
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
 
         return $queryBuilder;
     }
@@ -385,17 +366,6 @@ class PartnerAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $listMapper
-                ->add(
-                    'enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $listMapper
             ->add(
                 'cifNif',

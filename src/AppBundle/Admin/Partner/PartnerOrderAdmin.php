@@ -3,7 +3,6 @@
 namespace AppBundle\Admin\Partner;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -119,15 +118,11 @@ class PartnerOrderAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.partner', 'p')
+            ->andWhere('p.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ->orderBy('p.name', 'ASC')
+            ->addOrderBy($queryBuilder->getRootAliases()[0].'.number', 'ASC')
         ;
-        $queryBuilder->addOrderBy($queryBuilder->getRootAliases()[0].'.number', 'ASC');
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere('p.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
 
         return $queryBuilder;
     }
