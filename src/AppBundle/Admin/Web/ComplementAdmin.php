@@ -15,21 +15,37 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  * Class ComplementAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gamil.com>
  */
 class ComplementAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
+    protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Accesori';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/accesori';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection.
-     *
+     * Methods.
+     */
+
+    /**
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -44,46 +60,48 @@ class ComplementAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(8))
+            ->with('admin.with.complement', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'admin.label.short_description',
                 )
             )
             ->add(
                 'description',
                 CKEditorType::class,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'admin.label.description',
                     'config_name' => 'my_config',
                     'required' => true,
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.image', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'mainImageFile',
                 FileType::class,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.file',
                     'help' => $this->getMainImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
+            ->end()
+            ->with('admin.with.controls', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                     'required' => false,
                 )
             )
@@ -101,28 +119,28 @@ class ComplementAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'admin.label.short_description',
                 )
             )
             ->add(
                 'description',
                 null,
                 array(
-                    'label' => 'Descripció',
+                    'label' => 'admin.label.description',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                 )
             );
     }
@@ -138,7 +156,7 @@ class ComplementAdmin extends AbstractBaseAdmin
                 'mainImage',
                 null,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.image',
                     'template' => '::Admin/Cells/list__cell_main_image_field.html.twig',
                 )
             )
@@ -146,7 +164,7 @@ class ComplementAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                     'editable' => true,
                 )
             )
@@ -154,7 +172,7 @@ class ComplementAdmin extends AbstractBaseAdmin
                 'shortDescription',
                 null,
                 array(
-                    'label' => 'Descripció breu',
+                    'label' => 'admin.label.short_description',
                     'editable' => true,
                 )
             )
@@ -162,7 +180,7 @@ class ComplementAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_male',
                     'editable' => true,
                 )
             )
@@ -174,7 +192,7 @@ class ComplementAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;

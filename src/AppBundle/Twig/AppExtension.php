@@ -5,18 +5,23 @@ namespace AppBundle\Twig;
 use AppBundle\Entity\Operator\Operator;
 use AppBundle\Entity\Setting\User;
 use AppBundle\Enum\UserRolesEnum;
+use AppBundle\Repository\Web\ContactMessageRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\Routing\RouterInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * Class AppExtension.
  *
  * @category Twig
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class AppExtension extends \Twig_Extension
 {
+    /**
+     * @var RouterInterface
+     */
+    private $rs;
+
     /**
      * @var UploaderHelper
      */
@@ -28,19 +33,28 @@ class AppExtension extends \Twig_Extension
     private $licms;
 
     /**
+     * @var ContactMessageRepository
+     */
+    private $cmrs;
+
+    /**
      * Methods.
      */
 
     /**
      * AppExtension constructor.
      *
-     * @param UploaderHelper $vuhs
-     * @param CacheManager   $licms
+     * @param RouterInterface          $rs
+     * @param UploaderHelper           $vuhs
+     * @param CacheManager             $licms
+     * @param ContactMessageRepository $cmrs
      */
-    public function __construct(UploaderHelper $vuhs, CacheManager $licms)
+    public function __construct(RouterInterface $rs, UploaderHelper $vuhs, CacheManager $licms, ContactMessageRepository $cmrs)
     {
+        $this->rs = $rs;
         $this->vuhs = $vuhs;
         $this->licms = $licms;
+        $this->cmrs = $cmrs;
     }
 
     /**
@@ -54,6 +68,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('randomErrorText', array($this, 'randomErrorTextFunction')),
+            new \Twig_SimpleFunction('showUnreadMessages', array($this, 'showUnreadMessages')),
         );
     }
 
@@ -71,6 +86,21 @@ class AppExtension extends \Twig_Extension
         $chrRepeatMax = 30; // maximum times to repeat the seed string
 
         return substr(str_shuffle(str_repeat($chrList, mt_rand($chrRepeatMin, $chrRepeatMax))), 1, $length);
+    }
+
+    /**
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function showUnreadMessages()
+    {
+        $result = '';
+        if ($this->cmrs->getReadPendingMessagesAmount() > 0) {
+            $result = '<li class="messages-menu"><a href="'.$this->rs->generate('admin_app_web_contactmessage_list').'"><i class="fa fa-envelope-o"></i><span class="label label-danger">'.$this->cmrs->getReadPendingMessagesAmount().'</span></a></li>';
+        }
+
+        return $result;
     }
 
     /**

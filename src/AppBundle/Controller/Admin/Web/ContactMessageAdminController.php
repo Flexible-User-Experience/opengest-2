@@ -87,15 +87,15 @@ class ContactMessageAdminController extends BaseAdminController
         if (!$object) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
+        $em = $this->getDoctrine()->getManager();
+        $object->setChecked(true);
+        $em->flush();
 
         $form = $this->createForm(ContactMessageAnswerForm::class, $object);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // persist new contact message form record
-            $object
-                ->setAnswered(true)
-                ->setChecked(true);
-            $em = $this->getDoctrine()->getManager();
+            $object->setChecked(true);
             $em->flush();
             // send notifications
             $messenger = $this->get('app.notification');

@@ -1,6 +1,13 @@
 Changelog
 =========
 
+##### Version 1.1.08 (2019-02-22)
+ * add export old database SQLs
+ * add import commands to new database
+ * check ansible integration with remote exports
+ * fix required user profile image problem
+ * show sale requests in dashboard
+
 ##### Version 1.1.07 (2019-02-01)
  * improve admin dashboard view
  * refactor project folder structure (entities, repositories, admins)

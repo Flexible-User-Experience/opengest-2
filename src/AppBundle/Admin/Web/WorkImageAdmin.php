@@ -12,17 +12,35 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
  * Class WorkImageAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class WorkImageAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
+    protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Imatge Treball';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'web/imatge-treball';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param FormMapper $formMapper
@@ -30,12 +48,12 @@ class WorkImageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.with.image', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'imageFile',
                 FileType::class,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.file',
                     'help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
@@ -45,14 +63,14 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 'alt',
                 null,
                 array(
-                    'label' => 'Alt',
+                    'label' => 'admin.label.alt',
                 )
             )
             ->add(
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'admin.label.position',
                 )
             )
             ->add(
@@ -79,21 +97,21 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 'alt',
                 null,
                 array(
-                    'label' => 'Alt',
+                    'label' => 'admin.label.alt',
                 )
             )
             ->add(
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'admin.label.position',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_female',
                 )
             )
         ;
@@ -110,7 +128,7 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 'image',
                 null,
                 array(
-                    'label' => 'Imatge',
+                    'label' => 'admin.label.image',
                     'template' => '::Admin/Cells/list__cell_image_field.html.twig',
                 )
             )
@@ -118,7 +136,7 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 'alt',
                 null,
                 array(
-                    'label' => 'Alt',
+                    'label' => 'admin.label.alt',
                     'editable' => true,
                 )
             )
@@ -126,7 +144,7 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'admin.label.position',
                     'editable' => true,
                 )
             )
@@ -134,7 +152,7 @@ class WorkImageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_female',
                     'editable' => true,
                 )
             )
@@ -146,7 +164,7 @@ class WorkImageAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;

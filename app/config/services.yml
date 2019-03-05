@@ -59,7 +59,7 @@ services:
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
         public: false
-        arguments: [ "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ "@router", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.contact_message_repository" ]
         tags:
             - { name: twig.extension }
 # Block
@@ -85,17 +85,17 @@ services:
             - { name: sonata.block }
     app.block.sale_request_today:
         class: AppBundle\Block\SaleRequestTodayBlock
-        arguments: [ "app.block.sale_request_today", "@templating" ]
+        arguments: [ "app.block.sale_request_today", "@templating", "@app.sale_request_repository", "@security.token_storage" ]
         tags:
             - { name: sonata.block }
     app.block.sale_request_tomorrow:
         class: AppBundle\Block\SaleRequestTomorrowBlock
-        arguments: [ "app.block.sale_request_tomorrow", "@templating" ]
+        arguments: [ "app.block.sale_request_tomorrow", "@templating", "@app.sale_request_repository", "@security.token_storage" ]
         tags:
             - { name: sonata.block }
     app.block.sale_request_next:
         class: AppBundle\Block\SaleRequestNextBlock
-        arguments: [ "app.block.sale_request_next", "@templating" ]
+        arguments: [ "app.block.sale_request_next", "@templating", "@app.sale_request_repository", "@security.token_storage" ]
         tags:
             - { name: sonata.block }
 # File

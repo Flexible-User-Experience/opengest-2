@@ -1,13 +1,40 @@
 {% extends sonata_block.templates.block_base %}
 
+{% trans_default_domain "admin" %}
+
 {% block block %}
-    {#<!-- small box -->#}
     <div class="small-box {{ background }}">
         <div class="inner">
-            {{ content | raw }}
+            <h4 style="margin-top:0"><i class="fa fa-calendar" aria-hidden="true"></i> {{ title | trans }}</h4>
+            {% if content | length > 0 %}
+                {% for item in content %}
+                    <div class="box box-info direct-chat direct-chat-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ item.partner.name }}</h3>
+                            <div class="box-tools pull-right">
+                                <span class="label label-default">{{ item.serviceTime | date('h:i') }}</span>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="direct-chat-messages">
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-info clearfix">
+                                        <span class="direct-chat-name pull-left c-grey">{{ item.vehicle.name }}</span>
+                                        <span class="direct-chat-timestamp pull-right">{{ item.operator.shortFullName }}</span>
+                                    </div>
+                                    <img class="direct-chat-img" src="{{ vich_uploader_asset(item.vehicle, 'mainImageFile') | imagine_filter('60x60') }}" alt="{{ item.vehicle.name }} image">
+                                    <img class="direct-chat-img pull-right" src="{{ vich_uploader_asset(item.operator, 'profilePhotoImageFile') | imagine_filter('60x60') }}" alt="{{ item.operator.shortFullName }} image">
+                                </div>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <a href="{{ path('admin_app_sale_salerequest_edit', {id: item.id}) }}" class="btn btn-box-tool"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="margin-bottom:0"><i class="fa fa-warning"></i> {{ 'admin.dashboard.empty' | trans }}</p>
+            {% endif %}
         </div>
-        {#<div class="icon">#}
-            {#<i class="fa fa-truck"></i>#}
-        {#</div>#}
     </div>
 {% endblock %}

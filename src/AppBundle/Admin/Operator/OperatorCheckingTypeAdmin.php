@@ -3,32 +3,48 @@
 namespace AppBundle\Admin\Operator;
 
 use AppBundle\Admin\AbstractBaseAdmin;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class OperatorCheckingTypeAdmin.
  *
  * @category Admin
- *
- * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
+    protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Tipus revisió';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'operaris/tipus-revisio';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection.
-     *
+     * Methods.
+     */
+
+    /**
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -43,21 +59,23 @@ class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.with.operator_checking_type', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                 )
             )
             ->add(
                 'description',
-                CKEditorType::class,
+                TextareaType::class,
                 array(
-                    'label' => 'Descripció',
-                    'config_name' => 'my_config',
-                    'required' => false,
+                    'label' => 'admin.label.description',
+                    'attr' => array(
+                        'style' => 'resize: vertical',
+                        'rows' => 7,
+                    ),
                 )
             )
             ->end()
@@ -66,7 +84,7 @@ class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
                 'enabled',
                 CheckboxType::class,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_female',
                     'required' => false,
                 )
             )
@@ -84,14 +102,21 @@ class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'admin.label.description',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_female',
                 )
             )
         ;
@@ -108,15 +133,22 @@ class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.label.name',
                     'editable' => true,
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'admin.label.description',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.label.enabled_female',
                     'editable' => true,
                 )
             )
@@ -128,7 +160,7 @@ class OperatorCheckingTypeAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;

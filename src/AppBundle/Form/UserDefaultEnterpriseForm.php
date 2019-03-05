@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Enterprise\Enterprise;
 use AppBundle\Entity\Setting\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -89,7 +90,7 @@ class UserDefaultEnterpriseForm extends AbstractType
                 EntityType::class,
                 array(
                     'label' => 'Empresa',
-                    'class' => 'AppBundle:Enterprise',
+                    'class' => Enterprise::class,
                     'query_builder' => $this->em->getRepository('AppBundle:Enterprise\Enterprise')->getEnterprisesByUserQB($this->ts->getToken()->getUser()),
                     'choice_label' => 'name',
                 )

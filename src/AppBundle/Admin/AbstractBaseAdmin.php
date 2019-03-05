@@ -18,8 +18,6 @@ use Symfony\Bundle\TwigBundle\TwigEngine;
  * Class BaseAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
@@ -59,6 +57,20 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $acs;
 
     /**
+     * @var array
+     */
+    protected $perPageOptions = array(25, 50, 100, 200);
+
+    /**
+     * @var int
+     */
+    protected $maxPerPage = 25;
+
+    /**
+     * Methods.
+     */
+
+    /**
      * @param string               $code
      * @param string               $class
      * @param string               $baseControllerName
@@ -82,30 +94,17 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * @var array
-     */
-    protected $perPageOptions = array(25, 50, 100, 200);
-
-    /**
-     * @var int
-     */
-    protected $maxPerPage = 25;
-
-    /**
-     * Configure route collection.
-     *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
             ->remove('show')
-            ->remove('batch');
+            ->remove('batch')
+        ;
     }
 
     /**
-     * Remove batch action list view first column.
-     *
      * @return array
      */
     public function getBatchActions()
@@ -117,8 +116,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * Get export formats.
-     *
      * @return array
      */
     public function getExportFormats()
@@ -164,7 +161,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         return ($this->getSubject() ? $this->getSubject()->getMainImage() ? '<img src="'.$this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'mainImageFile'),
                 '480xY'
-            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 1200px (màx. 10MB amb JPG o PNG)</span>';
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<p style="width:100%;display:block;margin-top:10px">* imatge amplada mínima 1.200 píxels<br>* arxiu pes màxim 10MB<br>* format JPG o PNG</p>';
     }
 
     /**
