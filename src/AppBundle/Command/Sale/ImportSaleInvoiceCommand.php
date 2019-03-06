@@ -85,7 +85,6 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                 }
                 /* @var SaleInvoice $saleInvoice */
                 $saleInvoice
-//                    ->setEnterprise($enterprise)
                     ->setPartner($partner)
                     ->setSeries($series)
                     ->setInvoiceNumber(intval($invoiceNumber))

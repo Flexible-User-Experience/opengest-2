@@ -209,6 +209,20 @@ JOIN opengest.Serie S ON S.id = F.serie_id
 JOIN opengest.Terceros T ON T.id = F.tercero_id
 JOIN opengest.Empresas E ON E.id = T.empresa_id;
 
+SELECT A.*, LA.nombre AS LA_nombre, TDC.nombre AS TDC_nombre, P.num_pedido AS P_num_pedido, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif, O.nombre AS O_nombre
+INTO OUTFILE '/tmp/sale_delivery_note.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Albaranes A
+LEFT JOIN opengest.Lineas_actividad LA ON LA.id = A.linea_actividad_id
+LEFT JOIN opengest.Tipos_documentos_cobro TDC ON TDC.id = A.tipo_documento_cobro_id
+LEFT JOIN opengest.Pedidos P ON P.id = A.pedido_id
+LEFT JOIN opengest.Terceros T ON T.id = A.tercero_id
+LEFT JOIN opengest.Empresas E ON E.id = A.empresa_id
+LEFT JOIN opengest.Obras O ON O.id = A.obra_id
+
 -- Setting
 
 SELECT S.*
