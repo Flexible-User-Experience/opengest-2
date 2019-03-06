@@ -121,10 +121,10 @@
       args:
         chdir: "{{ vhost_path }}/current/"
     - name: execute setting sale tariff CSV import to local database
-      shell: "php app/console --env=prod app:import:sale:sale-tariff app/csv/sale_tariff.csv"
+      shell: "php app/console --env=prod app:import:sale:tariff app/csv/sale_tariff.csv"
       args:
         chdir: "{{ vhost_path }}/current/"
     - name: execute setting sale tariff CSV import to local database
-      shell: "php app/console --env=prod app:import:sale:sale-invoice app/csv/sale_invoice.csv"
+      shell: "php app/console --env=prod app:import:sale:invoice app/csv/sale_invoice.csv"
       args:
         chdir: "{{ vhost_path }}/current/"

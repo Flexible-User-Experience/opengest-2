@@ -99,9 +99,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param ArrayCollection $deliveryNotes
      */
-    public function setDeliveryNotes($deliveryNotes): void
+    public function setDeliveryNotes($deliveryNotes)
     {
         $this->deliveryNotes = $deliveryNotes;
+
+        return $this;
     }
 
     /**
@@ -145,9 +147,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param \DateTime $date
      */
-    public function setDate($date): void
+    public function setDate($date)
     {
         $this->date = $date;
+
+        return $this;
     }
 
     /**
@@ -161,9 +165,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param Partner $partner
      */
-    public function setPartner($partner): void
+    public function setPartner($partner)
     {
         $this->partner = $partner;
+
+        return $this;
     }
 
     /**
@@ -177,9 +183,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param int $invoiceNumber
      */
-    public function setInvoiceNumber($invoiceNumber): void
+    public function setInvoiceNumber($invoiceNumber)
     {
         $this->invoiceNumber = $invoiceNumber;
+
+        return $this;
     }
 
     /**
@@ -196,14 +204,18 @@ class SaleInvoice extends AbstractBase
     public function getSeries()
     {
         return $this->series;
+
+        return $this;
     }
 
     /**
      * @param SaleInvoiceSeries $series
      */
-    public function setSeries($series): void
+    public function setSeries($series)
     {
         $this->series = $series;
+
+        return $this;
     }
 
     /**
@@ -217,9 +229,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param int $type
      */
-    public function setType($type): void
+    public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -233,9 +247,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param float $total
      */
-    public function setTotal($total): void
+    public function setTotal($total)
     {
         $this->total = $total;
+
+        return $this;
     }
 
     /**
@@ -249,9 +265,11 @@ class SaleInvoice extends AbstractBase
     /**
      * @param bool $hasBeenCounted
      */
-    public function setHasBeenCounted($hasBeenCounted): void
+    public function setHasBeenCounted($hasBeenCounted)
     {
         $this->hasBeenCounted = $hasBeenCounted;
+
+        return $this;
     }
 
     /**

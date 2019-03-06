@@ -4,6 +4,7 @@ namespace AppBundle\Command\Sale;
 
 use AppBundle\Command\AbstractBaseCommand;
 use AppBundle\Entity\Sale\SaleInvoice;
+use DateTime;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,7 +25,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
      */
     protected function configure()
     {
-        $this->setName('app:import:sale:sale-invoice');
+        $this->setName('app:import:sale:invoice');
         $this->setDescription('Import sale invoice from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
@@ -48,7 +49,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         $fr = $this->initialValidation($input, $output);
 
         // Set counters
-        $beginTimestamp = new \DateTime();
+        $beginTimestamp = new DateTime();
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
@@ -56,7 +57,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $invoiceNumber = $this->readColumn(2, $row);
-            $date = $this->readColumn(3, $row);
+            $date = DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
             $hasBeenCounted = $this->readColumn(4, $row);
             $type = $this->readColumn(5, $row);
             $total = $this->readColumn(6, $row);
@@ -69,7 +70,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                 'cifNif' => $partnerTaxIdentificationNumber,
                 'enterprise' => $enterprise,
             ]);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
+            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
 
             if ($date && $invoiceNumber && $type) {
                 $saleInvoice = $this->em->getRepository('AppBundle:Sale\SaleInvoice')->findOneBy([
@@ -82,13 +83,14 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                     $saleInvoice = new SaleInvoice();
                     ++$newRecords;
                 }
+                /* @var SaleInvoice $saleInvoice */
                 $saleInvoice
-                    ->setEnterprise($enterprise)
+//                    ->setEnterprise($enterprise)
                     ->setPartner($partner)
                     ->setSeries($series)
-                    ->setInvoiceNumber($invoiceNumber)
+                    ->setInvoiceNumber(intval($invoiceNumber))
                     ->setDate($date)
-                    ->setHasBeenCounted($hasBeenCounted)
+                    ->setHasBeenCounted(1 == $hasBeenCounted ? true : false)
                     ->setType($type)
                     ->setTotal($total)
                 ;
@@ -117,7 +119,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         }
 
         // Print totals
-        $endTimestamp = new \DateTime();
+        $endTimestamp = new DateTime();
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
     }
 }
