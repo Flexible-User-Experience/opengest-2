@@ -343,11 +343,23 @@ class SaleDeliveryNote extends AbstractBase
     }
 
     /**
-     * @return SaleInvoice
+     * @return ArrayCollection
      */
-    public function getSaleInvoice()
+    public function getSaleInvoices(): ArrayCollection
     {
-        return $this->saleInvoice;
+        return $this->saleInvoices;
+    }
+
+    /**
+     * @param ArrayCollection $saleInvoices
+     *
+     * @return SaleDeliveryNote
+     */
+    public function setSaleInvoices(ArrayCollection $saleInvoices): SaleDeliveryNote
+    {
+        $this->saleInvoices = $saleInvoices;
+
+        return $this;
     }
 
     /**
@@ -355,9 +367,27 @@ class SaleDeliveryNote extends AbstractBase
      *
      * @return $this
      */
-    public function setSaleInvoice($saleInvoice)
+    public function addSaleInvoice(SaleInvoice $saleInvoice)
     {
-        $this->saleInvoice = $saleInvoice;
+        if (!$this->saleInvoices->contains($saleInvoice)) {
+            $this->saleInvoices->add($saleInvoice);
+            $saleInvoice->setDeliveryNotes($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleInvoice $saleInvoice
+     *
+     * @return $this
+     */
+    public function removeSaleInvoice(SaleInvoice $saleInvoice)
+    {
+        if ($this->saleInvoices->contains($saleInvoice)) {
+            $this->saleInvoices->removeElement($saleInvoice);
+            $saleInvoice->setDeliveryNotes(null);
+        }
 
         return $this;
     }
