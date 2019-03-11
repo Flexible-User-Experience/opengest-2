@@ -167,7 +167,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => SaleInvoice::class,
-                    'label' => 'Factura',
+                    'label' => 'Factures',
                     'required' => false,
                     'multiple' => true,
                     'expanded' => true,
