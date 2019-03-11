@@ -112,11 +112,11 @@ class SaleDeliveryNote extends AbstractBase
     private $wontBeInvoiced = false;
 
     /**
-     * @var SaleInvoice
+     * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleInvoice", inversedBy="deliveryNotes")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sale\SaleInvoice", mappedBy="deliveryNotes")
      */
-    private $saleInvoice;
+    private $saleInvoices;
 
     /**
      * @var ArrayCollection
@@ -141,6 +141,7 @@ class SaleDeliveryNote extends AbstractBase
      */
     public function __construct()
     {
+        $this->saleInvoices = new ArrayCollection();
         $this->saleDeliveryNoteLines = new ArrayCollection();
         $this->saleRequestHasDeliveryNotes = new ArrayCollection();
     }

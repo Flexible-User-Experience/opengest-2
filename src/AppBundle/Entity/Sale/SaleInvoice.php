@@ -22,7 +22,8 @@ class SaleInvoice extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", mappedBy="saleInvoice")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", inversedBy="saleInvoices")
+     * @ORM\JoinTable(name="invoices_deliveynotes")
      * @Groups({"api"})
      */
     private $deliveryNotes;
