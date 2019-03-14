@@ -161,14 +161,18 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Factura', $this->getFormMdSuccessBoxArray(4))
+            ->with('Factures', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'saleInvoice',
+                'saleInvoices',
                 EntityType::class,
                 array(
                     'class' => SaleInvoice::class,
-                    'label' => 'Factura',
+                    'label' => 'Factures',
                     'required' => false,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'query_builder' => $this->rm->getSaleInvoiceRepository()->getFilteredByEnterpriseSortedByDateQB($this->getUserLogedEnterprise()),
+                    'by_reference' => false,
                 )
             )
             ->add(
@@ -295,7 +299,7 @@ class SaleDeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'saleInvoice',
+                'saleInvoices',
                 null,
                 array(
                     'label' => 'Factura',

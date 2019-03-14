@@ -3,6 +3,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Repository\Enterprise\ActivityLineRepository;
+use AppBundle\Repository\Sale\SaleInvoiceRepository;
 use AppBundle\Repository\Setting\CityRepository;
 use AppBundle\Repository\Enterprise\CollectionDocumentTypeRepository;
 use AppBundle\Repository\Enterprise\EnterpriseGroupBountyRepository;
@@ -175,6 +176,11 @@ class RepositoriesManager
     private $saleDeliveryNoteRepository;
 
     /**
+     * @var SaleInvoiceRepository
+     */
+    private $saleInvoiceRepository;
+
+    /**
      * Methods.
      */
 
@@ -208,6 +214,7 @@ class RepositoriesManager
      * @param SaleInvoiceSeriesRepository         $saleInvoiceSeriesRepository
      * @param SaleRequestRepository               $saleRequestRepository
      * @param SaleDeliveryNoteRepository          $saleDeliveryNoteRepository
+     * @param SaleInvoiceRepository               $saleInvoiceRepository
      */
     public function __construct(
         ServiceRepository $serviceRepository,
@@ -236,7 +243,8 @@ class RepositoriesManager
         ActivityLineRepository $activityLineRepository,
         SaleInvoiceSeriesRepository $saleInvoiceSeriesRepository,
         SaleRequestRepository $saleRequestRepository,
-        SaleDeliveryNoteRepository $saleDeliveryNoteRepository
+        SaleDeliveryNoteRepository $saleDeliveryNoteRepository,
+        SaleInvoiceRepository $saleInvoiceRepository
     ) {
         $this->serviceRepository = $serviceRepository;
         $this->vehicleCategoryRepository = $vehicleCategoryRepository;
@@ -265,6 +273,7 @@ class RepositoriesManager
         $this->saleInvoiceSeriesRepository = $saleInvoiceSeriesRepository;
         $this->saleRequestRepository = $saleRequestRepository;
         $this->saleDeliveryNoteRepository = $saleDeliveryNoteRepository;
+        $this->saleInvoiceRepository = $saleInvoiceRepository;
     }
 
     /**
@@ -481,5 +490,13 @@ class RepositoriesManager
     public function getSaleDeliveryNoteRepository()
     {
         return $this->saleDeliveryNoteRepository;
+    }
+
+    /**
+     * @return SaleInvoiceRepository
+     */
+    public function getSaleInvoiceRepository(): SaleInvoiceRepository
+    {
+        return $this->saleInvoiceRepository;
     }
 }

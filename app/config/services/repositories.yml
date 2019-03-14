@@ -184,3 +184,4 @@ services:
             - "@app.sale_invoice_series_repository"
             - "@app.sale_request_repository"
             - "@app.sale_delivery_note_repository"
+            - "@app.sale_invoice_repository"
