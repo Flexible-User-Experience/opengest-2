@@ -510,7 +510,6 @@ AppBundle\Entity\Sale\SaleDeliveryNote:
         collectionDocument: '@collectionDocumentType<numberBetween(1,2)>'
         activityLine: '@activityLine<numberBetween(1,2)>'
         wontBeInvoiced: <boolean()>
-        saleInvoice: '@saleInvoice<numberBetween(1,2)>'
 
 # SaleDeliveryNoteLine
 AppBundle\Entity\Sale\SaleDeliveryNoteLine:
@@ -523,7 +522,6 @@ AppBundle\Entity\Sale\SaleDeliveryNoteLine:
         description: <sentence(6)>
         iva: 21
         irpf: 0
-
 
 # SaleInvoiceSeries
 AppBundle\Entity\Setting\SaleInvoiceSeries:

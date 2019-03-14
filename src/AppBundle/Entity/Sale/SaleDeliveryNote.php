@@ -112,11 +112,11 @@ class SaleDeliveryNote extends AbstractBase
     private $wontBeInvoiced = false;
 
     /**
-     * @var SaleInvoice
+     * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleInvoice", inversedBy="deliveryNotes")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sale\SaleInvoice", mappedBy="deliveryNotes")
      */
-    private $saleInvoice;
+    private $saleInvoices;
 
     /**
      * @var ArrayCollection
@@ -141,6 +141,7 @@ class SaleDeliveryNote extends AbstractBase
      */
     public function __construct()
     {
+        $this->saleInvoices = new ArrayCollection();
         $this->saleDeliveryNoteLines = new ArrayCollection();
         $this->saleRequestHasDeliveryNotes = new ArrayCollection();
     }
@@ -335,18 +336,34 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param bool $wontBeInvoiced
+     *
+     * @return $this
      */
-    public function setWontBeInvoiced($wontBeInvoiced): void
+    public function setWontBeInvoiced($wontBeInvoiced)
     {
         $this->wontBeInvoiced = $wontBeInvoiced;
+
+        return $this;
     }
 
     /**
-     * @return SaleInvoice
+     * @return ArrayCollection
      */
-    public function getSaleInvoice()
+    public function getSaleInvoices()
     {
-        return $this->saleInvoice;
+        return $this->saleInvoices;
+    }
+
+    /**
+     * @param ArrayCollection $saleInvoices
+     *
+     * @return SaleDeliveryNote
+     */
+    public function setSaleInvoices(ArrayCollection $saleInvoices)
+    {
+        $this->saleInvoices = $saleInvoices;
+
+        return $this;
     }
 
     /**
@@ -354,9 +371,26 @@ class SaleDeliveryNote extends AbstractBase
      *
      * @return $this
      */
-    public function setSaleInvoice($saleInvoice)
+    public function addSaleInvoice(SaleInvoice $saleInvoice)
     {
-        $this->saleInvoice = $saleInvoice;
+        if (!$this->saleInvoices->contains($saleInvoice)) {
+            $this->saleInvoices->add($saleInvoice);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleInvoice $saleInvoice
+     *
+     * @return $this
+     */
+    public function removeSaleInvoice(SaleInvoice $saleInvoice)
+    {
+        if ($this->saleInvoices->contains($saleInvoice)) {
+            $this->saleInvoices->removeElement($saleInvoice);
+            $saleInvoice->setDeliveryNotes(null);
+        }
 
         return $this;
     }
