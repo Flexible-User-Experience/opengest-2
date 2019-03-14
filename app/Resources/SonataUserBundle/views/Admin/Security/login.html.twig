@@ -45,6 +45,7 @@
                         </div>
                     </div>
                 </form>
+                <a href="{{ reset_route }}">{{ 'forgotten_password' | trans({}, 'SonataUserBundle') }}</a>
             {% endblock %}
         </div>
         {% include '@SonataUser/Includes/login_footer_fragment.html.twig' %}
