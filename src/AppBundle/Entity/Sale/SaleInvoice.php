@@ -23,7 +23,6 @@ class SaleInvoice extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", inversedBy="saleInvoices")
-     * @ORM\JoinTable(name="invoices_deliveynotes")
      * @Groups({"api"})
      */
     private $deliveryNotes;
@@ -114,7 +113,6 @@ class SaleInvoice extends AbstractBase
     {
         if (!$this->deliveryNotes->contains($deliveryNote)) {
             $this->deliveryNotes->add($deliveryNote);
-            $deliveryNote->setSaleInvoices($this);
         }
 
         return $this;
@@ -129,7 +127,6 @@ class SaleInvoice extends AbstractBase
     {
         if ($this->deliveryNotes->contains($deliveryNote)) {
             $this->deliveryNotes->removeElement($deliveryNote);
-            $deliveryNote->setSaleInvoices(null);
         }
 
         return $this;
