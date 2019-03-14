@@ -6,6 +6,7 @@ Changelog
  * add more import commands to new database
  * add admin translations
  * fix frontend minor typo in homepage
+ * enable admin reset password
  
 ##### Version 1.1.08 (2019-02-22)
  * add export old database SQLs
