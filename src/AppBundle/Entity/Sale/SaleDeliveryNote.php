@@ -336,16 +336,20 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param bool $wontBeInvoiced
+     *
+     * @return $this
      */
-    public function setWontBeInvoiced($wontBeInvoiced): void
+    public function setWontBeInvoiced($wontBeInvoiced)
     {
         $this->wontBeInvoiced = $wontBeInvoiced;
+
+        return $this;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getSaleInvoices(): ArrayCollection
+    public function getSaleInvoices()
     {
         return $this->saleInvoices;
     }
@@ -355,7 +359,7 @@ class SaleDeliveryNote extends AbstractBase
      *
      * @return SaleDeliveryNote
      */
-    public function setSaleInvoices(ArrayCollection $saleInvoices): SaleDeliveryNote
+    public function setSaleInvoices(ArrayCollection $saleInvoices)
     {
         $this->saleInvoices = $saleInvoices;
 
@@ -371,7 +375,6 @@ class SaleDeliveryNote extends AbstractBase
     {
         if (!$this->saleInvoices->contains($saleInvoice)) {
             $this->saleInvoices->add($saleInvoice);
-            $saleInvoice->setDeliveryNotes($this);
         }
 
         return $this;
