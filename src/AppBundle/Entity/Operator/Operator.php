@@ -606,6 +606,14 @@ class Operator extends AbstractBase
     /**
      * @return string
      */
+    public function getUppercaseNameInitials()
+    {
+        return strtoupper(substr($this->name, 0, 1).substr($this->surname1, 0, 1));
+    }
+
+    /**
+     * @return string
+     */
     public function getAddress()
     {
         return $this->address;

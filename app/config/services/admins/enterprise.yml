@@ -1,0 +1,32 @@
+# Enterprise group
+services:
+    app.admin.enterprise:
+        class: AppBundle\Admin\Enterprise\EnterpriseAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise\Enterprise, AppBundle\Controller\Admin\Enterprise\EnterpriseAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Empresa", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.enterprise_group_bounty:
+        class: AppBundle\Admin\Enterprise\EnterpriseGroupBountyAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise\EnterpriseGroupBounty, AppBundle\Controller\Admin\Enterprise\EnterpriseGroupBountyAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Grup prima", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.enterprise_transfer_account:
+        class: AppBundle\Admin\Enterprise\EnterpriseTransferAccountAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise\EnterpriseTransferAccount, AppBundle\Controller\Admin\Enterprise\EnterpriseTransferAccountAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Compte bancari", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.enterprise_holidays:
+        class: AppBundle\Admin\Enterprise\EnterpriseHolidaysAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise\EnterpriseHolidays, AppBundle\Controller\Admin\Enterprise\EnterpriseHolidaysAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Dies festius", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.activity_line:
+        class: AppBundle\Admin\Enterprise\ActivityLineAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise\ActivityLine, AppBundle\Controller\Admin\Enterprise\ActivityLineAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Línies activitat", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.collection_document_type:
+        class: AppBundle\Admin\Enterprise\CollectionDocumentTypeAdmin
+        arguments: [ ~, AppBundle\Entity\Enterprise\CollectionDocumentType, AppBundle\Controller\Admin\Enterprise\CollectionDocumentTypeAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus document cobrament", group: "Empreses", label_translator_strategy: "sonata.admin.label.strategy.noop" }

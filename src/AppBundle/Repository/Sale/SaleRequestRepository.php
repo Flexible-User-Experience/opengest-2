@@ -164,6 +164,7 @@ class SaleRequestRepository extends EntityRepository
         $qb = $this->getFilteredByEnterpriseEnabledSortedByRequestDateQB($enterprise)
             ->andWhere('DATE(s.serviceDate) > DATE(:moment)')
             ->setParameter('moment', $moment)
+            ->addOrderBy('s.serviceDate', 'ASC')
             ->addOrderBy('s.serviceTime', 'ASC')
         ;
 

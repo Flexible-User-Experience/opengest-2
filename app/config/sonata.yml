@@ -66,6 +66,13 @@ sonata_admin:
         blocks:
             -
                 position: top
+                type: sonata.block.service.text
+                class: "col-md-12"
+                settings:
+                    content: >
+                        <h4 style="margin-top:0" class="c-grey"><strong>Revisions</strong></h4>
+            -
+                position: top
                 type: app.block.operator_checking
                 class: "col-md-3"
             -
@@ -86,7 +93,7 @@ sonata_admin:
                 class: "col-md-12"
                 settings:
                     content: >
-                        <hr style="margin-bottom:0">
+                        <h4 class="c-grey"><strong>Peticions</strong></h4>
             -
                 position: top
                 type: app.block.sale_request_today
