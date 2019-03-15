@@ -66,6 +66,7 @@ class SaleRequestTodayBlock extends AbstractBlockService
                 'title' => 'admin.dashboard.today',
                 'background' => $backgroundColor,
                 'content' => $todaySaleRequests,
+                'show_date' => false,
             ],
             $response
         );

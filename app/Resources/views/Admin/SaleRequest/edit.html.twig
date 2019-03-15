@@ -40,13 +40,13 @@
                 var partnerId = event.val;
 
                 //on change Partner
-                jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: partnerId }), function() {
+                jQuery.get(Routing.generate('admin_app_partner_partner_getJsonPartnerById', { id: partnerId }), function() {
                 }).done(function(response) {
                     updateNodesInfo(response);
                 });
 
                 //on change PartnerContact
-                jQuery.get( Routing.generate('admin_app_partner_getPartnerContactsById', { id: partnerId }), function() {
+                jQuery.get(Routing.generate('admin_app_partner_partner_getPartnerContactsById', { id: partnerId }), function() {
                 }).done(function(response) {
                     console.log(response);
                     updateNodesInfoContacts(response);
@@ -68,7 +68,7 @@
                miniumHoursIcon.removeClass('hidden');
                priceHourIcon.removeClass('hidden');
                var saleTariffId = event.val;
-               jQuery.get( Routing.generate('admin_app_saletariff_getJsonSaleTariffById', { id: saleTariffId }), function () {
+               jQuery.get(Routing.generate('admin_app_sale_saletariff_getJsonSaleTariffById', { id: saleTariffId }), function () {
 
                }).done(function (response) {
                    console.log(response);
@@ -78,7 +78,7 @@
 
             //on load Partner
             {% if form.partner.vars.data is not null %}
-                jQuery.get( Routing.generate('admin_app_partner_getJsonPartnerById', { id: {{ form.partner.vars.data.id }} }), function() {
+                jQuery.get(Routing.generate('admin_app_partner_partner_getJsonPartnerById', { id: {{ form.partner.vars.data.id }} }), function() {
                 }).done(function(response) {
                      updateNodesInfo(response);
                 });
@@ -100,7 +100,7 @@
 
             //on load PartnerContacts
             {% if form.selectContactPersonName.vars.id is not null %}
-            jQuery.get( Routing.generate('admin_app_partner_getPartnerContactsById', { id: {{ form.selectContactPersonName.vars.id }} }), function() {
+            jQuery.get(Routing.generate('admin_app_partner_partner_getPartnerContactsById', { id: {{ form.selectContactPersonName.vars.id }} }), function() {
             }).done(function(response) {
                 updateNodesInfoContacts(response);
             });
@@ -116,7 +116,7 @@
 
             //on load Tariff
             {% if form.tariff.vars.data is not null %}
-                jQuery.get( Routing.generate('admin_app_saletariff_getJsonSaleTariffById', { id: {{ form.tariff.vars.data.id }} }), function() {
+                jQuery.get(Routing.generate('admin_app_sale_saletariff_getJsonSaleTariffById', { id: {{ form.tariff.vars.data.id }} }), function() {
                 }).done(function(response) {
                      updateNodesInfoTariff(response);
                 });

@@ -1,0 +1,27 @@
+# Web group
+services:
+    app.admin.service:
+        class: AppBundle\Admin\Web\ServiceAdmin
+        arguments: [ ~ , AppBundle\Entity\Web\Service, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.work:
+        class: AppBundle\Admin\Web\WorkAdmin
+        arguments: [ ~ , AppBundle\Entity\Web\Work, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Treball", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.work_image:
+        class: AppBundle\Admin\Web\WorkImageAdmin
+        arguments: [ ~ , AppBundle\Entity\Web\WorkImage, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Imatge Treball", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    app.admin.complement:
+        class: AppBundle\Admin\Web\ComplementAdmin
+        arguments: [ ~ , AppBundle\Entity\Web\Complement, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Accesori", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.contact_message:
+        class: AppBundle\Admin\Web\ContactMessageAdmin
+        arguments: [ ~, AppBundle\Entity\Web\ContactMessage, AppBundle\Controller\Admin\Web\ContactMessageAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Missatge de Contacte", group: "Web", label_translator_strategy: "sonata.admin.label.strategy.noop" }

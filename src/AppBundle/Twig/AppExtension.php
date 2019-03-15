@@ -8,6 +8,9 @@ use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Repository\Web\ContactMessageRepository;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Routing\RouterInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
@@ -15,7 +18,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  *
  * @category Twig
  */
-class AppExtension extends \Twig_Extension
+class AppExtension extends AbstractExtension
 {
     /**
      * @var RouterInterface
@@ -67,8 +70,8 @@ class AppExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('randomErrorText', array($this, 'randomErrorTextFunction')),
-            new \Twig_SimpleFunction('showUnreadMessages', array($this, 'showUnreadMessages')),
+            new TwigFunction('randomErrorText', array($this, 'randomErrorTextFunction')),
+            new TwigFunction('showUnreadMessages', array($this, 'showUnreadMessages')),
         );
     }
 
@@ -113,10 +116,29 @@ class AppExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('draw_operator_image', array($this, 'drawOperatorImage')),
-            new \Twig_SimpleFilter('draw_role_span', array($this, 'drawRoleSpan')),
-            new \Twig_SimpleFilter('age', array($this, 'ageCalculate')),
+            new TwigFilter('draw_operator_image_src', array($this, 'drawOperatorImageSrc')),
+            new TwigFilter('draw_operator_image', array($this, 'drawOperatorImage')),
+            new TwigFilter('draw_role_span', array($this, 'drawRoleSpan')),
+            new TwigFilter('age', array($this, 'ageCalculate')),
         );
+    }
+
+    /**
+     * @param Operator $operator
+     * @param string   $mapping
+     * @param string   $filter
+     *
+     * @return string
+     */
+    public function drawOperatorImageSrc(Operator $operator, $mapping = 'profilePhotoImageFile', $filter = '60x60')
+    {
+        if ($operator->getProfilePhotoImage()) {
+            $result = $this->licms->getBrowserPath($this->vuhs->asset($operator, $mapping), $filter);
+        } else {
+            $result = 'https://via.placeholder.com/60x60.png?text='.$operator->getUppercaseNameInitials();
+        }
+
+        return $result;
     }
 
     /**
