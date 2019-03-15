@@ -9,10 +9,10 @@
             {% if content | length > 0 %}
                 {% for item in content %}
                     <div class="box box-info direct-chat direct-chat-info" style="margin-top:10px">
-                        <div class="box-header with-border">
+                        <div class="box-header with-border" style="overflow:hidden">
                             <h3 class="box-title">{{ item.partner.name }}</h3>
                             <div class="box-tools pull-right">
-                                <span class="label label-default">{{ item.serviceDate | date('d/m/y') }} {{ item.serviceTime | date('h:i') }}</span>
+                                <span class="label label-default" style="font-size:100%;font-weight:600;">{{ item.serviceDate | date('d/m/y') }} {{ item.serviceTime | date('h:i') }}</span>
                             </div>
                         </div>
                         <div class="box-body">
