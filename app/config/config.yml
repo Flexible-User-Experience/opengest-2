@@ -119,6 +119,7 @@ ivory_ck_editor:
     configs:
         my_config:
             toolbar: standard
+            height: 400
 
 # KNP Paginator
 knp_paginator:
