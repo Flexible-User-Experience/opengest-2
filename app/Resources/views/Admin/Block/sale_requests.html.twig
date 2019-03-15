@@ -21,7 +21,7 @@
                                     <div class="direct-chat-info clearfix">
                                         <span class="direct-chat-name pull-left c-grey">{{ item.operator.shortFullName }}</span>
                                     </div>
-                                    <img class="direct-chat-img" src="{{ vich_uploader_asset(item.operator, 'profilePhotoImageFile') | imagine_filter('60x60') }}" alt="{{ item.operator.shortFullName }} image">
+                                    <img class="direct-chat-img" src="{{ item.operator | draw_operator_image_src }}" alt="{{ item.operator.shortFullName }} image">
                                     <div class="direct-chat-text">
                                         {% if item.serviceDescription %}{{ item.serviceDescription }}{% else %}{{ 'admin.dashboard.empty_service_description' | trans }}{% endif %}
                                     </div>
@@ -39,13 +39,13 @@
                             <div class="box-tools pull-right">
                                 <a href="{{ path('admin_app_sale_salerequest_edit', {id: item.id}) }}" class="btn btn-box-tool"><i class="fa fa-pencil"></i></a>
                                 <a href="{# TODO #}#" class="btn btn-box-tool"><i class="fa fa-search-plus"></i></a>
-                                <a href="{# TODO #}#" class="btn btn-box-tool"><i class="fa fa-file-pdf-o"></i></a>
+                                <a href="{{ path('admin_app_sale_salerequest_pdf', {id: item.id}) }}" class="btn btn-box-tool"><i class="fa fa-file-pdf-o"></i></a>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p style="margin-bottom:0"><i class="fa fa-warning"></i> {{ 'admin.dashboard.empty' | trans }}</p>
+                <p class="text-center" style="margin-bottom:0"><i class="fa fa-warning"></i> {{ 'admin.dashboard.empty' | trans }}</p>
             {% endif %}
         </div>
     </div>
