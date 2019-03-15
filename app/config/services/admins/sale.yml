@@ -1,0 +1,36 @@
+# Sale group
+services:
+    app.admin.sale_tariff:
+        class: AppBundle\Admin\Sale\SaleTariffAdmin
+        arguments: [ ~, AppBundle\Entity\Sale\SaleTariff, AppBundle\Controller\Admin\Sale\SaleTariffAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_request:
+        class: AppBundle\Admin\Sale\SaleRequestAdmin
+        arguments: [ ~, AppBundle\Entity\Sale\SaleRequest, AppBundle\Controller\Admin\Sale\SaleRequestAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Petició", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+        calls:
+            - [ setTemplate, [ edit, "::Admin/SaleRequest/edit.html.twig" ] ]
+    app.admin.sale_delivery_note:
+        class: AppBundle\Admin\Sale\SaleDeliveryNoteAdmin
+        arguments: [ ~, AppBundle\Entity\Sale\SaleDeliveryNote, AppBundle\Controller\Admin\Sale\SaleDeliveryNoteAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Albarà", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_delivery_note_line:
+        class: AppBundle\Admin\Sale\SaleDeliveryNoteLineAdmin
+        arguments: [ ~, AppBundle\Entity\Sale\SaleDeliveryNoteLine, AppBundle\Controller\Admin\Sale\SaleDeliveryNoteLineAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Albarà línia", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false}
+    app.admin.sale_invoice:
+        class: AppBundle\Admin\Sale\SaleInvoiceAdmin
+        arguments: [ ~, AppBundle\Entity\Sale\SaleInvoice, AppBundle\Controller\Admin\Sale\SaleInvoiceAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+        calls:
+            - [ setTemplate, [ edit, "::Admin/SaleInvoice/edit.html.twig" ] ]
+    app.admin.sale_request_has_delivery_note:
+        class: AppBundle\Admin\Sale\SaleRequestHasDeliveryNoteAdmin
+        arguments: [ ~, AppBundle\Entity\Sale\SaleRequestHasDeliveryNote, AppBundle\Controller\Admin\Sale\SaleRequestHasDeliveryNoteAdminController, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Valoració petició-albarà", group: "Vendes", label_translator_strategy: "sonata.admin.label.strategy.noop" }

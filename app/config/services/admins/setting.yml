@@ -1,0 +1,22 @@
+# Setting group
+services:
+    app.admin.province:
+        class: AppBundle\Admin\Setting\ProvinceAdmin
+        arguments: [ ~, AppBundle\Entity\Setting\Province, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Configuracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.city:
+        class: AppBundle\Admin\Setting\CityAdmin
+        arguments: [ ~, AppBundle\Entity\Setting\City, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Configuracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.user:
+        class: AppBundle\Admin\Setting\UserAdmin
+        arguments: [ ~, AppBundle\Entity\Setting\User, AppBundle\Controller\Admin\Setting\UserAdminController, "@fos_user.user_manager", "@app.repositories_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Configuracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    app.admin.sale_invoice_series:
+        class: AppBundle\Admin\Setting\SaleInvoiceSeriesAdmin
+        arguments: [ ~, AppBundle\Entity\Setting\SaleInvoiceSeries, ~, "@liip_imagine.cache.manager", "@app.repositories_manager", "@app.file_service", "@templating", "@security.token_storage", "@security.authorization_checker" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Sèries factura", group: "Configuracio", label_translator_strategy: "sonata.admin.label.strategy.noop" }
