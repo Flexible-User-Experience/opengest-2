@@ -66,6 +66,7 @@ class SaleRequestTomorrowBlock extends AbstractBlockService
             'title' => 'admin.dashboard.tomorrow',
             'background' => $backgroundColor,
             'content' => $tomorroySaleRequests,
+            'show_date' => false,
         ],
             $response
         );

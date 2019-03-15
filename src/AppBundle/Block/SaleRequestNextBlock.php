@@ -66,6 +66,7 @@ class SaleRequestNextBlock extends AbstractBlockService
             'title' => 'admin.dashboard.next',
             'background' => $backgroundColor,
             'content' => $nextSaleRequests,
+            'show_date' => true,
         ],
             $response
         );
