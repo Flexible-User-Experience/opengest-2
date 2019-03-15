@@ -15,7 +15,7 @@
             partnerNode.change(function(event) {
                 // selectDeliveryNotesIcon.removeClass('hidden');
                 var partnerId = event.val;
-                jQuery.get(Routing.generate('admin_app_partner_getJsonDeliveryNotesById', {id: partnerId}), function() {
+                jQuery.get(Routing.generate('admin_app_partner_partner_getJsonDeliveryNotesById', {id: partnerId}), function() {
                 }).done(function (response) {
                     console.log(response);
                     updateNodesInfo(response);
@@ -24,7 +24,7 @@
 
             {#//on load#}
             {#{% if form.partner.vars.data is not null %}#}
-                {#jQuery.get( Routing.generate('admin_app_partner_getJsonDeliveryNotesById', { id: {{ form.partner.vars.data.id }} }), function() {#}
+                {#jQuery.get(Routing.generate('admin_app_partner_partner_getJsonDeliveryNotesById', { id: {{ form.partner.vars.data.id }} }), function() {#}
                 {#}).done(function(response) {#}
                     {#updateNodesInfo(response);#}
                 {#});#}

@@ -42,9 +42,10 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
     templates:
-        layout: "::Admin/layout.html.twig"
-        edit:   "::Admin/edit.html.twig"
-        show:   "::Admin/show.html.twig"
+        layout:        "::Admin/layout.html.twig"
+        edit:          "::Admin/edit.html.twig"
+        show:          "::Admin/show.html.twig"
+        pager_results: "::Admin/pager_results.html.twig"
     dashboard:
         groups:
             Web:
