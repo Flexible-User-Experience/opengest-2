@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -50,6 +51,15 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
      */
 
     /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
+
+    /**
      * @param FormMapper $formMapper
      *
      * @throws \Exception
@@ -57,12 +67,12 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'date',
                 DatePickerType::class,
                 array(
-                    'label' => 'Data factura',
+                    'label' => 'admin.label.invoice_date',
                     'format' => 'd/m/Y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
@@ -73,7 +83,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 ModelAutocompleteType::class,
                 array(
                     'property' => 'name',
-                    'label' => 'Client',
+                    'label' => 'admin.label.partner',
                     'required' => true,
                     'callback' => function ($admin, $property, $value) {
                         /** @var Admin $admin */
@@ -89,7 +99,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Documents relacionats', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.delivery_notes', $this->getFormMdSuccessBoxArray(4))
         ;
         if ($this->id($this->getSubject())) { // is edit mode
             $formMapper
@@ -97,7 +107,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     'deliveryNotes',
                     EntityType::class,
                     array(
-                        'label' => 'Albarans',
+                        'label' => 'admin.label.delivery_notes',
                         'required' => false,
                         'class' => SaleDeliveryNote::class,
                         'multiple' => true,
@@ -113,7 +123,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     'deliveryNotes',
                     EntityType::class,
                     array(
-                        'label' => 'Albarans',
+                        'label' => 'admin.label.delivery_notes',
                         'required' => false,
                         'class' => SaleDeliveryNote::class,
                         'multiple' => true,
@@ -282,7 +292,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'date',
                 null,
                 array(
-                    'label' => 'Data',
+                    'label' => 'admin.label.date',
                     'format' => 'd/m/Y',
                 )
             )
@@ -290,7 +300,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Número factura',
+                    'label' => 'admin.label.invoice_number',
                     'template' => '::Admin/Cells/list__cell_sale_invoice_full_invoice_number.html.twig',
                 )
             )
@@ -298,21 +308,21 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'partner',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label' => 'admin.label.partner',
                 )
             )
             ->add(
                 'total',
                 null,
                 array(
-                    'label' => 'total',
+                    'label' => 'admin.label.total',
                 )
             )
             ->add(
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptabilitzada',
+                    'label' => 'admin.label.has_been_counted',
                 )
             )
             ->add(
@@ -324,7 +334,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'admin.actions',
                 )
             )
         ;

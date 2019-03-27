@@ -98,6 +98,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param ArrayCollection $deliveryNotes
+     *
+     * @return $this
      */
     public function setDeliveryNotes($deliveryNotes)
     {
@@ -144,6 +146,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param \DateTime $date
+     *
+     * @return $this
      */
     public function setDate($date)
     {
@@ -162,6 +166,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param Partner $partner
+     *
+     * @return $this
      */
     public function setPartner($partner)
     {
@@ -180,6 +186,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param int $invoiceNumber
+     *
+     * @return $this
      */
     public function setInvoiceNumber($invoiceNumber)
     {
@@ -208,6 +216,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param SaleInvoiceSeries $series
+     *
+     * @return $this
      */
     public function setSeries($series)
     {
@@ -226,6 +236,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param int $type
+     *
+     * @return $this
      */
     public function setType($type)
     {
@@ -244,6 +256,8 @@ class SaleInvoice extends AbstractBase
 
     /**
      * @param float $total
+     *
+     * @return $this
      */
     public function setTotal($total)
     {
@@ -261,7 +275,25 @@ class SaleInvoice extends AbstractBase
     }
 
     /**
+     * @return bool
+     */
+    public function getHasBeenCounted()
+    {
+        return $this->isHasBeenCounted();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasBeenCounted()
+    {
+        return $this->isHasBeenCounted();
+    }
+
+    /**
      * @param bool $hasBeenCounted
+     *
+     * @return $this
      */
     public function setHasBeenCounted($hasBeenCounted)
     {
