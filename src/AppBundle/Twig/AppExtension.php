@@ -150,9 +150,10 @@ class AppExtension extends AbstractExtension
      */
     public function drawOperatorImage(Operator $operator, $mapping = 'profilePhotoImageFile', $filter = '60x60')
     {
-        $result = '---';
         if ($operator->getProfilePhotoImage()) {
             $result = '<img src="'.$this->licms->getBrowserPath($this->vuhs->asset($operator, $mapping), $filter).'" alt="'.$operator->getFullName().' thumbnail">';
+        } else {
+            $result = '<img src="https://via.placeholder.com/60x60.png?text='.$operator->getUppercaseNameInitials().'" alt="'.$operator->getFullName().' thumbnail">';
         }
 
         return $result;
