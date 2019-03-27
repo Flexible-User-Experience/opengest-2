@@ -221,7 +221,7 @@ LEFT JOIN opengest.Tipos_documentos_cobro TDC ON TDC.id = A.tipo_documento_cobro
 LEFT JOIN opengest.Pedidos P ON P.id = A.pedido_id
 LEFT JOIN opengest.Terceros T ON T.id = A.tercero_id
 LEFT JOIN opengest.Empresas E ON E.id = A.empresa_id
-LEFT JOIN opengest.Obras O ON O.id = A.obra_id
+LEFT JOIN opengest.Obras O ON O.id = A.obra_id;
 
 -- Setting
 
