@@ -4,29 +4,47 @@ namespace AppBundle\Admin\Sale;
 
 use AppBundle\Admin\AbstractBaseAdmin;
 use AppBundle\Entity\Sale\SaleTariff;
-use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class SaleTariffAdmin.
  *
  * @category    Admin
- *
- * @auhtor      Rubèn Hierro <info@rubenhierro.com>
  */
 class SaleTariffAdmin extends AbstractBaseAdmin
 {
+    /**
+     * @var string
+     */
+    protected $translationDomain = 'admin';
+
+    /**
+     * @var string
+     */
     protected $classnameLabel = 'Tarifa';
+
+    /**
+     * @var string
+     */
     protected $baseRoutePattern = 'vendes/tarifa';
+
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
-        '_sort_by' => 'enterprise.name',
-        '_sort_order' => 'ASC',
+        '_sort_by' => 'year',
+        '_sort_order' => 'DESC',
     );
+
+    /**
+     * Methods.
+     */
 
     /**
      * @param RouteCollection $collection
@@ -34,7 +52,10 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('getJsonSaleTariffById', $this->getRouterIdParameter().'/get-json-sale-tariff-by-id');
+        $collection
+            ->add('getJsonSaleTariffById', $this->getRouterIdParameter().'/get-json-sale-tariff-by-id')
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -45,12 +66,12 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'year',
                 ChoiceType::class,
                 array(
-                    'label' => 'Any',
+                    'label' => 'admin.label.year',
                     'choices' => $this->getConfigurationPool()->getContainer()->get('app.year_choices_manager')->getYearRange(),
                     'placeholder' => 'Selecciona un any',
                     'required' => true,
@@ -60,17 +81,17 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 'tonnage',
                 null,
                 array(
-                    'label' => 'Tonatge',
+                    'label' => 'admin.label.tonnage',
                     'required' => true,
                 )
             )
             ->end()
-            ->with('Tarifa', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.with.sale_tariff', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'priceHour',
                 null,
                 array(
-                    'label' => 'Preu hora',
+                    'label' => 'admin.label.price_hour',
                     'required' => false,
                 )
             )
@@ -78,7 +99,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 'miniumHours',
                 null,
                 array(
-                    'label' => 'Mínim hores',
+                    'label' => 'admin.label.minimum_hours',
                     'required' => false,
                 )
             )
@@ -86,7 +107,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 'miniumHolidayHours',
                 null,
                 array(
-                    'label' => 'Mínim hores vacances',
+                    'label' => 'admin.label.minimum_holiday_hours',
                     'required' => false,
                 )
             )
@@ -94,7 +115,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 'displacement',
                 null,
                 array(
-                    'label' => 'Desplaçament',
+                    'label' => 'admin.label.displacement',
                     'required' => false,
                 )
             )
@@ -102,7 +123,17 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 'increaseForHolidays',
                 null,
                 array(
-                    'label' => 'Increment per vacances',
+                    'label' => 'admin.label.increase_for_holidays',
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('admin.with.controls', $this->getFormMdSuccessBoxArray(2))
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'admin.label.enabled_female',
                     'required' => false,
                 )
             )
@@ -115,65 +146,61 @@ class SaleTariffAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $datagridMapper
-                ->add(
-                    'enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $datagridMapper
             ->add(
                 'year',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label' => 'admin.label.year',
                 )
             )
             ->add(
                 'tonnage',
                 null,
                 array(
-                    'label' => 'Tonatge',
+                    'label' => 'admin.label.tonnage',
                 )
             )
             ->add(
                 'priceHour',
                 null,
                 array(
-                    'label' => 'Preu hora',
+                    'label' => 'admin.label.price_hour',
                 )
             )
             ->add(
                 'miniumHours',
                 null,
                 array(
-                    'label' => 'Mínim hores',
+                    'label' => 'admin.label.minimum_hours',
                 )
             )
             ->add(
                 'miniumHolidayHours',
                 null,
                 array(
-                    'label' => 'Mínim hores vacances',
+                    'label' => 'admin.label.minimum_holiday_hours',
                 )
             )
             ->add(
                 'displacement',
                 null,
                 array(
-                    'label' => 'Desplaçament',
+                    'label' => 'admin.label.displacement',
                 )
             )
             ->add(
                 'increaseForHolidays',
                 null,
                 array(
-                    'label' => 'Increment per vacances',
+                    'label' => 'admin.label.increase_for_holidays',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'admin.label.enabled_female',
                 )
             )
         ;
@@ -190,16 +217,12 @@ class SaleTariffAdmin extends AbstractBaseAdmin
         $queryBuilder = parent::createQuery($context);
         $queryBuilder
             ->join($queryBuilder->getRootAliases()[0].'.enterprise', 'e')
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
+            ->setParameter('enterprise', $this->getUserLogedEnterprise())
             ->orderBy('e.name', 'ASC')
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.year', 'DESC')
             ->addOrderBy($queryBuilder->getRootAliases()[0].'.tonnage', 'DESC')
         ;
-        if (!$this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $queryBuilder
-                ->andWhere($queryBuilder->getRootAliases()[0].'.enterprise = :enterprise')
-                ->setParameter('enterprise', $this->getUserLogedEnterprise())
-            ;
-        }
 
         return $queryBuilder;
     }
@@ -210,65 +233,62 @@ class SaleTariffAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
-            $listMapper
-                ->add(
-                    'enterprise',
-                    null,
-                    array(
-                        'label' => 'Empresa',
-                    )
-                )
-            ;
-        }
         $listMapper
             ->add(
                 'year',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label' => 'admin.label.year',
                 )
             )
             ->add(
                 'tonnage',
                 null,
                 array(
-                    'label' => 'Tonnatge',
+                    'label' => 'admin.label.tonnage',
                 )
             )
             ->add(
                 'priceHour',
                 null,
                 array(
-                    'label' => 'Preu hora',
+                    'label' => 'admin.label.price_hour',
                 )
             )
             ->add(
                 'miniumHours',
                 null,
                 array(
-                    'label' => 'Mínim hores',
+                    'label' => 'admin.label.minimum_hours',
                 )
             )
             ->add(
                 'miniumHolidayHours',
                 null,
                 array(
-                    'label' => 'Mínim hores vacances',
+                    'label' => 'admin.label.minimum_holiday_hours',
                 )
             )
             ->add(
                 'displacement',
                 null,
                 array(
-                    'label' => 'Desplaçament',
+                    'label' => 'admin.label.displacement',
                 )
             )
             ->add(
                 'increaseForHolidays',
                 null,
                 array(
-                    'label' => 'Increment per vacances',
+                    'label' => 'admin.label.increase_for_holidays',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'admin.label.enabled_female',
+                    'editable' => true,
                 )
             )
             ->add(
