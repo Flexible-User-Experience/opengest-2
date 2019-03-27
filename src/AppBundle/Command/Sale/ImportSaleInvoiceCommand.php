@@ -53,6 +53,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
+        $errorMessagesArray = array();
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
@@ -70,9 +71,10 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                 'cifNif' => $partnerTaxIdentificationNumber,
                 'enterprise' => $enterprise,
             ]);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
+            $printLineMessage = '#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber;
+            $output->writeln($printLineMessage);
 
-            if ($date && $invoiceNumber && $type) {
+            if ($date && $invoiceNumber && $type && $series && $partner) {
                 $saleInvoice = $this->em->getRepository('AppBundle:Sale\SaleInvoice')->findOneBy([
                     'date' => $date,
                     'invoiceNumber' => $invoiceNumber,
@@ -98,6 +100,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                     $this->em->flush();
                 }
             } else {
+                $errorMessagesArray[] = $printLineMessage;
                 $output->write('<error>Error at row number #'.$rowsRead);
                 if (!$date) {
                     $output->write(' · no date found');
@@ -107,6 +110,12 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                 }
                 if (!$type) {
                     $output->write(' · no type found');
+                }
+                if (!$series) {
+                    $output->write(' · no serie found');
+                }
+                if (!$partner) {
+                    $output->write(' · no partner found');
                 }
                 $output->writeln('</error>');
                 ++$errors;
@@ -120,5 +129,11 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         // Print totals
         $endTimestamp = new DateTime();
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
+        if (count($errorMessagesArray) > 0) {
+            /** @var string $errorMessage */
+            foreach ($errorMessagesArray as $errorMessage) {
+                $output->writeln($errorMessage);
+            }
+        }
     }
 }
