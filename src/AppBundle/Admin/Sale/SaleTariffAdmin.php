@@ -239,6 +239,7 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.year',
+                    'editable' => true,
                 )
             )
             ->add(
@@ -246,41 +247,47 @@ class SaleTariffAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.tonnage',
+                    'editable' => true,
                 )
             )
             ->add(
                 'priceHour',
-                null,
+                'string',
                 array(
                     'label' => 'admin.label.price_hour',
+                    'editable' => true,
                 )
             )
             ->add(
                 'miniumHours',
-                null,
+                'string',
                 array(
                     'label' => 'admin.label.minimum_hours',
+                    'editable' => true,
                 )
             )
             ->add(
                 'miniumHolidayHours',
-                null,
+                'string',
                 array(
                     'label' => 'admin.label.minimum_holiday_hours',
+                    'editable' => true,
                 )
             )
             ->add(
                 'displacement',
-                null,
+                'string',
                 array(
                     'label' => 'admin.label.displacement',
+                    'editable' => true,
                 )
             )
             ->add(
                 'increaseForHolidays',
-                null,
+                'string',
                 array(
                     'label' => 'admin.label.increase_for_holidays',
+                    'editable' => true,
                 )
             )
             ->add(
