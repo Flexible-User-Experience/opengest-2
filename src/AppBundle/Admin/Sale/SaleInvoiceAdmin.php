@@ -13,7 +13,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\Form\Type\BooleanType;
 use Sonata\Form\Type\DatePickerType;
+use Sonata\Form\Type\EqualType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -56,7 +58,12 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->add('pdf', $this->getRouterIdParameter().'/pdf')
+            ->add('pdfWithBackground', $this->getRouterIdParameter().'/pdf-with-background')
+            ->add('count', $this->getRouterIdParameter().'/to-count')
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -72,7 +79,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'date',
                 DatePickerType::class,
                 array(
-                    'label' => 'admin.label.invoice_date',
+                    'label' => 'admin.label.date',
                     'format' => 'd/m/Y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
@@ -142,7 +149,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'class' => SaleInvoiceSeries::class,
-                    'label' => 'Sèrie de facturació',
+                    'label' => 'admin.label.series_long',
                     'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
                 )
             )
@@ -150,7 +157,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'Tipus',
+                    'label' => 'admin.label.type',
                     'required' => true,
                 )
             )
@@ -158,7 +165,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'total',
                 null,
                 array(
-                    'label' => 'Total factura',
+                    'label' => 'admin.label.total',
                     'required' => false,
                 )
             )
@@ -166,7 +173,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptabilitzada',
+                    'label' => 'admin.label.has_been_counted_long',
                     'required' => false,
                 )
             )
@@ -179,7 +186,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     'invoiceNumber',
                     null,
                     array(
-                        'label' => 'Número de factura',
+                        'label' => 'admin.label.invoice_number_long',
                         'disabled' => true,
                     )
                 )
@@ -190,7 +197,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     EntityType::class,
                     array(
                         'class' => SaleInvoiceSeries::class,
-                        'label' => 'Sèrie de facturació',
+                        'label' => 'admin.label.series_long',
                         'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
                         'disabled' => true,
                     )
@@ -210,7 +217,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'date',
                 'doctrine_orm_date',
                 array(
-                    'label' => 'Data creació',
+                    'label' => 'admin.label.date',
                     'field_type' => DatePickerType::class,
                 )
             )
@@ -218,7 +225,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'partner',
                 'doctrine_orm_model_autocomplete',
                 array(
-                    'label' => 'Client',
+                    'label' => 'admin.label.partner',
                 ),
                 null,
                 array(
@@ -229,38 +236,49 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 'invoiceNumber',
                 null,
                 array(
-                    'label' => 'Núm. factura',
+                    'label' => 'admin.label.invoice_number',
                 )
             )
             ->add(
                 'series',
                 null,
                 array(
-                    'label' => 'Sèrie factura',
+                    'label' => 'admin.label.series_long',
                 )
             )
             ->add(
                 'type',
                 null,
                 array(
-                    'label' => 'Typus',
+                    'label' => 'admin.label.type',
                 )
             )
             ->add(
                 'total',
                 null,
                 array(
-                    'label' => 'Total',
+                    'label' => 'admin.label.total',
                 )
             )
             ->add(
                 'hasBeenCounted',
                 null,
                 array(
-                    'label' => 'Ha estat comptabilitzada',
+                    'label' => 'admin.label.has_been_counted',
                 )
             )
         ;
+    }
+
+    /**
+     * @param array $filterValues
+     */
+    protected function configureDefaultFilterValues(array &$filterValues)
+    {
+        $filterValues['hasBeenCounted'] = array(
+            'type' => EqualType::TYPE_IS_EQUAL,
+            'value' => BooleanType::TYPE_NO,
+        );
     }
 
     /**
@@ -309,6 +327,11 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.partner',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'partner')),
                 )
             )
             ->add(
@@ -316,6 +339,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.total',
+                    'template' => '::Admin/Cells/list__cell_total_currency_number.html.twig',
                 )
             )
             ->add(
@@ -332,6 +356,9 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_invoice_button.html.twig'),
+                        'pdfWithBackground' => array('template' => '::Admin/Buttons/list__action_pdf_invoice_with_background_button.html.twig'),
+                        'count' => array('template' => '::Admin/Buttons/list__action_pdf_invoice_to_count_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'admin.actions',
