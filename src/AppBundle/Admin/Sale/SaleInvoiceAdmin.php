@@ -13,6 +13,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\DoctrineORMAdminBundle\Filter\DateFilter;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
 use Sonata\Form\Type\BooleanType;
 use Sonata\Form\Type\DatePickerType;
 use Sonata\Form\Type\EqualType;
@@ -214,22 +216,16 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'date',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'admin.label.date',
-                    'field_type' => DatePickerType::class,
-                )
-            )
-            ->add(
-                'partner',
-                'doctrine_orm_model_autocomplete',
-                array(
-                    'label' => 'admin.label.partner',
-                ),
+                'series',
                 null,
                 array(
+                    'label' => 'admin.label.series',
+                ),
+                EntityType::class,
+                array(
+                    'class' => SaleInvoiceSeries::class,
                     'property' => 'name',
+                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -240,17 +236,28 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'series',
+                'date',
+                DateFilter::class,
+                array(
+                    'label' => 'admin.label.date',
+                    'field_type' => DatePickerType::class,
+                    'format' => 'd/m/Y',
+                ),
                 null,
                 array(
-                    'label' => 'admin.label.series_long',
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add(
-                'type',
+                'partner',
+                ModelAutocompleteFilter::class,
+                array(
+                    'label' => 'admin.label.partner',
+                ),
                 null,
                 array(
-                    'label' => 'admin.label.type',
+                    'property' => 'name',
                 )
             )
             ->add(
@@ -307,11 +314,15 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'date',
+                'series',
                 null,
                 array(
-                    'label' => 'admin.label.date',
-                    'format' => 'd/m/Y',
+                    'label' => 'admin.label.series',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'series')),
                 )
             )
             ->add(
@@ -319,7 +330,14 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.label.invoice_number',
-                    'template' => '::Admin/Cells/list__cell_sale_invoice_full_invoice_number.html.twig',
+                )
+            )
+            ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'admin.label.date',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add(
