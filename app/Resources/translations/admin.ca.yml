@@ -61,6 +61,7 @@ admin:
         operator_checking_type: "Tipus revisió"
         sale_tariff: "Tarifa"
         delivery_notes: "Albarans"
+        sale_invoice: "Factura"
     action:
         print: "Imprimir"
         print_with_background: "Imprimir amb fons"

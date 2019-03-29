@@ -78,6 +78,27 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('admin.with.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
+                'series',
+                EntityType::class,
+                array(
+                    'label' => 'admin.label.series',
+                    'class' => SaleInvoiceSeries::class,
+                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
+                    'property' => 'name',
+                    'disabled' => $this->id($this->getSubject()),
+                )
+            )
+            ->add(
+                'invoiceNumber',
+                null,
+                array(
+                    'label' => 'admin.label.invoice_number_long',
+                    'disabled' => true,
+                )
+            )
+            ->end()
+            ->with('admin.with.sale_invoice', $this->getFormMdSuccessBoxArray(5))
+            ->add(
                 'date',
                 DatePickerType::class,
                 array(
@@ -85,6 +106,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                     'format' => 'd/m/Y',
                     'required' => true,
                     'dp_default_date' => (new \DateTime())->format('d/m/Y'),
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -108,53 +130,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.with.delivery_notes', $this->getFormMdSuccessBoxArray(4))
-        ;
-        if ($this->id($this->getSubject())) { // is edit mode
-            $formMapper
-                ->add(
-                    'deliveryNotes',
-                    EntityType::class,
-                    array(
-                        'label' => 'admin.label.delivery_notes',
-                        'required' => false,
-                        'class' => SaleDeliveryNote::class,
-                        'multiple' => true,
-                        'expanded' => true,
-                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
-                        'by_reference' => false,
-                    )
-                )
-            ;
-        } else { // is create mode
-            $formMapper
-                ->add(
-                    'deliveryNotes',
-                    EntityType::class,
-                    array(
-                        'label' => 'admin.label.delivery_notes',
-                        'required' => false,
-                        'class' => SaleDeliveryNote::class,
-                        'multiple' => true,
-                        'expanded' => true,
-                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getEmptyQueryBuilder(),
-                        'by_reference' => false,
-                    )
-                )
-            ;
-        }
-        $formMapper
-            ->end()
-            ->with('Import', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'series',
-                EntityType::class,
-                array(
-                    'class' => SaleInvoiceSeries::class,
-                    'label' => 'admin.label.series_long',
-                    'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
-                )
-            )
+            ->with('admin.with.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'type',
                 null,
@@ -169,6 +145,7 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.label.total',
                     'required' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -181,27 +158,38 @@ class SaleInvoiceAdmin extends AbstractBaseAdmin
             )
             ->end()
         ;
-        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+        if ($this->id($this->getSubject())) { // is edit mode
             $formMapper
-                ->with('General', $this->getFormMdSuccessBoxArray(4))
+                ->with('admin.with.delivery_notes', $this->getFormMdSuccessBoxArray(12))
                 ->add(
-                    'invoiceNumber',
-                    null,
+                    'deliveryNotes',
+                    EntityType::class,
                     array(
-                        'label' => 'admin.label.invoice_number_long',
-                        'disabled' => true,
+                        'label' => 'admin.label.delivery_notes',
+                        'required' => false,
+                        'class' => SaleDeliveryNote::class,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getFilteredByEnterpriseSortedByNameQB($this->getUserLogedEnterprise()),
+                        'by_reference' => false,
                     )
                 )
                 ->end()
-                ->with('Import', $this->getFormMdSuccessBoxArray(4))
+            ;
+        } else { // is create mode
+            $formMapper
+                ->with('admin.with.delivery_notes', $this->getFormMdSuccessBoxArray(12))
                 ->add(
-                    'series',
+                    'deliveryNotes',
                     EntityType::class,
                     array(
-                        'class' => SaleInvoiceSeries::class,
-                        'label' => 'admin.label.series_long',
-                        'query_builder' => $this->rm->getSaleInvoiceSeriesRepository()->getEnabledSortedByNameQB(),
-                        'disabled' => true,
+                        'label' => 'admin.label.delivery_notes',
+                        'required' => false,
+                        'class' => SaleDeliveryNote::class,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'query_builder' => $this->rm->getSaleDeliveryNoteRepository()->getEmptyQueryBuilder(),
+                        'by_reference' => false,
                     )
                 )
                 ->end()
