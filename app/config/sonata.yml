@@ -106,11 +106,3 @@ sonata_admin:
                 position: top
                 type: app.block.sale_request_next
                 class: "col-md-4"
-            -
-                position: bottom
-                type: sonata.block.service.text
-                class: "col-md-12"
-                settings:
-                    content: >
-                        <hr style="margin-top:40px;border-top:solid 1px #d2d6de">
-                        <h5 style="margin:0 0 25px 0"><i class="fa fa-info-circle" aria-hidden="true"></i> Per rebre assistència tècnica o ajuda envieu un missatge a <a href="mailto:suport@flux.cat?subject=Ajuda administrador de continguts %project_web_title%">suport@flux.cat</a></h5>

@@ -62,6 +62,11 @@ class SaleRequestAdminController extends BaseAdminController
         if (!$saleRequest) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
+        /** @var GuardService $guardService */
+        $guardService = $this->container->get('app.guard_service');
+        if (!$guardService->isOwnEnterprise($saleRequest->getEnterprise())) {
+            throw $this->createNotFoundException(sprintf('forbidden object with id: %s', $id));
+        }
 
         /** @var SaleRequestPdfManager $rps */
         $rps = $this->container->get('app.sale_request_pdf_manager');

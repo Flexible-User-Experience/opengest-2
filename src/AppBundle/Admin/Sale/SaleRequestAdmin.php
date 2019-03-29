@@ -43,8 +43,8 @@ class SaleRequestAdmin extends AbstractBaseAdmin
     public function configureRoutes(RouteCollection $collection)
     {
         $collection
-            ->remove('show')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
+            ->remove('show')
         ;
     }
 

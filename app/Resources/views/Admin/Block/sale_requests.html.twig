@@ -11,7 +11,7 @@
                     <div class="box box-info direct-chat direct-chat-info" style="margin-top:10px">
                         <div class="box-header with-border" style="overflow:hidden">
                             <h3 class="box-title">{{ item.partner.name }}</h3>
-                            <div class="box-tools pull-right">
+                            <div class="box-tools pull-right" style="right:7px;top:10px;">
                                 <span class="label label-default" style="font-size:100%;font-weight:600;">{% if show_date %}{{ item.serviceDate | date('d/m/Y') }} {% endif %}{% if not show_date %}{{ item.serviceTime | date('h:i') }}{% endif %}</span>
                             </div>
                         </div>
