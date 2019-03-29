@@ -60,7 +60,7 @@ class ImportPartnerCommand extends AbstractBaseCommand
             $partnerClass = $this->readColumn(42, $row);
             $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(11, $row));
             $enterpriseTransferAccount = $this->readColumn(43, $row);
-            $name = $this->readColumn(5, $row);
+            $name = $this->lts->nameCleaner($this->readColumn(5, $row));
             $cityName = $this->lts->cityNameCleaner($this->readColumn(8, $row));
             $postalCode = $this->lts->postalCodeCleaner($this->readColumn(6, $row));
             $city = $this->em->getRepository('AppBundle:Setting\City')->findOneBy([

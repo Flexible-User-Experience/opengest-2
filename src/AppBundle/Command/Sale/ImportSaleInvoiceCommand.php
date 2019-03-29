@@ -53,6 +53,7 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         $rowsRead = 0;
         $newRecords = 0;
         $errors = 0;
+        $errorMessagesArray = array();
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
@@ -62,17 +63,18 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
             $type = $this->readColumn(5, $row);
             $total = $this->readColumn(6, $row);
             $seriesName = $this->readColumn(8, $row);
-            $partnerTaxIdentificationNumber = $this->readColumn(9, $row);
-            $enterpriseTaxIdentificationNumber = $this->readColumn(10, $row);
+            $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(9, $row));
+            $enterpriseTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(10, $row));
             $series = $this->em->getRepository('AppBundle:Setting\SaleInvoiceSeries')->findOneBy(['name' => $seriesName]);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
             $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
                 'cifNif' => $partnerTaxIdentificationNumber,
                 'enterprise' => $enterprise,
             ]);
-            $output->writeln('#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber);
+            $printLineMessage = '#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber;
+            $output->writeln($printLineMessage);
 
-            if ($date && $invoiceNumber && $type) {
+            if ($date && $invoiceNumber && $type && $series && $partner) {
                 $saleInvoice = $this->em->getRepository('AppBundle:Sale\SaleInvoice')->findOneBy([
                     'date' => $date,
                     'invoiceNumber' => $invoiceNumber,
@@ -101,12 +103,23 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
                 $output->write('<error>Error at row number #'.$rowsRead);
                 if (!$date) {
                     $output->write(' · no date found');
+                    $errorMessagesArray[] = $printLineMessage.' · no date found';
                 }
                 if (!$invoiceNumber) {
-                    $output->write(' · no invoice nuber found');
+                    $output->write(' · no invoice number found');
+                    $errorMessagesArray[] = $printLineMessage.' · no invoice number found';
                 }
                 if (!$type) {
                     $output->write(' · no type found');
+                    $errorMessagesArray[] = $printLineMessage.' · no type found';
+                }
+                if (!$series) {
+                    $output->write(' · no invoice serie found');
+                    $errorMessagesArray[] = $printLineMessage.' · no invoice serie found';
+                }
+                if (!$partner) {
+                    $output->write(' · no partner found');
+                    $errorMessagesArray[] = $printLineMessage.' · no partner found';
                 }
                 $output->writeln('</error>');
                 ++$errors;
@@ -120,5 +133,11 @@ class ImportSaleInvoiceCommand extends AbstractBaseCommand
         // Print totals
         $endTimestamp = new DateTime();
         $this->printTotals($output, $rowsRead, $newRecords, $beginTimestamp, $endTimestamp, $errors, $input->getOption('dry-run'));
+        if (count($errorMessagesArray) > 0) {
+            /** @var string $errorMessage */
+            foreach ($errorMessagesArray as $errorMessage) {
+                $output->writeln($errorMessage);
+            }
+        }
     }
 }

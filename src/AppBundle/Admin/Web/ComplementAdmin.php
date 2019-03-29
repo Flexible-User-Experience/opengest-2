@@ -142,7 +142,8 @@ class ComplementAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.label.enabled_male',
                 )
-            );
+            )
+        ;
     }
 
     /**
