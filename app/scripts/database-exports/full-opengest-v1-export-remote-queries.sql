@@ -224,6 +224,14 @@ LEFT JOIN opengest.Terceros T ON T.id = A.tercero_id
 LEFT JOIN opengest.Empresas E ON E.id = A.empresa_id
 LEFT JOIN opengest.Obras O ON O.id = A.obra_id;
 
+SELECT AHF.*
+INTO OUTFILE '/var/lib/mysql-files/sale_invoice_sale_delivery_note.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Albaranes_has_Facturas AHF;
+
 -- Setting
 
 SELECT S.*
