@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportSaleTariffCommand.
+ * Class ImportSaleInvoiceCommand.
  *
  * @category Command
  *

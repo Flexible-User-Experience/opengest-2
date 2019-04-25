@@ -3,7 +3,7 @@
 namespace AppBundle\Command\Sale;
 
 use AppBundle\Command\AbstractBaseCommand;
-use AppBundle\Entity\Sale\SaleInvoice;
+use AppBundle\Entity\Sale\SaleDeliveryNote;
 use DateTime;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportSaleTariffCommand.
+ * Class ImportSaleDeliveryNoteCommand.
  *
  * @category Command
  *
@@ -26,7 +26,7 @@ class ImportSaleDeliveryNoteCommand extends AbstractBaseCommand
     protected function configure()
     {
         $this->setName('app:import:sale:delivery:note');
-        $this->setDescription('Import sale invoice from CSV file');
+        $this->setDescription('Import sale delivery note from CSV file');
         $this->addArgument('filename', InputArgument::REQUIRED, 'CSV file to import');
         $this->addOption('dry-run', null, InputOption::VALUE_NONE, 'don\'t persist changes into database');
     }
@@ -57,45 +57,73 @@ class ImportSaleDeliveryNoteCommand extends AbstractBaseCommand
 
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
-            $invoiceNumber = $this->readColumn(2, $row);
-            $date = DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
-            $hasBeenCounted = $this->readColumn(4, $row);
-            $type = $this->readColumn(5, $row);
-            $total = $this->readColumn(6, $row);
-            $seriesName = $this->readColumn(8, $row);
-            $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(9, $row));
-            $enterpriseTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(10, $row));
-            $series = $this->em->getRepository('AppBundle:Setting\SaleInvoiceSeries')->findOneBy(['name' => $seriesName]);
+            $partnerId = $this->readColumn(1, $row);
+            $partnerBuildingSiteId = $this->readColumn(2, $row);
+            $partnerOrderId = $this->readColumn(3, $row);
+            $deliveryNoteNumber = $this->readColumn(5, $row);
+            $discount = $this->readColumn(6, $row);
+            $date = DateTime::createFromFormat('Y-m-d', $this->readColumn(7, $row));
+            $collectionDocumentTypeId = $this->readColumn(8, $row);
+            $collectionTerm = $this->readColumn(9, $row);
+            $activityLineId = $this->readColumn(10, $row);
+            $wontBeInvoiced = $this->readColumn(11, $row);
+            $activityLineName = $this->readColumn(12, $row);
+            $collectionDocumentTypeName = $this->readColumn(13, $row);
+            $partnerOrderNumber = $this->readColumn(14, $row);
+            $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(15, $row));
+            $enterpriseTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(16, $row));
+            $partnerBuildingSiteName = $this->readColumn(17, $row);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
             $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
                 'cifNif' => $partnerTaxIdentificationNumber,
                 'enterprise' => $enterprise,
             ]);
-            $printLineMessage = '#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber;
+            $partnerBuildingSite = $this->em->getRepository('AppBundle:Partner\PartnerBuildingSite')->findOneBy([
+                'id' => $partnerBuildingSiteId,
+                'name' => $partnerBuildingSiteName,
+            ]);
+            $partnerOrder = $this->em->getRepository('AppBundle:Partner\PartnerOrder')->findOneBy([
+                'id' => $partnerOrderId,
+                'number' => $partnerOrderNumber,
+            ]);
+            $collectionDocumentType = $this->em->getRepository('AppBundle:Enterprise\CollectionDocumentType')->findOneBy([
+                'id' => $collectionDocumentTypeId,
+                'name' => $collectionDocumentTypeName,
+            ]);
+            $activityLine = $this->em->getRepository('AppBundle:Enterprise\ActivityLine')->findOneBy([
+                'id' => $activityLineId,
+                'name' => $activityLineName,
+            ]);
+
+            $printLineMessage = '#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$partnerId.' · '.$partnerBuildingSiteId.' · '.$partnerOrderId.' · '.$deliveryNoteNumber.' · '.$discount.' · '.$date->format('d/m/Y').' · '.$collectionDocumentTypeId.' · '.$collectionTerm.' · '.$activityLineId.' · '.$wontBeInvoiced.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber;
             $output->writeln($printLineMessage);
 
-            if ($date && $invoiceNumber && $type && $series && $partner) {
-                $saleInvoice = $this->em->getRepository('AppBundle:Sale\SaleInvoice')->findOneBy([
+            if ($date && $deliveryNoteNumber) {
+                $saleDeliveryNote = $this->em->getRepository('AppBundle:Sale\SaleDeliveryNote')->findOneBy([
                     'date' => $date,
-                    'invoiceNumber' => $invoiceNumber,
-                    'type' => $type,
+                    'deliveryNoteNumber' => $deliveryNoteNumber,
                 ]);
-                if (!$saleInvoice) {
+                if (!$saleDeliveryNote) {
                     // new record
-                    $saleInvoice = new SaleInvoice();
+                    $saleDeliveryNote = new SaleDeliveryNote();
                     ++$newRecords;
                 }
-                /* @var SaleInvoice $saleInvoice */
-                $saleInvoice
+                /* @var SaleDeliveryNote $saleDeliveryNote */
+                $saleDeliveryNote
+                    ->setEnterprise($enterprise)
                     ->setPartner($partner)
-                    ->setSeries($series)
-                    ->setInvoiceNumber(intval($invoiceNumber))
+                    ->setBuildingSite($partnerBuildingSite)
+                    ->setOrder($partnerOrder)
+                    ->setCollectionDocument($collectionDocumentType)
+                    ->setActivityLine($activityLine)
                     ->setDate($date)
-                    ->setHasBeenCounted(1 == $hasBeenCounted ? true : false)
-                    ->setType($type)
-                    ->setTotal($total)
+                    ->setDeliveryNoteNumber($deliveryNoteNumber)
+                    ->setBaseAmount(0)
+                    ->setDiscount($discount)
+                    ->setCollectionTerm($collectionTerm)
+                    ->setWontBeInvoiced($wontBeInvoiced)
                 ;
-                $this->em->persist($saleInvoice);
+                $this->em->persist($saleDeliveryNote);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
@@ -105,22 +133,11 @@ class ImportSaleDeliveryNoteCommand extends AbstractBaseCommand
                     $output->write(' · no date found');
                     $errorMessagesArray[] = $printLineMessage.' · no date found';
                 }
-                if (!$invoiceNumber) {
-                    $output->write(' · no invoice number found');
-                    $errorMessagesArray[] = $printLineMessage.' · no invoice number found';
+                if (!$deliveryNoteNumber) {
+                    $output->write(' · no delivery note number found');
+                    $errorMessagesArray[] = $printLineMessage.' · no delivery note number found';
                 }
-                if (!$type) {
-                    $output->write(' · no type found');
-                    $errorMessagesArray[] = $printLineMessage.' · no type found';
-                }
-                if (!$series) {
-                    $output->write(' · no invoice serie found');
-                    $errorMessagesArray[] = $printLineMessage.' · no invoice serie found';
-                }
-                if (!$partner) {
-                    $output->write(' · no partner found');
-                    $errorMessagesArray[] = $printLineMessage.' · no partner found';
-                }
+
                 $output->writeln('</error>');
                 ++$errors;
             }

@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportSaleTariffCommand.
+ * Class ImportSaleInvoiceSaleDeliveryNoteCommand.
  *
  * @category Command
  *
@@ -72,7 +72,7 @@ class ImportSaleInvoiceSaleDeliveryNoteCommand extends AbstractBaseCommand
                     $output->write(' · invoice not found');
                     $errorMessagesArray[] = $printLineMessage.' · invoice not found';
                 }
-                $saleDeliveryNote = $this->em->getRepository(SaleDeliveryNote::class)->findOneBy([
+                $saleDeliveryNote = $this->em->getRepository('AppBundle:Sale\SaleDeliveryNote')->findOneBy([
                    'id' => $deliveryNoteId,
                 ]);
                 if (!$saleDeliveryNote) {
