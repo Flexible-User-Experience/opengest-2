@@ -176,10 +176,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param string $enterprise
+     *
+     * @return SaleDeliveryNote
      */
-    public function setEnterprise($enterprise): void
+    public function setEnterprise($enterprise)
     {
         $this->enterprise = $enterprise;
+
+        return $this;
     }
 
     /**
@@ -192,10 +196,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param Partner $partner
+     *
+     * @return SaleDeliveryNote
      */
-    public function setPartner($partner): void
+    public function setPartner($partner)
     {
         $this->partner = $partner;
+
+        return $this;
     }
 
     /**
@@ -208,10 +216,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param PartnerBuildingSite $buildingSite
+     *
+     * @return SaleDeliveryNote
      */
-    public function setBuildingSite($buildingSite): void
+    public function setBuildingSite($buildingSite)
     {
         $this->buildingSite = $buildingSite;
+
+        return $this;
     }
 
     /**
@@ -224,10 +236,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param PartnerOrder $order
+     *
+     * @return SaleDeliveryNote
      */
-    public function setOrder($order): void
+    public function setOrder($order)
     {
         $this->order = $order;
+
+        return $this;
     }
 
     /**
@@ -240,10 +256,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param int $deliveryNoteNumber
+     *
+     * @return SaleDeliveryNote
      */
-    public function setDeliveryNoteNumber($deliveryNoteNumber): void
+    public function setDeliveryNoteNumber($deliveryNoteNumber)
     {
         $this->deliveryNoteNumber = $deliveryNoteNumber;
+
+        return $this;
     }
 
     /**
@@ -256,10 +276,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param float $baseAmount
+     *
+     * @return SaleDeliveryNote
      */
-    public function setBaseAmount($baseAmount): void
+    public function setBaseAmount($baseAmount)
     {
         $this->baseAmount = $baseAmount;
+
+        return $this;
     }
 
     /**
@@ -272,10 +296,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param float $discount
+     *
+     * @return SaleDeliveryNote
      */
-    public function setDiscount($discount): void
+    public function setDiscount($discount)
     {
         $this->discount = $discount;
+
+        return $this;
     }
 
     /**
@@ -288,10 +316,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param int $collectionTerm
+     *
+     * @return SaleDeliveryNote
      */
-    public function setCollectionTerm($collectionTerm): void
+    public function setCollectionTerm($collectionTerm)
     {
         $this->collectionTerm = $collectionTerm;
+
+        return $this;
     }
 
     /**
@@ -304,10 +336,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param CollectionDocumentType $collectionDocument
+     *
+     * @return SaleDeliveryNote
      */
-    public function setCollectionDocument($collectionDocument): void
+    public function setCollectionDocument($collectionDocument)
     {
         $this->collectionDocument = $collectionDocument;
+
+        return $this;
     }
 
     /**
@@ -320,10 +356,14 @@ class SaleDeliveryNote extends AbstractBase
 
     /**
      * @param ActivityLine $activityLine
+     *
+     * @return SaleDeliveryNote
      */
-    public function setActivityLine($activityLine): void
+    public function setActivityLine($activityLine)
     {
         $this->activityLine = $activityLine;
+
+        return $this;
     }
 
     /**

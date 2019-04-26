@@ -232,6 +232,15 @@ ESCAPED BY '\\'
 LINES TERMINATED BY '\n'
 FROM opengest.Albaranes_has_Facturas AHF;
 
+SELECT LA.*, A.num_albaran AS A_num_albaran
+INTO OUTFILE '/tmp/sale_delivery_note_line.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Lineas_albaran LA
+JOIN opengest.Albaranes A ON A.id = LA.albaran_id;
+
 -- Setting
 
 SELECT S.*
