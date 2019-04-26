@@ -241,6 +241,23 @@ LINES TERMINATED BY '\n'
 FROM opengest.Lineas_albaran LA
 JOIN opengest.Albaranes A ON A.id = LA.albaran_id;
 
+SELECT PS.*, A.num_albaran AS A_num_albaran, T.cif_nif AS T_cif_nif, TA.tonelaje AS TA_tonelaje, TE.cif_nif AS TE_cif_nif, O.dni AS O_dni, V.matricula AS V_matricula, E.cif_nif AS E_cif_nif, VE.matricula AS VE_matricula, U.username AS U_username
+INTO OUTFILE '/tmp/sale_request.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Peticiones_servicio PS
+LEFT JOIN opengest.Albaranes A ON A.id = PS.albaran_id
+LEFT JOIN opengest.Terceros T ON T.id = PS.facturar_a
+LEFT JOIN opengest.Tarifas TA ON TA.id = PS.tarifa_id
+LEFT JOIN opengest.Terceros TE ON TE.id = PS.tercero_id
+LEFT JOIN opengest.Operarios O ON O.id = PS.operario_id
+LEFT JOIN opengest.Vehiculos V ON V.id = PS.vehiculo_id
+LEFT JOIN opengest.Empresas E ON E.id = PS.empresa_id
+LEFT JOIN opengest.Vehiculos VE ON VE.id = PS.vehiculo_adicional_id
+LEFT JOIN opengest.sf_guard_user U ON U.id = PS.atendido_por;
+
 -- Setting
 
 SELECT S.*
