@@ -133,6 +133,13 @@ class SaleDeliveryNote extends AbstractBase
     private $saleRequestHasDeliveryNotes;
 
     /**
+     * @var SaleRequest
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleRequest", inversedBy="saleDeliveryNotes")
+     */
+    private $saleRequest;
+
+    /**
      * Methods.
      */
 
@@ -529,6 +536,26 @@ class SaleDeliveryNote extends AbstractBase
         if ($this->saleRequestHasDeliveryNotes->contains($saleRequestHasDeliveryNotes)) {
             $this->saleRequestHasDeliveryNotes->removeElement($saleRequestHasDeliveryNotes);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return SaleRequest
+     */
+    public function getSaleRequest()
+    {
+        return $this->saleRequest;
+    }
+
+    /**
+     * @param SaleRequest $saleRequest
+     *
+     * @return $this
+     */
+    public function setSaleRequest(SaleRequest $saleRequest)
+    {
+        $this->saleRequest = $saleRequest;
 
         return $this;
     }

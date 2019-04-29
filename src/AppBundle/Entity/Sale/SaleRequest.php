@@ -211,6 +211,13 @@ class SaleRequest extends AbstractBase
     private $saleRequestHasDeliveryNotes;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", mappedBy="saleRequest")
+     */
+    private $saleDeliveryNotes;
+
+    /**
      * Methods.
      */
 
@@ -220,6 +227,7 @@ class SaleRequest extends AbstractBase
     public function __construct()
     {
         $this->saleRequestHasDeliveryNotes = new ArrayCollection();
+        $this->saleDeliveryNotes = new ArrayCollection();
     }
 
     /**
@@ -826,6 +834,55 @@ class SaleRequest extends AbstractBase
     {
         if ($this->saleRequestHasDeliveryNotes->contains($saleRequestHasDeliveryNotes)) {
             $this->saleRequestHasDeliveryNotes->removeElement($saleRequestHasDeliveryNotes);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSaleDeliveryNotes()
+    {
+        return $this->saleDeliveryNotes;
+    }
+
+    /**
+     * @param ArrayCollection $saleDeliveryNotes
+     *
+     * @return $this
+     */
+    public function setSaleDeliveryNotes(ArrayCollection $saleDeliveryNotes)
+    {
+        $this->saleDeliveryNotes = $saleDeliveryNotes;
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $saleDeliveryNote
+     *
+     * @return $this
+     */
+    public function addSaleDeliveryNote(SaleDeliveryNote $saleDeliveryNote)
+    {
+        if (!$this->saleDeliveryNotes->contains($saleDeliveryNote)) {
+            $this->saleDeliveryNotes->add($saleDeliveryNote);
+            $saleDeliveryNote->setSaleRequest($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param SaleDeliveryNote $saleDeliveryNote
+     *
+     * @return $this
+     */
+    public function removeSaleDeliveyNote(SaleDeliveryNote $saleDeliveryNote)
+    {
+        if ($this->saleDeliveryNotes->contains($saleDeliveryNote)) {
+            $this->saleDeliveryNotes->removeElement($saleDeliveryNote);
         }
 
         return $this;
