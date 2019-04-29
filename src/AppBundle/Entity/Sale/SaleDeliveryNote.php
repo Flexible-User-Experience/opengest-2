@@ -133,11 +133,11 @@ class SaleDeliveryNote extends AbstractBase
     private $saleRequestHasDeliveryNotes;
 
     /**
-     * @var SaleRequest
+     * @var ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleRequest", inversedBy="saleDeliveryNotes")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleRequest", mappedBy="saleDeliveryNote")
      */
-    private $saleRequest;
+    private $saleRequests;
 
     /**
      * Methods.
@@ -151,6 +151,7 @@ class SaleDeliveryNote extends AbstractBase
         $this->saleInvoices = new ArrayCollection();
         $this->saleDeliveryNoteLines = new ArrayCollection();
         $this->saleRequestHasDeliveryNotes = new ArrayCollection();
+        $this->saleRequests = new ArrayCollection();
     }
 
     /**
@@ -541,21 +542,21 @@ class SaleDeliveryNote extends AbstractBase
     }
 
     /**
-     * @return SaleRequest
+     * @return ArrayCollection
      */
-    public function getSaleRequest()
+    public function getSaleRequests()
     {
-        return $this->saleRequest;
+        return $this->saleRequests;
     }
 
     /**
-     * @param SaleRequest $saleRequest
+     * @param ArrayCollection $saleRequests
      *
      * @return $this
      */
-    public function setSaleRequest(SaleRequest $saleRequest)
+    public function setSaleRequests(ArrayCollection $saleRequests)
     {
-        $this->saleRequest = $saleRequest;
+        $this->saleRequests = $saleRequests;
 
         return $this;
     }

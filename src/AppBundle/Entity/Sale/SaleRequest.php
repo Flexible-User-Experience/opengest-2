@@ -211,11 +211,11 @@ class SaleRequest extends AbstractBase
     private $saleRequestHasDeliveryNotes;
 
     /**
-     * @var ArrayCollection
+     * @var SaleDeliveryNote
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", mappedBy="saleRequest")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Sale\SaleDeliveryNote", inversedBy="saleRequests")
      */
-    private $saleDeliveryNotes;
+    private $saleDeliveryNote;
 
     /**
      * Methods.
@@ -227,7 +227,6 @@ class SaleRequest extends AbstractBase
     public function __construct()
     {
         $this->saleRequestHasDeliveryNotes = new ArrayCollection();
-        $this->saleDeliveryNotes = new ArrayCollection();
     }
 
     /**
@@ -840,23 +839,11 @@ class SaleRequest extends AbstractBase
     }
 
     /**
-     * @return ArrayCollection
+     * @return SaleDeliveryNote
      */
-    public function getSaleDeliveryNotes()
+    public function getSaleDeliveryNote()
     {
-        return $this->saleDeliveryNotes;
-    }
-
-    /**
-     * @param ArrayCollection $saleDeliveryNotes
-     *
-     * @return $this
-     */
-    public function setSaleDeliveryNotes(ArrayCollection $saleDeliveryNotes)
-    {
-        $this->saleDeliveryNotes = $saleDeliveryNotes;
-
-        return $this;
+        return $this->saleDeliveryNote;
     }
 
     /**
@@ -864,26 +851,9 @@ class SaleRequest extends AbstractBase
      *
      * @return $this
      */
-    public function addSaleDeliveryNote(SaleDeliveryNote $saleDeliveryNote)
+    public function setSaleDeliveryNote(SaleDeliveryNote $saleDeliveryNote)
     {
-        if (!$this->saleDeliveryNotes->contains($saleDeliveryNote)) {
-            $this->saleDeliveryNotes->add($saleDeliveryNote);
-            $saleDeliveryNote->setSaleRequest($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param SaleDeliveryNote $saleDeliveryNote
-     *
-     * @return $this
-     */
-    public function removeSaleDeliveyNote(SaleDeliveryNote $saleDeliveryNote)
-    {
-        if ($this->saleDeliveryNotes->contains($saleDeliveryNote)) {
-            $this->saleDeliveryNotes->removeElement($saleDeliveryNote);
-        }
+        $this->saleDeliveryNote = $saleDeliveryNote;
 
         return $this;
     }
