@@ -140,3 +140,7 @@
       shell: "php app/console --env=prod app:import:sale:delivery:note:line app/csv/sale_delivery_note_line.csv"
       args:
         chdir: "{{ vhost_path }}/current/"
+    - name: execute sale tariff CSV import to local database
+      shell: "php app/console --env=prod app:import:sale:request app/csv/sale_request.csv"
+      args:
+        chdir: "{{ vhost_path }}/current/"
