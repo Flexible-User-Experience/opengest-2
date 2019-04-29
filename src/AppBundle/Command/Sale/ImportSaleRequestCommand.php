@@ -4,6 +4,7 @@ namespace AppBundle\Command\Sale;
 
 use AppBundle\Command\AbstractBaseCommand;
 use AppBundle\Entity\Sale\SaleInvoice;
+use AppBundle\Entity\Sale\SaleRequest;
 use DateTime;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
@@ -58,70 +59,131 @@ class ImportSaleRequestCommand extends AbstractBaseCommand
         // Import CSV rows
         while (false != ($row = $this->readRow($fr))) {
             $saleDeliveryNoteId = $this->readColumn(1, $row);
-
-            $invoiceNumber = $this->readColumn(2, $row);
-            $date = DateTime::createFromFormat('Y-m-d', $this->readColumn(3, $row));
-            $hasBeenCounted = $this->readColumn(4, $row);
-            $type = $this->readColumn(5, $row);
-            $total = $this->readColumn(6, $row);
-            $seriesName = $this->readColumn(8, $row);
-            $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(9, $row));
-            $enterpriseTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(10, $row));
-            $series = $this->em->getRepository('AppBundle:Setting\SaleInvoiceSeries')->findOneBy(['name' => $seriesName]);
+            $invoiceToId = $this->readColumn(2, $row);
+            $tariffId = $this->readColumn(3, $row);
+            $partnerId = $this->readColumn(4, $row);
+            $operatorId = $this->readColumn(5, $row);
+            $vehicleId = $this->readColumn(6, $row);
+            $enterpriseId = $this->readColumn(7, $row);
+            $contactPersonName = $this->readColumn(8, $row);
+            $contactPersonPhone = $this->readColumn(9, $row);
+            $serviceDescription = $this->readColumn(10, $row);
+            $height = $this->readColumn(11, $row);
+            $distance = $this->readColumn(12, $row);
+            $weight = $this->readColumn(13, $row);
+            $utensils = $this->readColumn(14, $row);
+            $place = $this->readColumn(15, $row);
+            $requestDate = DateTime::createFromFormat('Y-m-d', $this->readColumn(16, $row));
+            $requestTime = DateTime::createFromFormat('H:i', '0:0');
+            $serviceDate = DateTime::createFromFormat('Y-m-d', $this->readColumn(17, $row));
+            $serviceTime = DateTime::createFromFormat('H:i', $this->readColumn(18, $row));
+            $attededById = $this->readColumn(19, $row);
+            $miniumHours = $this->readColumn(20, $row);
+            $displacement = $this->readColumn(21, $row);
+            $hourPrice = $this->readColumn(22, $row);
+            $hasBeenPrinted = $this->readColumn(23, $row);
+            $secondaryVehicleId = $this->readColumn(24, $row);
+            $endServiceTime = DateTime::createFromFormat('H:i', $this->readColumn(25, $row));
+            $deliveryNoteNumber = $this->readColumn(26, $row);
+            $invoiceToTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(27, $row));
+            $tariffTonage = $this->readColumn(28, $row);
+            $partnerTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(29, $row));
+            $operatorTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(30, $row));
+            $vehicleRegistratorNumber = $this->readColumn(31, $row);
+            $enterpriseTaxIdentificationNumber = $this->lts->taxIdentificationNumberCleaner($this->readColumn(32, $row));
+            $secondaryVehicleRegistrationNumber = $this->readColumn(33, $row);
+            $attendedByName = $this->readColumn(34, $row);
+            $deliveryNote = $this->em->getRepository('AppBundle:Sale\SaleDeliveryNote')->findOneBy(['deliveryNoteNumber' => $deliveryNoteNumber]);
             $enterprise = $this->em->getRepository('AppBundle:Enterprise\Enterprise')->findOneBy(['taxIdentificationNumber' => $enterpriseTaxIdentificationNumber]);
+            $invoiceTo = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
+                'cifNif' => $invoiceToTaxIdentificationNumber,
+                'enterprise' => $enterprise,
+            ]);
+            $tariff = $this->em->getRepository('AppBundle:Sale\SaleTariff')->findOneBy([$tariffTonage]);
             $partner = $this->em->getRepository('AppBundle:Partner\Partner')->findOneBy([
                 'cifNif' => $partnerTaxIdentificationNumber,
                 'enterprise' => $enterprise,
             ]);
-            $printLineMessage = '#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$invoiceNumber.' · '.$date->format('d/m/Y').' · '.$hasBeenCounted.' · '.$type.' · '.$total.' · '.$seriesName.' · '.$partnerTaxIdentificationNumber.' · '.$enterpriseTaxIdentificationNumber;
+            $operator = $this->em->getRepository('AppBundle:Operator\Operator')->findOneBy(['taxIdentificationNumber' => $operatorTaxIdentificationNumber]);
+            $vehicle = $this->em->getRepository('AppBundle:Vehicle\Vehicle')->findOneBy(['vehicleRegistrationNumber' => $vehicleRegistratorNumber]);
+            $secondaryVehicle = $this->em->getRepository('AppBundle:Vehicle\Vehicle')->findOneBy(['vehicleRegistrationNumber' => $secondaryVehicleRegistrationNumber]);
+            //$attendedBy = $this->em->getRepository('FOSUserBundle:UserManager')->findOneBy(['name' => $attendedByName]);
+
+            $printLineMessage = '#'.$rowsRead.' · ID_'.$this->readColumn(0, $row).' · '.$serviceDescription.' · '.$requestDate.' · '.$requestTime.' · '.$serviceDate.' · '.$serviceTime.' · '.$hasBeenPrinted;
             $output->writeln($printLineMessage);
 
-            if ($date && $invoiceNumber && $type && $series && $partner) {
-                $saleInvoice = $this->em->getRepository('AppBundle:Sale\SaleInvoice')->findOneBy([
-                    'date' => $date,
-                    'invoiceNumber' => $invoiceNumber,
-                    'type' => $type,
+            if ($serviceDescription && $requestDate && $requestTime && $serviceDate && $serviceTime && $hasBeenPrinted) {
+                $saleRequest = $this->em->getRepository('AppBundle:Sale\SaleRequest')->findOneBy([
+                    'serviceDescription' => $serviceDescription,
+                    'requestDate' => $requestDate,
+                    'serviceDate' => $serviceDate,
+                    'hasBeenPrinted' => $hasBeenPrinted,
                 ]);
-                if (!$saleInvoice) {
+                if (!$saleRequest) {
                     // new record
-                    $saleInvoice = new SaleInvoice();
+                    $saleRequest = new SaleRequest();
                     ++$newRecords;
                 }
                 /* @var SaleInvoice $saleInvoice */
-                $saleInvoice
+                $saleRequest
+                    ->setEnterprise($enterprise)
                     ->setPartner($partner)
-                    ->setSeries($series)
-                    ->setInvoiceNumber(intval($invoiceNumber))
-                    ->setDate($date)
-                    ->setHasBeenCounted(1 == $hasBeenCounted ? true : false)
-                    ->setType($type)
-                    ->setTotal($total)
+                    ->setInvoiceTo($invoiceTo)
+                    ->setVehicle($vehicle)
+                    ->setOperator($operator)
+                    ->setTariff($tariff)
+                    ->setSaleDeliveryNote($deliveryNote)
+                    //->setAttendedBy($atendedBy)
+                    ->setSecondaryVehicle($secondaryVehicle)
+                    ->setServiceDescription($serviceDescription)
+                    ->setHeight($height)
+                    ->setDistance($distance)
+                    ->setWeight($weight)
+                    ->setPlace($place)
+                    ->setUtensils($utensils)
+                    ->setObservations('')
+                    ->setRequestDate($requestDate)
+                    ->setRequestTime($requestTime)
+                    ->setServiceDate($serviceDate)
+                    ->setServiceTime($serviceTime)
+                    ->setHourPrice($hourPrice)
+                    ->setMiniumHours($miniumHours)
+                    ->setDisplacement($displacement)
+                    ->setContactPersonName($contactPersonName)
+                    ->setContactPersonPhone($contactPersonPhone)
+                    ->setEndServiceTime($endServiceTime)
+                    ->setHasBeenPrinted(1 == $hasBeenPrinted ? true : false)
+
                 ;
-                $this->em->persist($saleInvoice);
+                $this->em->persist($saleRequest);
                 if (0 == $rowsRead % self::CSV_BATCH_WINDOW && !$input->getOption('dry-run')) {
                     $this->em->flush();
                 }
             } else {
                 $output->write('<error>Error at row number #'.$rowsRead);
-                if (!$date) {
-                    $output->write(' · no date found');
-                    $errorMessagesArray[] = $printLineMessage.' · no date found';
+                if (!$serviceDescription) {
+                    $output->write(' · no service description found');
+                    $errorMessagesArray[] = $printLineMessage.' · no service description found';
                 }
-                if (!$invoiceNumber) {
-                    $output->write(' · no invoice number found');
-                    $errorMessagesArray[] = $printLineMessage.' · no invoice number found';
+                if (!$requestDate) {
+                    $output->write(' · no request date found');
+                    $errorMessagesArray[] = $printLineMessage.' · no request date found';
                 }
-                if (!$type) {
-                    $output->write(' · no type found');
-                    $errorMessagesArray[] = $printLineMessage.' · no type found';
+                if (!$requestTime) {
+                    $output->write(' · no request time found');
+                    $errorMessagesArray[] = $printLineMessage.' · no request time found';
                 }
-                if (!$series) {
-                    $output->write(' · no invoice serie found');
-                    $errorMessagesArray[] = $printLineMessage.' · no invoice serie found';
+                if (!$serviceDate) {
+                    $output->write(' · no service date found');
+                    $errorMessagesArray[] = $printLineMessage.' · no service date found';
                 }
-                if (!$partner) {
-                    $output->write(' · no partner found');
-                    $errorMessagesArray[] = $printLineMessage.' · no partner found';
+                if (!$serviceTime) {
+                    $output->write(' · no service time found');
+                    $errorMessagesArray[] = $printLineMessage.' · no service time found';
+                }
+                if (!$hasBeenPrinted) {
+                    $output->write(' · no has been printed register found');
+                    $errorMessagesArray[] = $printLineMessage.' · no has been printed register found';
                 }
                 $output->writeln('</error>');
                 ++$errors;
