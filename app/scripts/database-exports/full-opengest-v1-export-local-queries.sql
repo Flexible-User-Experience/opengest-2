@@ -258,6 +258,16 @@ LEFT JOIN opengest.Empresas E ON E.id = PS.empresa_id
 LEFT JOIN opengest.Vehiculos VE ON VE.id = PS.vehiculo_adicional_id
 LEFT JOIN opengest.sf_guard_user U ON U.id = PS.atendido_por;
 
+SELECT PHA.*, A.num_albaran AS A_num_albaran, P.fecha_solicitud AS P_fecha_solicitud, P.fecha_servicio AS P_fecha_servicio, P.servicio_a_realizar AS P_servicio_a_realizar
+INTO OUTFILE '/tmp/sale_request_has_delivery_note.csv'
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
+FROM opengest.Peticiones_servicio_has_Albaranes PHA
+JOIN opengest.Albaranes A ON A.id = PHA.albaran_id
+JOIN opengest.Peticiones_servicio P ON P.id = PHA.peticion_servicio_id;
+
 -- Setting
 
 SELECT S.*
