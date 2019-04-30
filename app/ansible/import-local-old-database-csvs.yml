@@ -169,3 +169,8 @@
       shell: "php app/console app:import:sale:request app/csv/sale_request.csv"
       args:
         chdir: "{{ playbook_dir}}/../../"
+    - name: execute sale invoice CSV import to local database
+      delegate_to: mother
+      shell: "php app/console app:import:sale:request:has:delivery:note app/csv/sale_request_has_delivery_note.csv"
+      args:
+        chdir: "{{ playbook_dir}}/../../"
