@@ -2,7 +2,7 @@ Changelog
 =========
 
 ##### Version 1.1.10 (WIP)
- * (...)
+ * apply new privacy policy
  
 ##### Version 1.1.09 (2018-03-29)
  * add more export old database SQLs
