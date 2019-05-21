@@ -211,7 +211,7 @@ JOIN opengest.Empresas E ON E.id = T.empresa_id
 ORDER BY F.id;
 
 SELECT A.*, LA.nombre AS LA_nombre, TDC.nombre AS TDC_nombre, P.num_pedido AS P_num_pedido, T.cif_nif AS T_cif_nif, E.cif_nif AS E_cif_nif, O.nombre AS O_nombre
-INTO OUTFILE '/tmp/sale_delivery_note.csv'
+INTO OUTFILE '/var/lib/mysql-files/sale_delivery_note.csv'
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
 ESCAPED BY '\\'
