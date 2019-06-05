@@ -146,4 +146,4 @@ fos_js_routing:
 # Xsolve Cookie Acknowledgement (EU cookie law)
 xsolve_cookie_acknowledgement:
     response_injection: true
-    template:           "::Frontend/includes/xsolve_cookie_accept.html.twig"
+    template:           "::includes/xsolve_cookie_accept.html.twig"
