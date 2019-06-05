@@ -10,6 +10,8 @@ class AppKernel extends Kernel
 {
     /**
      * @return array|\Symfony\Component\HttpKernel\Bundle\BundleInterface[]
+     *
+     * @throws Exception
      */
     public function registerBundles()
     {
@@ -44,6 +46,7 @@ class AppKernel extends Kernel
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new Xsolve\CookieAcknowledgementBundle\XsolveCookieAcknowledgementBundle(),
             // App
             new AppBundle\AppBundle(),
         );

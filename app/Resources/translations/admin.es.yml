@@ -1,3 +1,5 @@
+cookie.message: "Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si continúa navegando, consideramos que acepta su uso. Puede obtener más información, o bien conocer cómo cambiar la configuración, en nuestra <a class='c-orange' href='https://www.gruasromani.com/privacidad'>política de cookies</a>."
+cookie.message.accept: "Aceptar"
 admin:
     dashboard:
         today: "Avui"
