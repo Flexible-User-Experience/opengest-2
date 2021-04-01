@@ -29,11 +29,35 @@
         <hr class="hr-divider">
         <div class="row">
             <div class="col-sm-8">
-                <img src="{{ asset('bundles/app/img/ruthmann-steiger-aerial-lift-at-gruas-romani-1.jpg') | imagine_filter('1200xY') }}" alt="imagen empresa" class="img-responsive">
+                <img src="{{ asset('bundles/app/img/ruthmann-steiger-aerial-lift-at-gruas-romani-1.jpg') | imagine_filter('1200xY') }}" alt="plataforma aérea sobre camión Ruthmann Steiger de Grúas Romaní trabajando en altura" class="img-responsive">
+                <p class="lead small-m-top">
+                    <img src="{{ asset('bundles/app/img/icon_serv_pa.png') }}" alt="icono plataforma elevadora aérea"> text
+                </p>
+                <ul class="list-group">
+                    <li class="list-group-item">Más de 50 años de experiencia</li>
+                    <li class="list-group-item">A partir de 40 metros de altura</li>
+                    <li class="list-group-item">Máquinas Ruthmann Steiger i Bronto Skylift con la última tecnología</li>
+                    <li class="list-group-item">Un equipo humano de 35 personas a su disposición</li>
+                    <li class="list-group-item">Somos especialistas en el <strong>sector eólico</strong>, industrial, construcción, mantenimiento de fachadas y eventos deportivos</li>
+                    <li class="list-group-item">Disponemos de asesoramiento técnico personalizado</li>
+                    <li class="list-group-item">La seguridad primero en el planificación y ejecución de todas las maniobras</li>
+                </ul>
             </div>
             <div class="col-sm-4">
                 <div class="panel yellow-background-light">
                     <div class="panel-heading">
+                        <h5 class="c-blue h4"><strong>Solicite información</strong></h5>
+                        <p>
+                            Llamando al teléfono <a href="tel:+34636963304"><i class="fa fa-phone-square"></i> 636 963 304</a> o enviandonos un mensaje de <a><i class="fa fa-whatsapp"></i> Whatsapp</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="panel yellow-background-light">
+                    <div class="panel-heading">
+                        <h5 class="c-blue h4"><strong>Contacta con nosotros</strong></h5>
+                        <p>
+                            Enviando un email a <a href="mailto:info@gruasromani.com"><i class="fa fa-envelope-o"></i> info@gruasromani.com</a> o mediante el siguiente formulario:
+                        </p>
                         {% include ':Includes:notice_flash.html.twig' %}
                         {% block side_form %}
                             {{ form(contactForm) }}
