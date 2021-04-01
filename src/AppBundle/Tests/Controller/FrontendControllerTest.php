@@ -2,16 +2,9 @@
 
 namespace AppBundle\Tests\Controller;
 
-use AppBundle\Tests\AbstractBaseTest;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-/**
- * Class FrontendControllerTest.
- *
- * @category Test
- *
- * @author   David Romaní <david@flux.cat>
- */
-class FrontendControllerTest extends AbstractBaseTest
+class FrontendControllerTest extends WebTestCase
 {
     /**
      * Test HTTP request is successful.
@@ -20,12 +13,12 @@ class FrontendControllerTest extends AbstractBaseTest
      *
      * @param string $url
      */
-    public function testPagesAreSuccessful($url)
+    public function testPagesAreSuccessful($url): void
     {
-        $client = $this->createClient();
+        $client = self::createClient();
         $client->request('GET', $url);
 
-        $this->assertStatusCode(200, $client);
+        self::assertStatusCode(200, $client);
     }
 
     /**
@@ -33,7 +26,7 @@ class FrontendControllerTest extends AbstractBaseTest
      *
      * @return array
      */
-    public function provideSuccessfulUrls()
+    public function provideSuccessfulUrls(): array
     {
         return array(
             array('/'),
@@ -59,12 +52,12 @@ class FrontendControllerTest extends AbstractBaseTest
      *
      * @param string $url
      */
-    public function testPagesAreNotFound($url)
+    public function testPagesAreNotFound($url): void
     {
-        $client = $this->createClient();         // anonymous user
+        $client = self::createClient();         // anonymous user
         $client->request('GET', $url);
 
-        $this->assertStatusCode(404, $client);
+        self::assertStatusCode(404, $client);
     }
 
     /**
@@ -72,7 +65,7 @@ class FrontendControllerTest extends AbstractBaseTest
      *
      * @return array
      */
-    public function provideNotFoundUrls()
+    public function provideNotFoundUrls(): array
     {
         return array(
             array('/ca/pagina-trenacada'),
@@ -88,12 +81,12 @@ class FrontendControllerTest extends AbstractBaseTest
      *
      * @param string $url
      */
-    public function testFrontendPagesAreRedirected($url)
+    public function testFrontendPagesAreRedirected($url): void
     {
-        $client = $this->createClient();           // anonymous user
+        $client = self::createClient();           // anonymous user
         $client->request('GET', $url);
 
-        $this->assertStatusCode(302, $client);
+        self::assertStatusCode(302, $client);
     }
 
     /**
@@ -101,7 +94,7 @@ class FrontendControllerTest extends AbstractBaseTest
      *
      * @return array
      */
-    public function provideRedirectedUrls()
+    public function provideRedirectedUrls(): array
     {
         return array(
             array('/servicios'),
