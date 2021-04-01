@@ -11,7 +11,7 @@
     </div>
 {% endblock %}
 
-{% block title %}Empresa · {{ parent() }}{% endblock %}
+{% block title %}Alquiler de plataforma aérea sobre camión · {{ parent() }}{% endblock %}
 
 {% block main %}
     <div class="container container-main">
@@ -31,17 +31,88 @@
             <div class="col-sm-8">
                 <img src="{{ asset('bundles/app/img/ruthmann-steiger-aerial-lift-at-gruas-romani-1.jpg') | imagine_filter('1200xY') }}" alt="plataforma aérea sobre camión Ruthmann Steiger de Grúas Romaní trabajando en altura" class="img-responsive">
                 <p class="lead small-m-top">
-                    <img src="{{ asset('bundles/app/img/icon_serv_pa.png') }}" alt="icono plataforma elevadora aérea"> text
+{#                    <img src="{{ asset('bundles/app/img/icon_serv_pa.png') }}" alt="icono plataforma elevadora aerea"> #}
+                    CTA text
                 </p>
-                <ul class="list-group">
-                    <li class="list-group-item">Más de 50 años de experiencia</li>
-                    <li class="list-group-item">A partir de 40 metros de altura</li>
-                    <li class="list-group-item">Máquinas Ruthmann Steiger i Bronto Skylift con la última tecnología</li>
-                    <li class="list-group-item">Un equipo humano de 35 personas a su disposición</li>
-                    <li class="list-group-item">Somos especialistas en el <strong>sector eólico</strong>, industrial, construcción, mantenimiento de fachadas y eventos deportivos</li>
-                    <li class="list-group-item">Disponemos de asesoramiento técnico personalizado</li>
-                    <li class="list-group-item">La seguridad primero en el planificación y ejecución de todas las maniobras</li>
-                </ul>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-check-square-o c-yellow" style="width:80px;padding-left:6px;margin-top:-6px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Más de 50 años de experiencia</h4>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-arrow-circle-up c-yellow" style="width:80px;border:dashed 1px #FAAE24;padding-left:7px;margin-top:-6px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">A partir de 40 metros de altura</h4>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-star c-yellow" style="width:80px;border:dashed 1px #FAAE24;padding-left:7px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Máquinas Ruthmann Steiger i Bronto Skylift con la última tecnología</h4>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-user c-yellow" style="width:80px;border:dashed 1px #FAAE24;padding-left:12px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Un equipo humano de 35 personas a su disposición</h4>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-building c-yellow" style="width:80px;border:dashed 1px #FAAE24;padding-left:12px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Somos especialistas en el <strong>sector eólico</strong>, industrial, construcción, mantenimiento de fachadas y eventos deportivos</h4>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-search-plus c-yellow" style="width:80px;border:dashed 1px #FAAE24;padding-left:7px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Disponemos de asesoramiento técnico personalizado</h4>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a style="width:80px;display:inline-block">
+                            <i class="fa fa-5x fa-lock c-yellow" style="width:80px;border:dashed 1px #FAAE24;padding-left:16px;"></i>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">La <strong>seguridad siempre primero</strong> en el planificación y ejecución de todas las maniobras</h4>
+                    </div>
+                </div>
+{#                <ul class="list-group media-middle">#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-check text-success"></i> <span class="inline">Más de 50 años de experiencia</span></li>#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-chevron-up text-success"></i> A partir de 40 metros de altura</li>#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-star text-success"></i> Máquinas Ruthmann Steiger i Bronto Skylift con la última tecnología</li>#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-users text-success"></i> Un equipo humano de 35 personas a su disposición</li>#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-building text-success"></i> Somos especialistas en el <strong>sector eólico</strong>, industrial, construcción, mantenimiento de fachadas y eventos deportivos</li>#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-search-plus text-success"></i> Disponemos de asesoramiento técnico personalizado</li>#}
+{#                    <li class="list-group-item"><i class="fa fa-2x fa-lock text-success"></i> La seguridad primero en el planificación y ejecución de todas las maniobras</li>#}
+{#                </ul>#}
             </div>
             <div class="col-sm-4">
                 <div class="panel yellow-background-light">

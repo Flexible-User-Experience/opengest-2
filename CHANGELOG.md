@@ -1,8 +1,13 @@
 Changelog
 =========
 
-##### Version 1.1.10 (WIP)
+##### Version 1.2.02 (WIP)
+ * fix minor bugs
+
+##### Version 1.2.01 (WIP)
  * apply new privacy policy
+ * improve frontend footer contact anchors
+ * add aerial lift marketing campaign
  
 ##### Version 1.1.09 (2018-03-29)
  * add more export old database SQLs
