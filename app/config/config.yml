@@ -38,6 +38,7 @@ twig:
         google_analytics_enabled: "%google_analytics_enabled%"
         google_analytics_account: "%google_analytics_account%"
         main_brand_title:         "%project_web_title%"
+        cookieExpiryTime:         90 # days
         admin_brand_title:        "%project_admin_title%"
         admin_tag_version:        "v1.1.09"
 
@@ -141,3 +142,8 @@ fos_js_routing:
         - "admin_app_partner_partner_getPartnerContactsById"
         - "admin_app_partner_partner_getJsonDeliveryNotesById"
         - "admin_app_sale_saletariff_getJsonSaleTariffById"
+
+# Xsolve Cookie Acknowledgement (EU cookie law)
+xsolve_cookie_acknowledgement:
+    response_injection: true
+    template:           "::Includes/xsolve_cookie_accept.html.twig"
