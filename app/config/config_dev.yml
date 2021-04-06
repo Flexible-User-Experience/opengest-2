@@ -28,12 +28,6 @@ assetic:
 swiftmailer:
     delivery_addresses: [ "%mailer_destination%" ]
 
-cypress_git_elephant:
-    enable_profiler: false
-    profiler_repository_path: "%kernel.root_dir%/../"
-    repositories:
-        "Opengest": "%kernel.root_dir%/../"
-
 # Vich
 vich_uploader:
     db_driver: orm

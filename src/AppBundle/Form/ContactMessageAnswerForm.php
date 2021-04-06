@@ -6,20 +6,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-/**
- * Class ContactMessageAnswerType.
- *
- * @category FormType
- *
- * @author   David Romaní <david@flux.cat>
- */
 class ContactMessageAnswerForm extends ContactMessageForm
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -48,10 +37,7 @@ class ContactMessageAnswerForm extends ContactMessageForm
         ;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'contact_message_answer';
     }

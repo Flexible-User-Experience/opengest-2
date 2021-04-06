@@ -3,5 +3,11 @@
 {% block title %}Gracias · {{ parent() }}{% endblock %}
 
 {% block side_form %}
-    <h1>thankyou!</h1>
+    <div class="panel yellow-background-light">
+        <div class="panel-heading">
+            {% include ':Includes:notice_flash.html.twig' %}
+            <h5 class="c-blue h4"><strong>Muchas gracias por contactar con nosotros!</strong></h5>
+            <p>Le atendermos lo más rápido posible.</p>
+        </div>
+    </div>
 {% endblock %}

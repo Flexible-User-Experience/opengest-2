@@ -15,16 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class ContactMessageForm.
- */
 class ContactMessageForm extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -94,17 +87,17 @@ class ContactMessageForm extends AbstractType
                     'mapped' => false,
                 )
             )
-            ->add(
-                'captcha',
-                RecaptchaType::class,
-                array(
-                    'mapped' => false,
-                    'label' => false,
-                    'constraints' => array(
-                        new Recaptcha2(),
-                    ),
-                )
-            )
+//            ->add(
+//                'captcha',
+//                RecaptchaType::class,
+//                array(
+//                    'mapped' => false,
+//                    'label' => false,
+//                    'constraints' => array(
+//                        new Recaptcha2(),
+//                    ),
+//                )
+//            )
             ->add(
                 'send',
                 SubmitType::class,
@@ -119,10 +112,7 @@ class ContactMessageForm extends AbstractType
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             array(
@@ -131,10 +121,7 @@ class ContactMessageForm extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'app_bundle_contact_message_type';
     }

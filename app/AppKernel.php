@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -9,7 +10,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 class AppKernel extends Kernel
 {
     /**
-     * @return array|\Symfony\Component\HttpKernel\Bundle\BundleInterface[]
+     * @return array|BundleInterface[]
      *
      * @throws Exception
      */
@@ -37,7 +38,7 @@ class AppKernel extends Kernel
             new Beelab\Recaptcha2Bundle\BeelabRecaptcha2Bundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),
+            new Gremo\ZurbInkBundle\GremoZurbInkBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
@@ -56,7 +57,6 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new Cypress\GitElephantBundle\CypressGitElephantBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
         }
 

@@ -6,6 +6,7 @@ use AppBundle\Entity\Web\ContactMessage;
 use AppBundle\Form\ContactMessageForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Error\LoaderError;
@@ -24,12 +25,12 @@ class MarquetingCampaingsController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function landingAerialPlatformsAction(Request $request)
+    public function landingAerialPlatformsAction(Request $request): Response
     {
         $contactMessage = new ContactMessage();
         $form = $this->createForm(ContactMessageForm::class, $contactMessage);
@@ -49,28 +50,28 @@ class MarquetingCampaingsController extends Controller
             $messenger = $this->get('app.notification');
             $messenger->sendCommonUserNotification($contactMessage);
             $messenger->sendContactAdminNotification($contactMessage);
+
             // Go to monitored thanks page
-            if ('prod' === $this->get('kernel')->getEnvironment()) {
-                $contactMessage = new ContactMessage();
-                $form = $this->createForm(ContactMessageForm::class, $contactMessage);
-            }
+            return $this->redirectToRoute('front_landing_aerial_platforms_thankyou');
         }
 
-        return $this->render(':MarketingCampaings:aerial_platforms.html.twig', array(
+        return $this->render(':MarketingCampaings:aerial_platforms.html.twig', [
             'contactForm' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
      * @Route("/landing/plataformas-aereas-sobre-camion/gracias", name="front_landing_aerial_platforms_thankyou")
      *
      * @return Response
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      */
-    public function landigAerialPlatformsThankyouAction()
+    public function landigAerialPlatformsThankyouAction(): Response
     {
-        return $this->render(':MarketingCampaings:aerial_platforms_thankyou.html.twig');
+        $contactMessage = new ContactMessage();
+        $form = $this->createForm(ContactMessageForm::class, $contactMessage);
+
+        return $this->render(':MarketingCampaings:aerial_platforms_thankyou.html.twig', [
+            'contactForm' => $form->createView(),
+        ]);
     }
 }
