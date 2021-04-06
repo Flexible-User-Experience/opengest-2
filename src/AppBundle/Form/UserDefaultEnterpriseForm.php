@@ -4,7 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Enterprise\Enterprise;
 use AppBundle\Entity\Setting\User;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -13,44 +13,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- * Class UserDefaultEnterpriseForm.
- */
 class UserDefaultEnterpriseForm extends AbstractType
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
+    private EntityManagerInterface $em;
+    private TokenStorageInterface $ts;
 
-    /**
-     * @var TokenStorage
-     */
-    private $ts;
-
-    /**
-     * Methods.
-     */
-
-    /**
-     * UserDefaultEnterpriseForm constructor.
-     *
-     * @param EntityManager $em
-     * @param TokenStorage  $ts
-     */
-    public function __construct(EntityManager $em, TokenStorage $ts)
+    public function __construct(EntityManagerInterface $em, TokenStorageInterface $ts)
     {
         $this->em = $em;
         $this->ts = $ts;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -116,10 +92,7 @@ class UserDefaultEnterpriseForm extends AbstractType
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             array(
@@ -128,10 +101,7 @@ class UserDefaultEnterpriseForm extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'app_bundle_user_default_enterprise';
     }

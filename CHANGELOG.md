@@ -1,9 +1,14 @@
 Changelog
 =========
 
-##### Version 1.1.10 (WIP)
+##### Version 1.2.02 (WIP)
+ * fix minor bugs
+
+##### Version 1.2.01 (2021-04-06)
  * apply new privacy policy
- 
+ * improve frontend footer contact anchors
+ * add aerial lift marketing campaign
+
 ##### Version 1.1.09 (2018-03-29)
  * add more export old database SQLs
  * add more import commands to new database
@@ -11,7 +16,7 @@ Changelog
  * fix frontend minor typo in homepage
  * enable admin reset password
  * load sale invoices
- 
+
 ##### Version 1.1.08 (2019-02-22)
  * add export old database SQLs
  * add import commands to new database

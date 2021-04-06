@@ -1,0 +1,13 @@
+{% extends ':MarketingCampaings:aerial_platforms.html.twig' %}
+
+{% block title %}Gracias · {{ parent() }}{% endblock %}
+
+{% block side_form %}
+    <div class="panel yellow-background-light">
+        <div class="panel-heading">
+            {% include ':Includes:notice_flash.html.twig' %}
+            <h5 class="c-blue h4"><strong>Muchas gracias por contactar con nosotros!</strong></h5>
+            <p>Le atenderemos lo más rápido posible.</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,7 +1,7 @@
-{% extends "HampeZurbInkBundle:FoundationForEmails:2/base.html.twig" %}
+{% extends "@GremoZurbInk/foundation-emails/base.html.twig" %}
 
 {% block additionalStyles %}
-    {{ zurb_ink_styles.add("@AppBundle/Resources/public/css/mail.css") }}
+    {{ zurb_ink_add_stylesheet("@AppBundle/Resources/public/css/mail.css") }}
 {% endblock %}
 
 {% block body %}
@@ -47,7 +47,7 @@
                         <columns small="12" large="2">
                             <spacer size="20"></spacer>
                             <p class="white-color text-right footer">
-                                &copy; {{ "now" | date("Y") }}
+                                &copy; {{ 'now' | date('Y') }}
                             </p>
                         </columns>
                     </row>
