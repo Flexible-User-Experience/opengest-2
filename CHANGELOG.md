@@ -8,6 +8,7 @@ Changelog
  * improve anchor email to preset data
  * add new Google Analytics tag
  * add Whatsapp button behaviour
+ * update ansible configs
 
 ##### Version 1.2.01 (2021-04-06)
  * apply new privacy policy
