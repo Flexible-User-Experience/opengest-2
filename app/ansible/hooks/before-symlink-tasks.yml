@@ -7,9 +7,9 @@
 - name: assets install
   shell: "chdir={{ ansistrano_release_path.stdout }}
     SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} assets:install web"
-#- name: assetic dumb
-#  shell: "chdir={{ ansistrano_release_path.stdout }}
-#    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} assetic:dump"
+- name: assetic dumb
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} assetic:dump"
 - name: fix symfony cache directory apache ownership
   file:
     path: "{{ ansistrano_release_path.stdout }}/app/cache/prod"
