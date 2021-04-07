@@ -8,6 +8,7 @@ imports:
 
 framework:
     validation:      { enable_annotations: true }
+    serializer:      { enable_annotations: true }
     translator:      { fallbacks: [ "%locale%" ] }
     default_locale:  "%locale%"
     secret:          "%secret%"
@@ -16,16 +17,15 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     fragments:       ~
+    http_method_override: true
     router:
         resource:            "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     templating:
         engines: [ "twig" ]
     session:
-        name:        OG2SESSID
-        handler_id:  ~
-    http_method_override: true
-    serializer: { enable_annotations: true }
+        name:       OG2SESSID
+        handler_id: ~
 
 # Twig
 twig:
@@ -45,8 +45,8 @@ twig:
 
 # Assetic
 assetic:
-    debug:          "%kernel.debug%"
     use_controller: false
+    debug:          "%kernel.debug%"
     java:           "%path_java%"
     node:           "%path_node%"
     bundles:        [ AppBundle ]
@@ -121,7 +121,7 @@ ivory_ck_editor:
     configs:
         my_config:
             toolbar: standard
-            height: 400
+            height:  400
 
 # KNP Paginator
 knp_paginator:
