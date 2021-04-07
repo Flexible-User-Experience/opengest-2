@@ -35,12 +35,13 @@ twig:
         - "bootstrap_3_layout.html.twig"
         - "SonataCoreBundle:Form:datepicker.html.twig"
     globals:
-        google_analytics_enabled: "%google_analytics_enabled%"
-        google_analytics_account: "%google_analytics_account%"
-        main_brand_title:         "%project_web_title%"
-        cookieExpiryTime:         90 # days
-        admin_brand_title:        "%project_admin_title%"
-        admin_tag_version:        "v1.2.01"
+        google_analytics_enabled:   "%google_analytics_enabled%"
+        google_analytics_account:   "%google_analytics_account%"
+        google_tag_manager_account: "%google_tag_manager_account%"
+        main_brand_title:           "%project_web_title%"
+        cookieExpiryTime:           90 # days
+        admin_brand_title:          "%project_admin_title%"
+        admin_tag_version:          "v1.2.02"
 
 # Assetic
 assetic:

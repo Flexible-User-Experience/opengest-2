@@ -19,6 +19,7 @@ parameters:
 
     google_analytics_enabled: false
     google_analytics_account: "UA-fake..."
+    google_tag_manager_account: "GTM-fake..."
 
     recaptcha_site_key: "MY_GOOGLE_RECAPTCHA_API_KEY"
     recaptcha_secret:   "MY_GOOGLE_RECAPTCHA_API_SECRET"

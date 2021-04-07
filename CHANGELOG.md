@@ -1,8 +1,14 @@
 Changelog
 =========
 
-##### Version 1.2.02 (WIP)
+##### Version 1.2.03 (WIP)
  * fix minor bugs
+
+##### Version 1.2.02 (2021-04-07)
+ * improve anchor email to preset data
+ * add new Google Analytics tag
+ * add Whatsapp button behaviour
+ * update ansible configs
 
 ##### Version 1.2.01 (2021-04-06)
  * apply new privacy policy
