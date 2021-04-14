@@ -1,8 +1,11 @@
 Changelog
 =========
 
-##### Version 1.2.03 (WIP)
+##### Version 1.2.04 (WIP)
  * fix minor bugs
+
+##### Version 1.2.03 (2021-04-14)
+ * replace landing banner images
 
 ##### Version 1.2.02 (2021-04-07)
  * improve anchor email to preset data
