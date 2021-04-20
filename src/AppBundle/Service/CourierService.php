@@ -2,13 +2,9 @@
 
 namespace AppBundle\Service;
 
-/**
- * Class CourierService.
- *
- * @category Service
- *
- * @author   David Romaní <david@flux.cat>
- */
+use Swift_Mailer;
+use Swift_Message;
+
 class CourierService
 {
     /**
@@ -21,9 +17,9 @@ class CourierService
      */
 
     /**
-     * @param \Swift_Mailer $mailer
+     * @param Swift_Mailer $mailer
      */
-    public function __construct(\Swift_Mailer $mailer)
+    public function __construct(Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
     }
@@ -37,9 +33,9 @@ class CourierService
      *
      * @return int
      */
-    public function sendEmail($from, $to, $subject, $body, $replyAddress = null)
+    public function sendEmail(string $from, string $to, string $subject, string $body, ?string $replyAddress = null): int
     {
-        $message = new \Swift_Message();
+        $message = new Swift_Message();
         $message
             ->setSubject($subject)
             ->setFrom($from)
