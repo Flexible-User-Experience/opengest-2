@@ -5,14 +5,11 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Web\ContactMessage;
 use AppBundle\Entity\Operator\OperatorChecking;
 use AppBundle\Entity\Vehicle\VehicleChecking;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
-/**
- * Class NotificationService.
- *
- * @category Service
- *
- * @author   David Romaní <david@flux.cat>
- */
 class NotificationService
 {
     /**
@@ -21,7 +18,7 @@ class NotificationService
     private $messenger;
 
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $twig;
 
@@ -31,7 +28,7 @@ class NotificationService
     private $amd;
 
     /**
-     * @var string
+     * @var string URL base
      */
     private $urlBase;
 
@@ -40,12 +37,12 @@ class NotificationService
      */
 
     /**
-     * @param CourierService    $messenger
-     * @param \Twig_Environment $twig
-     * @param string            $amd
-     * @param string            $urlBase
+     * @param CourierService $messenger
+     * @param Environment    $twig
+     * @param string         $amd
+     * @param string         $urlBase
      */
-    public function __construct(CourierService $messenger, \Twig_Environment $twig, $amd, $urlBase)
+    public function __construct(CourierService $messenger, Environment $twig, string $amd, string $urlBase)
     {
         $this->messenger = $messenger;
         $this->twig = $twig;
@@ -58,13 +55,15 @@ class NotificationService
      *
      * @param ContactMessage $contactMessage
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @return int The number of successful recipients. Can be 0 which indicates failure
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendCommonUserNotification(ContactMessage $contactMessage)
+    public function sendCommonUserNotification(ContactMessage $contactMessage): int
     {
-        $this->messenger->sendEmail(
+        return $this->messenger->sendEmail(
             $this->amd,
             $contactMessage->getEmail(),
             'Notificació pàgina web '.$this->urlBase,
@@ -75,38 +74,19 @@ class NotificationService
     }
 
     /**
-     * Send a common notification mail to admin user.
-     *
-     * @param string $text
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function sendCommonAdminNotification($text)
-    {
-        $this->messenger->sendEmail(
-            $this->amd,
-            $this->amd,
-            'Notificació pàgina web '.$this->urlBase,
-            $this->twig->render(':Mails:common_admin_notification.html.twig', array(
-                'text' => $text,
-            ))
-        );
-    }
-
-    /**
      * Send a contact form notification to admin user.
      *
      * @param ContactMessage $contactMessage
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @return int The number of successful recipients. Can be 0 which indicates failure
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendContactAdminNotification(ContactMessage $contactMessage)
+    public function sendContactAdminNotification(ContactMessage $contactMessage): int
     {
-        $this->messenger->sendEmail(
+        return $this->messenger->sendEmail(
             $this->amd,
             $this->amd,
             'Missatge de contacte pàgina web '.$this->urlBase,
@@ -117,34 +97,13 @@ class NotificationService
     }
 
     /**
-     * Send a contact form notification to admin user.
-     *
-     * @param ContactMessage $contactMessage
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function sendUserBackendAnswerNotification(ContactMessage $contactMessage)
-    {
-        $this->messenger->sendEmail(
-            $this->amd,
-            $contactMessage->getEmail(),
-            'Resposta pàgina web '.$this->urlBase,
-            $this->twig->render(':Mails:user_backend_answer_notification.html.twig', array(
-                'contact' => $contactMessage,
-            ))
-        );
-    }
-
-    /**
      * @param array|OperatorChecking[] $entities
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendOperatorCheckingInvalidNotification($entities)
+    public function sendOperatorCheckingInvalidNotification(array $entities): void
     {
         $this->messenger->sendEmail(
             $this->amd,
@@ -157,11 +116,11 @@ class NotificationService
     /**
      * @param array|OperatorChecking[] $entities
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendOperatorCheckingBeforeToBeInvalidNotification($entities)
+    public function sendOperatorCheckingBeforeToBeInvalidNotification(array $entities): void
     {
         $this->messenger->sendEmail(
             $this->amd,
@@ -174,11 +133,11 @@ class NotificationService
     /**
      * @param OperatorChecking $entity
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendToOperatorInvalidCheckingNotification(OperatorChecking $entity)
+    public function sendToOperatorInvalidCheckingNotification(OperatorChecking $entity): void
     {
         $this->messenger->sendEmail(
             $this->amd,
@@ -191,11 +150,11 @@ class NotificationService
     /**
      * @param OperatorChecking $entity
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendToOperatorBeforeToBeInvalidCheckingNotification(OperatorChecking $entity)
+    public function sendToOperatorBeforeToBeInvalidCheckingNotification(OperatorChecking $entity): void
     {
         $this->messenger->sendEmail(
             $this->amd,
@@ -208,11 +167,11 @@ class NotificationService
     /**
      * @param array|VehicleChecking[] $entities
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendVehicleCheckingInvalidNotification($entities)
+    public function sendVehicleCheckingInvalidNotification(array $entities): void
     {
         $this->messenger->sendEmail(
             $this->amd,
@@ -225,11 +184,11 @@ class NotificationService
     /**
      * @param array|VehicleChecking[] $entities
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function sendVehicleCheckingBeforeToBeInvalidNotification($entities)
+    public function sendVehicleCheckingBeforeToBeInvalidNotification(array $entities): void
     {
         $this->messenger->sendEmail(
             $this->amd,
