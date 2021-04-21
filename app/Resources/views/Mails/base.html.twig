@@ -29,7 +29,8 @@
                             <h2 class="text-right white-color">{% block subject %}{{ main_brand_title }}{% endblock %}</h2>
                         </columns>
                     </row>
-                    <img src="{{ absolute_url(asset('bundles/app/img/base-email-notification-gr.jpg')) }}">
+{#                    <img src="{{ absolute_url(asset('bundles/app/img/base-email-notification-gr.jpg')) }}">#}
+                    <img src="{{ absolute_url(asset('bundles/app/img/ruthmann-steiger-aerial-lift-at-gruas-romani-1.jpg') | imagine_filter('1200xY')) }}">
                 </callout>
             </row>
             {% block content %}{% endblock %}
