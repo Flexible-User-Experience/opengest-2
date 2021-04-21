@@ -2,7 +2,9 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ zurb_ink_add_stylesheet("@AppBundle/Resources/public/css/mail.css") }}
+    <style type="text/css">
+        {{ zurb_ink_add_stylesheet("@AppBundle/Resources/public/css/mail.css", true) }}
+    </style>
 {% endblock %}
 
 {% block body %}
