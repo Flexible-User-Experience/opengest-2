@@ -4,8 +4,8 @@ Changelog
 ##### Version 1.2.06 (WIP)
  * fix minor bugs
 
-##### Version 1.2.05 (WIP)
- * fix missing Email CSS template
+##### Version 1.2.05 (2021-04-21)
+ * fix missing custom CSS in email templates
 
 ##### Version 1.2.04 (2021-04-20)
  * fix ansible download remote db script problem
