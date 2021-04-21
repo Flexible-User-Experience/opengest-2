@@ -110,7 +110,7 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        if ('prod' == $this->get('kernel')->getEnvironment()) {
+        if ('prod' === $this->get('kernel')->getEnvironment()) {
             throw new HttpException(403);
         }
         $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
