@@ -114,10 +114,11 @@ class DefaultController extends Controller
             throw new HttpException(403);
         }
         $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
-//        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
+        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
 
         return $this->render(':Mails:common_user_notification.html.twig', array(
             'entities' => $entities,
+            'contact' => $contact,
             'show_devel_top_bar' => true,
         ));
     }
