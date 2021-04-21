@@ -1,6 +1,7 @@
 {% extends "@GremoZurbInk/foundation-emails/base.html.twig" %}
 
 {% block additionalStyles %}
+    {{ parent() }}
     {{ zurb_ink_add_stylesheet("@AppBundle/Resources/public/css/mail.css") }}
 {% endblock %}
 

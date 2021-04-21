@@ -108,7 +108,7 @@ class DefaultController extends Controller
         if ('prod' === $this->get('kernel')->getEnvironment()) {
             throw new HttpException(403);
         }
-        $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
+//        $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
 //        $contact = $this->getDoctrine()->getRepository(ContactMessage::class)->find(223);
         $contact = new ContactMessage();
         $contact
@@ -122,7 +122,7 @@ class DefaultController extends Controller
         ;
 
         return $this->render(':Mails:common_user_notification.html.twig', array(
-            'entities' => $entities,
+//            'entities' => $entities,
             'contact' => $contact,
             'show_devel_top_bar' => true,
         ));
