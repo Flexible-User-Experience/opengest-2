@@ -20,7 +20,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="front_homepage")
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $serviceGC = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'gruas-de-celosia']);
         $serviceGH = $this->getDoctrine()->getRepository('AppBundle:Web\Service')->findOneBy(['slug' => 'gruas-hidraulicas']);
@@ -44,7 +44,7 @@ class DefaultController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function companyAction(Request $request)
+    public function companyAction(Request $request): Response
     {
         $contactMessage = new ContactMessage();
         $form = $this->createForm(ContactMessageForm::class, $contactMessage);
@@ -79,7 +79,7 @@ class DefaultController extends Controller
     /**
      * @Route("/sobre-este-sitio", name="front_about")
      */
-    public function aboutAction()
+    public function aboutAction(): Response
     {
         return $this->render(':Frontend:about.html.twig');
     }
@@ -87,7 +87,7 @@ class DefaultController extends Controller
     /**
      * @Route("/privacidad", name="front_privacy")
      */
-    public function privacyAction()
+    public function privacyAction(): Response
     {
         return $this->render(':Frontend:privacy.html.twig');
     }
@@ -95,26 +95,21 @@ class DefaultController extends Controller
     /**
      * @Route("/mapa-del-web", name="front_sitemap")
      */
-    public function sitemapAction()
+    public function sitemapAction(): Response
     {
         return $this->render(':Frontend:sitemap.html.twig');
     }
 
     /**
      * @Route("/test-email", name="front_test_email")
-     *
-     * @return Response
-     *
-     * @throws HttpException
-     * @throws \Exception
      */
-    public function testEmailAction()
+    public function testEmailAction(): Response
     {
         if ('prod' === $this->get('kernel')->getEnvironment()) {
             throw new HttpException(403);
         }
         $entities = $this->get('app.repositories_manager')->getVehicleCheckingRepository()->getItemsInvalidByEnabledVehicle();
-        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(223);
+        $contact = $this->getDoctrine()->getRepository(ContactMessage::class)->find(223);
 
         return $this->render(':Mails:common_user_notification.html.twig', array(
             'entities' => $entities,
